@@ -1,0 +1,285 @@
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class VerifyAddMedAndSocHistory extends CI_Controller {
+
+ function __construct()
+ {
+   parent::__construct();
+   $this->load->model('patient','',TRUE);
+   $this->load->model('user','',TRUE);
+ }
+
+function index(){
+		$session_data = $this->session->userdata('logged_in');
+			if($this->session->userdata('logged_in'))
+		   	{
+				$bool = false;
+				$sec = $session_data['section'];
+				foreach($sec as $row){
+					if($row == "Oral Diagnosis"){
+						$bool = true;
+						break;
+					}
+				}
+ 
+			if($bool){
+		//This method will have the credentials validation
+	   			$this->load->library('form_validation');
+
+			$this->form_validation->set_rules('physicianname', 'Physician Name', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('physicianphone', 'Physician Phone Number', 'trim|required|xss_clean|callback_alpha_dash_space');
+			$this->form_validation->set_rules('hospdate', 'Date of latest hospitalization', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('hospreason', 'Reason', 'trim|required|xss_clean');
+		   	$this->form_validation->set_rules('allergies', 'Allergies', 'trim|required|xss_clean');
+		   	$this->form_validation->set_rules('illnesses', 'Illnesses', 'trim|required|xss_clean');
+		   	$this->form_validation->set_rules('medications', 'Medications', 'trim|required|xss_clean');
+		   	$this->form_validation->set_rules('ci', 'Childhood Illnesses', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('cig', 'Cigarette', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('cigkind', 'Cigarette Kind', 'trim|xss_clean|callback_check_dependency');
+			$this->form_validation->set_rules('cigfreq', 'Cigarette Frequency', 'trim|xss_clean|callback_check_dependency');
+			$this->form_validation->set_rules('cigdur', 'Cigarette Duration', 'trim|xss_clean|callback_check_dependency');	
+		   	$this->form_validation->set_rules('cigdole', 'Cigarette Date of last exposure', 'trim|xss_clean|callback_check_dependency');
+		   	$this->form_validation->set_rules('alco', 'Alcohol', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('alcokind', 'Alcohol Kind', 'trim|xss_clean|callback_check_dependency');
+			$this->form_validation->set_rules('alcofreq', 'Alcohol Frequency', 'trim|xss_clean|callback_check_dependency');
+			$this->form_validation->set_rules('alcodur', 'Alcohol Duration', 'trim|xss_clean|callback_check_dependency');	
+		   	$this->form_validation->set_rules('alcodole', 'Alcohol Date of last exposure', 'trim|xss_clean|callback_check_dependency');
+			$this->form_validation->set_rules('drug', 'Drug', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('drugkind', 'Drug Kind', 'trim|xss_clean|callback_check_dependency');
+			$this->form_validation->set_rules('drugfreq', 'Drug Frequency', 'trim|xss_clean|callback_check_dependency');
+			$this->form_validation->set_rules('drugdur', 'Drug Duration', 'trim|xss_clean|callback_check_dependency');	
+		   	$this->form_validation->set_rules('drugdole', 'Drug Date of last exposure', 'trim|xss_clean|callback_check_dependency');
+
+			if($this->form_validation->run() == FALSE)
+		 	{
+		     	//Field validation failed.  User redirected to login page
+				if(form_error('physicianname')) $message = form_error('physicianname');
+				elseif(form_error('physicianphone')) $message = form_error('physicianphone');
+				elseif(form_error('hospdate')) $message = form_error('hospdate');
+				elseif(form_error('hospreason')) $message = form_error('hospreason');
+				elseif(form_error('allergies')) $message = form_error('allergies');
+				elseif(form_error('illnesses')) $message = form_error('illnesses');
+				elseif(form_error('medications')) $message = form_error('medications');	
+				elseif(form_error('ci')) $message = form_error('ci');
+				elseif(form_error('cig')) $message = form_error('cig');
+				elseif(form_error('cigkind')) $message = form_error('cigkind');
+				elseif(form_error('cigfreq')) $message = form_error('cigfreq');
+				elseif(form_error('cigdur')) $message = form_error('cigdur');
+				elseif(form_error('cigdole')) $message = form_error('cigdole');
+				elseif(form_error('alco')) $message = form_error('alco');
+				elseif(form_error('alcokind')) $message = form_error('alcokind');
+				elseif(form_error('alcofreq')) $message = form_error('alcofreq');
+				elseif(form_error('alcodur')) $message = form_error('alcodur');
+				elseif(form_error('alcodole')) $message = form_error('alcodole');
+				elseif(form_error('drug')) $message = form_error('drug');
+				elseif(form_error('drugkind')) $message = form_error('drugkind');
+				elseif(form_error('drugfreq')) $message = form_error('drugfreq');
+				elseif(form_error('drugdur')) $message = form_error('drugdur');
+				elseif(form_error('drugdole')) $message = form_error('drugdole');
+				
+
+				$data = array(
+					'phyname' => $this->input->post('physicianname'),
+					'phyphone' => $this->input->post('physicianphone'),
+					'hospdate' => $this->input->post('hospdate'),
+					'hospreason' => $this->input->post('hospreason'),
+					'allergies' => $this->input->post('allergies'),
+					'illnesses' => $this->input->post('illnesses'),
+					'medications' => $this->input->post('medications'),
+					'ci' => $this->input->post('ci'),
+					'cig' => $this->input->post('cig'),
+					'cigkind' => $this->input->post('cigkind'),
+					'cigfreq' => $this->input->post('cigfreq'),
+					'cigdur' => $this->input->post('cigdur'),
+					'cigdole' => $this->input->post('cigdole'),
+					'alco' => $this->input->post('alco'),
+					'alcokind' => $this->input->post('alcokind'),
+					'alcofreq' => $this->input->post('alcofreq'),
+					'alcodur' => $this->input->post('alcodur'),
+					'alcodole' => $this->input->post('alcodole'),
+					'drug' => $this->input->post('drug'),
+					'drugkind' => $this->input->post('drugkind'),
+					'drugfreq' => $this->input->post('drugfreq'),
+					'drugdur' => $this->input->post('drugdur'),
+					'drugdole' => $this->input->post('drugdole'),
+					'error' => $message,
+					'invalid_input' => true);			
+
+				$session_data = $this->session->userdata('current_patient');
+				$id = $session_data['id'];
+
+			       	$this->session->set_userdata('has_error', $data);
+
+		     		redirect('/medandsochistory/patient/'.$id.'/');
+		   	}
+		   	else
+		   	{
+		     		//Go to private area
+				$phyname = $this->input->post('physicianname');
+				$phyphone = $this->input->post('physicianphone');
+				$hospdate = $this->input->post('hospdate');
+				$hospreason = $this->input->post('hospreason');
+				$allergies = $this->input->post('allergies');
+				$illnesses = $this->input->post('illnesses');
+				$medications = $this->input->post('medications');
+				$ci = $this->input->post('ci');
+
+				$cig = $this->input->post('cig');
+				$cigkind = "";
+				$cigfreq = "";
+				$cigdur = "";
+				$cigdole = "";
+				if($cig=="Yes"){
+					$cigkind = $this->input->post('cigkind');
+					$cigfreq = $this->input->post('cigfreq');
+					$cigdur = $this->input->post('cigdur');
+					$cigdole = $this->input->post('cigdole');
+				}
+				$alco = $this->input->post('alco');
+				$alcokind = "";
+				$alcofreq = "";
+				$alcodur = "";
+				$alcodole = "";
+				if($alco=="Yes"){
+					$alcokind = $this->input->post('alcokind');
+					$alcofreq = $this->input->post('alcofreq');
+					$alcodur = $this->input->post('alcodur');
+					$alcodole = $this->input->post('alcodole');
+				}
+				$drug = $this->input->post('drug');
+				$drugkind = "";
+				$drugfreq = "";
+				$drugdur = "";
+				$drugdole = "";
+				if($drug=="Yes"){
+					$drugkind = $this->input->post('drugkind');
+					$drugfreq = $this->input->post('drugfreq');
+					$drugdur = $this->input->post('drugdur');
+					$drugdole = $this->input->post('drugdole');
+				}
+
+				
+				$session_data = $this->session->userdata('current_patient');
+				$id = $session_data['id'];
+
+				$this->session->unset_userdata('has_error');
+				$this->patient->addPatientInfo_tab3($id, $phyname, $phyphone, $hospdate, $hospreason, $allergies, $illnesses, $medications, $ci, $cig, $cigkind, $cigfreq, $cigdur, $cigdole, $alco, $alcokind, $alcofreq, $alcodur, $alcodole, $drug, $drugkind, $drugfreq, $drugdur, $drugdole);
+
+				$session_data2 = $this->session->userdata('current_patient');
+				$session_data3 = $this->session->userdata('logged_in');
+				$id = $session_data2['id'];
+
+				$username = $session_data3['username'];
+				$info = $this->user->getUserInfo3($username);
+
+				foreach($info as $row2){
+					$name = $row2['userFName']." ".substr($row2['userMName'], 0, 1).". ".$row2['userLName']; 
+				}
+				
+
+				$date = date("Y-m-d");
+				$status = "Pending";
+				$approver = "Pending";
+
+				//echo "$id, $name, $date, $status, $approver";
+
+				$this->patient->addMedAndSocHistoVersion($id, $name, $date, $status, $approver);
+
+				redirect('/loaddashboard/patientdb/'.$id.'/');
+				
+		   	}
+		}
+		else{
+			redirect('home', 'refresh');
+		}
+	}else{
+		//If no session, redirect to login page
+     		redirect('login', 'refresh');
+		}
+	}
+
+	function alpha_dash_space($str){
+		$phone_entry = $this->input->post('physicianphone');
+		$ptnicoe_entry = $this->input->post('ptnicoenum');
+		$bp_entry = $this->input->post('bp');
+		$pr_entry = $this->input->post('pr');
+		$rr_entry = $this->input->post('rr');
+		$temp_entry = $this->input->post('temp');
+		$wt_entry = $this->input->post('wt');
+
+		if(preg_match("/^([-a-z_ ])+$/i", $phone_entry)){
+			$this->form_validation->set_message('alpha_dash_space', 'Physician Phone field only accepts a numeric entry');
+			return false;
+		}
+		
+		return true;
+
+	}
+
+	function check_dependency($str){
+		$ckind = $this->input->post('cigkind');
+		$cfreq = $this->input->post('cigfreq');
+		$cdur = $this->input->post('cigdur');
+		$cdole = $this->input->post('cigdole');
+		$akind = $this->input->post('alcokind');
+		$afreq = $this->input->post('alcofreq');
+		$adur = $this->input->post('alcodur');
+		$adole = $this->input->post('alcodole');
+		$dkind = $this->input->post('drugkind');
+		$dfreq = $this->input->post('drugfreq');
+		$ddur = $this->input->post('drugdur');
+		$ddole = $this->input->post('drugdole');
+
+		if($this->input->post('cig') == 'Yes' && $ckind == ""){
+				$this->form_validation->set_message('check_dependency', 'Cigarette Type is required.');
+				return false;
+			}
+			elseif($this->input->post('cig') == 'Yes' && $cfreq == ""){
+				$this->form_validation->set_message('check_dependency', 'Cigarette Frequency is required.');
+				return false;
+			}
+			elseif($this->input->post('cig') == 'Yes' && $cdur == ""){
+				$this->form_validation->set_message('check_dependency', 'Cigarette Duration is required.');
+				return false;
+			}
+			elseif($this->input->post('cig') == 'Yes' && $cdole == ""){
+				$this->form_validation->set_message('check_dependency', 'Cigarette Date of last exposure is required.');
+				return false;
+			}
+		elseif($this->input->post('alco') == 'Yes' && $akind == ""){
+				$this->form_validation->set_message('check_dependency', 'Alcohol Type is required.');
+				return false;
+			}
+			elseif($this->input->post('alco') == 'Yes' && $afreq == ""){
+				$this->form_validation->set_message('check_dependency', 'Alcohol Frequency is required.');
+				return false;
+			}
+			elseif($this->input->post('alco') == 'Yes' && $adur == ""){
+				$this->form_validation->set_message('check_dependency', 'Alcohol Duration is required.');
+				return false;
+			}
+			elseif($this->input->post('alco') == 'Yes' && $adole == ""){
+				$this->form_validation->set_message('check_dependency', 'Alcohol Date of last exposure is required.');
+				return false;
+			}
+		elseif($this->input->post('drug') == 'Yes' && $dkind == ""){
+				$this->form_validation->set_message('check_dependency', 'Drug Type is required.');
+				return false;
+			}
+			elseif($this->input->post('drug') == 'Yes' && $dfreq == ""){
+				$this->form_validation->set_message('check_dependency', 'Drug Frequency is required.');
+				return false;
+			}
+			elseif($this->input->post('drug') == 'Yes' && $ddur == ""){
+				$this->form_validation->set_message('check_dependency', 'Drug Duration is required.');
+				return false;
+			}
+			elseif($this->input->post('drug') == 'Yes' && $ddole == ""){
+				$this->form_validation->set_message('check_dependency', 'Drug Date of last exposure is required.');
+				return false;
+			}
+		
+	}
+
+}
+?>
