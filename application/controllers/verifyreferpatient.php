@@ -17,7 +17,7 @@ $this->load->model('user','',TRUE);
 		$bool = false;
 		$rolex = $session_data['role'];
 		foreach($rolex as $row){
-			if($row == "Faculty"){
+			if($row == "Student"){
 				$bool = true;
 				break;
 			}
@@ -30,10 +30,21 @@ $this->load->model('user','',TRUE);
 			$this->form_validation->set_rules('refertosection', 'Refer to Menu', 'trim|required|xss_clean|callback_check_refertomenu');
 
 			if($this->form_validation->run() == FALSE){
+				if(form_error('refertosection')) $message = form_error('refertosection');
+
+			$sess_array = array();
+     			
+			       $sess_array = array(
+				 'error' => $message,
+				'invalid_input' => true
+			       );
+			       $this->session->set_userdata('has_error_dashboard', $sess_array);
+
 				$id = $this->input->post('id');
 			     	redirect('loaddashboard/patientdb/'.$id);
 			}
 			else{
+				$this->session->unset_userdata('has_error_dashboard');
 			     	//Go to private area
 				$refer = $this->input->post('refertosection');
 				$id = $this->input->post('id');
@@ -41,19 +52,27 @@ $this->load->model('user','',TRUE);
 
 				$session_data3 = $this->session->userdata('logged_in');
 				$username = $session_data3['username'];
-				$info = $this->user->getUserInfo3($username);
-
-				foreach($info as $row2){
-					$name = $row2['userFName']." ".substr($row2['userMName'], 0, 1).". ".$row2['userLName']; 
-				}
+				$info = $this->user->getUserId($username);
+				$userID = $info['userID'];
 
 				$date = date("Y-m-d");
 				$status = "Pending";
 				$approver = "Pending";
 
-				$this->patient->addPatientDashboardVersion($id, $refer, $name, $date, $status, $approver);
+				$section = "";
+				$sect = $session_data['section'];
+				foreach($sect as $row){
+					if($row != "System Maintenance"){
+						$section = $row;
+						break;
+					}
+				}
+
+				$this->patient->addPatientDashboardVersion($id, $refer, $userID, $date, $status, $approver, $section);
+				$this->patient->updatePatientRecordStatus($id, "for approval");
+				$this->patient->resetPatientRemark($id);
 			
-				$this->load->view('manageusers_view', $data2);
+				redirect('/loaddashboard/patientdb/'.$id);
 			}
 		}
 		else{
@@ -68,9 +87,9 @@ $this->load->model('user','',TRUE);
  	function check_refertomenu($menu)
  	{
 		$bool = TRUE;
-		if($menu == "Select services needed first"){
+		if($menu == "Select section.."){
 			$bool = FALSE;		
-			$this->form_validation->set_message('check_refertomenu', 'Please choose the needed services first');	
+			$this->form_validation->set_message('check_refertomenu', 'Please select a section');	
 		}
 		return $bool;
 	}

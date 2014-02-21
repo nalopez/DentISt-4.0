@@ -57,7 +57,7 @@
 		//echo "<center>";
 		if($sysad){
 			echo "<h3 align='center'> System Administrator</h3>";
-			echo "<div><p><a href='".base_url()."index.php/adduser'>Add a User</a><br><a href='".base_url()."index.php/manageusers'> View Users </a><br>
+			echo "<div style='text-align:center;'><p><a href='".base_url()."index.php/adduser'>Add a User</a><br><a href='".base_url()."index.php/manageusers'> View Users </a><br>
 		<a href='".base_url()."index.php/viewstat'> View Statistics </a></p></div>";
 		}
 		if($fac){
@@ -67,10 +67,10 @@
 				elseif($PD) echo "Prosthodontrics";
 				elseif($ODe) echo "Operative Dentistry";
 				elseif($GQ) echo "General Query"; 
-			echo ") </h3><div>";
-			if($ODi){
+			echo ") </h3><div style='text-align:center;'>";
+			/*if($ODi){
 				echo "<a href='".base_url()."index.php/addpatient'> Add a Patient </a><br>";
-			}
+			}*/
 			echo "<a href='".base_url()."index.php/searchpatient'> Search a Patient </a><br>";
 			echo "<a href='".base_url()."index.php/facultytasks'> Tasks </a><br>";
 		echo "<a href='".base_url()."index.php/clinicianappointments'> View Clinician Appointments </a> </div>";
@@ -82,7 +82,7 @@
 				elseif($PD) echo "Prosthodontrics";
 				elseif($ODe) echo "Operative Dentistry";
 				elseif($GQ) echo "General Query"; 
-			echo ") </h3><div>";
+			echo ") </h3><div style='text-align:center;'>";
 			if($ODi){
 				echo "<a href='".base_url()."index.php/addpatient'> Add a Patient </a><br>";
 			}

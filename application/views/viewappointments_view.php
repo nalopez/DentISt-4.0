@@ -14,7 +14,14 @@
 	<script src="<?php echo base_url(); ?>js/jquery-1.9.1.js"></script>
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 
-   <title>Add User - Oral Diagnosis</title>
+<?php			$sec = $session_data['section']; 	
+			$sect = "";
+			foreach($sec as $row){
+			if($row != "System Maintenance");
+			$sect = $row;
+		} ?>
+
+   <title>View Appointments - <?php echo $sect; ?></title>
 	
 <script type="text/javascript">
 	

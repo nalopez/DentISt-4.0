@@ -102,7 +102,7 @@
 
 <form id="ADDPATIENTCHECKLIST" name="ADDPATIENTCHECKLIST" action="<?php echo base_url();?>index.php/verifyaddpatientchecklist" method="post">
 
-<br><a href="<?php echo base_url();?>index.php/loaddashboard/patientdb/<?php echo $id; ?>"> Dashboard </a> &nbsp; <a href="<?php echo base_url();?>index.php/viewpatientchecklistversions"> View Versions </a><br><br>
+<br><br><br>
 
 <div class="validationexc" style="display: <?php if($this->session->userdata('has_error')) echo 'block'; else 'none' ?>;">
    		<?php $session_data = $this->session->userdata('has_error');
@@ -116,7 +116,6 @@
 			</tr>
 			<tr>
 				<td colspan=6>Do you have or have you had any of the following? 
-					<input type=button name="first" value="'Yes' all" onClick="checkAll1(true);"><input type=button value="'No' all" onClick="checkAll1(false);">
 			</tr>
 			<tr>
 				<td> YES
@@ -635,7 +634,7 @@
 			</tr>
 			<tr>
 				<td colspan=6><br><b>Family History</b> (Grandparents, Parents, Brothers, Sisters, Children)
-						<input type=button value="'Yes' all" onClick="checkAll2(true)"><input type=button value="'No' all" onClick="checkAll2(false)">
+						
 			</tr>
 			<tr>
 				<td>YES
@@ -745,7 +744,7 @@
 			</tr>
 			<tr>
 				<td colspan=6><br><b>Allergies</b>
-						<input type=button value="'Yes' all" onClick="checkAll3(true)"><input type=button value="'No' all" onClick="checkAll3(false)">
+						
 			</tr>
 			<tr>
 				<td>YES
@@ -839,7 +838,7 @@
 			</tr>
 			<tr>
 				<td colspan=6><br><b>Females</b>
-						<input type=button value="'Yes' all" onClick="checkAll4(true)"><input type=button value="'No' all" onClick="checkAll4(false)">
+						
 			</tr>
 			<tr>
 				<td>YES
@@ -933,7 +932,7 @@
 		
 		<br><br>
 
-		<input type="submit" value="Save"/> <input type="reset" value="Clear entries"/><br><br>
+		<br><br>
 		
 
 </form></div>

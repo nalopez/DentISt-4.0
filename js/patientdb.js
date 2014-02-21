@@ -381,3 +381,5 @@ function showdiv(element, val){
 				document.getElementById('allergy').style.display = "none";
 		}
 	}
+
+

@@ -54,7 +54,7 @@
 
 <form id="ADDTREATMENTPLAN" name="ADDTREATMENTPLAN" action="<?php echo base_url();?>index.php/verifyaddtreatmentplan" method="post">
 
-<br><a href="<?php echo base_url();?>index.php/loaddashboard/patientdb/<?php echo $id; ?>"> Dashboard </a> &nbsp; <a href="<?php echo base_url();?>index.php/viewtreatmentplanversions"> View Versions </a><br><br>
+<br>
 
 <div class="validationexc" style="display: <?php if($this->session->userdata('has_error')) echo 'block'; else 'none' ?>;">
    		<?php $session_data = $this->session->userdata('has_error');
@@ -97,7 +97,7 @@
 			
 		</table><br><br>
 
-		<input type="submit" value="Save"/> <input type="reset" value="Clear entries"/><br><br>
+		<br><br>
 	</div>
    </form>
 

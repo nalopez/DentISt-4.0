@@ -14,10 +14,24 @@
 	<script src="<?php echo base_url(); ?>js/jquery-1.9.1.js"></script>
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 
-   <title>Patient Dashboard - Oral Diagnosis</title>
+<?php 			$session_data = $this->session->userdata('logged_in');
+			$sect = "";
+			$sec = $session_data['section'];
+			foreach($sec as $row){
+			if($row != "System Maintenance");
+			$sect = $row;
+		} ?>
+
+   <title>Patient Dashboard - <?php echo $sect; ?></title>
 	
 <script type="text/javascript">
-	
+	function clearpatient(){
+		var conf = confirm("Clear this patient?");
+		if(conf == true){
+			var url = "http://localhost/DentISt/index.php/clearpatient";
+			window.location = url;			
+		}
+	}
 	
 </script>
  </head>
@@ -1030,6 +1044,19 @@
      			$section = $session_data['section'];
 			if(in_array("Oral Medicine", $section)) $OM = true;
 		?>
+
+		<div class="validationexc" style="display: <?php if($this->session->userdata('has_error_dashboard')) echo 'block'; else 'none' ?>;">
+   <?php $session_data = $this->session->userdata('has_error_dashboard');
+     	echo $session_data['error'];
+	?>
+</div>
+		<?php
+		if($rejected == false) echo "false"; 
+		if($rejected){
+			echo "<h4><font color=red>This record has been marked 'Rejected'. Please do the necessary revisions.</font></h4>";
+	
+		} ?>
+
 		<h3><a href="<?php echo base_url(); ?>index.php/patientinformation/patient/<?php echo $id; ?>"> Patient Information </a></h3>
 		<h3><a href="<?php echo base_url(); ?>index.php/patientchecklist/patient/<?php echo $id; ?>"> Patient Checklist </a></h3>
 		<h3><a href="<?php echo base_url(); ?>index.php/medandsochistory/patient/<?php echo $id; ?>"> Medical and Social History </a></h3>
@@ -1042,29 +1069,55 @@
 		
 		} ?>
 		<br>
+		<?php if($remarksInfo){
+			foreach($remarksInfo as $row){
+			echo "<table frame='box' class='frame' style='width: 50%; left:0%; right:0%;'>";
+			echo "<tr class='header'> <td colspan=2 style='text-align:center;'> Remarks </tr>";
+			if($row['patientinfo'] != ""){			
+			echo "<tr><td> Patient Information
+				<td> ".$row['patientinfo']."</tr>";
+			}
+			if($row['patientinfo'] != ""){			
+			echo "<tr>
+				<td> Patient Checklist
+				<td> ".$row['patientchecklist']."</tr>";
+			}
+			if($row['patientinfo'] != ""){			
+			echo "<tr>
+				<td> Medical & Social History
+				<td> ".$row['medandsochisto']."</tr>";
+			}
+			if($row['patientinfo'] != ""){			
+			echo "<tr>
+				<td> Dental Data
+				<td> ".$row['dentaldata']."</tr>";
+			}
+			if($row['patientinfo'] != ""){			
+			echo "<tr>
+				<td> Dental Status Chart
+				<td> ".$row['dentalchart']."</tr>";
+			}
+			if($row['patientinfo'] != ""){			
+			echo "<tr>
+				<td> Treatment Plan
+				<td> ".$row['treatmentplan']."</tr>";
+			}
+			echo"</table>";
+			}
+		}?>
+		<br>
 
 		<form name="PATIENTDB" method="post" action="<?php echo base_url().'index.php/verifyreferpatient';?>">
 			<input type="hidden" name="id" value="<?php echo $id;?>">
 			Refer to: <select name="refertosection">
-				
-				<?php if($servicetrue){
-					foreach($services as $row){
-						if($row['perio'] == "Yes" || $row['os'] == "Yes" || $row['endo'] == "Yes"){
-							echo "<option value='Oral Medicine'> Oral Medicine </option>";
-						}
-						if($row['resto'] == "Yes" || $row['fpd'] == "Yes" || $row['pedo'] == "Yes"){
-							echo "<option value='Operative Dentistry'> Operative Dentistry </option>";
-						}
-						if($row['rpd'] == "Yes" || $row['cd'] == "Yes"){
-							echo "<option value='Prosthodontics'> Prosthodontics </option>";
-						}
-					}
-				}
-				else echo "<option value='Select services needed first'> Select services needed first </option>";
-				?>				
+				<option value="Select section.."> Select section.. </option>				
+				<option value="Oral Medicine"> Oral Medicine </option>
+				<option value="Operative Dentistry"> Operative Dentistry </option>
+				<option value="Prosthodontics"> Prosthodontics </option>
 			</select><br><br><br><br>
 
-			<input type="submit" value="Submit">
+			<input type="submit" value="Submit"><input type="button" value="Clear Patient" onClick='clearpatient()' />
+			
 		</form>
 	</center>
 

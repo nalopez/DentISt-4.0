@@ -207,7 +207,7 @@
 
 <form id="ADDDENTALCHART" name="ADDDENTALCHART" action="<?php echo base_url();?>index.php/verifyadddentalchart" method="post">
 
-<br><center><a href="<?php echo base_url();?>index.php/loaddashboard/patientdb/<?php echo $id; ?>"> Dashboard </a> &nbsp; <a href="<?php echo base_url();?>index.php/viewdentalchartversions"> View Versions </a></center><br><br>
+<br><center></center><br><br>
 
 <div class="validationexc" style="display: <?php if($this->session->userdata('has_error')) echo 'block'; else 'none' ?>;">
    		
@@ -613,7 +613,7 @@ echo"<div id='light".$tn."' class='white_content' name='light".$tn."'>
 <a href = 'javascript:void(0)' onclick = 'cancelcond(".$tn.")'>Cancel</a><br/> <br/>
 <br><input type='checkbox' name='dentalStatus' value='".$tn."' id='dentalStatus".$tn."' onclick='hideAllTooth()'"; 
 if($recordexist){
-	if(in_array($tn, $discaries) || in_array($tn, $mescaries) || in_array($tn, $lincaries) || in_array($tn, $buccaries) || in_array($tn, $occcaries) ||  in_array($tn, $disrecurrent) || in_array($tn,$mesrecurrent) || in_array($tn, $linrecurrent) || in_array($tn, $bucrecurrent) || in_array($tn, $occrecurrent) || in_array($tn, $disrestoration) || in_array($tn,$mesrestoration) || in_array($tn, $linrestoration) || in_array($tn, $bucrestoration) || in_array($tn, $occrestoration)) echo "checked";
+	if(in_array($tn, $discaries) || in_array($tn, $mescaries) || in_array($tn, $lincaries) || in_array($tn, $buccaries) || in_array($tn, $occcaries) ||  in_array($tn, $disrecurrent) || in_array($tn,$mesrecurrent) || in_array($tn, $linrecurrent) || in_array($tn, $bucrecurrent) || in_array($tn, $occrecurrent) || in_array($tn, $disrestoration) || in_array($tn,$mesrestoration) || in_array($tn, $linrestoration) || in_array($tn, $bucrestoration) || in_array($tn, $occrestoration)) echo "checked"; }
 
 echo " readonly><b>Dental Status</b><br/>	
 <div id='dentalstatussurface".$tn."' style='display:none;'><table><tr><td></td><td><input type='checkbox' name='caries' value='".$tn."' id='caries".$tn."' onclick='hideOtherCaries()' ";
@@ -625,13 +625,13 @@ echo " readonly></td><td>Caries</td>
 <td><input type='checkbox' name='recurrentcaries' value='".$tn."' id='recurrentcaries".$tn."' onclick='hideOtherReccurent()'";
 if($recordexist){
 	if(in_array($tn, $disrecurrent) || in_array($tn,$mesrecurrent) || in_array($tn, $linrecurrent) || in_array($tn, $bucrecurrent) || in_array($tn, $occrecurrent)) echo "checked";
-}
+
 } 
 
 echo " readonly></td><td>Reccurent</td>
 <td><input type='checkbox' name='restoration' value='".$tn."' id='restoration".$tn."' onclick='hideOtherRestoration()'";
-if (in_array($tn, $disrestoration) || in_array($tn,$mesrestoration) || in_array($tn, $linrestoration) || in_array($tn, $bucrestoration) || in_array($tn, $occrestoration)) echo "checked";
-
+if($recordexist){ if(in_array($tn, $disrestoration) || in_array($tn,$mesrestoration) || in_array($tn, $linrestoration) || in_array($tn, $bucrestoration) || in_array($tn, $occrestoration)) echo "checked";
+}
 echo " readonly></td><td>Restoration</td>
 </tr>
 
@@ -914,35 +914,35 @@ echo ">TF</option>
 </table></div><hr>	
 <br><input type='checkbox' name='toothAll' value='".$tn."' id='alltooth".$tn."' onclick='showAllTooth()' ";
 
-if(in_array($tn, $partialdentures) || in_array($tn, $extrus) || in_array($tn, $intrus) || in_array($tn, $mesrots) || in_array($tn, $disrots) || in_array($tn, $rots) || in_array($tn, $postcores) || in_array($tn, $roots) || in_array($tn, $pits) || in_array($tn, $extras) || in_array($tn, $misss) || in_array($tn, $erups) || in_array($tn, $impacs) || in_array($tn, $porcrs) || in_array($tn, $acrcrs) || in_array($tn, $metcrs) || in_array($tn, $porins) || in_array($tn, $fixeds)) echo "checked";
-
+if($recordexist){if(in_array($tn, $partialdentures) || in_array($tn, $extrus) || in_array($tn, $intrus) || in_array($tn, $mesrots) || in_array($tn, $disrots) || in_array($tn, $rots) || in_array($tn, $postcores) || in_array($tn, $roots) || in_array($tn, $pits) || in_array($tn, $extras) || in_array($tn, $misss) || in_array($tn, $erups) || in_array($tn, $impacs) || in_array($tn, $porcrs) || in_array($tn, $acrcrs) || in_array($tn, $metcrs) || in_array($tn, $porins) || in_array($tn, $fixeds)) echo "checked";
+}
 echo " readonly ><b>Whole Tooth</b>
 <div id='all_tooth_surfaces".$tn."' style='display:none;'><table>
 
 
 <tr>
 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='checkbox' name='extrusion[]' value='".$tn."' id='extrusion".$tn."' onclick='drawConditionMini2(\"extrusion\",".$tn.")' ";
-if(in_array($tn, $extrus)) echo "checked";
+if($recordexist && in_array($tn, $extrus)) echo "checked";
 
 echo " readonly></td>
 <td>Extrusion</td>
 <td><input type='checkbox' name='intrusion[]' value='".$tn."' id='intrusion".$tn."' onclick='drawConditionMini2(\"intrusion\",".$tn.")' ";
-if(in_array($tn, $intrus)) echo "checked";
+if($recordexist && in_array($tn, $intrus)) echo "checked";
 
 echo " readonly></td>
 <td>Intrusion</td>
 <td><input type='checkbox' name='mesialdrift[]' value='".$tn."' id='mesialdrift".$tn."' onclick='drawConditionMini2(\"mesialdrift\",".$tn.")' "; 
-if(in_array($tn, $mesrots)) echo "checked";
+if($recordexist && in_array($tn, $mesrots)) echo "checked";
 
 echo " readonly></td>
 <td>Mesial Drift Rotation</td>
 <td><input type='checkbox' name='distaldrift[]' value='".$tn."' id='distaldrift".$tn."' onclick='drawConditionMini2(\"distaldrift\",".$tn.") '";
-if(in_array($tn, $disrots)) echo "checked"; 
+if($recordexist && in_array($tn, $disrots)) echo "checked"; 
 
 echo " readonly></td>
 <td>Distal Drift Rotation</td>
 <td><input type='checkbox' name='rotation[]' value='".$tn."' id='rotation".$tn."' onclick='drawConditionMini2(\"rotation\",".$tn.")' ";
-if(in_array($tn, $rots)) echo "checked";
+if($recordexist && in_array($tn, $rots)) echo "checked";
 
 echo " readonly></td>
 <td>Rotation</td>
@@ -950,27 +950,27 @@ echo " readonly></td>
 
 <tr>
 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='checkbox' name='removablepartial[]' value='".$tn."' id='removablepartial".$tn."' onclick='drawConditionMini2(\"removablepartial\",".$tn.")' ";
-if(in_array($tn, $partialdentures)) echo "checked";
+if($recordexist && in_array($tn, $partialdentures)) echo "checked";
 
 echo " readonly></td>
 <td>Removable Partial Denture</td>
 <td><input type='checkbox' name='fixedbridge[]' value='".$tn."' id='fixedbridge".$tn."' onclick='drawConditionMini2(\"fixedbridge\",".$tn.")' ";
-if(in_array($tn, $fixeds)) echo "checked";
+if($recordexist && in_array($tn, $fixeds)) echo "checked";
 
 echo " readonly></td>
 <td>Fixed Bridged</td>
 <td><input type='checkbox' name='rootcanal[]' value='".$tn."' id='rootcanal".$tn."' onclick='drawConditionMini2(\"rootcanal\",".$tn.")' ";
-if(in_array($tn, $roots)) echo "checked";
+if($recordexist && in_array($tn, $roots)) echo "checked";
 
 echo " readonly></td>
 <td>Root Canal Treatment</td>
 <td><input type='checkbox' name='porcelainfused[]' value='".$tn."' id='porcelainfused".$tn."' onclick='drawConditionMini2(\"porcelainfused\",".$tn.")' ";
-if(in_array($tn, $porins)) echo "checked";
+if($recordexist && in_array($tn, $porins)) echo "checked";
 
 echo " readonly></td>
 <td>Porcelain Fused to Metal</td>
 <td><input type='checkbox' name='pitandfissure[]' value='".$tn."' id='pitfissure".$tn."' onclick='drawConditionMini2(\"pitfissure\",".$tn.")' ";
-if(in_array($tn, $pits)) echo "checked";
+if($recordexist && in_array($tn, $pits)) echo "checked";
 
 echo " readonly></td>
 <td>Pit and Fissure Sealants</td>
@@ -979,22 +979,22 @@ echo " readonly></td>
 
 <tr>
 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='checkbox' name='postcore[]' value='".$tn."' id='postcore".$tn."' onclick='drawConditionMini2(\"postcore\",".$tn.")' ";
-if(in_array($tn, $postcores)) echo "checked";
+if($recordexist && in_array($tn, $postcores)) echo "checked";
 
 echo " readonly></td>
 <td>Post Core Crown</td>
 <td><input type='checkbox' name='acrylic[]' value='".$tn."' id='acrylic".$tn."' onclick='drawConditionMini2(\"acrylic\",".$tn.")' ";
-if(in_array($tn, $acrcrs)) echo "checked";
+if($recordexist && in_array($tn, $acrcrs)) echo "checked";
 
 echo " readonly></td>
 <td>Acrylic Crown</td>
 <td><input type='checkbox' name='metal[]' value='".$tn."' id='metal".$tn."' onclick='drawConditionMini2(\"metal\",".$tn.")' ";
-if(in_array($tn, $metcrs)) echo "checked";
+if($recordexist && in_array($tn, $metcrs)) echo "checked";
 
 echo " readonly></td>
 <td>Metal Crown</td>
 <td><input type='checkbox' name='porcelain[]' value='".$tn."' id='porcelain".$tn."' onclick='drawConditionMini2(\"porcelain\",".$tn.")' ";
-if(in_array($tn, $porcrs)) echo "checked"; 
+if($recordexist && in_array($tn, $porcrs)) echo "checked"; 
 
 echo " readonly></td>
 <td>Porcelain Crown</td>
@@ -1004,22 +1004,22 @@ echo " readonly></td>
 
 <tr>
 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='checkbox' name='extracted[]' value='".$tn."' id='extracted".$tn."' onclick='drawConditionMini2(\"extracted\",".$tn.")' ";
-if(in_array($tn, $extras)) echo "checked";
+if($recordexist && in_array($tn, $extras)) echo "checked";
 
 echo " readonly></td>
 <td>Extracted</td>
 <td><input type='checkbox' name='missing[]' value='".$tn."' id='missing".$tn."' onclick='drawConditionMini2(\"missing\",".$tn.")' ";
-if(in_array($tn, $misss)) echo "checked";
+if($recordexist && in_array($tn, $misss)) echo "checked";
 
 echo " readonly></td>
 <td>Missing</td>
 <td><input type='checkbox' name='unerupted[]' value='".$tn."' id='unerupted".$tn."' onclick='drawConditionMini2(\"unerupted\",".$tn.")' ";
-if(in_array($tn, $erups)) echo "checked";
+if($recordexist && in_array($tn, $erups)) echo "checked";
 
 echo " readonly></td>
 <td>Unerupted</td>
 <td><input type='checkbox' name='impacted[]' value='".$tn."' id='impacted".$tn."' onclick='drawConditionMini2(\"impacted\",".$tn.")' ";
-if(in_array($tn, $impacs)) echo "checked";
+if($recordexist && in_array($tn, $impacs)) echo "checked";
 
 echo " readonly></td>
 <td>Impacted</td>
@@ -1243,7 +1243,7 @@ echo " readonly>Others (Endosurgery, Bleaching, etc.)
 
 </div>
 
-	<center><vr><input value="Submit" type="submit"></center>
+	<center><vr></center>
 	
 
 	<script type="text/javascript"> init(65, 65, 627);     </script>

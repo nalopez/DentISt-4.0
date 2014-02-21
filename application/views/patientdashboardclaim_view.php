@@ -103,7 +103,7 @@
 			if($row != "System Maintenance");
 			$sect = $row;
 		} ?>
-		<h2> <?php echo $sect; ?> Faculty Approval </h2>
+		<h2> <?php echo $sect; ?> </h2>
 
 		<h3><a href="<?php echo base_url(); ?>index.php/patientinformation/view/<?php echo $id; ?>"> Patient Information </a></h3>
 		<h3><a href="<?php echo base_url(); ?>index.php/patientchecklist/view/<?php echo $id; ?>"> Patient Checklist </a></h3>
@@ -111,12 +111,14 @@
 		<h3><a href="<?php echo base_url(); ?>index.php/dentaldata/view/<?php echo $id; ?>"> Dental Data </a></h3>
 		<h3><a href="<?php echo base_url(); ?>index.php/dentalchart/view/<?php echo $id; ?>"> Dental Status Chart </a></h3>
 		<h3><a href="<?php echo base_url(); ?>index.php/treatmentplan/view/<?php echo $id; ?>"> Treatment Plan </a></h3>
-		<h3><a href="<?php echo base_url(); ?>index.php/servicesrendered/view/<?php echo $id; ?>"> Services Rendered </a></h3>
-		<h3><a href="<?php echo base_url(); ?>index.php/conandfind/view/<?php echo $id; ?>"> Consultation and Findings </a></h3><br>
-
+		<?php if($sect == "Oral Medicine"){
+		echo "<h3><a href='".base_url()."index.php/servicesrendered/view/$id'> Services Rendered </a></h3>";
+		echo "<h3><a href='".base_url()."index.php/conandfind/view/$id'> Consultation and Findings </a></h3>";
+} ?>
+<br>
 		<!-- action="<?php //echo base_url().'index.php/verifypatientrecord';?>" -->
 
-		<form id="CLAIMPATIENTDB" method="post" action="<?php echo base_url().'index.php/setappointment';?>">
+		<form id="CLAIMPATIENTDB" method="post" action="<?php if($sect != 'Oral Diagnosis') echo base_url().'index.php/setappointment'; else echo base_url().'index.php/loaddashboard/clmptnt/'.$id; ?>">
 		<input type="hidden" name="id" name="id" value="<?php echo $id;?>">
 		
 			<br>

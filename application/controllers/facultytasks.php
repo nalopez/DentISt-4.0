@@ -6,6 +6,7 @@ class FacultyTasks extends CI_Controller {
  {
    parent::__construct();
    $this->load->model('patient','',TRUE);
+$this->load->model('user','',TRUE);
  }
 
  function index()
@@ -30,7 +31,10 @@ class FacultyTasks extends CI_Controller {
 						$section = $row;
 					}
 				}
-		     		$data['info'] = $this->patient->getFacultyTask($section);
+				$idx = $this->user->getUserID($session_data['username']);
+				$facultyID = $idx['userID'];
+
+		     		$data['info'] = $this->patient->getFacultyTask($section, $facultyID);
 				//$id = $info['UPCD_ID'];
 
 				$this->load->view('facultytasks_view', $data);
@@ -45,40 +49,6 @@ class FacultyTasks extends CI_Controller {
 		}
    }
 
- 	function check_gender($gender){
-		if($gender == "Select one.."){
-			$this->form_validation->set_message('check_gender', 'Select a gender.');
-			return false;
-		}
-		
-		return true;
-	}
-
-	function check_deceased($deceased){
-		if($deceased == ""){
-			$this->form_validation->set_message('check_deceased', 'Specify if patient is deceased.');
-			return false;
-		}
-		
-		return true;
-	}
-
-	function check_ID($id){
-		$year = date("Y");
-		$upcd_id = substr($year, 2)."-".$id;
-		$getpatient = $this->patient->getPatient($upcd_id);
-
-		if($getpatient == "false"){
-			$this->form_validation->set_message('check_ID', 'UPCD_ID already exist. Enter a new ID.');
-			return false;
-		}
-		
-		return true;
-	}
-
-	/*function loadPatientDashboard($data){
-		$this->load->view('patientdashboard_view', $data);
-	}*/
 }
 ?>
 

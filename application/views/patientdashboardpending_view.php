@@ -96,17 +96,6 @@
 	<?php 
 		$id = $this->uri->segment(3); 
 
-		if($remarkVisible){
-			foreach($remarks as $row){
-				$patientinfo = $row['patientinfo'];
-				$patientchecklist = $row['patientchecklist'];
-				$medandsochisto = $row['medandsochisto'];
-				$dentaldata = $row['dentaldata'];
-				$dentalchart = $row['dentalchart'];
-				$treatmentplan = $row['treatmentplan'];
-			}
-		}
-
 	?>
 	<center>
 		<?php 	
@@ -118,12 +107,8 @@
 			$sect = $row;
 			}
 		} ?>
+		<h4><font color='red'> This patient's record is currently subject for approval. </font></h4>
 
-		<?php if($remarkVisible){
-			echo "<h4><font color='red'> This revision has been marked '$status'. </font></h4>";
-		}else
-			echo "<h2> $sect Faculty Approval </h2>";
-?>
 		<h3><a href="<?php echo base_url(); ?>index.php/patientinformation/view/<?php echo $id; ?>"> Patient Information </a></h3>
 		<h3><a href="<?php echo base_url(); ?>index.php/patientchecklist/view/<?php echo $id; ?>"> Patient Checklist </a></h3>
 		<h3><a href="<?php echo base_url(); ?>index.php/medandsochistory/view/<?php echo $id; ?>"> Medical and Social History </a></h3>
@@ -144,41 +129,7 @@
 			}
  		?>
 			<b>Refer to section: <?php echo $section; ?> </b><br><br>
-				
-				Remarks:<br>
-			<table>
-				<tr>
-					<td><input type="checkbox" name="sctn[]" id="patientinfocb" value="Patient Information" onClick="visibility(this.id)" <?php if($remarkVisible && $patientinfo != "") echo " checked"; if($status == 'Approved' || $status == 'Rejected') echo " readonly";
-?> > Patient Information 
-					<td><div id="patientinfodiv" style="display:<?php if($remarkVisible && $patientinfo != '') echo 'block'; else echo 'none'; ?>;"><textarea name="patientinfotxt" cols="30" <?php if($status == 'Approved' || $status == 'Rejected') echo "readonly";?>><?php if($remarkVisible) echo $patientinfo; ?></textarea></div>
-				</tr>
-				<tr>
-					<td><input type="checkbox" name="sctn[]" id="patientchecklistcb" value="Patient Checklist" onClick="visibility(this.id)" <?php if($remarkVisible && $patientchecklist != "") echo " checked"; if($status == 'Approved' || $status == 'Rejected') echo " readonly";?>> Patient Checklist 
-					<td><div id="patientchecklistdiv" style="display:<?if($remarkVisible && $patientchecklist != '') echo 'block'; else echo 'none'; ?>;"><textarea name="patientchecklisttxt" cols="30" <?php if($status == 'Approved' || $status == 'Rejected') echo "readonly";?>><?php if($remarkVisible) echo $patientchecklist; ?></textarea></div>
-				</tr>
-				<tr>
-					<td><input type="checkbox" name="sctn[]" id="medandsochistocb" value="Medical & Social History" onClick="visibility(this.id)" <?php if($remarkVisible && $medandsochisto != "" ) echo " checked"; if($status == 'Approved' || $status == 'Rejected') echo "  readonly"; ?>> Medical & Social History 
-					<td><div id="medandsochistodiv" style="display:<?if($remarkVisible && $medandsochisto != '') echo 'block'; else echo 'none'; ?>;"><textarea name="medandsochistotxt" cols="30" <?php if($status == 'Approved' || $status == 'Rejected') echo "readonly"; ?>><?php if($remarkVisible) echo $medandsochisto; ?></textarea></div>
-				</tr>
-				<tr>
-					<td><input type="checkbox" name="sctn[]" id="dentaldatacb" value="Dental Data" onClick="visibility(this.id)" <?php if($remarkVisible && $dentaldata != "") echo " checked"; if($status == 'Approved' || $status == 'Rejected') echo " readonly"; ?>> Dental Data 
-					<td><div id="dentaldatadiv" style="display:<?php if($remarkVisible && $dentaldata != '') echo 'block'; else echo 'none'; ?>;"><textarea name="dentaldatatxt" cols="30" <?php if($status == 'Approved' || $status == 'Rejected') echo "readonly"; ?>><?php if($remarkVisible) echo $dentaldata; ?></textarea></div>
-				</tr>
-				<tr>
-					<td><input type="checkbox" name="sctn[]" id="dentalchartcb" value="Dental Status Chart" onClick="visibility(this.id)" <?php if($remarkVisible && $dentalchart != "") echo " checked"; if($status == 'Approved' || $status == 'Rejected') echo " readonly"; ?>> Dental Status Chart
-					<td><div id="dentalchartdiv" style="display:<?php if($remarkVisible && $dentalchart != '') echo 'block'; else echo 'none'; ?>;"><textarea name="dentalcharttxt" cols="30" <?php if($status == 'Approved' || $status == 'Rejected') echo "readonly"; ?>><?php if($remarkVisible) echo $dentalchart; ?></textarea></div> 
-				</tr>
-				<tr>
-					<td><input type="checkbox" name="sctn[]" id="treatmentplancb" value="Treatment Plan" onClick="visibility(this.id)" <?php if($remarkVisible && $treatmentplan != "") echo " checked"; if($status == 'Approved' || $status == 'Rejected') echo " readonly"; ?>> Treatment Plan
-					<td><div id="treatmentplandiv" style="display:<?php if($remarkVisible && $treatmentplan != '') echo 'block'; else echo 'none'; ?>;"><textarea name="treatmentplantxt" cols="30" <?php if($status == 'Approved' || $status == 'Rejected') echo "readonly"; ?>><?php if($remarkVisible) echo $treatmentplan; ?></textarea></div>
-				</tr>
-			</table><br>
-
-			<?php if($status == 'Temporary' || $status == ''){
-				echo "<input type='button' name='Save' value='Save Remarks' onClick='decide(\"Temporary\")'>&nbsp;<input type='button' name='Approve' value='Approve' onClick='decide(\"Approved\")'>&nbsp;<input type='button' name='Reject' value='Reject' onClick='decide(\"Rejected\")'>";
-			}
-
-			?>
+	
 		</form>
 	</center>
 

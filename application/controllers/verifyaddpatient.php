@@ -84,11 +84,12 @@ class VerifyAddPatient extends CI_Controller {
 				$deceased = $this->input->post('deceased');
 			
 				$id = $idyr."-".$idnum;
+				$date = date("Y-m-d");
 
 				//$id = '14-00003';
 			
 				//echo "$id, $fname, $mname, $lname, $houseno, $street, $brgy, $city, $province, $sex, $bdate, $age, $deceased";
-				$this->patient->addPatient($id, $fname, $mname, $lname, $houseno, $street, $brgy, $city, $province, $sex, $bdate, $age, $deceased);
+				$this->patient->addPatient($id, $fname, $mname, $lname, $houseno, $street, $brgy, $city, $province, $sex, $bdate, $age, $deceased, "Oral Diagnosis", "Pending", "Open", $date);
 
 				$data = $this->patient->getPatient($id);
 				
@@ -112,7 +113,10 @@ class VerifyAddPatient extends CI_Controller {
 				$data['gender'] = $sex;
 				$data['age'] = $age;*/
 
-				redirect('/loaddashboard/patientdb/'.$id);
+				$this->patient->addStudentTask($id, "Oral Diagnosis");
+
+				redirect('/home');
+				//redirect('/loaddashboard/patientdb/'.$id);
 				
 		   	}
 		}

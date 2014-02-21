@@ -92,15 +92,41 @@ $this->load->model('user','',TRUE);
 				foreach($student as $row){
 					$studentid = $row['updatedBy7'];
 					$section = $row['section7'];
+					$currsection = $row['currentsection7'];
 				}
 
 				if($decision == "Approved"){
-					
-		
-					$this->patient->updatePatient($patientid, $section, $facultyid, $decision);
+					if($this->patient->hasTempRecord($patientid)){
+						$this->patient->updatePatientTemporary($studentid, $facultyid, $patientid, $decision, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan);
+						$this->patient->updatePatient($patientid, $section, $facultyid, $decision);
+					}
+					else{		
+						$this->patient->updatePatient($patientid, $section, $facultyid, $decision);
+						$this->patient->addRemark($studentid, $facultyid, $patientid, $decision, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan);
+					}
 				}
-
-				$this->patient->addRemark($studentid, $facultyid, $patientid, $decision, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan);
+				elseif($decision == "Temporary"){
+					if($this->patient->hasTempRecord($patientid)){
+						$this->patient->updatePatientTemporary($studentid, $facultyid, $patientid, $decision, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan);
+						$this->patient->updatePatientApprover($patientid, $facultyid);
+					}
+					else{ 
+						$this->patient->addRemark($studentid, $facultyid, $patientid, $decision, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan);
+						$this->patient->updatePatientApprover($patientid, $facultyid);
+					}
+				}
+				elseif($decision == "Rejected"){
+					if($this->patient->hasTempRecord($patientid)){
+						$this->patient->updatePatientTemporary($studentid, $facultyid, $patientid, $decision, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan);
+						$this->patient->updatePatientApprover($patientid, $facultyid);
+						$this->patient->updatePatientRejected($patientid, $studentid, $decision, $currsection, $section);
+					}
+					else{
+						$this->patient->addRemark($studentid, $facultyid, $patientid, $decision, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan);
+						$this->patient->updatePatientApprover($patientid, $facultyid);
+						$this->patient->updatePatientRejected($patientid, $studentid, $decision, $currsection, $section);
+					}
+				}
 
 				redirect('loaddashboard/verifyentry/'.$patientid);
 								

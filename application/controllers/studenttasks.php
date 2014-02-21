@@ -6,6 +6,7 @@ class StudentTasks extends CI_Controller {
  {
    parent::__construct();
    $this->load->model('patient','',TRUE);
+$this->load->model('user','',TRUE);
  }
 
  function index()
@@ -24,13 +25,17 @@ class StudentTasks extends CI_Controller {
  
 			if($bool){
 				$sec = $session_data['section'];
+				$uname = $session_data['username'];
+				$idx = $this->user->getUserID($uname);
+				$id = $idx['userID'];
+
 				$section = "";
 				foreach($sec as $row){
 					if($row != "System Maintenance"){
 						$section = $row;
 					}
 				}
-		     		$data['info'] = $this->patient->getStudentTask($section);
+		     		$data['info'] = $this->patient->getStudentTask($section, $id);
 				//$id = $info['UPCD_ID'];
 
 				$this->load->view('studenttasks_view', $data);

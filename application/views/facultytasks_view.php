@@ -35,10 +35,10 @@
 		</tr>
 		<tr>
 			<td>
-			<td> Tasks
-			<td> Updated By
-			<td> Update Date
-			<td> Patient Name
+			<td> <b>Tasks</b>
+			<td> <b>Updated By</b>
+			<td> <b>Update Date</b>
+			<td> <b>Patient Name</b>
 		</tr>
 		<?php if($info){
 				$patientname="";
@@ -48,7 +48,8 @@
 					if($row['patientdashboardversionID'] && $row['updateStatus7'] == "Pending"){
 						echo "<tr><td> $ctr ";
 						echo "<td> Verify Referral to ".$row['section7'];
-						echo "<td>".$row['updatedBy7'];
+						$user = $this->user->getUserInfo($row['updatedBy7']);
+						echo "<td>".$user['userFName']." ".substr($user['userMName'], 0, 1).". ".$user['userLName']; 
 							echo "<td>".$row['updateDate7'];
 							$patient = $this->patient->getPatient($row['UPCD_ID7']);
 							foreach($patient as $row2){

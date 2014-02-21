@@ -2,7 +2,7 @@
 Class Patient extends CI_Model
 {
 
-	function addPatient($id, $fname, $mname, $lname, $houseno, $street, $brgy, $city, $province, $sex, $bdate, $age, $deceased){
+	function addPatient($id, $fname, $mname, $lname, $houseno, $street, $brgy, $city, $province, $sex, $bdate, $age, $deceased, $section, $clinician, $status, $date){
 		$data = array(
 			'UPCD_ID' => $id,
 			'patientFName' => $fname,
@@ -16,7 +16,11 @@ Class Patient extends CI_Model
 			'gender' => $sex,
 			'bdate' => $bdate,
 			'age' => $age,
-			'deceased' => $deceased);
+			'deceased' => $deceased,
+			'section' => $section,
+			'clinician' => $clinician,
+			'status' => $status,
+			'date' => $date);
 		$this->db->insert('patient', $data);
 	}
 
@@ -396,14 +400,15 @@ Class Patient extends CI_Model
 		$this->db->insert('treatmentplanversion', $data);
 	}
 
-	function addPatientDashboardVersion($id, $section, $name, $date, $status, $approver){
+	function addPatientDashboardVersion($id, $section, $studentID, $date, $status, $facultyID, $curr_section){
 		$data = array(
 			'UPCD_ID7' => $id,
 			'section7' => $section,
-			'updatedBy7' => $name,
+			'updatedBy7' => $studentID,
 			'updateDate7' => $date,
 			'updateStatus7' => $status,
-			'approvedBy7' => $approver);
+			'approvedBy7' => $facultyID,
+			'currentSection7' => $curr_section);
 		$this->db->insert('patientdashboardversion', $data);
 	}
 
@@ -1134,10 +1139,47 @@ Class Patient extends CI_Model
    		}
 	}
 
-	function getStudentTask($section){
-		$this->db->select('*');
+	function addStudentTask($patientID, $section){
+		$data = array(
+			'UPCD_ID' => $patientID,
+			'section' => $section,
+			'taskdescription' => 'Assign to '.$section.' Clinician'
+		);
+		$this->db->insert('studenttasks', $data);
+	}
+
+	function getStudentTask($section, $studentID){
+		/*$this->db->select('*');
 		$this->db->from('studenttasks');
 		$this->db->where('section', $section);
+
+		$query = $this -> db -> get();
+
+		if($query -> num_rows() >= 1)
+   		{
+     			return $query->result_array();
+   		}
+   		else
+   		{
+     			return false;
+   		}*/
+
+		$query = $this->db->query("SELECT * FROM studenttasks where section = '$section' OR clinicianID=$studentID");
+
+		if($query -> num_rows() >= 1)
+   		{
+     			return $query->result_array();
+   		}
+   		else
+   		{
+     			return false;
+   		}
+	}
+
+	function getPatientRecordStatus($id){
+		$this->db->select('status');
+		$this->db->from('patient');
+		$this->db->where('UPCD_ID', $id);
 
 		$query = $this -> db -> get();
 
@@ -1156,13 +1198,65 @@ Class Patient extends CI_Model
 		$this->db->delete('studenttasks');
 	}
 
+	function updateClinician($patientID, $facultyID){
+		$data2 = array(
+			'clinician' => $facultyID
+            	);
+		$this->db->where('UPCD_ID', $patientID);
+		$this->db->update('patient', $data2);
+	}
 
-	function getFacultyTask($section){
-		if($section == "Oral Diagnosis"){
+	function updatePatientApprover($patientID, $facultyid){
+		$data = array(
+			'approvedBy7' => $facultyid
+            	);
+		$this->db->where('UPCD_ID7', $patientID);
+		$this->db->update('patientdashboardversion', $data); 
+	}
+
+	function updatePatientRecordStatus($id, $status){
+		$data2 = array(
+			'status' => $status
+            	);
+		$this->db->where('UPCD_ID', $patientID);
+		$this->db->update('patient', $data2);
+	}
+
+
+	function getFacultyTask($section, $facultyid){
+		/*$this -> db -> select('*');
+		$this -> db -> from('patientdashboardversion');
+		$this->db->where('currentsection7', $section);
+		$this->db->where('updateStatus7', 'Pending');
+
+		$query = $this -> db -> get();
+
+		if($query -> num_rows() >= 1)
+   		{
+     			return $query->result_array();
+   		}
+   		else
+   		{
+     			return false;
+   		}*/
+		
+		$query = $this->db->query("SELECT * FROM patientdashboardversion where updateStatus7 = 'Pending' AND (currentsection7 = '$section' OR approvedBy7=$facultyid)");
+
+		if($query -> num_rows() >= 1)
+   		{
+     			return $query->result_array();
+   		}
+   		else
+   		{
+     			return false;
+   		}
+
+		//$query = $this->db->query("SELECT * FROM patientdashboardversion where ");
+		/*if($section == "Oral Diagnosis"){
 			//$query = $this->db->query("SELECT * FROM patientinfoversion, patientchecklistversion, medandsochistoversion, dentaldataversion, dentalchartversion, treatmentplanversion");
-			$query = $this->db->query("SELECT * FROM patientdashboardversion");
+			
 			/*this -> db -> select('*');
-			$this -> db -> from('patientinfoversion, patientchecklistversion, medandsochistoversion, dentaldataversion, dentalchartversion, treatmentplanversion');*/
+			$this -> db -> from('patientinfoversion, patientchecklistversion, medandsochistoversion, dentaldataversion, dentalchartversion, treatmentplanversion');
 			//$this->db->join('patientchecklistversion', 'patientinfoversion.UPCD_ID = patientchecklistversion.UPCD_ID');
 			//$this->db->join('medandsochistoversion', 'patientinfoversion.UPCD_ID = medandsochistoversion.UPCD_ID');
 			//$this->db->join('dentaldataversion', 'patientinfoversion.UPCD_ID = dentaldataversion.UPCD_ID');
@@ -1182,21 +1276,21 @@ Class Patient extends CI_Model
 	   		}
 		}
 		elseif($section == "Operative Dentistry"){
-			
+			$query = $this->db->query("SELECT * FROM patientdashboardversion");
 		}
 		elseif($section == "Oral Medicine"){
-			
+			$query = $this->db->query("SELECT * FROM patientdashboardversion");
 		}
 		elseif($section == "Prosthodontics"){
-			
-		}
+			$query = $this->db->query("SELECT * FROM patientdashboardversion");
+		}*/
 	}
 
-	function getSection($id){
+	function getSection($id, $section){
 		$this -> db -> select('section7');
 		$this -> db -> from('patientdashboardversion');
 		$this->db->where('UPCD_ID7', $id);
-		$this->db->where('updateStatus7', 'Pending');
+		$this->db->where('currentsection7', $section);
 
 		$query = $this -> db -> get();
 
@@ -1208,6 +1302,190 @@ Class Patient extends CI_Model
    		{
      			return false;
    		}
+	}
+
+	function getPatientDashboardStatus($id){
+		$this -> db -> select('updateStatus7');
+		$this -> db -> from('patientdashboardversion');
+		$this->db->where('UPCD_ID7', $id);
+	
+		$query = $this -> db -> get();
+
+		if($query -> num_rows() >= 1)
+   		{
+     			return $query->result_array();
+   		}
+   		else
+   		{
+     			return false;
+   		}
+	}
+
+	function getPatientDashboardStatus2($id){
+		$this -> db -> select('updateStatus7');
+		$this -> db -> from('patientdashboardversion');
+		$this->db->order_by("patientdashboardversionID", "desc"); 
+		$this->db->limit(1);
+		$this->db->where('UPCD_ID7', $id);
+		$this->db->where('updateStatus7 !=', 'Approved');
+
+	
+		$query = $this -> db -> get();
+
+		if($query -> num_rows() == 1)
+   		{
+     			return $query->result_array();
+   		}
+   		else
+   		{
+     			return false;
+   		}
+	}
+
+	function getPatientDashboardStatus3($id){
+		$this -> db -> select('updateStatus7');
+		$this -> db -> from('patientdashboardversion');
+		$this->db->where('UPCD_ID7', $id);
+		$this->db->where('updateStatus7 !=', 'Pending');
+	
+		$query = $this -> db -> get();
+
+		if($query -> num_rows() >= 1)
+   		{
+     			return $query->result_array();
+   		}
+   		else
+   		{
+     			return false;
+   		}
+	}
+
+	function getRemarkStatus($id){
+		$this -> db -> select('remarkStatus');
+		$this -> db -> from('remark');
+		$this->db->where('patientID', $id);
+	
+		$query = $this -> db -> get();
+
+		if($query -> num_rows() >= 1)
+   		{
+     			return $query->result_array();
+   		}
+   		else
+   		{
+     			return false;
+   		}
+	}
+
+	function getRemarks($id){
+		$this -> db -> select('*');
+		$this -> db -> from('remark');
+		$this->db->where('patientID', $id);
+		//$this->db->where('remarkStatus', 'Temporary');
+	
+		$query = $this -> db -> get();
+
+		if($query -> num_rows() >= 1)
+   		{
+     			return $query->result_array();
+   		}
+   		else
+   		{
+     			return false;
+   		}
+	}
+
+	function getRemarks2($id, $facultyid){
+		$this -> db -> select('*');
+		$this -> db -> from('remark');
+		$this->db->where('patientID', $id);
+		$this->db->where('userID', $facultyid);
+		//$this->db->where('remarkStatus', 'Temporary');
+	
+		$query = $this -> db -> get();
+
+		if($query -> num_rows() >= 1)
+   		{
+     			return $query->result_array();
+   		}
+   		else
+   		{
+     			return false;
+   		}
+	}
+
+	/*function getRemarks2($id, $remarkID){
+		$this -> db -> select('*');
+		$this -> db -> from('remark');
+		$this->db->where('patientID', $id);
+		$this->db->where('remarkID', $remarkID);
+	
+		$query = $this -> db -> get();
+
+		if($query -> num_rows() >= 1)
+   		{
+     			return $query->result_array();
+   		}
+   		else
+   		{
+     			return false;
+   		}
+	}
+
+	function getLatestRemarks($id){
+		$this->db->select_max('remarkID');
+		$this->db->where('patientID', $id);
+		$query = $this->db->get('remark');
+
+		if($query -> num_rows() >= 1)
+   		{
+     			return $query->result_array();
+   		}
+   		else
+   		{
+     			return false;
+   		}
+	}*/
+
+	function hasTempRecord($patientid){
+		$this -> db -> select('*');
+		$this -> db -> from('remark');
+		$this->db->where('patientID', $id);
+		$this->db->where('remarkStatus', 'Temporary');
+	
+		$query = $this -> db -> get();
+
+		if($query -> num_rows() >= 1)
+   		{
+     			return true;
+   		}
+   		else
+   		{
+     			return false;
+   		}
+	}
+
+	function clearPatient($id){
+		$data = array(
+			'section' => 'Finished'
+            	);
+		$this->db->where('UPCD_ID', $id);
+		$this->db->update('patient', $data); 
+	}
+
+	function updatePatientTemporary($studentid, $facultyid, $patientid, $remark, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan){
+		$data = array(
+			'remarkStatus' => $remark,
+			'patientinfo' => $patientinfo,
+			'patientchecklist' => $patientchecklist,
+			'medandsochisto' => $medandsochisto,
+			'dentaldata' => $dentaldata,
+			'dentalchart' => $dentalchart,
+			'treatmentplan' => $treatmentplan
+            	);
+		$this->db->where('patientID', $patientid);
+		$this->db->where('remarkStatus', 'Temporary');
+		$this->db->update('remark', $data); 
 	}
 
 	function getStudentID($patientid){
@@ -1245,14 +1523,15 @@ Class Patient extends CI_Model
 
 	function updatePatient($patientID, $section, $facultyID, $status){
 		$data = array(
-               		'section' => $section
+               		'section' => $section,
+			'status' => "Open"
             	);
 		$this->db->where('UPCD_ID', $patientID);
 		$this->db->update('patient', $data); 	
 
 		$data2 = array(
                		'updateStatus7' => $status,
-			'updatedBy7' => $facultyID,
+			'approvedBy7' => $facultyID,
 			'currentsection7' => $section
             	);
 		$this->db->where('UPCD_ID7', $patientID);
@@ -1265,6 +1544,23 @@ Class Patient extends CI_Model
 			'taskdescription' => 'Assign to '.$section.' Clinician'
 		);
 		$this->db->insert('studenttasks', $data3);
+	}
+
+	function updatePatientRejected($patientID, $facultyid, $status, $currentsection, $referredsection){
+		$data = array(
+               		'updateStatus7' => $status
+            	);
+		$this->db->where('UPCD_ID7', $patientID);
+		$this->db->where('updateStatus7', 'Pending');
+		$this->db->update('patientdashboardversion', $data);
+
+		$data2 = array(
+			'UPCD_ID' => $patientID,
+			'clinicianID' => $userid,
+			'section' => $section,
+			'taskdescription' => 'Rejected Referral to '.$section
+		);
+		$this->db->insert('studenttasks', $data2);
 	}
 
 	function hasPatientDB($id, $section){
@@ -1308,6 +1604,41 @@ Class Patient extends CI_Model
    		{
      			return false;
    		}
+	}
+
+	function isClinician($patientid){
+		$this -> db -> select('*');
+		$this -> db -> from('patient');
+		$this->db->where('UPCD_ID', $patientid);
+
+		$query = $this -> db -> get();
+		$res = $query->result_array();
+		$clinician = "";
+		foreach($res as $row){
+			$clinician = $row['clinician'];
+		}
+
+		if($clinician == 'Pending'){
+			return false;
+		}
+		else{
+			return $clinician;
+		}
+
+	}
+
+	function resetPatientRemark($patientid){
+		$data2 = array(
+               		'remarkStatus' => 'Pending',
+			'patientinfo' => '',
+			'patientchecklist' => '',
+			'medandsochisto' => '',
+			'dentaldata' => '',
+			'dentalchart' => '',
+			'treatmentplan' => ''
+            	);
+		$this->db->where('patientID', $patientid);
+		$this->db->update('remark', $data2);
 	}
 }
 

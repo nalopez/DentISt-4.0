@@ -16,7 +16,7 @@ function index(){
 				$bool = false;
 				$sec = $session_data['section'];
 				foreach($sec as $row){
-					if($row == "Oral Diagnosis"){
+					if($row == "Oral Diagnosis" || $row == "Oral Medicine"){
 						$bool = true;
 						break;
 					}
