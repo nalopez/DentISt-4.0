@@ -39,6 +39,13 @@ class ClinicianAppointments extends CI_Controller {
 					$data2['appointments'][$studentID] = $this->patient->getAppointments($studentID);
 				}
 
+				$userID222 = $session_data['username'];
+				$userID22 = $this->user->getUserID($userID222);
+				$userID2 = $userID22['$userID'];
+				$date = date("Y-m-d");
+
+				$this->user->addAuditTrail($userID2, 'SELECT', 'Appointments', '', $date);
+
 	   			//$data2['appointments'] = $this->patient->getAppointments($userID);
 				//print_r($data2['appointments']);
 				//print_r($data2);

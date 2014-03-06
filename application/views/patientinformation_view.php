@@ -14,8 +14,8 @@
 	<script src="<?php echo base_url(); ?>js/jquery-1.9.1.js"></script>
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 
-   <title>Add User - Oral Diagnosis</title>
-	
+   <title>Patient Information - Oral Diagnosis</title>
+<link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">	
 <script type="text/javascript">
 	
 	
@@ -166,12 +166,12 @@
 <div class="validation" style="display:<?if(validation_errors() == true) echo 'block'; else echo 'none'?>">
    <?php echo validation_errors(); ?>
 </div>
-<div class="maindiv" style="border: 0px;">
+<div class="maindiv" >
 	<?php include('patient_header.php'); 
 
 	$id = $this->uri->segment(3);
 ?>
-<div id="Content_Area" style="border: solid 1px #7F00FF;">
+<div id="Content_Area" >
 
 <form id="ADDPATIENTINFORMATION" name="ADDPATIENTINFORMATION" action="<?php echo base_url();?>index.php/verifyaddpatientinformation" method="post">
 
@@ -182,12 +182,13 @@
      		echo $session_data['error'];
 	?>
 </div>
+<div style="position: relative; text-align:right; color: red; right: 5%;"><i>* means required</i></div>
 	<table frame="box" class="frame">
 	<tr class="header">
 		<td colspan=2>Additional Demographics
 	</tr>
 	<tr>
-		<td><label for="civstat">Civil Status: </td>
+		<td><label for="civstat">Civil Status: <font color='red'>*</font></td>
 		<td><select name="civstat" id="civstat">
 		<option value="Select one.." selected> Select one.. </option>		
 		<option value="Single" <?php if($invalid_input){ 
@@ -213,11 +214,11 @@
 		</select></td>
 	</tr>
 	<tr>
-		<td><label for="phone">Phone:</td>
+		<td><label for="phone">Phone:<font color='red'>*</font></td>
 		<td><input type="text" name="phone" placeholder="Phone Number" value="<?php if($invalid_input) echo $session_data2['phone']; elseif($recordexist == true) echo $phonenum; ?>"></td>
 	</tr>
 	<tr>
-		<td><label for="edattain">Educational Attainment:
+		<td><label for="edattain">Educational Attainment:<font color='red'>*</font>
 		<td><select name="edattain">
 			<option value="Select one..">Select one..</option>
 			<option value="Elementary Graduate" <?php if($invalid_input){ 
@@ -238,19 +239,19 @@
 					elseif($recordexist == true && $edattain == 'Masters Decree') echo 'selected'; ?>>Master's Decree</option>
 	</tr>
 	<tr>
-		<td><label for="occupation">Occupation:
+		<td><label for="occupation">Occupation:<font color='red'>*</font>
 		<td><input type="text" name="occupation" value="<?php if($invalid_input) echo $session_data2['occupation']; elseif($recordexist == true) echo $occ; ?>">
 	</tr>
 	<tr>
-		<td><label for="ptnicoe">Person to notify in-case of emergency:</td>
+		<td><label for="ptnicoe">Person to notify in-case of emergency:<font color='red'>*</font></td>
 		<td><input type="text" name="ptnicoe" value="<?php if($invalid_input) echo $session_data2['ptnicoe']; elseif($recordexist == true) echo $ptnicoe; ?>">
 	</tr>
 	<tr>
-		<td><label for="ptnicoenum">Phone:
+		<td><label for="ptnicoenum">Phone:<font color='red'>*</font>
 		<td><input type="text" name="ptnicoenum" value="<?php if($invalid_input) echo $session_data2['ptnicoenum']; elseif($recordexist == true) echo $ptnicoenum; ?>">
 	</tr>
 	<tr>
-		<td> History of Present Illness:
+		<td> History of Present Illness:<font color='red'>*</font>
 		<td><textarea name="hopi" id="hopi" cols=50><?php if($invalid_input) echo $session_data2['hopi']; elseif($recordexist == true) echo $histo; ?></textarea>
 	</tr>	
 </table><br>
@@ -261,15 +262,15 @@
 				<td colspan=2>Physical Assessment
 			</tr>
 			<tr>
-				<td>Gait:
+				<td>Gait:<font color='red'>*</font>
 				<td><input type="text" name="gait" size=12px value="<?php if($invalid_input) echo $session_data2['gait']; elseif($recordexist == true) echo $gait; ?>">
 			</tr>
 			<tr> 
-				<td>Appearance:
+				<td>Appearance:<font color='red'>*</font>
 				<td><input type="text" name="appear" size=12px value="<?php if($invalid_input) echo $session_data2['appear']; elseif($recordexist == true) echo $appear; ?>">
 			</tr>
 			<tr>
-				<td>Defects:
+				<td>Defects:<font color='red'>*</font>
 				<td><input type="text" name="dfcts" size=12px value="<?php if($invalid_input) echo $session_data2['dfcts']; elseif($recordexist == true) echo $dfcts; ?>">
 			</tr> 
 		</table><br>
@@ -279,23 +280,23 @@
 		<tr class="header">
 			<td colspan=2>Vital Signs
 		<tr>
-			<td>Blood Pressure (mmHg):
+			<td>Blood Pressure (mmHg):<font color='red'>*</font>
 			<td><input type="text" name="bp" value="<?php if($invalid_input) echo $session_data2['bp']; elseif($recordexist == true) echo $bp; ?>">
 		</tr>
 		<tr>
-			<td>Pulse Rate (bpm):
+			<td>Pulse Rate (bpm):<font color='red'>*</font>
 			<td><input type="text" name="pr" value="<?php if($invalid_input) echo $session_data2['pr']; elseif($recordexist == true) echo $pr; ?>">
 		</tr>
 		<tr>
-			<td>Respiration Rate (RR):
+			<td>Respiration Rate (RR):<font color='red'>*</font>
 			<td><input type="text" name="rr" value="<?php if($invalid_input) echo $session_data2['rr']; elseif($recordexist == true) echo $rr; ?>">
 		</tr>
 		<tr>
-			<td>Temperature (celsius):
+			<td>Temperature (celsius):<font color='red'>*</font>
 			<td><input type="text" name="temp" value="<?php if($invalid_input) echo $session_data2['temp']; elseif($recordexist == true) echo $temp; ?>">
 		</tr>
 		<tr>
-			<td>Weight (kg):
+			<td>Weight (kg):<font color='red'>*</font>
 			<td><input type="text" name="wt" id="wt" value="<?php if($invalid_input) echo $session_data2['wt']; elseif($recordexist == true) echo $wt; ?>">
 		</tr>
 		</table><br><br>

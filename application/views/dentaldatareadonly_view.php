@@ -14,8 +14,8 @@
 	<script src="<?php echo base_url(); ?>js/jquery-1.9.1.js"></script>
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 
-   <title>Add User - Oral Diagnosis</title>
-	
+   <title>Dental Data - Oral Diagnosis</title>
+<link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">	
 <script type="text/javascript">
 	
 	
@@ -30,7 +30,6 @@
 
 	if($recordexist){
 		foreach($info as $row){
-
 			$dolv = $row['dateoflastvisit'];
 			$pdolv = $row['proceduresonlastvisit'];
 			$fodv = $row['frequencyofvisit'];
@@ -68,6 +67,9 @@
      		echo $session_data['error'];
 	?>
 </div>
+
+<?php if($forapproval) echo "<h4 style='color:red;'>This patient's record is currently subject for approval.</h4>"; ?>
+
 
 		<table frame="box" class="frame">
 		<tr class=header>

@@ -8,6 +8,7 @@ class VerifyAddPatient extends CI_Controller {
  {
    parent::__construct();
    $this->load->model('patient','',TRUE);
+   $this->load->model('user','',TRUE);
  }
 
  function index()
@@ -86,10 +87,13 @@ class VerifyAddPatient extends CI_Controller {
 				$id = $idyr."-".$idnum;
 				$date = date("Y-m-d");
 
+				$userID = $this->user->getUserID($session_data['username']);
+				$userid = $userID['userID'];
+
 				//$id = '14-00003';
 			
 				//echo "$id, $fname, $mname, $lname, $houseno, $street, $brgy, $city, $province, $sex, $bdate, $age, $deceased";
-				$this->patient->addPatient($id, $fname, $mname, $lname, $houseno, $street, $brgy, $city, $province, $sex, $bdate, $age, $deceased, "Oral Diagnosis", "Pending", "Open", $date);
+				$this->patient->addPatient($id, $fname, $mname, $lname, $houseno, $street, $brgy, $city, $province, $sex, $bdate, $age, $deceased, "Oral Diagnosis", $userid, "Open", $date);
 
 				$data = $this->patient->getPatient($id);
 				
@@ -113,10 +117,10 @@ class VerifyAddPatient extends CI_Controller {
 				$data['gender'] = $sex;
 				$data['age'] = $age;*/
 
-				$this->patient->addStudentTask($id, "Oral Diagnosis");
+				//$this->patient->addStudentTask($id, "Oral Diagnosis");
 
-				redirect('/home');
-				//redirect('/loaddashboard/patientdb/'.$id);
+				//redirect('/home');
+				redirect('/loaddashboard/patientdb/'.$id);
 				
 		   	}
 		}

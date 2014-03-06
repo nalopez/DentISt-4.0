@@ -112,6 +112,17 @@ function index(){
 				$id = $session_data['id'];
 
 				$this->session->unset_userdata('has_error');
+
+				$userID222 = $session_data['username'];
+				$userID22 = $this->user->getUserID($userID222);
+				$userID2 = $userID22['$userID'];
+				$date = date("Y-m-d");
+
+				if($this->patient->hasConfind($id)) $this->user->addAuditTrail($userID2, 'UPDATE', 'Patient Information', $id, $date);
+				else $this->user->addAuditTrail($userID2, 'INSERT', 'Patient Information', $id, $date);
+		
+
+
 				$this->patient->addPatientInfo_tab1($id, $civstat, $phone, $edattain, $occupation, $ptnicoe, $ptnicoenum, $hopi, $gait, $appear, $dfcts, $bp, $pr, $rr, $temp, $wt);
 
 				$session_data2 = $this->session->userdata('current_patient');
@@ -119,12 +130,13 @@ function index(){
 				$id = $session_data2['id'];
 
 				$username = $session_data3['username'];
-				$info = $this->user->getUserInfo3($username);
+				$info = $this->user->getUserID($username);
 
-				foreach($info as $row2){
+				/*foreach($info as $row2){
 					$name = $row2['userFName']." ".substr($row2['userMName'], 0, 1).". ".$row2['userLName']; 
-				}
+				}*/
 				
+				$userID = $info['userID'];
 
 				$date = date("Y-m-d");
 				$status = "Pending";
@@ -132,7 +144,7 @@ function index(){
 
 				//echo "$id, $name, $date, $status, $approver";
 
-				$this->patient->addPatientInformationVersion($id, $name, $date, $status, $approver);
+				$this->patient->addPatientInformationVersion($id, $userID, $date, $status, $approver);
 
 				redirect('/loaddashboard/patientdb/'.$id.'/');
 				
@@ -180,10 +192,6 @@ function index(){
 		}
 		elseif(preg_match("/^([-a-z_ ])+$/i", $ptnicoe_entry)){
 			$this->form_validation->set_message('alpha_dash_space', 'Person to notify in case of emergency phone field only accepts a numeric entry');
-			return false;
-		}
-		elseif(preg_match("/^([-a-z_ ])+$/i", $bp_entry)){
-			$this->form_validation->set_message('alpha_dash_space', 'Blood pressure field only accepts a numeric entry');
 			return false;
 		}
 		elseif(preg_match("/^([-a-z_ ])+$/i", $pr_entry)){

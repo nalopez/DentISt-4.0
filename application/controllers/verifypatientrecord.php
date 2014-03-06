@@ -17,9 +17,9 @@ $this->load->model('user','',TRUE);
 	if($this->session->userdata('logged_in'))
    	{
 		$bool = false;
-			$sec = $session_data['section'];
-			foreach($sec as $row){
-				if($row == "Oral Diagnosis"){
+			$role = $session_data['role'];
+			foreach($role as $row){
+				if($row == "Faculty"){
 					$bool = true;
 					break;
 				}
@@ -94,22 +94,51 @@ $this->load->model('user','',TRUE);
 					$section = $row['section7'];
 					$currsection = $row['currentsection7'];
 				}
+	
+				$inform = $this->patient->getPatientDashboardStatus2($patientid);
+				$stats = "";
+				if($inform){
+				foreach($inform as $row){
+					$stats = $row['updateStatus7'];
+				}}
+
+				$stsx = $this->patient->getRemarkStatus($patientid);
+				$statxs = "";
+				if($inform){
+				foreach($stsx as $row){
+					$statxs = $row['remarkStatus'];
+				}}
 
 				if($decision == "Approved"){
 					if($this->patient->hasTempRecord($patientid)){
+						$this->patient->deleteStudentTask($patientid);
 						$this->patient->updatePatientTemporary($studentid, $facultyid, $patientid, $decision, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan);
 						$this->patient->updatePatient($patientid, $section, $facultyid, $decision);
+						$this->patient->setApproved($patientid, $facultyid);
 					}
-					else{		
+					/*elseif($statxs = 'Pending' && $stats = 'Rejected'){
+						$this->patient->updatePatientRejected2($studentid, $facultyid, $patientid, $decision, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan);
+						$this->patient->updatePatient($patientid, $section, $facultyid, $decision);
+						$this->patient->deleteStudentTask($patientid);
+					}*/
+					else{
+						$this->patient->deleteStudentTask($patientid);		
 						$this->patient->updatePatient($patientid, $section, $facultyid, $decision);
 						$this->patient->addRemark($studentid, $facultyid, $patientid, $decision, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan);
+						$this->patient->setApproved($patientid, $facultyid);
 					}
 				}
 				elseif($decision == "Temporary"){
 					if($this->patient->hasTempRecord($patientid)){
+						$this->patient->deleteStudentTask($patientid);
 						$this->patient->updatePatientTemporary($studentid, $facultyid, $patientid, $decision, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan);
 						$this->patient->updatePatientApprover($patientid, $facultyid);
 					}
+					/*elseif($statxs = 'Pending' && $stats = 'Rejected'){
+						$this->patient->updatePatientRejected2($studentid, $facultyid, $patientid, $decision, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan);
+						$this->patient->updatePatient($patientid, $section, $facultyid, $decision);
+						$this->patient->deleteStudentTask($patientid);
+					}*/
 					else{ 
 						$this->patient->addRemark($studentid, $facultyid, $patientid, $decision, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan);
 						$this->patient->updatePatientApprover($patientid, $facultyid);
@@ -117,11 +146,20 @@ $this->load->model('user','',TRUE);
 				}
 				elseif($decision == "Rejected"){
 					if($this->patient->hasTempRecord($patientid)){
+						echo "hasTempRecord";
+						$this->patient->deleteStudentTask($patientid);
 						$this->patient->updatePatientTemporary($studentid, $facultyid, $patientid, $decision, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan);
 						$this->patient->updatePatientApprover($patientid, $facultyid);
 						$this->patient->updatePatientRejected($patientid, $studentid, $decision, $currsection, $section);
 					}
+					/*elseif($statxs = 'Pending' && $stats = 'Rejected'){
+						$this->patient->updatePatientRejected2($studentid, $facultyid, $patientid, $decision, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan);
+						$this->patient->updatePatient($patientid, $section, $facultyid, $decision);
+						$this->patient->deleteStudentTask($patientid);
+					}*/
 					else{
+						echo "noTempRecord";
+						$this->patient->deleteStudentTask($patientid);
 						$this->patient->addRemark($studentid, $facultyid, $patientid, $decision, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan);
 						$this->patient->updatePatientApprover($patientid, $facultyid);
 						$this->patient->updatePatientRejected($patientid, $studentid, $decision, $currsection, $section);

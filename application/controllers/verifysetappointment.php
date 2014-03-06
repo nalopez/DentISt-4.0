@@ -27,36 +27,51 @@ class VerifySetAppointment extends CI_Controller {
  
 			if($bool){
 		//This method will have the credentials validation
-	   	/*$this->load->library('form_validation');
-
-		$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('firstname', 'First Name', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('midname', 'Middle Name', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('role', 'Role', 'trim|required|xss_clean|callback_check_role');
-		$this->form_validation->set_rules('section', 'Section', 'trim|required|xss_clean');
-	   	$this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean|callback_check_username');
-	   	$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('password2', 'Retype Password', 'trim|required|xss_clean|callback_check_password');
-
-		if($this->form_validation->run() == FALSE)
-	 	{
-	     		$this->load->view('adduser_view');
-	   	}
-	   	else
-	   	{*/
+	   	
+	   	//else
+	   	//{
 	     		//Go to private area
-			$id = $this->input->post('id');
+			$id = $this->input->post('id'); 
 			$button = $this->input->post('buttonx');
 			$user = $this->input->post('user');
 			if($button == "sas")
 			{
-				$dateappointment = $this->input->post('appntmntdate');
+
+				$this->load->library('form_validation');
+				$this->form_validation->set_rules('appntmntdate', 'Appointment Date', 'trim|required|xss_clean');
+
+				if($this->form_validation->run() == FALSE)
+			 	{
+			     		if(form_error('appntmntdate')) $message = form_error('appntmntdate');
+					$data = array(
+					'appntmntdate' => $this->input->post('appntmntdate'),
+					'error' => $message,
+					'invalid_input' => true);			
+
+				$session_data = $this->session->userdata('current_patient');
+				$id = $session_data['id'];
+
+			       	$this->session->set_userdata('has_error', $data);
+
+		     		redirect('/setappointment/patient/'.$id.'/');
+			   	}
+				else{
+					$dateappointment = $this->input->post('appntmntdate');
+
+				//echo "Id=$id";
+					
+					if($this->patient->hasAppointment($id)){
+						$this->patient->updateAppointment($id, $user, $dateappointment);
+					}
+					else $this->patient->setAppointment($id, $user, $dateappointment);
+					redirect('loaddashboard/patientdb/'.$id);
+				}
 				//echo "$id, $user, $dateappointment";
-				$this->patient->setAppointment($id, $user, $dateappointment);
-			}
+				
+			}else{
 			
 				redirect('loaddashboard/patientdb/'.$id);
-	   	//}
+	   		}	
 		}
 		else{
 			redirect('home', 'refresh');

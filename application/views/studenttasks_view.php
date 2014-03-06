@@ -21,13 +21,13 @@
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 
    <title>Add User - Oral Diagnosis</title>
-	
+<link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">	
  </head>
 
  <body>
   
 <div class="maindiv">	
-<div align="left"><br><a href="<?php echo base_url();?>index.php/home"> Go Back </a></div><br>
+<div align="left" style="left: 10%;"><br><a href="<?php echo base_url();?>index.php/home"> Go Back </a></div><br>
 
 	<table frame="box" class="frame" style="width:80%; left:10%; text-align: center;">
 		<tr class="header">
@@ -35,8 +35,8 @@
 		</tr>
 		<tr>
 			<td><br>
-			<td><br> Tasks
-			<td><br> Patient Name
+			<td><br> <b>Tasks</b>
+			<td><br> <b>Patient Name</b>
 		</tr>
 		<?php if($info){
 				$count = sizeof($info);
@@ -56,6 +56,7 @@
 					$ctr++;
 				}
 			}
+			else echo "<tr><td colspan='3'> No results found.";
 		?>
 		
 	</table><br>

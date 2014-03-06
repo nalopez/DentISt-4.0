@@ -8,7 +8,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
  <head>
    <title>Users - System Administrator </title>
-
+<link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">
 	<script type="text/javascript">
 		function confirmDelete(choice){
 			alert("choice: "+choice);

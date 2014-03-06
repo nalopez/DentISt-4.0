@@ -24,6 +24,11 @@ class VerifyLogin extends CI_Controller {
    else
    {
      //Go to private area
+		$username = $this->input->post('username');
+		$idd = $this->user->getUserID($username);
+		$id = $idd['userID'];
+
+		$this->user->addAuditTrail($id, 'Login', 'Users', '', $date);
 	redirect('home', 'refresh');
 	
    }
@@ -53,7 +58,7 @@ class VerifyLogin extends CI_Controller {
 	$role = $user_role;
 	$section = $user_sec;
 
-}
+	}
    if($result)
    {
      $sess_array = array();

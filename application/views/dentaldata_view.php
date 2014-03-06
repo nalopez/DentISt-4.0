@@ -14,8 +14,8 @@
 	<script src="<?php echo base_url(); ?>js/jquery-1.9.1.js"></script>
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 
-   <title>Add User - Oral Diagnosis</title>
-	
+   <title>Dental Data - Oral Diagnosis</title>
+<link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">	
 <script type="text/javascript">
 	
 	
@@ -54,10 +54,10 @@
 ?>
  <body>
   
-<div class="maindiv" style="border:0px;">
+<div class="maindiv">
 	<?php include('patient_header.php'); ?>
 
-<div id="Content_Area" style="border: solid 1px #7F00FF;">
+<div id="Content_Area">
 
 	<form id="ADDDENTALDATA" name="ADDDENTALDATA" action="<?php echo base_url();?>index.php/verifyadddentaldata" method="post">
 
@@ -68,29 +68,29 @@
      		echo $session_data['error'];
 	?>
 </div>
-
+<div style="position: relative; text-align:right; color: red; right: 5%;"><i>* means required</i></div>
 		<table frame="box" class="frame">
 		<tr class=header>
 			<td colspan=2>Dental History
 		</tr>
 		<tr>
-			<td>Date of last visit:
+			<td>Date of last visit: <font color='red'>*</font>
 			<td><input type="text" class="datepicker" name="dolv" id="dolv" value="<?php if($invalid_input) echo $session_data2['dolv']; elseif($recordexist == true) echo $dolv; ?>">
 		</tr>
 		<tr>
-			<td>Procedures done on last visit:
+			<td>Procedures done on last visit: <font color='red'>*</font>
 			<td><input type="text" name="pdolv" id="pdolv" value="<?php if($invalid_input) echo $session_data2['pdolv']; elseif($recordexist == true) echo $pdolv; ?>">
 		</tr>
 		<tr>
-			<td>Frequency of dental visit:
+			<td>Frequency of dental visit: <font color='red'>*</font>
 			<td><input type="text" name="fodv" value="<?php if($invalid_input) echo $session_data2['fodv']; elseif($recordexist == true) echo $fodv; ?>">
 		</tr>
 		<tr>
-			<td>Exposure or response to local anesthesia</td>
+			<td>Exposure or response to local anesthesia <font color='red'>*</font></td>
 			<td><input type="text" name="eortle" value="<?php if($invalid_input) echo $session_data2['eortle']; elseif($recordexist == true) echo $eortle; ?>">
 		</tr>
 		<tr>
-			<td>Complications during and or after dental procedure</td>
+			<td>Complications during and or after dental procedure <font color='red'>*</font></td>
 			<td><input type="text" name="cdaoadp" value="<?php if($invalid_input) echo $session_data2['cdaoadp']; else if($recordexist == true) echo $cdaoadp; ?>">
 		</tr>
 		</table><br>
@@ -100,37 +100,37 @@
 				<td colspan=4>Soft Tissue Examination
 			</tr>
 			<tr>
-				<td>Head, neck and TMJ
+				<td>Head, neck and TMJ <font color='red'>*</font>
 				<td><textarea id="hntd" name="hntd" cols=30><?php if($invalid_input) echo $session_data2['hntd']; elseif($recordexist == true) echo $hnt; ?></textarea>
-				<td>Lips/Frenum
+				<td>Lips/Frenum <font color='red'>*</font>
 				<td><textarea id="lfnd" name="lfnd" cols=30><?php if($invalid_input) echo $session_data2['lfnd']; elseif($recordexist == true) echo $lfn; ?></textarea>
 			</tr>
 			<tr>
-				<td>Mucosa
+				<td>Mucosa<font color='red'>*</font>
 				<td><textarea id="mucd" name="mucd" cols=30><?php if($invalid_input) echo $session_data2['mucd']; elseif($recordexist == true) echo $muc; ?></textarea>
-				<td>Palate
+				<td>Palate <font color='red'>*</font>
 				<td><textarea id="pltd" name="pltd" cols=30><?php if($invalid_input) echo $session_data2['pltd']; elseif($recordexist == true) echo $plt; ?></textarea>
 			</tr>
 			<tr>
-				<td>Pharynx
+				<td>Pharynx <font color='red'>*</font>
 				<td><textarea id="prxd" name="prxd" cols=30><?php if($invalid_input) echo $session_data2['prxd']; elseif($recordexist == true) echo $prx; ?></textarea>
-				<td>Floor of the mouth
+				<td>Floor of the mouth <font color='red'>*</font>
 				<td><textarea id="ftmd" name="ftmd" cols=30><?php if($invalid_input) echo $session_data2['ftmd']; elseif($recordexist == true) echo $ftm; ?></textarea>
 			</tr>
 			<tr>
-				<td>Tongue
+				<td>Tongue <font color='red'>*</font>
 				<td><textarea id="tngd" name="tngd" cols=30><?php if($invalid_input) echo $session_data2['tngd']; elseif($recordexist == true) echo $tng; ?></textarea>
-				<td>Lymph nodes
+				<td>Lymph nodes <font color='red'>*</font>
 				<td><textarea id="lymd" name="lymd" cols=30><?php if($invalid_input) echo $session_data2['lymd']; elseif($recordexist == true) echo $lym; ?></textarea>
 			</tr>
 			<tr>
-				<td>Salivary Gland
+				<td>Salivary Gland <font color='red'>*</font>
 				<td><textarea id="sald" name="sald" cols=30><?php if($invalid_input) echo $session_data2['sald']; elseif($recordexist == true) echo $sal; ?></textarea>
-				<td>Thyroid
+				<td>Thyroid <font color='red'>*</font>
 				<td><textarea id="thyd" name="thyd" cols=30><?php if($invalid_input) echo $session_data2['thyd']; elseif($recordexist == true) echo $thy; ?></textarea>
 			</tr>
 			<tr>
-				<td>Gingiva
+				<td>Gingiva <font color='red'>*</font>
 				<td><textarea id="ggvd" name="ggvd" cols=30><?php if($invalid_input) echo $session_data2['ggvd']; elseif($recordexist == true) echo $ggv; ?></textarea>
 			</tr>
 		</table><br><br>

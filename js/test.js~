@@ -1,0 +1,59 @@
+function sayhi(){
+alert("hi");
+}
+
+function drawCompletedenture1(ctx31, ctx60, x1, y1) {
+
+	alert("hi");
+
+	if(document.getElementById('completedenture').checked == true) {
+		
+		var width1 = 70;
+		var width2 = 31;
+		
+		var space1 = 5;
+		var space2 = 60;
+		var space3 = 75;
+		
+		var lineX1 = 40;
+		var lineY1 = 40;
+		var lineX2 = 90;
+		var lineY2 = 90;
+		
+		var verticalSpace = 120;
+		var counter1 = 0;
+		var counter2 = 0;
+		
+		//for loop starts drawing teeth!
+		for (counter1=0; counter1<16; counter1++) {
+			ctx31.beginPath();
+			ctx31.lineWidth="1.5";
+			ctx31.arc(x1,y1+verticalSpace,width1/2,0,Math.PI*2,false);
+			ctx31.closePath();
+			ctx31.fillStyle = "#ffcc00";
+			ctx31.fill();
+			
+			ctx60.beginPath();
+			ctx60.arc(x1,y1+verticalSpace,14,0,Math.PI*2,false);
+			ctx60.closePath();		
+			ctx60.fillStyle="#ffcc00";
+			ctx60.fill();
+			
+			ctx31.arc(x1,y1,width1/2,0,Math.PI*2,false);
+			ctx31.closePath();
+			ctx31.fill();
+			
+			ctx60.arc(x1,y1,14,0,Math.PI*2,false);
+			ctx60.closePath();		
+			ctx60.fillStyle="#FF1493";
+			ctx60.fill();
+	
+			x1 = x1 + width1 + space1;
+			
+		}
+	}
+	else if(document.getElementById('completedenture').checked == false){
+		ctx31.clearRect(0,0,1260,250);
+		ctx60.clearRect(0,0,1260,250);
+	}
+}

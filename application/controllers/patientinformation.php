@@ -6,6 +6,7 @@ class PatientInformation extends CI_Controller {
  {
    parent::__construct();
 	$this->load->model('patient','',TRUE);
+	$this->load->model('user','',TRUE);
  }
 
 	function patient(){
@@ -15,7 +16,7 @@ class PatientInformation extends CI_Controller {
 			$bool = false;
 			$sec = $session_data['section'];
 			foreach($sec as $row){
-				if($row == "Oral Diagnosis"){
+				if($row != "System Maintenance"){
 					$bool = true;
 					break;
 				}
@@ -26,7 +27,7 @@ class PatientInformation extends CI_Controller {
 				$version = "";
 			
 				if($this->uri->segment(4) == ""){
-					$ver = $this->patient->getLatest($id);
+					$ver = $this->patient->getLatest1($id);
 					foreach($ver as $row){
 						$version = $row['patientinfoID'];
 					}
@@ -46,13 +47,25 @@ class PatientInformation extends CI_Controller {
 				/*foreach($ver as $row){
 					$version = $row['patientinfoID'];
 				}*/
+				$userID222 = $session_data['username'];
+				$userID22 = $this->user->getUserID($userID222);
+				$userID2 = $userID22['$userID'];
+				$date = date("Y-m-d");
+
 				if($this->patient->hasPatientInfo($id)){
 					$data['info'] = $this->patient->getPatientInfoPatientInfo($id);
 					$data['recordexist'] = true;
 				}
 
 				//print_r($data['info']);
-				$this->load->view('patientinformation_view', $data);
+				if($this->patient->isLatestForApproval1($id)){
+					$this->user->addAuditTrail($userID2, 'SELECT', 'Patient Information', $id, $date);
+					redirect('patientinformation/view/'.$id);
+				}else{
+					$this->user->addAuditTrail($userID2, 'SELECT', 'Patient Information', $id, $date);
+					$this->load->view('patientinformation_view', $data);
+				}
+
 			}
 			else
 				redirect('home', 'refresh');
@@ -72,7 +85,7 @@ class PatientInformation extends CI_Controller {
 			$bool = false;
 			$sec = $session_data['section'];
 			foreach($sec as $row){
-				if($row == "Oral Diagnosis"){
+				if($row != "System Maintenance"){
 					$bool = true;
 					break;
 				}
@@ -83,7 +96,7 @@ class PatientInformation extends CI_Controller {
 				$version = "";
 			
 				if($this->uri->segment(4) == ""){
-					$ver = $this->patient->getLatest($id);
+					$ver = $this->patient->getLatest1($id);
 					foreach($ver as $row){
 						$version = $row['patientinfoID'];
 					}
@@ -108,7 +121,12 @@ class PatientInformation extends CI_Controller {
 					$data['recordexist'] = true;
 				}
 
+				$data['forapproval'] = false;
 				//print_r($data['info']);
+				if($this->patient->isLatestForApproval1($id)){
+					$data['forapproval'] = true;
+				}
+
 				$this->load->view('patientinformationreadonly_view', $data);
 			}
 			else

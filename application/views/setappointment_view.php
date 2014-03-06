@@ -8,6 +8,10 @@
 
 	$session_data = $this->session->userdata('logged_in');
 	$sec = $session_data['section'];
+
+	$session_data2 = $this->session->userdata('has_error');
+	$invalid_input = $session_data2['invalid_input'];
+
 	$section = "";
 	foreach($sec as $row){
 		if($row != "System Maintenance"){
@@ -19,13 +23,12 @@
 	$uname = $session_data['username'];
 	
 	$users = $this->user->getUserID($uname);
-	foreach($users as $row){
-		$userID = $row['userID'];
-	}
+	$userID = $users['userID'];
 	
 	$name = "";
 	$usrname = $this->user->getUserInfo($userID);
 	$usersname = $usrname['userFName']." ".substr($usrname['userMName'], 0, 1).". ".$usrname['userLName'];
+
 
 	$id = $this->uri->segment(3); 
 ?>
@@ -38,15 +41,22 @@
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 
    <title>Set Appointment - <?php echo $section; ?></title>
+<link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">
 	
 <script>
-	$('appntmentdate').datepicker({
-		dateFormat: 'yy-mm-dd',
-		showAnim: 'slideDown',
-		changeMonth: true,
-		changeYear: true,
-		yearRange: '1910:2014'
-    	});
+	$(function() {
+		$('.datepicker').each(function(){
+    			$(this).datepicker({
+				dateFormat: 'yy-mm-dd',
+				showAnim: 'slideDown',
+				changeMonth: true,
+				changeYear: true,
+				yearRange: '1910:'+year,
+				minDate: 0
+			});
+		});
+
+	});
 	
 </script>
 
@@ -61,22 +71,32 @@
  <body>
 
 <form name="SETAPPOINTMENT" id="SETAPPOINTMENT" method="post" onSubmit="<?php echo base_url().'index.php/verifysetappointment';?>" action="<?php echo base_url().'index.php/verifysetappointment';?>">
-<div class="validation" style="display:<?if(validation_errors() == true) echo 'block'; else echo 'none'?>">
-   <?php echo validation_errors(); ?>
-</div>
-<div class="maindiv" style="border:0px;">
+
+<div class="maindiv">
+
 	<?php include('patient_header.php'); ?>
+
+<div class="validationexc" style="display: <?php if($this->session->userdata('has_error')) echo 'block'; else 'none' ?>;">
+   		<?php $session_data = $this->session->userdata('has_error');
+     		echo $session_data['error'];
+	?>
+</div>
+
+<?php $id = $this->uri->segment(3);  ?>
 
 <input type="hidden" name="buttonx" id="buttonx">
 <input type="hidden" name="id" id="id" value="<?php echo $id;?>">
 <input type="hidden" name="user" value="<?php echo $userID; ?>">
-	<table frame="box" class="frame" style="width: 80%;">
+
+
+<div style="position: relative; text-align:right; color: red; right: 5%;"><i>* means required</i></div>
+	<table frame="box" class="frame" style="width: 90%;">
 		<tr class="header">
 			<td colspan=2> Set Appointment
 		</tr>
 		<tr><td> &nbsp; </tr>
 		<tr>
-			<td> Date of Appointment
+			<td> Date of Appointment <font color='red'>*</font>
 			<td> <input type="text" class="datepicker" id="appntmntdate" name="appntmntdate">
 		</tr>
 		<tr><td> &nbsp; </tr>
@@ -87,7 +107,8 @@
 		<tr><td> &nbsp; </tr>
 	</table><br>
 	
-	<input type="button" name="sas" value="Save and Submit" onClick="appoint(this.name)"> &nbsp; <input type="button" name="skip" value="Skip" onClick="appoint(this.name)">
+	<input type="button" name="sas" value="Save Date" onClick="appoint(this.name)"> &nbsp; <input type="button" name="skip" value="Skip" onClick="appoint(this.name)">
+	<br><br>
 		
 </form>
 </div>

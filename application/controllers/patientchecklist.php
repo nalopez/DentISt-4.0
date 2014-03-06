@@ -6,6 +6,7 @@ class PatientChecklist extends CI_Controller {
  {
    parent::__construct();
 	$this->load->model('patient','',TRUE);
+	$this->load->model('user','',TRUE);
  }
 
 	function patient(){
@@ -15,7 +16,7 @@ class PatientChecklist extends CI_Controller {
 			$bool = false;
 			$sec = $session_data['section'];
 			foreach($sec as $row){
-				if($row == "Oral Diagnosis"){
+				if($row != "System Maintenance"){
 					$bool = true;
 					break;
 				}
@@ -26,9 +27,9 @@ class PatientChecklist extends CI_Controller {
 				$version = "";
 			
 				if($this->uri->segment(4) == ""){
-					$ver = $this->patient->getLatest($id);
+					$ver = $this->patient->getLatest2($id);
 					foreach($ver as $row){
-						$version = $row['patientinfoID'];
+						$version = $row['checklistID'];
 					}
 				}
 				else
@@ -46,13 +47,24 @@ class PatientChecklist extends CI_Controller {
 				/*foreach($ver as $row){
 					$version = $row['patientinfoID'];
 				}*/
+				$userID222 = $session_data['username'];
+				$userID22 = $this->user->getUserID($userID222);
+				$userID2 = $userID22['$userID'];
+				$date = date("Y-m-d");
+
 				if($this->patient->hasPatientChecklist($id)){
 					$data['info'] = $this->patient->getPatientInfoPatientChecklist($id);
 					$data['recordexist'] = true;
 				}
 
 				//print_r($data['info']);
-				$this->load->view('patientchecklist_view', $data);
+				if($this->patient->isLatestForApproval2($id)){
+					$this->user->addAuditTrail($userID2, 'SELECT', 'Patient Checklist', $id, $date);
+					redirect('patientchecklist/view/'.$id);
+				}else{
+					$this->user->addAuditTrail($userID2, 'SELECT', 'Patient Checklist', $id, $date);
+					$this->load->view('patientchecklist_view', $data);
+				}
 			}
 			else
 				redirect('home', 'refresh');
@@ -72,7 +84,7 @@ class PatientChecklist extends CI_Controller {
 			$bool = false;
 			$sec = $session_data['section'];
 			foreach($sec as $row){
-				if($row == "Oral Diagnosis"){
+				if($row != "System Maintenance"){
 					$bool = true;
 					break;
 				}
@@ -83,9 +95,9 @@ class PatientChecklist extends CI_Controller {
 				$version = "";
 			
 				if($this->uri->segment(4) == ""){
-					$ver = $this->patient->getLatest($id);
+					$ver = $this->patient->getLatest2($id);
 					foreach($ver as $row){
-						$version = $row['patientinfoID'];
+						$version = $row['checklistID'];
 					}
 				}
 				else
@@ -108,7 +120,17 @@ class PatientChecklist extends CI_Controller {
 					$data['recordexist'] = true;
 				}
 
+				if($this->patient->isLatestForApproval2($id)){
+					$data['forapproval'] = true;
+				}
+
 				//print_r($data['info']);
+				$userID222 = $session_data['username'];
+				$userID22 = $this->user->getUserID($userID222);
+				$userID2 = $userID22['$userID'];
+				$date = date("Y-m-d");
+
+				$this->user->addAuditTrail($userID2, 'SELECT', 'Patient Checklist', $id, $date);
 				$this->load->view('patientchecklistreadonly_view', $data);
 			}
 			else

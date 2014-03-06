@@ -1,0 +1,15 @@
+<body>
+<?php
+	echo "<link rel=\"stylesheet\" type=\"text/css\" href='".base_url()."css/style.css'>";
+	$session_data = $this->session->userdata('logged_in');
+	$username = $session_data['username'];
+	
+?>
+
+	<div align=right class="rounded" style="position: relative; background: #9400D3; height:30px; line-height:30px; padding: 7px; color: white;">
+	
+	Hello.
+	</div>
+
+	
+</body>

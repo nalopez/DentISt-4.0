@@ -17,7 +17,7 @@
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 
    <title>Dental Chart - Oral Diagnosis</title>
-
+<link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">
 <style type="text/css">
 
 </style>
@@ -199,7 +199,7 @@
 ?>
  <body>
   <br>
-<div style= "padding: 3px; position:absolute; width:100%;">
+<div style="position:absolute; border: 2px #7F00FF solid; border-top-left-radius:12px; border-top-right-radius:12px;">
 
 	<?php include('patient_header.php'); ?>
 
@@ -215,6 +215,8 @@
      		echo $session_data['error'];
 	?>
 </div>
+
+<?php if($forapproval) echo "<h4 style='color:red;' align='center'>This patient's record is currently subject for approval.</h4>"; ?>
 
 
 <div class="tempDent">
@@ -564,11 +566,11 @@ Tooth
 	<font size = "2">
 	<b>Dentures Status</b><br/>
 	<hr>
-	<input type="checkbox" name="completedenture" value="Yes" id="completedenture" onclick="drawCompletedenture(ctx1, ctx30, 65, 65)" <?php if($recordexist && $dentcomp == "Yes") echo "checked"; ?>  readonly>Complete Denture
+	<input type="checkbox" name="completedenture" value="Yes" id="completedenture" onclick="drawCompletedenture(ctx1, ctx30, 65, 65)" <?php if($recordexist && $dentcomp == "Yes") echo "checked"; ?>  disabled>Complete Denture
 	<br/><br/>
 	<u> Single Denture </u><br/>
-	<input type="checkbox" name="singledenture[]" value="upper" id="upperdenture" onclick="drawUpperDenture(ctx2, ctx31, 65, 65)" <?php if($recordexist && $dentup == "Yes") echo "checked"; ?>  readonly>Upper Single Denture <br/>
-	<input type="checkbox" name="singledenture[]" value="lower" id="lowerdenture" onclick="drawLowerDenture(ctx3, ctx32, 65, 65)" <?php if($recordexist && $dentlow == "Yes") echo "checked"; ?> readonly >Lower Single Denture <br/>
+	<input type="checkbox" name="singledenture[]" value="upper" id="upperdenture" onclick="drawUpperDenture(ctx2, ctx31, 65, 65)" <?php if($recordexist && $dentup == "Yes") echo "checked"; ?>  disabled>Upper Single Denture <br/>
+	<input type="checkbox" name="singledenture[]" value="lower" id="lowerdenture" onclick="drawLowerDenture(ctx3, ctx32, 65, 65)" <?php if($recordexist && $dentlow == "Yes") echo "checked"; ?> disabled >Lower Single Denture <br/>
 	<hr>
 	<a href = "javascript:void(0)" onclick = "document.getElementById('dentureslight').style.display='none';document.getElementById('denturesfade').style.display='none'">Done</a>
 
@@ -615,36 +617,36 @@ echo"<div id='light".$tn."' class='white_content' name='light".$tn."'>
 if($recordexist){
 	if(in_array($tn, $discaries) || in_array($tn, $mescaries) || in_array($tn, $lincaries) || in_array($tn, $buccaries) || in_array($tn, $occcaries) ||  in_array($tn, $disrecurrent) || in_array($tn,$mesrecurrent) || in_array($tn, $linrecurrent) || in_array($tn, $bucrecurrent) || in_array($tn, $occrecurrent) || in_array($tn, $disrestoration) || in_array($tn,$mesrestoration) || in_array($tn, $linrestoration) || in_array($tn, $bucrestoration) || in_array($tn, $occrestoration)) echo "checked"; }
 
-echo " readonly><b>Dental Status</b><br/>	
+echo " disabled><b>Dental Status</b><br/>	
 <div id='dentalstatussurface".$tn."' style='display:none;'><table><tr><td></td><td><input type='checkbox' name='caries' value='".$tn."' id='caries".$tn."' onclick='hideOtherCaries()' ";
 if($recordexist){
 	if(in_array($tn, $discaries) || in_array($tn, $mescaries) || in_array($tn, $lincaries) || in_array($tn, $buccaries) || in_array($tn, $occcaries)) echo "checked";
 }
 
-echo " readonly></td><td>Caries</td>	
+echo " disabled></td><td>Caries</td>	
 <td><input type='checkbox' name='recurrentcaries' value='".$tn."' id='recurrentcaries".$tn."' onclick='hideOtherReccurent()'";
 if($recordexist){
 	if(in_array($tn, $disrecurrent) || in_array($tn,$mesrecurrent) || in_array($tn, $linrecurrent) || in_array($tn, $bucrecurrent) || in_array($tn, $occrecurrent)) echo "checked";
 
 } 
 
-echo " readonly></td><td>Reccurent</td>
+echo " disabled></td><td>Reccurent</td>
 <td><input type='checkbox' name='restoration' value='".$tn."' id='restoration".$tn."' onclick='hideOtherRestoration()'";
 if($recordexist){ if(in_array($tn, $disrestoration) || in_array($tn,$mesrestoration) || in_array($tn, $linrestoration) || in_array($tn, $bucrestoration) || in_array($tn, $occrestoration)) echo "checked";
 }
-echo " readonly></td><td>Restoration</td>
+echo " disabled></td><td>Restoration</td>
 </tr>
 
 
 <tr><td>Mesial</td><td><div id='caries_surfaces".$tn."mesial' style='display:none;'><input type='checkbox' name='mesialcaries[]' value='".$tn."' id='mesial".$tn."' onclick='showvar(\"mesial\"+cariesSelectSurfaceid,mesialformid);drawConditionMini(\"caries\", \"mesial\",".$tn.") '";
 if($recordexist && in_array($tn, $mescaries)) echo "checked";
 
-echo " readonly></div></td>	
-<td><div id='mesialcariesSelectSurface".$tn."' style='display:none;'><select name='selectCariesMesial[]'  id='mesialcariesSelect".$tn."' readonly>";
-echo "<option value='".$tn."'></option>";
+echo " disabled></div></td>	
+<td><div id='mesialcariesSelectSurface".$tn."' style='display:none;'><select name='selectCariesMesial[]'  id='mesialcariesSelect".$tn."' disabled>";
+echo "<option value='".$tn."'></option><option value='restorable".$tn."' ";
 if($recordexist && in_array("restorable".$tn, $mesrescaries)) echo "selected";
 
-echo"> O </option>";
+echo"> O </option><option value='nonrestorable".$tn."' ";
 if($recordexist && in_array("nonrestorable".$tn, $mesrescaries)) echo "selected";
 
 echo "> / </option>
@@ -652,8 +654,8 @@ echo "> / </option>
 	<td><div id='recurrent_surfaces".$tn."mesial' style='display:none;'><input type='checkbox' name='mesialrecurrent[]' value='".$tn."' id='remesial".$tn."' onclick='showvar(\"mesial\"+recurrentSelectSurfaceid,remesialformid);drawConditionMini(\"recurrent\", \"mesial\",".$tn.") ' ";
 if($recordexist && in_array($tn, $mesrecurrent)) echo "checked";
 
-echo " readonly /></div></td>	 
-	<td><div id='mesialrecurrentSelectSurface".$tn."' style='display:none;'><select name='selectRecurrentMesial[]' id='mesialrecurrentSelect".$tn."' readonly>
+echo " disabled /></div></td>	 
+	<td><div id='mesialrecurrentSelectSurface".$tn."' style='display:none;'><select name='selectRecurrentMesial[]' id='mesialrecurrentSelect".$tn."' disabled>
 	<option value='".$tn."'></option><option value='restorable".$tn."' ";
 if($recordexist && in_array("restorable".$tn, $mesresrecurrent)) echo "selected";
 
@@ -666,7 +668,7 @@ echo "> / </option>
 	<td><div id='restoration_surfaces".$tn."mesial' style='display:none;'><input type='checkbox' name='mesialrestoration[]' value='".$tn."' id='restomesial".$tn."' onclick='showvar(\"mesial\"+restoreSelectSurfaceid,restomesialformid);drawConditionMini(\"restoration\", \"mesial\",".$tn.") ' ";
 if($recordexist && in_array($tn, $mesrestoration)) echo "checked";
 
-echo " readonly /></div></td><td><div id='mesialrestoreSelectSurface".$tn."' style='display:none;'><select name='selectRestorationMesial[]' id='mesialrestoreTypeSelect".$tn."' readonly >
+echo " disabled /></div></td><td><div id='mesialrestoreSelectSurface".$tn."' style='display:none;'><select name='selectRestorationMesial[]' id='mesialrestoreTypeSelect".$tn."' disabled >
 <option value='".$tn."' ></option>
 <option value='AM".$tn."' ";
 if($recordexist && in_array("AM".$tn, $mesresrestoration)) echo "selected";
@@ -691,9 +693,9 @@ echo ">TF</option>
 <tr><td>Distal</td><td><div id='caries_surfaces".$tn."distal' style='display:none;'><input type='checkbox' name='distalcaries[]' value='".$tn."' id='distal".$tn."' onclick='showvar(\"distal\"+cariesSelectSurfaceid,distalformid);drawConditionMini(\"caries\", \"distal\", ".$tn." )' ";
 if($recordexist && in_array($tn, $discaries)) echo "checked";
 
-echo " readonly /></div></td>	
+echo " disabled /></div></td>	
 <td><div id='distalcariesSelectSurface".$tn."' style='display:none;'>
-<select name='selectCariesDistal[]' id='distalcariesSelect".$tn."' readonly >
+<select name='selectCariesDistal[]' id='distalcariesSelect".$tn."' disabled >
 <option value='".$tn."'></option>
   <option value='restorable".$tn."' ";
 if($recordexist && in_array("restorable".$tn, $disrescaries)) echo "selected";
@@ -707,9 +709,9 @@ echo "> / </option>
 	<td><div id='recurrent_surfaces".$tn."distal' style='display:none;'><input type='checkbox' name='distalrecurrent[]' value='".$tn."' id='redistal".$tn."' onclick='showvar(\"distal\"+recurrentSelectSurfaceid,redistalformid);drawConditionMini(\"recurrent\", \"distal\",".$tn.") ' ";
 if($recordexist && in_array($tn, $disrecurrent)) echo "checked";
 
-echo " readonly /></div></td>	 
+echo " disabled /></div></td>	 
 	<td><div id='distalrecurrentSelectSurface".$tn."' style='display:none;'>
-	<select name='selectRecurrentDistal[]' id='distalrecurrentSelect".$tn."' readonly >
+	<select name='selectRecurrentDistal[]' id='distalrecurrentSelect".$tn."' disabled >
 	<option value='".$tn."'></option>
 	<option value='restorable".$tn."' ";
 if($recordexist && in_array("restorable".$tn, $disresrecurrent)) echo "selected";
@@ -723,7 +725,7 @@ echo "> / </option>
 	<td><div id='restoration_surfaces".$tn."distal' style='display:none;'><input type='checkbox' name='distalrestoration[]' value='".$tn."' id='restodistal".$tn."' onclick='showvar(\"distal\"+restoreSelectSurfaceid,restodistalformid);drawConditionMini(\"restoration\", \"distal\",".$tn.") ' ";
 if($recordexist && in_array($tn, $disrestoration)) echo "checked";
 
-echo " readonly /></div></td><td><div id='distalrestoreSelectSurface".$tn."' style='display:none;'><select name='selectRestorationDistal[]' id='distalrestoreTypeSelect".$tn."' readonly>
+echo " disabled /></div></td><td><div id='distalrestoreSelectSurface".$tn."' style='display:none;'><select name='selectRestorationDistal[]' id='distalrestoreTypeSelect".$tn."' disabled>
 <option value='".$tn."'></option>
 <option value='AM".$tn."' ";
 if($recordexist && in_array("AM".$tn, $disresrestoration)) echo "selected";
@@ -748,9 +750,9 @@ echo ">TF</option>
 <tr><td>Occlusal</td><td><div id='caries_surfaces".$tn."occlusal' style='display:none;'><input type='checkbox' name='occlusalcaries[]' value='".$tn."' id='occlusal".$tn."' onclick='showvar(\"occlusal\"+cariesSelectSurfaceid,occlusalformid);drawConditionMini(\"caries\", \"occlusal\",".$tn.") ' ";
 if($recordexist && in_array($tn, $occcaries)) echo "checked";
 
-echo " readonly /></div></td>	
+echo " disabled /></div></td>	
 <td><div id='occlusalcariesSelectSurface".$tn."' style='display:none;'>
-<select name='selectCariesOcclusal[]'  id='occlusalcariesSelect".$tn."' readonly >
+<select name='selectCariesOcclusal[]'  id='occlusalcariesSelect".$tn."' disabled >
 <option value='".$tn."'></option>
   <option value='restorable".$tn."' ";
 if($recordexist && in_array("restorable".$tn, $occrescaries)) echo "selected";
@@ -764,9 +766,9 @@ echo " > / </option>
 	<td><div id='recurrent_surfaces".$tn."occlusal' style='display:none;'><input type='checkbox' name='occlusalrecurrent[]' value='".$tn."' id='reocclusal".$tn."' onclick='showvar(\"occlusal\"+recurrentSelectSurfaceid,reocclusalformid);drawConditionMini(\"recurrent\", \"occlusal\",".$tn.") ' ";
 if($recordexist && in_array($tn, $occrecurrent)) echo "checked";
 
-echo " readonly /></div></td>		
+echo " disabled /></div></td>		
 	<td><div id='occlusalrecurrentSelectSurface".$tn."' style='display:none;'>
-	<select name='selectRecurrentOcclusal[]' id='occlusalrecurrentSelect".$tn."' readonly >
+	<select name='selectRecurrentOcclusal[]' id='occlusalrecurrentSelect".$tn."' disabled >
 	<option value='".$tn."'></option><option value='restorable".$tn."' ";
 if($recordexist && in_array("restorable".$tn, $occresrecurrent)) echo "selected";
 
@@ -779,7 +781,7 @@ echo "> / </option>
 	<td><div id='restoration_surfaces".$tn."occlusal' style='display:none;'><input type='checkbox' name='occlusalrestoration[]' value='".$tn."' id='restoocclusal".$tn."' onclick='showvar(\"occlusal\"+restoreSelectSurfaceid,restoocclusalformid);drawConditionMini(\"restoration\", \"occlusal\",".$tn.") ' ";
 if($recordexist && in_array($tn, $occrestoration)) echo "checked";
 
-echo " readonly /></div></td><td><div id='occlusalrestoreSelectSurface".$tn."' style='display:none;'><select name='selectRestorationOcclusal[]' id='occlusalrestoreTypeSelect".$tn."' readonly >
+echo " disabled /></div></td><td><div id='occlusalrestoreSelectSurface".$tn."' style='display:none;'><select name='selectRestorationOcclusal[]' id='occlusalrestoreTypeSelect".$tn."' disabled >
 <option value='".$tn."'></option>
 <option value='AM".$tn."' ";
 if($recordexist && in_array("AM".$tn, $occresrestoration)) echo "selected";
@@ -806,7 +808,7 @@ echo ">TF</option>
 <tr><td>Buccal</td><td><div id='caries_surfaces".$tn."buccal' style='display:none;'><input type='checkbox' name='buccalcaries[]' value='".$tn."' id='buccal".$tn."' onclick='showvar(\"buccal\"+cariesSelectSurfaceid,buccalformid);drawConditionMini(\"caries\", \"buccal\",".$tn.") '";
 if($recordexist && in_array($tn, $buccaries)) echo "checked";
 
-echo " readonly /></div></td><td><div id='buccalcariesSelectSurface".$tn."' style='display:none;'><select name='selectCariesBuccal[]' id='buccalcariesSelect".$tn."' readonly ><option value='".$tn."'></option>
+echo " disabled /></div></td><td><div id='buccalcariesSelectSurface".$tn."' style='display:none;'><select name='selectCariesBuccal[]' id='buccalcariesSelect".$tn."' disabled ><option value='".$tn."'></option>
   <option value='restorable".$tn."' ";
 if($recordexist && in_array("restorable".$tn, $bucrescaries)) echo "selected";
 
@@ -819,9 +821,9 @@ echo "> / </option>
 	<td><div id='recurrent_surfaces".$tn."buccal' style='display:none;'><input type='checkbox' name='buccalrecurrent[]' value='".$tn."' id='rebuccal".$tn."' onclick='showvar(\"buccal\"+recurrentSelectSurfaceid,rebuccalformid);drawConditionMini(\"recurrent\", \"buccal\",".$tn.") ' ";
 if($recordexist && in_array($tn, $bucrecurrent)) echo "checked";
 
-echo " readonly /></div></td>	
+echo " disabled /></div></td>	
 	<td><div id='buccalrecurrentSelectSurface".$tn."' style='display:none;'>
-	<select name='selectRecurrentBuccal[]' id='buccalrecurrentSelect".$tn."' readonly >
+	<select name='selectRecurrentBuccal[]' id='buccalrecurrentSelect".$tn."' disabled >
 	<option value='".$tn."'></option>
 	<option value='restorable".$tn."' ";
 if($recordexist && in_array("restorable".$tn, $bucresrecurrent)) echo "selected";
@@ -830,12 +832,12 @@ echo "> O </option>
 	<option value='nonrestorable".$tn."' ";
 if($recordexist && in_array("nonrestorable".$tn, $bucresrecurrent)) echo "selected";
 
-echo "readonly> / </option>
+echo "disabled> / </option>
 	</select></div></td>	
 	<td><div id='restoration_surfaces".$tn."buccal' style='display:none;'><input type='checkbox' name='buccalrestoration[]' value='".$tn."' id='restobuccal".$tn."' onclick='showvar(\"buccal\"+restoreSelectSurfaceid,restobuccalformid);drawConditionMini(\"restoration\", \"buccal\",".$tn.") ' ";
 if($recordexist && in_array($tn, $bucrestoration)) echo "checked";
 
-echo " readonly /></div></td><td><div id='buccalrestoreSelectSurface".$tn."' style='display:none;'><select name='selectRestorationBuccal[]' id='buccalrestoreTypeSelect".$tn."' readonly >
+echo " disabled /></div></td><td><div id='buccalrestoreSelectSurface".$tn."' style='display:none;'><select name='selectRestorationBuccal[]' id='buccalrestoreTypeSelect".$tn."' disabled >
 <option value='".$tn."'></option>
 <option value='AM".$tn."' ";
 if($recordexist && in_array("AM".$tn, $bucresrestoration)) echo "selected";
@@ -860,8 +862,8 @@ echo ">TF</option>
 <tr><td>Lingual</td><td><div id='caries_surfaces".$tn."lingual' style='display:none;'><input type='checkbox' name='lingualcaries[]' value='".$tn."' id='lingual".$tn."' onclick='showvar(\"lingual\"+cariesSelectSurfaceid,lingualformid);drawConditionMini(\"caries\", \"lingual\",".$tn.") ' ";
 if($recordexist && in_array($tn, $lincaries)) echo "checked";
 
-echo " readonly /></div>	</td>	
-<td><div id='lingualcariesSelectSurface".$tn."' style='display:none;'><select name='selectCariesLingual[]'  id='lingualcariesSelect".$tn."' readonly >
+echo " disabled /></div>	</td>	
+<td><div id='lingualcariesSelectSurface".$tn."' style='display:none;'><select name='selectCariesLingual[]'  id='lingualcariesSelect".$tn."' disabled >
 <option value='".$tn."'></option>
   <option value='restorable".$tn."' ";
 if($recordexist && in_array("restorable".$tn, $linrescaries)) echo "selected";
@@ -875,9 +877,9 @@ echo "> / </option>
 	<td><div id='recurrent_surfaces".$tn."lingual' style='display:none;'><input type='checkbox' name='lingualrecurrent[]' value='".$tn."' id='relingual".$tn."' onclick='showvar(\"lingual\"+recurrentSelectSurfaceid,relingualformid);drawConditionMini(\"recurrent\", \"lingual\",".$tn.") ' ";
 if($recordexist && in_array($tn, $linrecurrent)) echo "checked";
 
-echo " readonly /></div></td>		
+echo " disabled /></div></td>		
 	<td><div id='lingualrecurrentSelectSurface".$tn."' style='display:none;'>
-	<select name='selectRecurrentLingual[]' id='lingualrecurrentSelect".$tn."' readonly >
+	<select name='selectRecurrentLingual[]' id='lingualrecurrentSelect".$tn."' disabled >
 	<option value='".$tn."'></option>
 	<option value='restorable".$tn."' ";
 if($recordexist && in_array("restorable".$tn, $linresrecurrent)) echo "selected";
@@ -891,7 +893,7 @@ echo "> / </option>
 	<td><div id='restoration_surfaces".$tn."lingual' style='display:none;'><input type='checkbox' name='lingualrestoration[]' value='".$tn."' id='restolingual".$tn."' onclick='showvar(\"lingual\"+restoreSelectSurfaceid,restolingualformid);drawConditionMini(\"restoration\", \"lingual\",".$tn.") ' ";
 if($recordexist && in_array($tn, $linrestoration)) echo "checked";
 
-echo " readonly /></div></td><td><div id='lingualrestoreSelectSurface".$tn."' style='display:none;'><select name='selectRestorationLingual[]' id='lingualrestoreTypeSelect".$tn."' readonly >
+echo " disabled /></div></td><td><div id='lingualrestoreSelectSurface".$tn."' style='display:none;'><select name='selectRestorationLingual[]' id='lingualrestoreTypeSelect".$tn."' disabled >
 <option value='".$tn."'></option>
 <option value='AM".$tn."' ";
 if($recordexist && in_array("AM".$tn, $linresrestorable)) echo "selected";
@@ -916,7 +918,7 @@ echo ">TF</option>
 
 if($recordexist){if(in_array($tn, $partialdentures) || in_array($tn, $extrus) || in_array($tn, $intrus) || in_array($tn, $mesrots) || in_array($tn, $disrots) || in_array($tn, $rots) || in_array($tn, $postcores) || in_array($tn, $roots) || in_array($tn, $pits) || in_array($tn, $extras) || in_array($tn, $misss) || in_array($tn, $erups) || in_array($tn, $impacs) || in_array($tn, $porcrs) || in_array($tn, $acrcrs) || in_array($tn, $metcrs) || in_array($tn, $porins) || in_array($tn, $fixeds)) echo "checked";
 }
-echo " readonly ><b>Whole Tooth</b>
+echo " disabled ><b>Whole Tooth</b>
 <div id='all_tooth_surfaces".$tn."' style='display:none;'><table>
 
 
@@ -924,27 +926,27 @@ echo " readonly ><b>Whole Tooth</b>
 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='checkbox' name='extrusion[]' value='".$tn."' id='extrusion".$tn."' onclick='drawConditionMini2(\"extrusion\",".$tn.")' ";
 if($recordexist && in_array($tn, $extrus)) echo "checked";
 
-echo " readonly></td>
+echo " disabled></td>
 <td>Extrusion</td>
 <td><input type='checkbox' name='intrusion[]' value='".$tn."' id='intrusion".$tn."' onclick='drawConditionMini2(\"intrusion\",".$tn.")' ";
 if($recordexist && in_array($tn, $intrus)) echo "checked";
 
-echo " readonly></td>
+echo " disabled></td>
 <td>Intrusion</td>
 <td><input type='checkbox' name='mesialdrift[]' value='".$tn."' id='mesialdrift".$tn."' onclick='drawConditionMini2(\"mesialdrift\",".$tn.")' "; 
 if($recordexist && in_array($tn, $mesrots)) echo "checked";
 
-echo " readonly></td>
+echo " disabled></td>
 <td>Mesial Drift Rotation</td>
 <td><input type='checkbox' name='distaldrift[]' value='".$tn."' id='distaldrift".$tn."' onclick='drawConditionMini2(\"distaldrift\",".$tn.") '";
 if($recordexist && in_array($tn, $disrots)) echo "checked"; 
 
-echo " readonly></td>
+echo " disabled></td>
 <td>Distal Drift Rotation</td>
 <td><input type='checkbox' name='rotation[]' value='".$tn."' id='rotation".$tn."' onclick='drawConditionMini2(\"rotation\",".$tn.")' ";
 if($recordexist && in_array($tn, $rots)) echo "checked";
 
-echo " readonly></td>
+echo " disabled></td>
 <td>Rotation</td>
 </tr>
 
@@ -952,27 +954,27 @@ echo " readonly></td>
 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='checkbox' name='removablepartial[]' value='".$tn."' id='removablepartial".$tn."' onclick='drawConditionMini2(\"removablepartial\",".$tn.")' ";
 if($recordexist && in_array($tn, $partialdentures)) echo "checked";
 
-echo " readonly></td>
+echo " disabled></td>
 <td>Removable Partial Denture</td>
 <td><input type='checkbox' name='fixedbridge[]' value='".$tn."' id='fixedbridge".$tn."' onclick='drawConditionMini2(\"fixedbridge\",".$tn.")' ";
 if($recordexist && in_array($tn, $fixeds)) echo "checked";
 
-echo " readonly></td>
+echo " disabled></td>
 <td>Fixed Bridged</td>
 <td><input type='checkbox' name='rootcanal[]' value='".$tn."' id='rootcanal".$tn."' onclick='drawConditionMini2(\"rootcanal\",".$tn.")' ";
 if($recordexist && in_array($tn, $roots)) echo "checked";
 
-echo " readonly></td>
+echo " disabled></td>
 <td>Root Canal Treatment</td>
 <td><input type='checkbox' name='porcelainfused[]' value='".$tn."' id='porcelainfused".$tn."' onclick='drawConditionMini2(\"porcelainfused\",".$tn.")' ";
 if($recordexist && in_array($tn, $porins)) echo "checked";
 
-echo " readonly></td>
+echo " disabled></td>
 <td>Porcelain Fused to Metal</td>
 <td><input type='checkbox' name='pitandfissure[]' value='".$tn."' id='pitfissure".$tn."' onclick='drawConditionMini2(\"pitfissure\",".$tn.")' ";
 if($recordexist && in_array($tn, $pits)) echo "checked";
 
-echo " readonly></td>
+echo " disabled></td>
 <td>Pit and Fissure Sealants</td>
 
 </tr>
@@ -981,22 +983,22 @@ echo " readonly></td>
 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='checkbox' name='postcore[]' value='".$tn."' id='postcore".$tn."' onclick='drawConditionMini2(\"postcore\",".$tn.")' ";
 if($recordexist && in_array($tn, $postcores)) echo "checked";
 
-echo " readonly></td>
+echo " disabled></td>
 <td>Post Core Crown</td>
 <td><input type='checkbox' name='acrylic[]' value='".$tn."' id='acrylic".$tn."' onclick='drawConditionMini2(\"acrylic\",".$tn.")' ";
 if($recordexist && in_array($tn, $acrcrs)) echo "checked";
 
-echo " readonly></td>
+echo " disabled></td>
 <td>Acrylic Crown</td>
 <td><input type='checkbox' name='metal[]' value='".$tn."' id='metal".$tn."' onclick='drawConditionMini2(\"metal\",".$tn.")' ";
 if($recordexist && in_array($tn, $metcrs)) echo "checked";
 
-echo " readonly></td>
+echo " disabled></td>
 <td>Metal Crown</td>
 <td><input type='checkbox' name='porcelain[]' value='".$tn."' id='porcelain".$tn."' onclick='drawConditionMini2(\"porcelain\",".$tn.")' ";
 if($recordexist && in_array($tn, $porcrs)) echo "checked"; 
 
-echo " readonly></td>
+echo " disabled></td>
 <td>Porcelain Crown</td>
 		
 </tr>
@@ -1006,22 +1008,22 @@ echo " readonly></td>
 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='checkbox' name='extracted[]' value='".$tn."' id='extracted".$tn."' onclick='drawConditionMini2(\"extracted\",".$tn.")' ";
 if($recordexist && in_array($tn, $extras)) echo "checked";
 
-echo " readonly></td>
+echo " disabled></td>
 <td>Extracted</td>
 <td><input type='checkbox' name='missing[]' value='".$tn."' id='missing".$tn."' onclick='drawConditionMini2(\"missing\",".$tn.")' ";
 if($recordexist && in_array($tn, $misss)) echo "checked";
 
-echo " readonly></td>
+echo " disabled></td>
 <td>Missing</td>
 <td><input type='checkbox' name='unerupted[]' value='".$tn."' id='unerupted".$tn."' onclick='drawConditionMini2(\"unerupted\",".$tn.")' ";
 if($recordexist && in_array($tn, $erups)) echo "checked";
 
-echo " readonly></td>
+echo " disabled></td>
 <td>Unerupted</td>
 <td><input type='checkbox' name='impacted[]' value='".$tn."' id='impacted".$tn."' onclick='drawConditionMini2(\"impacted\",".$tn.")' ";
 if($recordexist && in_array($tn, $impacs)) echo "checked";
 
-echo " readonly></td>
+echo " disabled></td>
 <td>Impacted</td>
 </tr>
 
@@ -1042,83 +1044,83 @@ echo " readonly></td>
 		<input type='checkbox' name='class1[]' id='class1".$tn."' value='".$tn."' ";
 if($recordexist && in_array($tn, $c1)) echo "checked";
 
-echo " readonly>Class I
+echo " disabled>Class I
 		<input type='checkbox' name='class2[]' id='class2".$tn."' value='".$tn."' ";
 if($recordexist && in_array($tn, $c2)) echo "checked";
 
-echo " readonly>Class II
+echo " disabled>Class II
 		<input type='checkbox' name='class3[]' id='class3".$tn."' value='".$tn."' ";
 if($recordexist && in_array($tn, $c3)) echo "checked";
 
-echo " readonly>Class III
+echo " disabled>Class III
 		<input type='checkbox' name='class4[]' id='class4".$tn."' value='".$tn."' ";
 if($recordexist && in_array($tn, $c4)) echo "checked";
 
-echo " readonly>Class IV
+echo " disabled>Class IV
 		<input type='checkbox' name='class5[]' id='class5".$tn."' value='".$tn."' ";
 if($recordexist && in_array($tn, $c5)) echo "checked";
 
-echo " readonly>Class V
+echo " disabled>Class V
 		<input type='checkbox' name='onlay[]' id='onlay".$tn."' value='".$tn."' "; 
 if($recordexist && in_array($tn, $ol)) echo "checked";
 
-echo " readonly>Onlay
+echo " disabled>Onlay
 		<br/><br/>
 		<u> Surgery </u><br/>
 		<input type='checkbox' name='extraction[]' id='extractss".$tn."' value='".$tn."' ";
 if($recordexist && in_array($tn, $ex)) echo "checked";
 
-echo " readonly>Extraction
+echo " disabled>Extraction
 		<input type='checkbox' name='odontectomy[]' id='odontectomy".$tn."' value='".$tn."' "; 
 if($recordexist && in_array($tn, $od)) echo "checked";
 
-echo " readonly>Odontectomy
+echo " disabled>Odontectomy
 		<input type='checkbox' name='specialcase[]' id='specialcase".$tn."' value='".$tn."' ";
 if($recordexist && in_array($tn, $sc)) echo "checked";
 
-echo " readonly>Special Case
+echo " disabled>Special Case
 		<br/><br/>
 		<u> Emergency Treatment </u><br/>
 		<input type='checkbox' name='pulpsedation[]' id='pulpsedation".$tn."' value='".$tn."' ";
 if($recordexist && in_array($tn, $ps)) echo "checked";
 
-echo " readonly>Pulp Sedation
+echo " disabled>Pulp Sedation
 		<input type='checkbox' name='crownrecementation[]' id='crownrecementation".$tn."' value='".$tn."' ";
 if($recordexist && in_array($tn, $cr)) echo "checked";
 
-echo " readonly>Recementation of crowns
+echo " disabled>Recementation of crowns
 		<input type='checkbox' name='fillingservice[]' id='fillingservice".$tn."' value='".$tn."' ";
 if($recordexist && in_array($tn, $fs)) echo "checked";
 
-echo " readonly>Temporary fillings
+echo " disabled>Temporary fillings
 		<br/><br/>
 		<u> Fixed Partial Dentures </u><br/>
 		<input type='checkbox' name='laminated[]' id='laminated".$tn."' value='".$tn."' ";
 if($recordexist && in_array($tn, $la)) echo "checked";
 
-echo " readonly>Laminated
+echo " disabled>Laminated
 		<input type='checkbox' name='singlecrown[]' id='singlecrown".$tn."' value='".$tn."' ";
 if($recordexist && in_array($tn, $scr)) echo "checked";
 
-echo " readonly>Single Crown
+echo " disabled>Single Crown
 		<input type='checkbox' name='bridgeservice[]' id='bridgeservice".$tn."' value='".$tn."' ";
 if($recordexist && in_array($tn, $bs)) echo "checked"; 
 
-echo " readonly>Bridge
+echo " disabled>Bridge
 		<br/><br/>
 		<u> Endodontics </u><br/>
 		<input type='checkbox' name='anterior[]' id='anterior".$tn."' value='".$tn."' ";
 if($recordexist && in_array($tn, $ant)) echo "checked";
 
-echo " readonly>Anterior
+echo " disabled>Anterior
 		<input type='checkbox' name='posterior[]' id='posterior".$tn."' value='".$tn."' "; 
 if($recordexist && in_array($tn, $pos)) echo "checked";
 
-echo " readonly>Posterior
+echo " disabled>Posterior
 		<input type='checkbox' name='otherendodontics[]' id='otherendodontics".$tn."' value='".$tn."' ";
 if($recordexist && in_array($tn, $or)) echo "checked";
 
-echo " readonly>Others (Endosurgery, Bleaching, etc.)
+echo " disabled>Others (Endosurgery, Bleaching, etc.)
 		<br/><br/>
 		<hr>
 		<a href = 'javascript:void(0)' onclick = 'submitcond()'>Submit</a>
@@ -1136,21 +1138,21 @@ echo " readonly>Others (Endosurgery, Bleaching, etc.)
 	<b>Other Services</b><br/>
 	<hr>
 	<u>Periodontics</u><br/>
-	<input type="checkbox" name="periodontics" id="periodontics" value="Yes" <?php if($recordexist && $perio == "Yes") echo "checked"; ?>  readonly>Management of Periodontal Disease
+	<input type="checkbox" name="periodontics" id="periodontics" value="Yes" <?php if($recordexist && $perio == "Yes") echo "checked"; ?>  disabled>Management of Periodontal Disease
 	<br/><br/>
 	<u> Surgery </u><br/>
-	<input type="checkbox" name="surgery[]" id="pedodontics" value="pedodontics" <?php if($recordexist && $pedo == "Yes") echo "checked"; ?> readonly>Pedodontics <br/>
-	<input type="checkbox" name="surgery[]" id="orthodontics" value="orthodontics" <?php if($recordexist && $ortho == "Yes") echo "checked"; ?> readonly>Orthodontics
+	<input type="checkbox" name="surgery[]" id="pedodontics" value="pedodontics" <?php if($recordexist && $pedo == "Yes") echo "checked"; ?> disabled>Pedodontics <br/>
+	<input type="checkbox" name="surgery[]" id="orthodontics" value="orthodontics" <?php if($recordexist && $ortho == "Yes") echo "checked"; ?> disabled>Orthodontics
 	<br/><br/>
 	<u> Emergency Treatment </u><br/>
-	<input type="checkbox" name="emergencytreatment[]" id="acuteinfections" value="acute infections" <?php if($recordexist && $acute == "Yes") echo "checked"; ?> readonly>Management of Acute Infections <br/>
-	<input type="checkbox" name="emergencytreatment[]" id="traumaticinjuries" value="traumatic injuries" <?php if($recordexist && $traumatic == "Yes") echo "checked"; ?> readonly>Management of Temporary Injuries
+	<input type="checkbox" name="emergencytreatment[]" id="acuteinfections" value="acute infections" <?php if($recordexist && $acute == "Yes") echo "checked"; ?> disabled>Management of Acute Infections <br/>
+	<input type="checkbox" name="emergencytreatment[]" id="traumaticinjuries" value="traumatic injuries" <?php if($recordexist && $traumatic == "Yes") echo "checked"; ?> disabled>Management of Temporary Injuries
 	<br/><br/>
 	<u> Prosthodontics </u><br/>
-	<input type="checkbox" name="prosthodontics[]" id="completedent" value="complete denture" <?php if($recordexist && $compdent == "Yes") echo "checked"; ?> readonly>Complete Denture<br/>
-	<input type="checkbox" name="prosthodontics[]" id="singledent" value="single denture" <?php if($recordexist && $singdent == "Yes") echo "checked"; ?> readonly>Single Denture<br/>
-	<input type="checkbox" name="prosthodontics[]" id="removedent" value="removable partial" <?php if($recordexist && $rempardent == "Yes") echo "checked"; ?> readonly>Removable Partial Denture<br/>
-	<input type="checkbox" name="prosthodontics[]" id="otherss" value="others" <?php if($recordexist && $othdent == "Yes") echo "checked"; ?> readonly>Other Denture Services
+	<input type="checkbox" name="prosthodontics[]" id="completedent" value="complete denture" <?php if($recordexist && $compdent == "Yes") echo "checked"; ?> disabled>Complete Denture<br/>
+	<input type="checkbox" name="prosthodontics[]" id="singledent" value="single denture" <?php if($recordexist && $singdent == "Yes") echo "checked"; ?> disabled>Single Denture<br/>
+	<input type="checkbox" name="prosthodontics[]" id="removedent" value="removable partial" <?php if($recordexist && $rempardent == "Yes") echo "checked"; ?> disabled>Removable Partial Denture<br/>
+	<input type="checkbox" name="prosthodontics[]" id="otherss" value="others" <?php if($recordexist && $othdent == "Yes") echo "checked"; ?> disabled>Other Denture Services
 	<br/><br/>
 	<hr>
 	<a href = "javascript:void(0)" onclick = "document.getElementById('serviceslight').style.display='none';document.getElementById('servicesfade').style.display='none'">Done</a>

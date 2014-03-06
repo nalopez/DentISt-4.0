@@ -6,6 +6,7 @@ class TreatmentPlan extends CI_Controller {
  {
    parent::__construct();
 	$this->load->model('patient','',TRUE);
+	$this->load->model('user','',TRUE);
  }
 
 	function patient(){
@@ -15,7 +16,7 @@ class TreatmentPlan extends CI_Controller {
 			$bool = false;
 			$sec = $session_data['section'];
 			foreach($sec as $row){
-				if($row == "Oral Diagnosis"){
+				if($row != "System Maintenance"){
 					$bool = true;
 					break;
 				}
@@ -26,9 +27,9 @@ class TreatmentPlan extends CI_Controller {
 				$version = "";
 			
 				if($this->uri->segment(4) == ""){
-					$ver = $this->patient->getLatest($id);
+					$ver = $this->patient->getLatest6($id);
 					foreach($ver as $row){
-						$version = $row['patientinfoID'];
+						$version = $row['treatmentplanID'];
 					}
 				}
 				else
@@ -46,13 +47,24 @@ class TreatmentPlan extends CI_Controller {
 				/*foreach($ver as $row){
 					$version = $row['patientinfoID'];
 				}*/
+				$userID222 = $session_data['username'];
+				$userID22 = $this->user->getUserID($userID222);
+				$userID2 = $userID22['$userID'];
+				$date = date("Y-m-d");
+
 				if($this->patient->hasTreatmentPlan($id)){
 					$data['info'] = $this->patient->getPatientInfoTreatmentPlan($id);
 					$data['recordexist'] = true;
 				}
 
 				//print_r($data['info']);
-				$this->load->view('treatmentplan_view', $data);
+				if($this->patient->isLatestForApproval6($id)){
+					$this->user->addAuditTrail($userID2, 'SELECT', 'Treatment Plan', $id, $date);
+					redirect('treatmentplan/view/'.$id);
+				}else{
+					$this->user->addAuditTrail($userID2, 'SELECT', 'Treatment Plan', $id, $date);
+					$this->load->view('treatmentplan_view', $data);
+				}
 			}
 			else
 				redirect('home', 'refresh');
@@ -72,7 +84,7 @@ class TreatmentPlan extends CI_Controller {
 			$bool = false;
 			$sec = $session_data['section'];
 			foreach($sec as $row){
-				if($row == "Oral Diagnosis"){
+				if($row != "System Maintenance"){
 					$bool = true;
 					break;
 				}
@@ -83,9 +95,9 @@ class TreatmentPlan extends CI_Controller {
 				$version = "";
 			
 				if($this->uri->segment(4) == ""){
-					$ver = $this->patient->getLatest($id);
+					$ver = $this->patient->getLatest6($id);
 					foreach($ver as $row){
-						$version = $row['patientinfoID'];
+						$version = $row['treatmentplanID'];
 					}
 				}
 				else
@@ -103,12 +115,25 @@ class TreatmentPlan extends CI_Controller {
 				/*foreach($ver as $row){
 					$version = $row['patientinfoID'];
 				}*/
+
+				$userID222 = $session_data['username'];
+				$userID22 = $this->user->getUserID($userID222);
+				$userID2 = $userID22['$userID'];
+				$date = date("Y-m-d");
+
 				if($this->patient->hasTreatmentPlan($id)){
 					$data['info'] = $this->patient->getPatientInfoTreatmentPlanRO($id, $version);
 					$data['recordexist'] = true;
 				}
 
 				//print_r($data['info']);
+
+				if($this->patient->isLatestForApproval6($id)){
+					$data['forapproval'] = true;
+				}
+
+				$this->user->addAuditTrail($userID2, 'SELECT', 'Treatment Plan', $id, $date);
+
 				$this->load->view('treatmentplanreadonly_view', $data);
 			}
 			else

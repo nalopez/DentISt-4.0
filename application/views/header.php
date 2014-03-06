@@ -7,7 +7,9 @@
 ?>
 
 	<?php echo "<img src='".base_url()."images/upcd.png' style='position: absolute' height='95px'><br>"; ?>
-
+<link href="<?php echo base_url(); ?>css/ui-lightness/jquery-ui-1.10.3.custom.css" rel="stylesheet">
+	<script src="<?php echo base_url(); ?>js/jquery-1.9.1.js"></script>
+	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 	<div align=right class="rounded" style="width: 98%; background: #9400D3; height:30px; line-height:30px; padding: 7px; color: white;">
 	<?php
 

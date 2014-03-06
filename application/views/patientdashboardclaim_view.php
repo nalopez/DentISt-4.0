@@ -15,7 +15,7 @@
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 
    <title>Patient Dashboard - Oral Diagnosis</title>
-	
+<link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">
 <script type="text/javascript">
 	function visibility(element){
 		if(element == "patientinfocb"){
@@ -90,7 +90,7 @@
 <div class="validation" style="display:<?if(validation_errors() == true) echo 'block'; else echo 'none'?>">
    <?php echo validation_errors(); ?>
 </div>
-<div class="maindiv" style="border:0px;">
+<div class="maindiv">
 	<?php include('patient_header.php'); ?>
 
 	<?php 
@@ -111,14 +111,14 @@
 		<h3><a href="<?php echo base_url(); ?>index.php/dentaldata/view/<?php echo $id; ?>"> Dental Data </a></h3>
 		<h3><a href="<?php echo base_url(); ?>index.php/dentalchart/view/<?php echo $id; ?>"> Dental Status Chart </a></h3>
 		<h3><a href="<?php echo base_url(); ?>index.php/treatmentplan/view/<?php echo $id; ?>"> Treatment Plan </a></h3>
-		<?php if($sect == "Oral Medicine"){
-		echo "<h3><a href='".base_url()."index.php/servicesrendered/view/$id'> Services Rendered </a></h3>";
-		echo "<h3><a href='".base_url()."index.php/conandfind/view/$id'> Consultation and Findings </a></h3>";
-} ?>
+		<h3><a href="<?php echo base_url(); ?>index.php/radiographicexam/view/<?php echo $id;?>"> Radiographic Examination </a></h3>
+		<h3><a href="<?php echo base_url(); ?>index.php/servicesrendered/view/<?php echo $id;?>"> Services Rendered </a></h3>
+		<h3><a href="<?php echo base_url(); ?>index.php/consultationandfindings/view/<?php echo $id; ?>"> Consultation and Findings </a></h3>
 <br>
 		<!-- action="<?php //echo base_url().'index.php/verifypatientrecord';?>" -->
 
-		<form id="CLAIMPATIENTDB" method="post" action="<?php if($sect != 'Oral Diagnosis') echo base_url().'index.php/setappointment'; else echo base_url().'index.php/loaddashboard/clmptnt/'.$id; ?>">
+		<form id="CLAIMPATIENTDB" method="post" action="
+		<?php if($sect != 'Oral Diagnosis') echo base_url().'index.php/setappointment/patient/'.$id; else echo base_url().'index.php/loaddashboard/clmptnt/'.$id; ?>">
 		<input type="hidden" name="id" name="id" value="<?php echo $id;?>">
 		
 			<br>

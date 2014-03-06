@@ -23,7 +23,7 @@
 		} ?>
 
    <title>Patient Dashboard - <?php echo $sect; ?></title>
-	
+<link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">	
 <script type="text/javascript">
 	function clearpatient(){
 		var conf = confirm("Clear this patient?");
@@ -180,7 +180,7 @@
 <div class="validation" style="display:<?if(validation_errors() == true) echo 'block'; else echo 'none'?>">
    <?php echo validation_errors(); ?>
 </div>
-<div class="maindiv" style="border:0px;">
+<div class="maindiv">
 	<?php include('patient_header.php'); ?>
 
 	<?php 
@@ -1039,10 +1039,10 @@
 </div>-->
 	<center>
 
-		<?php 	$OM = false;
+		<?php 	$OD = false;
 			$session_data = $this->session->userdata('logged_in');
      			$section = $session_data['section'];
-			if(in_array("Oral Medicine", $section)) $OM = true;
+			if(in_array("Oral Diagnosis", $section)) $OD = true;
 		?>
 
 		<div class="validationexc" style="display: <?php if($this->session->userdata('has_error_dashboard')) echo 'block'; else 'none' ?>;">
@@ -1051,7 +1051,6 @@
 	?>
 </div>
 		<?php
-		if($rejected == false) echo "false"; 
 		if($rejected){
 			echo "<h4><font color=red>This record has been marked 'Rejected'. Please do the necessary revisions.</font></h4>";
 	
@@ -1063,11 +1062,10 @@
 		<h3><a href="<?php echo base_url(); ?>index.php/dentaldata/patient/<?php echo $id; ?>"> Dental Data </a></h3>
 		<h3><a href="<?php echo base_url(); ?>index.php/dentalchart/patient/<?php echo $id; ?>"> Dental Status Chart </a></h3>
 		<h3><a href="<?php echo base_url(); ?>index.php/treatmentplan/patient/<?php echo $id; ?>"> Treatment Plan </a></h3>
-		<?if($OM){
-			echo "<h3><a href='".base_url()."index.php/servicesrendered/patient/$id'> Services Rendered </a></h3>";
-			echo "<h3><a href='".base_url()."index.php/conandfind/patient/$id'> Consultation and Findings </a></h3>";
-		
-		} ?>
+		<?php if($OD) echo "<h3><a href='".base_url()."index.php/radiographicexam/patient/$id'> Radiographic Examination </a></h3>";
+			else echo "<h3><a href='".base_url()."index.php/radiographicexam/view/$id'> Radiographic Examination </a></h3>"; ?>
+		<h3><a href="<?php echo base_url(); ?>index.php/servicesrendered/patient/<?php echo $id;?>"> Services Rendered </a></h3>
+		<h3><a href="<?php echo base_url(); ?>index.php/consultationandfindings/patient/<?php echo $id; ?>"> Consultation and Findings </a></h3>
 		<br>
 		<?php if($remarksInfo){
 			foreach($remarksInfo as $row){
@@ -1077,27 +1075,27 @@
 			echo "<tr><td> Patient Information
 				<td> ".$row['patientinfo']."</tr>";
 			}
-			if($row['patientinfo'] != ""){			
+			if($row['patientchecklist'] != ""){			
 			echo "<tr>
 				<td> Patient Checklist
 				<td> ".$row['patientchecklist']."</tr>";
 			}
-			if($row['patientinfo'] != ""){			
+			if($row['medandsochisto'] != ""){			
 			echo "<tr>
 				<td> Medical & Social History
 				<td> ".$row['medandsochisto']."</tr>";
 			}
-			if($row['patientinfo'] != ""){			
+			if($row['dentaldata'] != ""){			
 			echo "<tr>
 				<td> Dental Data
 				<td> ".$row['dentaldata']."</tr>";
 			}
-			if($row['patientinfo'] != ""){			
+			if($row['dentalchart'] != ""){			
 			echo "<tr>
 				<td> Dental Status Chart
 				<td> ".$row['dentalchart']."</tr>";
 			}
-			if($row['patientinfo'] != ""){			
+			if($row['treatmentplan'] != ""){			
 			echo "<tr>
 				<td> Treatment Plan
 				<td> ".$row['treatmentplan']."</tr>";
@@ -1114,9 +1112,10 @@
 				<option value="Oral Medicine"> Oral Medicine </option>
 				<option value="Operative Dentistry"> Operative Dentistry </option>
 				<option value="Prosthodontics"> Prosthodontics </option>
+				<option value="Patient Clearance"> Patient Clearance </option>
 			</select><br><br><br><br>
 
-			<input type="submit" value="Submit"><input type="button" value="Clear Patient" onClick='clearpatient()' />
+			<input type="submit" value="Submit"> <!--<input type="button" value="Clear Patient" onClick='clearpatient()' />-->
 			
 		</form>
 	</center>

@@ -29,7 +29,7 @@ class ViewDentalChartVersions extends CI_Controller {
 
 	   			$data2['version'] = $this->patient->getDentalChartVersions($id);
 				
-
+				
 				/*foreach($data2['version'] as $row){
 					$data2['version'][$id."updater"] = $this->user->getUserInfo2($row['updatedBy']);	
 					$data2['version'][$id."approver"] = $this->user->getUserInfo2($row['approvedBy']);			

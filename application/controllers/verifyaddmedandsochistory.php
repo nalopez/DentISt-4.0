@@ -163,6 +163,17 @@ function index(){
 				$id = $session_data['id'];
 
 				$this->session->unset_userdata('has_error');
+
+				$userID222 = $session_data['username'];
+				$userID22 = $this->user->getUserID($userID222);
+				$userID2 = $userID22['$userID'];
+				$date = date("Y-m-d");
+
+				if($this->patient->hasConfind($id)) $this->user->addAuditTrail($userID2, 'UPDATE', 'Medical and Social History', $id, $date);
+					else $this->user->addAuditTrail($userID2, 'INSERT', 'Medical and Social History', $id, $date);
+		
+
+
 				$this->patient->addPatientInfo_tab3($id, $phyname, $phyphone, $hospdate, $hospreason, $allergies, $illnesses, $medications, $ci, $cig, $cigkind, $cigfreq, $cigdur, $cigdole, $alco, $alcokind, $alcofreq, $alcodur, $alcodole, $drug, $drugkind, $drugfreq, $drugdur, $drugdole);
 
 				$session_data2 = $this->session->userdata('current_patient');
@@ -170,11 +181,13 @@ function index(){
 				$id = $session_data2['id'];
 
 				$username = $session_data3['username'];
-				$info = $this->user->getUserInfo3($username);
+				$info = $this->user->getUserID($username);
 
-				foreach($info as $row2){
+				/*foreach($info as $row2){
 					$name = $row2['userFName']." ".substr($row2['userMName'], 0, 1).". ".$row2['userLName']; 
-				}
+				}*/
+
+				$userID = $info['userID'];
 				
 
 				$date = date("Y-m-d");
@@ -183,7 +196,7 @@ function index(){
 
 				//echo "$id, $name, $date, $status, $approver";
 
-				$this->patient->addMedAndSocHistoVersion($id, $name, $date, $status, $approver);
+				$this->patient->addMedAndSocHistoVersion($id, $userID, $date, $status, $approver);
 
 				redirect('/loaddashboard/patientdb/'.$id.'/');
 				

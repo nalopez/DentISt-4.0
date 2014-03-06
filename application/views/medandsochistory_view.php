@@ -14,8 +14,8 @@
 	<script src="<?php echo base_url(); ?>js/jquery-1.9.1.js"></script>
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 
-   <title>Add User - Oral Diagnosis</title>
-	
+   <title>Medical & Social History - Oral Diagnosis</title>
+	<link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">
 <script type="text/javascript">
 	
 	
@@ -58,10 +58,10 @@
 ?>
  <body>
   
-<div class="maindiv" style="border:0px;">
+<div class="maindiv">
 	<?php include('patient_header.php'); ?>
 
-<div id="Content_Area" style="border: solid 1px #7F00FF;">
+<div id="Content_Area">
 
 <form id="ADDMEDANDSOCHISTORY" name="ADDMEDANDSOCHISTORY" action="<?php echo base_url();?>index.php/verifyaddmedandsochistory" method="post">
 
@@ -72,41 +72,41 @@
      		echo $session_data['error'];
 	?>
 </div>
-
+<div style="position: relative; text-align:right; color: red; right: 5%;"><i>* means required</i></div>
 		<table frame="box" class="frame">
 		<tr class="header">
 			<td colspan=2>Medical History
 		</tr>
 		<tr>
-			<td>Physician Name: 
+			<td>Physician Name: <font color='red'>*</font>
 			<td><input type="text" name="physicianname" value="<?php if($invalid_input) echo $session_data2['phyname']; elseif($recordexist == true) echo $phyname; ?>">
 		</tr>
 		<tr>
-			<td>Phone number: 
+			<td>Phone number: <font color='red'>*</font>
 			<td><input type="text" name="physicianphone" value="<?php if($invalid_input) echo $session_data2['phyphone']; elseif($recordexist == true) echo $phynum; ?>">
 		</tr>
 		<tr>
-			<td>Date of latest hospitalization: 
+			<td>Date of latest hospitalization: <font color='red'>*</font>
 			<td><input type="text" name="hospdate" id="hospdate" class="datepicker" value="<?php if($invalid_input) echo $session_data2['hospdate']; elseif($recordexist == true) echo $hospdate; ?>">
 		</tr>
 		<tr>
-			<td>Reason: 
+			<td>Reason: <font color='red'>*</font>
 			<td><input type="text" name="hospreason" value="<?php if($invalid_input) echo $session_data2['hospreason']; elseif($recordexist == true) echo $hospreason; ?>">
 		</tr>
 		<tr>
-			<td>Allergies: 
+			<td>Allergies: <font color='red'>*</font>
 			<td><input type="text" name="allergies" value="<?php if($invalid_input) echo $session_data2['allergies']; elseif($recordexist == true) echo $allergies; ?>">
 		</tr>
 		<tr>
-			<td>Illnesses
+			<td>Illnesses<font color='red'>*</font>
 			<td><input type="text" name="illnesses" value="<?php if($invalid_input) echo $session_data2['illnesses']; elseif($recordexist == true) echo $illnesses; ?>">
 		</tr>
 		<tr>
-			<td>Medications
+			<td>Medications<font color='red'>*</font>
 			<td><input type="text" name="medications" value="<?php if($invalid_input) echo $session_data2['medications']; elseif($recordexist == true) echo $med; ?>">
 		</tr>
 		<tr>
-			<td>Childhood illnesses (below 18 y.o.)
+			<td>Childhood illnesses (below 18 y.o.)<font color='red'>*</font>
 			<td><input type="text" name="ci" value="<?php if($invalid_input) echo $session_data2['ci']; elseif($recordexist == true) echo $ci; ?>">
 		</tr>
 		</table><br>
@@ -116,7 +116,7 @@
 			<td colspan=2>Social History
 		</tr>
 		<tr>
-			<td width=75%>Are you using or have you used tobacco/cigarettes?
+			<td width=75%>Are you using or have you used tobacco/cigarettes?<font color='red'>*</font>
 			<td><input type="radio" name="cig" value="Yes" onClick="showHosp(this.name, this.value)" <?php 
 					if($invalid_input){ 
 						if($session_data2['cig'] == "Yes") echo "checked";
@@ -141,26 +141,26 @@
 					?>>
 				<table>
 				<tr>
-					<td>Type: 
+					<td>Type: <font color='red'>*</font>
 					<td><input type="text" name="cigkind" value="<?php if($invalid_input) echo $session_data2['cigkind']; elseif($recordexist == true && $cig=='Yes') echo $cigkind; ?>">
 				</tr>
 				<tr>
-					<td>Frequency: 
+					<td>Frequency: <font color='red'>*</font>
 					<td><input type="text" name="cigfreq" value="<?php if($invalid_input) echo $session_data2['cigfreq']; elseif($recordexist == true && $cig=='Yes') echo $cigfreq; ?>">
 				</tr>
 				<tr>
-					<td>Duration: 
+					<td>Duration: <font color='red'>*</font>
 					<td><input type="text" name="cigdur" value="<?php if($invalid_input) echo $session_data2['cigdur']; elseif($recordexist == true && $cig=='Yes') echo $cigdur; ?>">
 				</tr>
 				<tr>
-					<td>Date of last exposure: 
+					<td>Date of last exposure: <font color='red'>*</font>
 					<td><input type="text" name="cigdole" id="cigdole" class=datepicker value="<?php if($invalid_input) echo $session_data2['cigdole']; elseif($recordexist == true && $cig=='Yes') echo $cigdole; ?>">
 				</tr>
 				</table>
 			</div></td>
 		</tr>
 		<tr>
-			<td width=75%>Do you drink alcoholic beverages? 
+			<td width=75%>Do you drink alcoholic beverages? <font color='red'>*</font>
 			<td><input type="radio" name="alco" value="Yes" onClick="showHosp(this.name, this.value)" <?php 
 					if($invalid_input){ 
 						if($session_data2['alco'] == "Yes") echo "checked";
@@ -185,26 +185,26 @@
 					?>>
 				<table>
 				<tr>
-					<td>Type: 
+					<td>Type: <font color='red'>*</font>
 					<td><input type="text" name="alcokind" value="<?php if($invalid_input) echo $session_data2['alcokind']; elseif($recordexist == true && $alco=='Yes') echo $alcokind; ?>">
 				</tr>
 				<tr>
-					<td>Frequency: 
+					<td>Frequency: <font color='red'>*</font>
 					<td><input type="text" name="alcofreq" value="<?php if($invalid_input) echo $session_data2['alcofreq']; elseif($recordexist == true && $alco=='Yes') echo $alcofreq; ?>">
 				</tr>
 				<tr>
-					<td>Duration: 
+					<td>Duration: <font color='red'>*</font>
 					<td><input type="text" name="alcodur" value="<?php if($invalid_input) echo $session_data2['alcodur']; elseif($recordexist == true && $alco=='Yes') echo $alcodur; ?>">
 				</tr>
 				<tr>
-					<td>Date of last exposure: 
+					<td>Date of last exposure: <font color='red'>*</font>
 					<td><input type="text" name="alcodole" id="alcodole" class="datepicker" value="<?php if($invalid_input) echo $session_data2['alcodole']; elseif($recordexist == true && $cig=='Yes') echo $alcodole; ?>">
 				</tr>
 				</table>
 			</div></td>
 		</tr>
 		<tr>
-			<td width="75%">Have you ever used drugs for recreation or non-therapeutic purposes? 
+			<td width="75%">Have you ever used drugs for recreation or non-therapeutic purposes? <font color='red'>*</font>
 			<td><input type="radio" name="drug" value="Yes" onClick="showHosp(this.name, this.value)" <?php 
 					if($invalid_input){ 
 						if($session_data2['drug'] == "Yes") echo "checked";
@@ -229,19 +229,19 @@
 					?>>
 				<table>
 				<tr>
-					<td>Type: 
+					<td>Type: <font color='red'>*</font>
 					<td><input type="text" name="drugkind" value="<?php if($invalid_input) echo $session_data2['drugkind']; elseif($recordexist == true && $drug=='Yes') echo $drugkind; ?>">
 				</tr>
 				<tr>
-					<td>Frequency: 
+					<td>Frequency: <font color='red'>*</font>
 					<td><input type="text" name="drugfreq" value="<?php if($invalid_input) echo $session_data2['drugfreq']; elseif($recordexist == true && $drug=='Yes') echo $drugfreq; ?>">
 				</tr>
 				<tr>
-					<td>Duration: 
+					<td>Duration: <font color='red'>*</font>
 					<td><input type="text" name="drugdur" value="<?php if($invalid_input) echo $session_data2['drugdur']; elseif($recordexist == true && $drug=='Yes') echo $drugdur; ?>">
 				</tr>
 				<tr>
-					<td>Date of last exposure: 
+					<td>Date of last exposure: <font color='red'>*</font>
 					<td><input type="text" name="drugdole" class="datepicker" id="drugdole" value="<?php if($invalid_input) echo $session_data2['drugdole']; elseif($recordexist == true && $drug=='Yes') echo $drugdole; ?>">
 				</tr>
 				</table>

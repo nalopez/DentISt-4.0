@@ -906,11 +906,13 @@ function index(){
 				$id = $session_data2['id'];
 
 				$username = $session_data3['username'];
-				$info = $this->user->getUserInfo3($username);
+				$info = $this->user->getUserID($username);
 
-				foreach($info as $row2){
+				/*foreach($info as $row2){
 					$name = $row2['userFName']." ".substr($row2['userMName'], 0, 1).". ".$row2['userLName']; 
-				}
+				}*/
+		
+				$userID = $info['userID'];
 				
 				//echo "$periodontics, $pedodontics, $orthodontics, $acuteinfections, $traumaticinjuries, $completedent, $singledent, $removedent, $othersdent";
 
@@ -918,11 +920,20 @@ function index(){
 				$status = "Pending";
 				$approver = "Pending";
 
-				echo "$id, $name, $date, $status, $approver";
+				//echo "$id, $name, $date, $status, $approver";
+				$userID222 = $session_data['username'];
+				$userID22 = $this->user->getUserID($userID222);
+				$userID2 = $userID22['$userID'];
+				$date = date("Y-m-d");
+
+				if($this->patient->hasDentalChart($id)) $this->user->addAuditTrail($userID2, 'UPDATE', 'Dental Status Chart', $id, $date);
+					else $this->user->addAuditTrail($userID2, 'INSERT', 'Dental Status Chart', $id, $date);
+		
+
 
 				$this->patient->addPatientInfo_tab5($id, $discar, $buccar, $lincar, $mescar, $occcar, $discaries, $buccaries, $lincaries, $mescaries, $occcaries, $disrec, $bucrec, $linrec, $mesrec, $occrec, $disrecur, $bucrecur, $linrecur, $mesrecur, $occrecur, $disres, $bucres, $linres, $mesres, $occres, $disresto, $bucresto, $linresto, $mesresto, $occresto, $name, $rpds, $extrusions, $intrusions, $mesdrifts, $disdrifts, $rotations, $postcores, $rootcanals, $pitandfissures, $extracteds, $missings, $unerupteds, $impacteds, $porcelains, $acrylics, $metals, $porcelainfuseds, $fixedbridges, $c1s, $c2s, $c3s, $c4s, $c5s, $ols, $exs, $ods, $scs, $pss, $crs, $fss, $lams, $scrs, $bss, $ants, $poss, $oths, $periodontics, $pedodontics, $orthodontics, $acuteinfections, $traumaticinjuries, $completedent, $singledent, $removedent, $othersdent, $notes, $compdent, $updent, $lowdent);
 
-				$this->patient->addDentalChartVersion($id, $name, $date, $status, $approver);
+				$this->patient->addDentalChartVersion($id, $userID, $date, $status, $approver);
 				
 				redirect('/loaddashboard/patientdb/'.$id.'/');
 				

@@ -17,7 +17,7 @@
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 
    <title>Dental Chart - Oral Diagnosis</title>
-
+<link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">
  </head>
 <?php 
 	$session_data = $this->session->userdata('logged_in');
@@ -196,7 +196,7 @@
 ?>
  <body>
   <br>
-<div style= "padding: 3px; position:absolute; width:100%;">
+<div style= "position:absolute; border: 2px #7F00FF solid; border-top-left-radius:12px; border-top-right-radius:12px;">
 
 	<?php include('patient_header.php'); ?>
 
@@ -637,10 +637,10 @@ if($recordexist && in_array($tn, $mescaries)) echo "checked";
 
 echo "/></div></td>	
 <td><div id='mesialcariesSelectSurface".$tn."' style='display:none;'><select name='selectCariesMesial[]'  id='mesialcariesSelect".$tn."'>";
-echo "<option value='".$tn."'></option>";
+echo "<option value='".$tn."'></option><option value='restorable".$tn."' ";
 if($recordexist && in_array("restorable".$tn, $mesrescaries)) echo "selected";
 
-echo"> O </option>";
+echo "> O </option><option value='nonrestorable".$tn."' ";
 if($recordexist && in_array("nonrestorable".$tn, $mesrescaries)) echo "selected";
 
 echo "> / </option>

@@ -10,6 +10,7 @@
  <head>
 
    <title>Add User - System Administrator</title>
+<link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">
  </head>
 <?php 
 	$session_data = $this->session->userdata('logged_in');

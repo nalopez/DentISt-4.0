@@ -3,6 +3,15 @@ Class User extends CI_Model
 {
  	function login($username, $password)
  	{
+/*
+		$audit = array(	
+			'committedBy' => $userID2,
+			'action' => 'EDIT',
+			'form' => 'Users',
+			'committedTo' => $userID,
+			'committedOn' => $date);
+		$this->db->insert('audittrail', $audit);
+*/
 
 		$this -> db -> select('salt');
    		$this -> db -> from('users_auth');
@@ -41,6 +50,14 @@ Class User extends CI_Model
  	}
 
 	function getRole($userID){
+/*		$audit = array(	
+			'committedBy' => $userID2,
+			'action' => 'EDIT',
+			'form' => 'Users',
+			'committedTo' => $userID,
+			'committedOn' => $date);
+		$this->db->insert('audittrail', $audit);
+*/	
 		$this -> db -> select('roleID, role_type, role_section');
    		$this -> db -> from('users_role');
    		$this -> db -> where('userID', $userID);
@@ -59,6 +76,15 @@ Class User extends CI_Model
 	}
 
 	function getUserInfo($userID){
+/*		$audit = array(	
+			'committedBy' => $userID2,
+			'action' => 'EDIT',
+			'form' => 'Users',
+			'committedTo' => $userID,
+			'committedOn' => $date);
+		$this->db->insert('audittrail', $audit);
+*/
+
 		$this -> db -> select('userFName, userMName, userLName');
    		$this -> db -> from('users');
    		$this -> db -> where('userID', $userID);
@@ -77,6 +103,14 @@ Class User extends CI_Model
 	}
 
 	function getUserInfopt1($userID){
+/*		$audit = array(	
+			'committedBy' => $userID2,
+			'action' => 'EDIT',
+			'form' => 'Users',
+			'committedTo' => $userID,
+			'committedOn' => $date);
+		$this->db->insert('audittrail', $audit);
+*/
 		$this -> db -> select('userFName, userMName, userLName');
    		$this -> db -> from('users');
    		$this -> db -> where('userID', $userID);
@@ -95,6 +129,14 @@ Class User extends CI_Model
 	}
 
 	function getUserInfo2($userID){
+/*		$audit = array(	
+			'committedBy' => $userID2,
+			'action' => 'EDIT',
+			'form' => 'Users',
+			'committedTo' => $userID,
+			'committedOn' => $date);
+		$this->db->insert('audittrail', $audit);*/
+
 		$this -> db -> select('userFName, userMName, userLName');
    		$this -> db -> from('users');
    		$this -> db -> where('userID', $userID);
@@ -113,6 +155,14 @@ Class User extends CI_Model
 	}
 
 	function getUserInfo3($username){
+/*		$audit = array(	
+			'committedBy' => $userID2,
+			'action' => 'EDIT',
+			'form' => 'Users',
+			'committedTo' => $userID,
+			'committedOn' => $date);
+		$this->db->insert('audittrail', $audit);*/
+
 		$this -> db -> select('userFName, userMName, userLName');
    		$this -> db -> from('users');
 		$this->db->join('users_auth', 'users.userID = users_auth.userID');
@@ -132,6 +182,14 @@ Class User extends CI_Model
 	}
 	
 	function getUserID($username){
+/*		$audit = array(	
+			'committedBy' => $userID2,
+			'action' => 'EDIT',
+			'form' => 'Users',
+			'committedTo' => $userID,
+			'committedOn' => $date);
+		$this->db->insert('audittrail', $audit);*/
+
 		$this -> db -> select('userID');
    		$this -> db -> from('users_auth');
    		$this -> db -> where('username', $username);
@@ -150,6 +208,15 @@ Class User extends CI_Model
 	}
 
 	function selectUsers(){
+/*		$audit = array(	
+			'committedBy' => $userID2,
+			'action' => 'SELECT',
+			'form' => 'Users',
+			'committedTo' => '',
+			'committedOn' => $date);
+		$this->db->insert('audittrail', $audit);*/
+
+
 		$this -> db -> select('users.userID, users.userFName, users.userMName, users.userLName, users_auth.username');
    		$this -> db -> from('users', 'users_auth');
 		$this->db->join('users_auth', 'users.userID = users_auth.userID');
@@ -184,6 +251,7 @@ Class User extends CI_Model
 	}
 
 	function selectUsers_pt2($name, $uname){
+
 		/*
 		$this -> db -> select('users_role.role_type, users_role.role_section');
    		$this -> db -> from('users_role');
@@ -397,13 +465,21 @@ Class User extends CI_Model
 		}
 	}
 
-	function deleteUser($userID){
+	function deleteUser($userID, $userID2, $date){
 		$this->db->delete('users', array('userID' => $userID));
 		$this->db->delete('users_role', array('userID' => $userID));
 		$this->db->delete('users_auth', array('userID' => $userID));
+
+		$audit = array(	
+			'committedBy' => $userID2,
+			'action' => 'DELETE',
+			'form' => 'Users',
+			'committedTo' => $userID,
+			'committedOn' => $date);
+		$this->db->insert('audittrail', $audit);
 	}
 
-	function editUser($userID, $lname, $fname, $mname, $roleID, $role, $section, $username, $password){
+	function editUser($userID, $userID2, $lname, $fname, $mname, $roleID, $role, $section, $username, $password, $date){
 		$data = array(
 			'userLName' => $lname,
 			'userFName' => $fname,
@@ -431,6 +507,41 @@ Class User extends CI_Model
 			'salt' => $salt);
 		$this->db->where('userID', $userID);
 		$this->db->update('users_auth', $data3);
+
+		$audit = array(	
+			'committedBy' => $userID2,
+			'action' => 'UPDATE',
+			'form' => 'Users',
+			'committedTo' => $userID,
+			'committedOn' => $date);
+		$this->db->insert('audittrail', $audit);
+
+	}
+
+	function getAuditTrail(){
+		$this -> db -> select('*');
+   		$this -> db -> from('audittrail');
+
+		$query = $this -> db -> get();
+		
+		if($query -> num_rows() >= 1)
+   		{
+     			return $query->result_array();
+   		}
+   		else
+   		{
+     			return false;
+   		}
+	}
+
+	function addAuditTrail($comittedBy, $action, $form, $committedTo, $date){
+		$audit = array(	
+			'committedBy' => $committedBy,
+			'action' => $action,
+			'form' => $form,
+			'committedTo' => $committedTo,
+			'committedOn' => $date);
+		$this->db->insert('audittrail', $audit);
 
 	}
 }

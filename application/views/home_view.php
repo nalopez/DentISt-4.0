@@ -8,9 +8,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
  <head>
    <title>Home</title>
+<link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">
  </head>
  <body>
-<div class="home" style="border: 0px; width: 80%;">
+<div class="maindiv">
 
 
 <?php

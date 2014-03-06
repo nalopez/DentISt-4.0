@@ -6,7 +6,7 @@
 	
 ?>
 
-	<div style="position: relative; background: #9400D3; color: white; padding-top: 5px; padding-bottom: 5px; padding-left: 5px;height:80px">
+	<div class="rounded2" style="position: relative; background: #9400D3; color: white; padding-top: 5px; padding-bottom: 5px; padding-left: 5px;height:80px; border:2px solid; border-top-left-radius:12px; border-top-right-radius:12px;">
 	
 	<?php
 

@@ -6,6 +6,7 @@ class MedAndSocHistory extends CI_Controller {
  {
    parent::__construct();
 	$this->load->model('patient','',TRUE);
+	$this->load->model('user','',TRUE);
  }
 
 	function patient(){
@@ -15,7 +16,7 @@ class MedAndSocHistory extends CI_Controller {
 			$bool = false;
 			$sec = $session_data['section'];
 			foreach($sec as $row){
-				if($row == "Oral Diagnosis"){
+				if($row != "System Maintenance"){
 					$bool = true;
 					break;
 				}
@@ -26,9 +27,9 @@ class MedAndSocHistory extends CI_Controller {
 				$version = "";
 			
 				if($this->uri->segment(4) == ""){
-					$ver = $this->patient->getLatest($id);
+					$ver = $this->patient->getLatest3($id);
 					foreach($ver as $row){
-						$version = $row['patientinfoID'];
+						$version = $row['medhistoID'];
 					}
 				}
 				else
@@ -46,13 +47,26 @@ class MedAndSocHistory extends CI_Controller {
 				/*foreach($ver as $row){
 					$version = $row['patientinfoID'];
 				}*/
+
+				$userID222 = $session_data['username'];
+				$userID22 = $this->user->getUserID($userID222);
+				$userID2 = $userID22['$userID'];
+				$date = date("Y-m-d");
+
 				if($this->patient->hasMedAndSocHisto($id)){
 					$data['info'] = $this->patient->getPatientInfoMedAndSocHisto($id);
 					$data['recordexist'] = true;
 				}
 
 				//print_r($data['info']);
-				$this->load->view('medandsochistory_view', $data);
+
+				if($this->patient->isLatestForApproval3($id)){
+					$this->user->addAuditTrail($userID2, 'SELECT', 'Medical and Social History', $id, $date);
+					redirect('medandsochistory/view/'.$id);
+				}else{
+					$this->user->addAuditTrail($userID2, 'SELECT', 'Medical and Social History', $id, $date);
+					$this->load->view('medandsochistory_view', $data);
+				}
 			}
 			else
 				redirect('home', 'refresh');
@@ -72,7 +86,7 @@ class MedAndSocHistory extends CI_Controller {
 			$bool = false;
 			$sec = $session_data['section'];
 			foreach($sec as $row){
-				if($row == "Oral Diagnosis"){
+				if($row != "System Maintenance"){
 					$bool = true;
 					break;
 				}
@@ -83,9 +97,9 @@ class MedAndSocHistory extends CI_Controller {
 				$version = "";
 			
 				if($this->uri->segment(4) == ""){
-					$ver = $this->patient->getLatest($id);
+					$ver = $this->patient->getLatest3($id);
 					foreach($ver as $row){
-						$version = $row['patientinfoID'];
+						$version = $row['medhistoID'];
 					}
 				}
 				else
@@ -103,12 +117,23 @@ class MedAndSocHistory extends CI_Controller {
 				/*foreach($ver as $row){
 					$version = $row['patientinfoID'];
 				}*/
+
+				$userID222 = $session_data['username'];
+				$userID22 = $this->user->getUserID($userID222);
+				$userID2 = $userID22['$userID'];
+				$date = date("Y-m-d");
+
 				if($this->patient->hasMedAndSocHisto($id)){
 					$data['info'] = $this->patient->getPatientInfoMedAndSocHistoRO($id, $version);
 					$data['recordexist'] = true;
 				}
 
+
+				if($this->patient->isLatestForApproval3($id)){
+					$data['forapproval'] = true;
+				}
 				//print_r($data['info']);
+				$this->user->addAuditTrail($userID2, 'SELECT', 'Medical and Social History', $id, $date);
 				$this->load->view('medandsochistoryreadonly_view', $data);
 			}
 			else

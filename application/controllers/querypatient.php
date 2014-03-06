@@ -8,6 +8,7 @@ class QueryPatient extends CI_Controller {
  {
    parent::__construct();
    $this->load->model('patient','',TRUE);
+   $this->load->model('user','',TRUE);
  }
 
  function index()
@@ -35,7 +36,19 @@ class QueryPatient extends CI_Controller {
 					$ageto = 100;			
 				}
 
-				$gender = $this->input->post('gendersearch');
+				$genders = $this->input->post('gendersearch');
+				$gender = "";
+		
+				if($genders == "Male"){
+					$gender = "patient.gender = 'Male'"; 
+				}
+				elseif($genders == "Female"){
+					$gender = "patient.gender = 'Female'"; 
+				}
+				elseif($genders == "Both"){
+					$gender = "(patient.gender = 'Male' OR patient.gender = 'Female')"; 
+				}				
+
 				$city = $this->input->post('citysearch');
 				$occ = $this->input->post('occsearch');
 			
@@ -96,15 +109,43 @@ class QueryPatient extends CI_Controller {
 				$bridge = $this->input->post('bridge');
 				$singledenture = $this->input->post('singledenture');
 				$removablepartialdenture = $this->input->post('removablepartialdenture');
-						
-				$data['patientmatch'] = $this->patient->searchPatient1($agefrom, $ageto, $gender, $city, $occ);
+
+				$demo[] = $this->input->post('demo');
+				$dentdemo[] = $this->input->post('dentdemo');
+				$servdemo[] = $this->input->post('servdemo');
+
+				$demox = ""; $dentx = ""; $servx = "";
+	
+				if(!in_array("", $demo)){
+					foreach($demo[0] as $key=>$value){
+						$demox = $value;
+						echo "demovalue=$demox";
+					}
+				}
+				if(!in_array("", $dentdemo)){
+					foreach($dentdemo[0] as $key=>$value){
+						$dentx = $value;
+					}
+				}
+				if(!in_array("", $servdemo)){
+					foreach($servdemo[0] as $key=>$value){
+						$servx = $value;
+					}
+				}
+	
+				$data['patientmatch'] = false;
+				$data['sectionmatch'] = false;
+				$data['dentalstatmatch'] = false;
+				$data['servicematch'] = false;					
+	
+				$data['patientmatch'] = $this->patient->searchPatient1($agefrom, $ageto, $gender, $city, $occ, $agefrom, $ageto, $gender, $city, $occ, $perio, $rpd, $ortho, $os, $fpd, $pedo, $endo, $cd, $resto, $caries, $extrusion, $compdent, $impacted, $recurrent, $intrusion, $singdent, $missing, $restoration, $mdr, $rempardent, $acrcr, $pftm, $ddr, $pafs, $metcr, $rot, $rct, $pcc, $extracted, $unerupted, $porcr, $class1, $class2, $class3, $class4, $class5, $onlay, $extraction, $odon, $specclass, $pedodontics, $orthodontics, $pulpsed, $roc, $temfill, $moai, $moti, $lamented, $completedenture, $anterior, $singlecrown, $posterior, $bridge, $singledenture, $removablepartialdenture, $demox, $dentx, $servx);
 				//$data['sectionmatch'] = $this->patient->searchPatient2($perio, $rpd, $ortho, $os, $fpd, $pedo, $endo, $cd, $resto);
 				//$data['dentalstatmatch'] = $this->patient->searchPatient3($caries, $extrusion, $compdent, $impacted, $recurrent, $intrusion, $singdent, $missing, $restoration, $mdr, $rempardent, $acrcr, $pftm, $ddr, $pafs, $metcr, $rot, $rct, $pcc, $extracted, $unerupted, $porcr);
 				//$data['servicematch'] = $this->patient->searchPatient4($class1, $class2, $class3, $class4, $class5, $onlay, $extraction, $odon, $specclass, $pedodontics, $orthodontics, $pulpsed, $roc, $temfill, $moai, $moti, $lamented, $completedenture, $anterior, $singlecrown, $posterior, $bridge, $singledenture, $removablepartialdenture); 
 
 				$data['agefrom'] = $agefrom;
 				$data['ageto'] = $ageto;
-				$data['gender'] = $gender;
+				$data['gender'] = $genders;
 				$data['city'] = $city;
 				$data['occ'] = $occ;
 				$data['perio'] = $perio;
@@ -154,16 +195,22 @@ class QueryPatient extends CI_Controller {
 				$data['temfill'] = $temfill;
 				$data['moai'] = $moai;
 				$data['moti'] = $moti;
-				$data['$lamented'] = $lamented;
-				$data['$completedenture'] = $completedenture;
-				$data['$anterior'] = $anterior;
-				$data['$singlecrown'] = $singlecrown;
-				$data['$posterior'] = $posterior;
-				$data['$bridge'] = $bridge;
-				//$data['$singledenture'] = $singledenture;
-				$data['$removablepartialdenture'] = $removablepartialdenture;
+				$data['lamented'] = $lamented;
+				$data['completedenture'] = $completedenture;
+				$data['anterior'] = $anterior;
+				$data['singlecrown'] = $singlecrown;
+				$data['posterior'] = $posterior;
+				$data['bridge'] = $bridge;
+				$data['singledenture'] = $singledenture;
+				$data['removablepartialdenture'] = $removablepartialdenture;
 
 				//print_r($data['dentalstatmatch']);
+				$userID222 = $session_data['username'];
+				$userID22 = $this->user->getUserID($userID222);
+				$userID2 = $userID22['$userID'];
+				$date = date("Y-m-d");
+
+				$this->user->addAuditTrail($userID2, 'SELECT', 'Patient', '', $date);
 
 				$this->load->helper(array('form'));
 				$this->load->view('querypatient_view', $data);

@@ -14,8 +14,8 @@
 	<script src="<?php echo base_url(); ?>js/jquery-1.9.1.js"></script>
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 
-   <title>Add User - Oral Diagnosis</title>
-	
+   <title>Treatment Plan - Oral Diagnosis</title>
+<link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">	
 <script type="text/javascript">
 	
 	
@@ -54,13 +54,14 @@
 
 <form id="ADDTREATMENTPLAN" name="ADDTREATMENTPLAN" action="<?php echo base_url();?>index.php/verifyaddtreatmentplan" method="post">
 
-<br>
+<br><?php if($forapproval) echo "<h4 style='color:red;'>This patient's record is currently subject for approval.</h4>"; ?>
 
 <div class="validationexc" style="display: <?php if($this->session->userdata('has_error')) echo 'block'; else 'none' ?>;">
    		<?php $session_data = $this->session->userdata('has_error');
      		echo $session_data['error'];
 	?>
 </div>
+
 
 		<table frame="box" class="frame">
 			<tr class="header">
@@ -75,18 +76,18 @@
 				<td>
 				<table>
 				<tr>
-					<td><input type="checkbox" name="servcode[]" value="PERIO" <?php if($invalid_input && $session_data2['perio']) echo "checked"; elseif($recordexist == true && $perio=="Yes") echo 'checked'; ?> readonly> PERIO	
-					<td><input type="checkbox" name="servcode[]" value="RPD" <?php if($invalid_input && $session_data2['rpd']) echo "checked"; elseif($recordexist == true && $rpd=="Yes") echo 'checked'; ?> readonly> RPD
-					<td><input type="checkbox" name="servcode[]" value="Resto" <?php if($invalid_input && $session_data2['resto']) echo "checked"; elseif($recordexist == true && $resto=="Yes") echo 'checked'; ?> readonly> Resto 
+					<td><input type="checkbox" name="servcode[]" value="PERIO" <?php if($invalid_input && $session_data2['perio']) echo "checked"; elseif($recordexist == true && $perio=="Yes") echo 'checked'; ?> disabled> PERIO	
+					<td><input type="checkbox" name="servcode[]" value="RPD" <?php if($invalid_input && $session_data2['rpd']) echo "checked"; elseif($recordexist == true && $rpd=="Yes") echo 'checked'; ?> disabled> RPD
+					<td><input type="checkbox" name="servcode[]" value="Resto" <?php if($invalid_input && $session_data2['resto']) echo "checked"; elseif($recordexist == true && $resto=="Yes") echo 'checked'; ?> disabled> Resto 
 				</tr>
 				<tr>
-					<td><input type="checkbox" name="servcode[]" value="OS" <?php if($invalid_input && $session_data2['os']) echo "checked"; elseif($recordexist == true && $os=="Yes") echo 'checked'; ?> readonly> OS 
-					<td><input type="checkbox" name="servcode[]" value="FPD" <?php if($invalid_input && $session_data2['fpd']) echo "checked"; elseif($recordexist == true && $fpd=="Yes") echo 'checked'; ?> readonly> FPD 
-					<td><input type="checkbox" name="servcode[]" value="PEDO" <?php if($invalid_input && $session_data2['pedo']) echo "checked"; elseif($recordexist == true && $pedo=="Yes") echo 'checked'; ?> readonly> PEDO 
+					<td><input type="checkbox" name="servcode[]" value="OS" <?php if($invalid_input && $session_data2['os']) echo "checked"; elseif($recordexist == true && $os=="Yes") echo 'checked'; ?> disabled> OS 
+					<td><input type="checkbox" name="servcode[]" value="FPD" <?php if($invalid_input && $session_data2['fpd']) echo "checked"; elseif($recordexist == true && $fpd=="Yes") echo 'checked'; ?> disabled> FPD 
+					<td><input type="checkbox" name="servcode[]" value="PEDO" <?php if($invalid_input && $session_data2['pedo']) echo "checked"; elseif($recordexist == true && $pedo=="Yes") echo 'checked'; ?> disabled> PEDO 
 				</tr>
-					<td><input type="checkbox" name="servcode[]" value="ENDO"<?php if($invalid_input && $session_data2['endo']) echo "checked"; elseif($recordexist == true && $endo=="Yes") echo 'checked'; ?> readonly> ENDO 
-					<td><input type="checkbox" name="servcode[]" value="CD" <?php if($invalid_input && $session_data2['cd']) echo "checked"; elseif($recordexist == true && $cd=="Yes") echo 'checked'; ?> readonly> CD
-					<td><input type="checkbox" name="servcode[]" value="Ortho" <?php if($invalid_input && $session_data2['ortho']) echo "checked"; elseif($recordexist == true && $ortho=="Yes") echo 'checked'; ?> readonly> Ortho
+					<td><input type="checkbox" name="servcode[]" value="ENDO"<?php if($invalid_input && $session_data2['endo']) echo "checked"; elseif($recordexist == true && $endo=="Yes") echo 'checked'; ?> disabled> ENDO 
+					<td><input type="checkbox" name="servcode[]" value="CD" <?php if($invalid_input && $session_data2['cd']) echo "checked"; elseif($recordexist == true && $cd=="Yes") echo 'checked'; ?> disabled> CD
+					<td><input type="checkbox" name="servcode[]" value="Ortho" <?php if($invalid_input && $session_data2['ortho']) echo "checked"; elseif($recordexist == true && $ortho=="Yes") echo 'checked'; ?> disabled> Ortho
 				</tr>
 				</table>
 			</tr>

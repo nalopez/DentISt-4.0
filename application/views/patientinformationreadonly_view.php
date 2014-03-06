@@ -15,7 +15,7 @@
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 
    <title>Add User - Oral Diagnosis</title>
-	
+<link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">	
 <script type="text/javascript">
 	
 	
@@ -180,14 +180,17 @@
    		<?php $session_data = $this->session->userdata('has_error');
      		echo $session_data['error'];
 	?>
-</div>
+	</div>
+
+	<?php if($forapproval) echo "<h4 style='color:red;'>This patient's record is currently subject for approval.</h4>"; ?>
+
 	<table frame="box" class="frame">
 	<tr class="header">
 		<td colspan=2>Additional Demographics
 	</tr>
 	<tr>
 		<td><label for="civstat">Civil Status: </td>
-		<td><select name="civstat" id="civstat" readonly>
+		<td><select name="civstat" id="civstat" disabled>
 		<option value="Select one.." selected> Select one.. </option>		
 		<option value="Single" <?php if($invalid_input){ 
 						if($session_data2['civstat'] == "Single") echo "selected";
@@ -217,7 +220,7 @@
 	</tr>
 	<tr>
 		<td><label for="edattain">Educational Attainment:
-		<td><select name="edattain" readonly>
+		<td><select name="edattain" disabled>
 			<option value="Select one..">Select one..</option>
 			<option value="Elementary Graduate" <?php if($invalid_input){ 
 						if($session_data2['edattain'] == "Elementary Graduate") echo "selected";

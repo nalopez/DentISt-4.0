@@ -95,7 +95,13 @@ class VerifyEditUser extends CI_Controller {
 			print_r($role);
 			//echo $userID." ".$lname." ".$fname." ".$mname." ".$role." ".$section." ".$username." ".$password;
 			$this->session->unset_userdata('has_error');
-			$this->user->editUser($userID, $lname, $fname, $mname, $roleID, $role, $section, $username, $password);
+
+			$userID222 = $session_data['username'];
+			$userID22 = $this->user->getUserID($userID222);
+			$userID2 = $userID22['$userID'];
+			$date = date("Y-m-d");
+
+			$this->user->editUser($userID, $userID2, $lname, $fname, $mname, $roleID, $role, $section, $username, $password, $date);
 
 			$this->load->helper(array('form'));
 	   		$data2['users'] = $this->user->selectUsers();

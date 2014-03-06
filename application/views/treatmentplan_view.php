@@ -14,8 +14,8 @@
 	<script src="<?php echo base_url(); ?>js/jquery-1.9.1.js"></script>
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 
-   <title>Add User - Oral Diagnosis</title>
-	
+   <title>Treatment Plan - Oral Diagnosis</title>
+<link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">	
 <script type="text/javascript">
 	
 	
@@ -47,10 +47,10 @@
 ?>
  <body>
   
-<div class="maindiv" style="border:0px;">
+<div class="maindiv">
 	<?php include('patient_header.php'); ?>
 
-<div id="Content_Area" style="border: solid 1px #7F00FF;">
+<div id="Content_Area">
 
 <form id="ADDTREATMENTPLAN" name="ADDTREATMENTPLAN" action="<?php echo base_url();?>index.php/verifyaddtreatmentplan" method="post">
 
@@ -62,16 +62,18 @@
 	?>
 </div>
 
+<div style="position: relative; text-align:right; color: red; right: 5%;"><i>* means required</i></div>
+
 		<table frame="box" class="frame">
 			<tr class="header">
 				<td colspan=2>Treatment Plan
 			</tr>
 			<tr>
-				<td> Chief Complaints:
+				<td> Chief Complaints: <font color='red'>*</font>
 				<td><input type="text" name="chiefcomp" id="chiefcomp" value="<?php if($invalid_input) echo $session_data2['chiefcomp']; elseif($recordexist == true) echo $chiefcomp; ?>">
 			</tr>
 			<tr>
-				<td><label for="servcode">Service Code: 
+				<td><label for="servcode">Service Code: <font color='red'>*</font>
 				<td>
 				<table>
 				<tr>
@@ -91,7 +93,7 @@
 				</table>
 			</tr>
 			<tr>
-				<td>Proposed Treatment Plan
+				<td>Proposed Treatment Plan<font color='red'>*</font>
 				<td><textarea id="ptp" name="ptp" cols=30><?php if($invalid_input) echo $session_data2['ptp']; elseif($recordexist == true) echo $ptp; ?></textarea>
 			<tr>
 			

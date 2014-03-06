@@ -14,8 +14,8 @@
 	<script src="<?php echo base_url(); ?>js/jquery-1.9.1.js"></script>
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 
-   <title>Add User - Oral Diagnosis</title>
-	
+   <title>Treatment Plan Versions - Oral Diagnosis</title>
+<link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">	
 <script type="text/javascript">
 	
 	
@@ -41,24 +41,26 @@
 
 	<table frame="box" class="frame" style="width:98%; left:1%; text-align: center;">
 		<tr class="header">
-			<td colspan=6> Versions
+			<td colspan=6>Treatment Plan Versions
 		</tr>
 		<tr>
-			<td><br>Version
-			<td><br>Updated By
-			<td><br>Update Date
-			<td><br>Status
-			<td><br>Approved By
+			<td><br><b>Version</b>
+			<td><br><b>Updated By</b>
+			<td><br><b>Update Date</b>
+			<td><br><b>Status</b>
+			<td><br><b>Approved By</b>
 		</tr>
 		<?php 	if($version){
 				$count = sizeof($version);
 				$ctr = 1;
 				foreach($version as $row){
 					echo "<tr><td><a href=".base_url()."index.php/treatmentplan/view/".$row['UPCD_ID']."/".$row['treatmentplanversionID'].">"."Version ".$ctr."</a>";
-					echo "<td>".$row['updatedBy'];
+					$student = $this->user->getUserInfo($row['updatedBy']);
+					$faculty = $this->user->getUserInfo($row['approvedBy']);
+					echo "<td>".$student['userFName']." ".substr($student['userMName'], 0, 1).". ".$student['userLName'];
 					echo "<td>".$row['updateDate'];
 					echo "<td>".$row['updateStatus'];
-					echo "<td>".$row['approvedBy'];
+					echo "<td>".$faculty['userFName']." ".substr($faculty['userMName'], 0, 1).". ".$faculty['userLName'];
 					echo "</tr>";
 					$ctr++;
 				}

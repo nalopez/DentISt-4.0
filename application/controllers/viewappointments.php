@@ -24,11 +24,11 @@ class ViewAppointments extends CI_Controller {
  
 			if($bool){
 	     			$this->load->helper(array('form'));
-				$session_data2 = $this->session->userdata('current_patient');
-				$id = $session_data2['id'];
+				//$session_data2 = $this->session->userdata('current_patient');
+				//$id = $session_data2['id'];
 				$user = $this->user->getUserID($session_data['username']);
 				$userID = $user['userID'];
-				echo $userID;
+				//echo $userID;
 
 	   			$data2['appointments'] = $this->patient->getAppointments($userID);
 				//print_r($data2['appointments']);

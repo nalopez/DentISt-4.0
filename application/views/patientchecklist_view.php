@@ -14,8 +14,8 @@
 	<script src="<?php echo base_url(); ?>js/jquery-1.9.1.js"></script>
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 
-   <title>Add User - Oral Diagnosis</title>
-	
+   <title>Patient Checklist - Oral Diagnosis</title>
+<link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">	
 <script type="text/javascript">
 	
 	
@@ -96,9 +96,9 @@
  <body>
   
 
-<div class="maindiv" style="border:0px;">
+<div class="maindiv">
 	<?php include('patient_header.php'); ?>
-<div id="Content_Area" style="border: solid 1px #7F00FF;">
+<div id="Content_Area">
 
 <form id="ADDPATIENTCHECKLIST" name="ADDPATIENTCHECKLIST" action="<?php echo base_url();?>index.php/verifyaddpatientchecklist" method="post">
 
@@ -109,7 +109,7 @@
      		echo $session_data['error'];
 	?>
 </div>
-
+<div style="position: relative; text-align:right; color: red; right: 5%;"><i>* means required</i></div>
 		<table frame="box" class="frame">
 			<tr class="header">
 				<td colspan=6>Patient Checklist
@@ -137,7 +137,7 @@
 						if($session_data2['hbp'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $hbp=='No') echo 'checked'; ?>>
-				<td>High blood pressure
+				<td>High blood pressure<font color='red'>*</font>
 				<td><input type="radio" name="pij" id="pijy" value="Yes" <?php 
 					if($invalid_input){ 
 						if($session_data2['pij'] == "Yes") echo "checked";
@@ -148,7 +148,7 @@
 						if($session_data2['pij'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $pij=='No') echo 'checked'; ?>>
-				<td>Pain in joints
+				<td>Pain in joints<font color='red'>*</font>
 			</tr>
 			<tr>
 				<td><input type="radio" name="ha" id="hay" value="Yes" <?php 
@@ -161,7 +161,7 @@
 						if($session_data2['ha'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $ha=='No') echo 'checked'; ?>>
-				<td>Heart attack
+				<td>Heart attack<font color='red'>*</font>
 				<td><input type="radio" name="trem" id="tremy" value="Yes" <?php 
 					if($invalid_input){ 
 						if($session_data2['trem'] == "Yes") echo "checked";
@@ -172,7 +172,7 @@
 						if($session_data2['trem'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $trem=='No') echo 'checked'; ?>>
-				<td>Tremors
+				<td>Tremors<font color='red'>*</font>
 			</tr>
 			<tr>
 				<td><input type="radio" name="apcp" id="apcpy" value="Yes" <?php 
@@ -185,7 +185,7 @@
 						if($session_data2['apcp'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $apcp=='No') echo 'checked'; ?>>
-				<td>Angia Pectoris, chest pain
+				<td>Angia Pectoris, chest pain<font color='red'>*</font>
 				<td><input type="radio" name="bt" id="bty" value="Yes" <?php 
 					if($invalid_input){ 
 						if($session_data2['bt'] == "Yes") echo "checked";
@@ -196,7 +196,7 @@
 						if($session_data2['bt'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $bt=='No') echo 'checked'; ?>> 
-				<td>Blood transfusion
+				<td>Blood transfusion<font color='red'>*</font>
 			</tr>
 			<tr>
 				<td><input type="radio" name="sa" id="say" value="Yes" <?php 
@@ -209,7 +209,7 @@
 						if($session_data2['sa'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $sa=='No') echo 'checked'; ?>>
-				<td>Swollen ankles
+				<td>Swollen ankles<font color='red'>*</font>
 				<td><input type="radio" name="dptgb" id="dptgby" value="Yes" <?php 
 					if($invalid_input){ 
 						if($session_data2['dptgb'] == "Yes") echo "checked";
@@ -220,7 +220,7 @@
 						if($session_data2['dptgb'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $dptgb=='No') echo 'checked'; ?>>
-				<td>Denied permission to give blood
+				<td>Denied permission to give blood<font color='red'>*</font>
 			</tr>
 			<tr>
 				<td><input type="radio" name="fhf" id="fhfy" value="Yes" <?php 
@@ -233,7 +233,7 @@
 						if($session_data2['fhf'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $fhf=='No') echo 'checked'; ?>>
-				<td>Frequent high fever
+				<td>Frequent high fever<font color='red'>*</font>
 				<td><input type="radio" name="pal" id="paly" value="Yes" <?php 
 					if($invalid_input){ 
 						if($session_data2['pal'] == "Yes") echo "checked";
@@ -244,7 +244,7 @@
 						if($session_data2['pal'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $pal=='No') echo 'checked'; ?>>
-				<td>Pallor
+				<td>Pallor<font color='red'>*</font>
 			</tr>
 			<tr>
 				<td><input type="radio" name="pahv" id="pahvy" value="Yes" <?php 
@@ -257,7 +257,7 @@
 						if($session_data2['pahv'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $pahv=='No') echo 'checked'; ?>>
-				<td>Pacemakers, artificial heart valves
+				<td>Pacemakers, artificial heart valves<font color='red'>*</font>
 				<td><input type="radio" name="dia" id="diay" value="Yes" <?php 
 					if($invalid_input){ 
 						if($session_data2['dia'] == "Yes") echo "checked";
@@ -268,7 +268,7 @@
 						if($session_data2['dia'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $dia=='No') echo 'checked'; ?>>
-				<td>Diabetes
+				<td>Diabetes<font color='red'>*</font>
 			</tr>
 			<tr>
 				<td><input type="radio" name="emp" id="empy" value="Yes" <?php 
@@ -281,7 +281,7 @@
 						if($session_data2['emp'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $emp=='No') echo 'checked'; ?>>
-				<td>Emphysema
+				<td>Emphysema<font color='red'>*</font>
 				<td><input type="radio" name="goi" id="goiy" value="Yes" <?php 
 					if($invalid_input){ 
 						if($session_data2['goi'] == "Yes") echo "checked";
@@ -292,7 +292,7 @@
 						if($session_data2['goi'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $goi=='No') echo 'checked'; ?>>
-				<td>Goiter
+				<td>Goiter<font color='red'>*</font>
 			</tr>
 			<tr>
 				<td><input type="radio" name="af" id="afy" value="Yes" <?php 
@@ -305,7 +305,7 @@
 						if($session_data2['af'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $af=='No') echo 'checked'; ?>>
-				<td>Afternoon fever
+				<td>Afternoon fever<font color='red'>*</font>
 				<td><input type="radio" name="bobt" id="bobty" value="Yes" <?php 
 					if($invalid_input){ 
 						if($session_data2['bobt'] == "Yes") echo "checked";
@@ -316,7 +316,7 @@
 						if($session_data2['bobt'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $bobt=='No') echo 'checked'; ?>>
-				<td>Bleeding or bruising tendency
+				<td>Bleeding or bruising tendency<font color='red'>*</font>
 			</tr>
 			<tr>
 				<td><input type="radio" name="cc" id="ccy" value="Yes" <?php 
@@ -329,7 +329,7 @@
 						if($session_data2['cc'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $cc=='No') echo 'checked'; ?>>
-				<td>Chronic cough
+				<td>Chronic cough<font color='red'>*</font>
 				<td><input type="radio" name="swlog" id="swlogy" value="Yes" <?php
 					if($invalid_input){ 
 						if($session_data2['swlog'] == "Yes") echo "checked";
@@ -340,7 +340,7 @@
 						if($session_data2['swlog'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $swlog=='No') echo 'checked'; ?>>
-				<td>Sudden weight loss or gain
+				<td>Sudden weight loss or gain<font color='red'>*</font>
 			</tr>
 			<tr>
 				<td><input type="radio" name="brp" id="brpy" value="Yes" <?php 
@@ -353,7 +353,7 @@
 						if($session_data2['brp'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $brp=='No') echo 'checked'; ?>>
-				<td>Breathing problems
+				<td>Breathing problems<font color='red'>*</font>
 				<td><input type="radio" name="ft" id="fty" value="Yes" <?php 
 					if($invalid_input){ 
 						if($session_data2['ft'] == "Yes") echo "checked";
@@ -364,7 +364,7 @@
 						if($session_data2['ft'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $ft=='No') echo 'checked'; ?>>
-				<td>Frequent thirst
+				<td>Frequent thirst<font color='red'>*</font>
 			</tr>
 			<tr>
 				<td><input type="radio" name="bs" id="bsy" value="Yes" <?php 
@@ -377,7 +377,7 @@
 						if($session_data2['bs'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $bs=='No') echo 'checked'; ?>>
-				<td>Bloody sputum
+				<td>Bloody sputum<font color='red'>*</font>
 				<td><input type="radio" name="fh" id="fhy" value="Yes" <?php 
 					if($invalid_input){ 
 						if($session_data2['fh'] == "Yes") echo "checked";
@@ -388,7 +388,7 @@
 						if($session_data2['fh'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $fh=='No') echo 'checked'; ?>>
-				<td>Frequent hunger
+				<td>Frequent hunger<font color='red'>*</font>
 			</tr>
 			<tr>
 				<td><input type="radio" name="sin" id="siny" value="Yes" <?php 
@@ -401,7 +401,7 @@
 						if($session_data2['sin'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $sin=='No') echo 'checked'; ?>>
-				<td>Sinusitis
+				<td>Sinusitis<font color='red'>*</font>
 				<td><input type="radio" name="fur" id="fury" value="Yes" <?php 
 					if($invalid_input){ 
 						if($session_data2['fur'] == "Yes") echo "checked";
@@ -412,7 +412,7 @@
 						if($session_data2['fur'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $fur=='No') echo 'checked'; ?>>
-				<td>Frequent urination
+				<td>Frequent urination<font color='red'>*</font>
 			</tr>
 			<tr>
 				<td><input type="radio" name="fha" id="fhay" value="Yes" <?php 
@@ -425,7 +425,7 @@
 						if($session_data2['fha'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $fha=='No') echo 'checked'; ?>>
-				<td>Frequent headaches
+				<td>Frequent headaches<font color='red'>*</font>
 				<td><input type="radio" name="che" id="chey" value="Yes" <?php 
 					if($invalid_input){ 
 						if($session_data2['che'] == "Yes") echo "checked";
@@ -436,7 +436,7 @@
 						if($session_data2['che'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $che=='No') echo 'checked'; ?>>
-				<td>Chemotherapy
+				<td>Chemotherapy<font color='red'>*</font>
 			</tr>
 			<tr>
 				<td><input type="radio" name="diz" id="dizy" value="Yes" <?php 
@@ -449,7 +449,7 @@
 						if($session_data2['diz'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $diz=='No') echo 'checked'; ?>>
-				<td>Dizziness
+				<td>Dizziness<font color='red'>*</font>
 				<td><input type="radio" name="puu" id="puuy" value="Yes" <?php 
 					if($invalid_input){ 
 						if($session_data2['puu'] == "Yes") echo "checked";
@@ -460,7 +460,7 @@
 						if($session_data2['puu'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $puu=='No') echo 'checked'; ?>>
-				<td>Pain upon urination
+				<td>Pain upon urination<font color='red'>*</font>
 			</tr>
 			<tr>
 				<td><input type="radio" name="fslc" id="fslcy" value="Yes" <?php 
@@ -473,7 +473,7 @@
 						if($session_data2['fslc'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $fslc=='No') echo 'checked'; ?>>
-				<td>Fainting spells or loss of conciousness
+				<td>Fainting spells or loss of conciousness<font color='red'>*</font>
 				<td><input type="radio" name="biu" id="biuy" value="Yes" <?php 
 					if($invalid_input){ 
 						if($session_data2['biu'] == "Yes") echo "checked";
@@ -484,7 +484,7 @@
 						if($session_data2['biu'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $biu=='No') echo 'checked'; ?>>
-				<td>Blood/pus in urine
+				<td>Blood/pus in urine<font color='red'>*</font>
 			</tr>
 			<tr>
 				<td><input type="radio" name="vi" id="viy" value="Yes" <?php 
@@ -497,7 +497,7 @@
 						if($session_data2['vi'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $vi=='No') echo 'checked'; ?>>
-				<td>Visual impairment
+				<td>Visual impairment<font color='red'>*</font>
 				<td><input type="radio" name="hep" id="hepy" value="Yes" <?php 
 					if($invalid_input){ 
 						if($session_data2['hep'] == "Yes") echo "checked";
@@ -508,7 +508,7 @@
 						if($session_data2['hep'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $hep=='No') echo 'checked'; ?>>
-				<td>Hepatitis (A, B, C, D)
+				<td>Hepatitis (A, B, C, D)<font color='red'>*</font>
 			</tr>
 			<tr>
 				<td><input type="radio" name="hi" id="hiy" value="Yes" <?php 
@@ -521,7 +521,7 @@
 						if($session_data2['hi'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $hi=='No') echo 'checked'; ?>>
-				<td>Hearing impairment
+				<td>Hearing impairment<font color='red'>*</font>
 				<td><input type="radio" name="hiv" id="hivy" value="Yes" <?php 
 					if($invalid_input){ 
 						if($session_data2['hiv'] == "Yes") echo "checked";
@@ -532,7 +532,7 @@
 						if($session_data2['hiv'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $hiv=='No') echo 'checked'; ?>>
-				<td>HIV positive?
+				<td>HIV positive?<font color='red'>*</font>
 			</tr>
 			<tr>
 				<td><input type="radio" name="art" id="arty" value="Yes" <?php 
@@ -545,7 +545,7 @@
 						if($session_data2['art'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $art=='No') echo 'checked'; ?>>
-				<td>Arthritis
+				<td>Arthritis<font color='red'>*</font>
 				<td><input type="radio" name="pad" id="pady" value="Yes" <?php 
 					if($invalid_input){ 
 						if($session_data2['pad'] == "Yes") echo "checked";
@@ -556,7 +556,7 @@
 						if($session_data2['pad'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $pad=='No') echo 'checked'; ?>>
-				<td>Pelvic/lower abdominal discomfort
+				<td>Pelvic/lower abdominal discomfort<font color='red'>*</font>
 			</tr>
 			<tr>
 				<td><input type="radio" name="ner" id="nery" value="Yes" <?php 
@@ -569,7 +569,7 @@
 						if($session_data2['ner'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $ner=='No') echo 'checked'; ?>>
-				<td>Nervousness
+				<td>Nervousness<font color='red'>*</font>
 				<td><input type="radio" name="dep" id="depy" value="Yes" <?php 
 					if($invalid_input){ 
 						if($session_data2['dep'] == "Yes") echo "checked";
@@ -580,7 +580,7 @@
 						if($session_data2['dep'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $dep=='No') echo 'checked'; ?>>
-				<td>Depression
+				<td>Depression<font color='red'>*</font>
 			</tr>
 			<tr>
 				<td><input type="radio" name="anx" id="anxy" value="Yes" <?php 
@@ -593,7 +593,7 @@
 						if($session_data2['anx'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $anx=='No') echo 'checked'; ?>>
-				<td>Anxiety
+				<td>Anxiety<font color='red'>*</font>
 				<td><input type="radio" name="oth" id="othy" value="Yes" onChange="showdiv(this.name, this.value);" onLoad="showdiv(this.name, this.value);" <?php 
 					if($invalid_input){ 
 						if($session_data2['oth'] == "Yes") echo "checked";
@@ -604,7 +604,7 @@
 						if($session_data2['oth'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $patientoth=='No') echo 'checked'; ?>>
-				<td>Others
+				<td>Others<font color='red'>*</font>
 			</tr>
 			<tr>
 				<td><input type="radio" name="ast" id="asty" value="Yes" <?php 
@@ -617,7 +617,7 @@
 						if($session_data2['ast'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $ast=='No') echo 'checked'; ?>>
-				<td>Asthma
+				<td>Asthma<font color='red'>*</font>
 				<td>
 				<td>
 				<td><div id="checklist"
@@ -631,7 +631,7 @@
 						}
 					else
 						echo "style='display:none;'";	
-					?>><input type="text" name="cloth" placeholder="please specify here" value="<?php if($invalid_input) echo $session_data2['checklist']; elseif($recordexist == true) echo $patientotht; ?>"></div>
+					?>><input type="text" name="cloth" placeholder="please specify here" value="<?php if($invalid_input) echo $session_data2['checklist']; elseif($recordexist == true) echo $patientotht; ?>"><font color='red'>*</font></div>
 			</tr>
 			<tr>
 				<td colspan=6><br><b>Family History</b> (Grandparents, Parents, Brothers, Sisters, Children)
@@ -656,7 +656,7 @@
 						if($session_data2['diaf'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $diaf=='No') echo 'checked'; ?>>
-				<td>Diabetes
+				<td>Diabetes<font color='red'>*</font>
 				<td>
 				<td>
 				<td>
@@ -672,7 +672,7 @@
 						if($session_data2['bdf'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $bdf=='No') echo 'checked'; ?>>
-				<td>Bleeding disorders
+				<td>Bleeding disorders<font color='red'>*</font>
 				<td>
 				<td>
 				<td>
@@ -688,7 +688,7 @@
 						if($session_data2['hdf'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $hdf=='No') echo 'checked'; ?>>
-				<td>Heart Diseases
+				<td>Heart Diseases<font color='red'>*</font>
 				<td>
 				<td>
 				<td>
@@ -704,7 +704,7 @@
 						if($session_data2['canf'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $canf=='No') echo 'checked'; ?>>
-				<td>Cancer
+				<td>Cancer<font color='red'>*</font>
 				<td>
 				<td>
 				<td>
@@ -720,7 +720,7 @@
 						if($session_data2['famoth'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $familyoth=='No') echo 'checked';?>>
-				<td>Others
+				<td>Others<font color='red'>*</font>
 				<td>
 				<td>
 				<td>
@@ -738,7 +738,7 @@
 						}
 					else
 						echo "style='display:none;'";	
-					?>><input type="text" name="famotht" placeholder="please specify here" value="<?php if($invalid_input) echo $session_data2['family']; elseif($recordexist == true) echo $familyotht; ?>"></div>
+					?>><input type="text" name="famotht" placeholder="please specify here" value="<?php if($invalid_input) echo $session_data2['family']; elseif($recordexist == true) echo $familyotht; ?>"><font color='red'>*</font></div>
 				<td>
 				<td>
 				<td>
@@ -766,7 +766,7 @@
 						if($session_data2['druga'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $druga=='No') echo 'checked'; ?>>
-				<td>Drugs
+				<td>Drugs<font color='red'>*</font>
 				<td>
 				<td>
 				<td>
@@ -782,7 +782,7 @@
 						if($session_data2['fooda'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $fooda=='No') echo 'checked'; ?>>
-				<td>Food
+				<td>Food<font color='red'>*</font>
 				<td>
 				<td>
 				<td>
@@ -798,7 +798,7 @@
 						if($session_data2['ruba'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $ruba=='No') echo 'checked'; ?>>
-				<td>Rubber
+				<td>Rubber<font color='red'>*</font>
 				<td>
 				<td>
 				<td>
@@ -814,7 +814,7 @@
 						if($session_data2['aloth'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $allergyoth=='No') echo 'checked'; ?>>
-				<td>Others
+				<td>Others<font color='red'>*</font>
 				<td>
 				<td>
 				<td>
@@ -832,7 +832,7 @@
 						}
 					else
 						echo "style='display:none;'";	
-					?>><input type="text" name="alotht" placeholder="please specify here" value="<?php if($invalid_input) echo $session_data2['allergy']; elseif($recordexist == true) echo $allergyotht; ?>"></div>
+					?>><input type="text" name="alotht" placeholder="please specify here" value="<?php if($invalid_input) echo $session_data2['allergy']; elseif($recordexist == true) echo $allergyotht; ?>"><font color='red'>*</font></div>
 				<td>
 				<td>
 				<td>
@@ -860,7 +860,7 @@
 						if($session_data2['pregfe'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $pregfe=='No') echo 'checked'; ?>>
-				<td>Are you pregnant now?
+				<td>Are you pregnant now?<font color='red'>*</font>
 				<td>
 				<td>
 				<td>
@@ -876,7 +876,7 @@
 						if($session_data2['bffe'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $bffe=='No') echo 'checked'; ?>>
-				<td>Are you breastfeeding now?
+				<td>Are you breastfeeding now?<font color='red'>*</font>
 				<td>
 				<td>
 				<td>
@@ -892,7 +892,7 @@
 						if($session_data2['hrtfe'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $hrtfe=='No') echo 'checked'; ?>>
-				<td>Under hormone replacement therapy?
+				<td>Under hormone replacement therapy?<font color='red'>*</font>
 				<td>
 				<td>
 				<td>
@@ -908,7 +908,7 @@
 						if($session_data2['mensfe'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $mensfe=='No') echo 'checked'; ?>>
-				<td>Menstruation?
+				<td>Menstruation?<font color='red'>*</font>
 				<td>
 				<td>
 				<td>
@@ -924,7 +924,7 @@
 						if($session_data2['confe'] == "No") echo "checked";
 					}	
 					elseif($recordexist == true && $confe=='No') echo 'checked'; ?>>
-				<td>Taking any form of contraceptive?
+				<td>Taking any form of contraceptive?<font color='red'>*</font>
 				<td>
 				<td>
 				<td>
