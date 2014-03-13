@@ -30,12 +30,19 @@ class SearchUser extends CI_Controller {
 	     			$data2['usernamelog'] = $session_data['username'];
 			
 				$this->load->view('manageusers_view', $data2);*/
+				$userID222 = $session_data['username'];
+				$userID22 = $this->user->getUserID($userID222);
+				$userID2 = $userID22['$userID'];
+				$date = date("Y-m-d");
+
 				$data2['users'] = $this->user->searchUser($string);
 				foreach($data2['users'] as $row){
 					$name = $row->userFName." ".$row->userLName;
 					$uname = $row->username;
 					$data2['users2'][$uname] = $this->user->selectUsers_pt2($name, $uname);
-				}				
+				}			
+			
+				$this->user->addAuditTrail($userID2, 'SELECT', 'Users', '', $date);	
 
 				$session_data = $this->session->userdata('logged_in');
 	     			$data2['usernamelog'] = $session_data['username'];

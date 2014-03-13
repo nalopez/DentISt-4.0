@@ -26,6 +26,25 @@ class QueryPatient extends CI_Controller {
 			}
  
 			if($bool){
+			$this->load->library('form_validation');
+
+			$this->form_validation->set_rules('gendersearch', 'Gender', 'trim|required|xss_clean');
+			/*$this->form_validation->set_rules('firstname', 'First Name', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('midname', 'Middle Name', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('role', 'Role', 'trim|required|xss_clean|callback_check_role');
+			$this->form_validation->set_rules('section', 'Section', 'trim|required|xss_clean');
+		   	$this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean|callback_check_username');
+		   	$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('password2', 'Retype Password', 'trim|required|xss_clean|callback_check_password');*/
+
+			if($this->form_validation->run() == FALSE)
+		 	{
+		     		$this->load->view('searchpatient_view');
+		   	}
+		   	else
+		   	{
+		
+
 				$agefrom = $this->input->post('agefrom');
 				$ageto = $this->input->post('ageto');
 
@@ -99,6 +118,7 @@ class QueryPatient extends CI_Controller {
 				$pulpsed = $this->input->post('pulpsed');
 				$roc = $this->input->post('roc');
 				$temfill = $this->input->post('temfill');
+				$mopd = $this->input->post('mopd');
 				$moai = $this->input->post('moai');
 				$moti = $this->input->post('moti');
 				$lamented = $this->input->post('lamented');
@@ -119,7 +139,7 @@ class QueryPatient extends CI_Controller {
 				if(!in_array("", $demo)){
 					foreach($demo[0] as $key=>$value){
 						$demox = $value;
-						echo "demovalue=$demox";
+						//echo "demovalue=$demox";
 					}
 				}
 				if(!in_array("", $dentdemo)){
@@ -138,7 +158,7 @@ class QueryPatient extends CI_Controller {
 				$data['dentalstatmatch'] = false;
 				$data['servicematch'] = false;					
 	
-				$data['patientmatch'] = $this->patient->searchPatient1($agefrom, $ageto, $gender, $city, $occ, $agefrom, $ageto, $gender, $city, $occ, $perio, $rpd, $ortho, $os, $fpd, $pedo, $endo, $cd, $resto, $caries, $extrusion, $compdent, $impacted, $recurrent, $intrusion, $singdent, $missing, $restoration, $mdr, $rempardent, $acrcr, $pftm, $ddr, $pafs, $metcr, $rot, $rct, $pcc, $extracted, $unerupted, $porcr, $class1, $class2, $class3, $class4, $class5, $onlay, $extraction, $odon, $specclass, $pedodontics, $orthodontics, $pulpsed, $roc, $temfill, $moai, $moti, $lamented, $completedenture, $anterior, $singlecrown, $posterior, $bridge, $singledenture, $removablepartialdenture, $demox, $dentx, $servx);
+				$data['patientmatch'] = $this->patient->searchPatient1($agefrom, $ageto, $gender, $city, $occ, $agefrom, $ageto, $gender, $city, $occ, $perio, $rpd, $ortho, $os, $fpd, $pedo, $endo, $cd, $resto, $caries, $extrusion, $compdent, $impacted, $recurrent, $intrusion, $singdent, $missing, $restoration, $mdr, $rempardent, $acrcr, $pftm, $ddr, $pafs, $metcr, $rot, $rct, $pcc, $extracted, $unerupted, $porcr, $class1, $class2, $class3, $class4, $class5, $onlay, $extraction, $odon, $specclass, $pedodontics, $orthodontics, $pulpsed, $roc, $temfill, $mopd, $moai, $moti, $lamented, $completedenture, $anterior, $singlecrown, $posterior, $bridge, $singledenture, $removablepartialdenture, $demox, $dentx, $servx);
 				//$data['sectionmatch'] = $this->patient->searchPatient2($perio, $rpd, $ortho, $os, $fpd, $pedo, $endo, $cd, $resto);
 				//$data['dentalstatmatch'] = $this->patient->searchPatient3($caries, $extrusion, $compdent, $impacted, $recurrent, $intrusion, $singdent, $missing, $restoration, $mdr, $rempardent, $acrcr, $pftm, $ddr, $pafs, $metcr, $rot, $rct, $pcc, $extracted, $unerupted, $porcr);
 				//$data['servicematch'] = $this->patient->searchPatient4($class1, $class2, $class3, $class4, $class5, $onlay, $extraction, $odon, $specclass, $pedodontics, $orthodontics, $pulpsed, $roc, $temfill, $moai, $moti, $lamented, $completedenture, $anterior, $singlecrown, $posterior, $bridge, $singledenture, $removablepartialdenture); 
@@ -193,6 +213,7 @@ class QueryPatient extends CI_Controller {
 				$data['pulpsed'] = $pulpsed;
 				$data['roc'] = $roc;
 				$data['temfill'] = $temfill;
+				$data['mopd'] = $mopd;
 				$data['moai'] = $moai;
 				$data['moti'] = $moti;
 				$data['lamented'] = $lamented;
@@ -207,7 +228,7 @@ class QueryPatient extends CI_Controller {
 				//print_r($data['dentalstatmatch']);
 				$userID222 = $session_data['username'];
 				$userID22 = $this->user->getUserID($userID222);
-				$userID2 = $userID22['$userID'];
+				$userID2 = $userID22['userID'];
 				$date = date("Y-m-d");
 
 				$this->user->addAuditTrail($userID2, 'SELECT', 'Patient', '', $date);
@@ -215,7 +236,7 @@ class QueryPatient extends CI_Controller {
 				$this->load->helper(array('form'));
 				$this->load->view('querypatient_view', $data);
 				
-		
+			}
 				
 		}
 		else{

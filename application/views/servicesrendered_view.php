@@ -20,6 +20,17 @@
 
 var fieldNum3;
 var k=0;
+var year = new Date().getFullYear();
+
+	$(function() {	
+		$('#servicedate_0').datepicker({
+			dateFormat: 'yy-mm-dd',
+			showAnim: 'slideDown',
+			changeMonth: true,
+			changeYear: true,
+			yearRange: '1910:' + year
+	    	});
+	});
 
 function addService(tableID){
 	fieldNum3= k+1;
@@ -47,7 +58,7 @@ function addService(tableID){
 		showAnim: 'slideDown',
 		changeMonth: true,
 		changeYear: true,
-		yearRange: '1910:2014'
+		yearRange: '1910:' + year
     	});
 }
 

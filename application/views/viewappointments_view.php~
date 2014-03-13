@@ -84,11 +84,12 @@
 					echo "<td>".$row['appointmentDate'];
 					echo "<td>";
 						if($row['appointmentDate'] == 'Pending') echo "<a href='".base_url()."index.php/setappointment/patient/".$row['UPCD_ID']."' onClick='setIDvalue(\"".$row['UPCD_ID']."\")'> Set Appointment </a>" ;
-						else echo "<a href='".base_url()."index.php/setappointment/patient/".$row['UPCD_ID']."'> Reschedule </a> &nbsp; &nbsp; <a href='#' onClick='confirmDeleteSched(".$row['UPCD_ID'].")'> Remove </a>";
+						else echo "<a href='".base_url()."index.php/setappointment/patient/".$row['UPCD_ID']."'> Reschedule </a> &nbsp; &nbsp; <a href='#' onClick='confirmDeleteSched(\"".$row['UPCD_ID']."\")'> Remove </a>";
 					echo "</tr>";
 					$ctr++;
 				}
 			}
+			else echo "<tr> <td colspan=4> No results found </tr>"
 		?>
 		<!-- <a href='".base_url()."index.php/setappointment' -->
 		<input type=hidden name="id" id="patientid">

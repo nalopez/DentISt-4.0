@@ -116,7 +116,6 @@ input[type=button]{
 	background-color: #9400D3;
 	border-color: #9400D3;
 	color: white;
-	width: 100px;
 	padding: 4px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
@@ -203,6 +202,9 @@ p { padding-left: 15px; }
 	background-repeat:no-repeat;
 	background-position: right;
 	background-size: 20px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
 
 table.frame{

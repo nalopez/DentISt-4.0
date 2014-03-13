@@ -6,6 +6,7 @@ class Home extends CI_Controller {
  {
    parent::__construct();
 	$this->load->model('user','',TRUE);
+	$this->load->model('patient','',TRUE);
  }
 
  function index()
@@ -28,9 +29,19 @@ class Home extends CI_Controller {
 	$data['role'] = $role; 
 	$data['section'] = $section; 
 
+	$user = $this->user->getUserID($session_data['username']);
+	$userID = $user['userID'];
+				//echo $userID;
+
+	 $data2['appointments'] = $this->patient->getAppointments($userID);
+				//print_r($data2['appointments']);
+
+				
+	$this->load->view('viewappointments_view', $data2);
+
 	//print_r($data3);
 	//if($role == 'System Administrator'){
-		$this->load->view('home_view', $data);
+		//$this->load->view('home_view', $data);
 	//}
 	/*else if($role == "Faculty"){
 		$this->load->view('home_fac_view', $data);
@@ -48,6 +59,15 @@ class Home extends CI_Controller {
 
  function logout()
  {
+	     $session_data = $this->session->userdata('logged_in');
+	$username = $session_data['username'];
+		$idd = $this->user->getUserID($username);
+		$id = $idd['userID'];
+			$date = date("Y-m-d");
+
+		$this->user->addAuditTrail($id, 'LOGOUT', 'Users', '', $date);
+
+
    $this->session->unset_userdata('logged_in');
    session_destroy();
    redirect('home', 'refresh');

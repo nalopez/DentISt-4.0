@@ -59,7 +59,7 @@ td.calendar-day, td.calendar-day-np { width:120px; padding:5px; border-bottom:1p
 		});
 	</script>
 	<body><br>
-	<div style="align: left; width: 20%; position: absolute; height:100%; ">
+	<div style="align: left; width: 20%; position: absolute; height:100%; position: fixed;">
 	<?php
 
 		$sysad = false;
@@ -112,12 +112,14 @@ td.calendar-day, td.calendar-day-np { width:120px; padding:5px; border-bottom:1p
 				elseif($ODe) echo "Operative Dentistry";
 				elseif($GQ) echo "General Query"; 
 			echo ") </h3><div style='text-align:center;'>";
-			/*if($ODi){
+			if($ODi){
 				echo "<a href='".base_url()."index.php/addpatient'> Add a Patient </a><br>";
-			}*/
-			echo "<a href='".base_url()."index.php/searchpatient'> Search a Patient </a><br>";
+			}
+			echo "<a href='".base_url()."index.php/searchpatient'> Query for Patient/s </a><br>";
 			echo "<a href='".base_url()."index.php/facultytasks'> Tasks </a><br>";
-		echo "<a href='".base_url()."index.php/clinicianappointments'> View Clinician Appointments </a> </div>";
+			echo "<a href='".base_url()."index.php/clinicianappointments'> View Clinician Appointments </a><br>";
+			echo "<a href='".base_url()."index.php/viewclinicians'> View Section Clinicians </a><br>";
+			echo "<a href='".base_url()."index.php/viewstat'> View Statistics </a> </div>";
 		}
 		if($stud){
 			echo "<h3 align='center'> Student<br> (";

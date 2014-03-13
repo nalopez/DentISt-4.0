@@ -17,7 +17,7 @@ $this->load->model('user','',TRUE);
 		$bool = false;
 		$rolex = $session_data['role'];
 		foreach($rolex as $row){
-			if($row == "Student"){
+			if($row != "System Administrator"){
 				$bool = true;
 				break;
 			}
@@ -55,9 +55,7 @@ $this->load->model('user','',TRUE);
 				$info = $this->user->getUserId($username);
 				$userID = $info['userID'];
 
-				$date = date("Y-m-d");
-				$status = "Pending";
-				$approver = "Pending";
+
 
 				$section = "";
 				$sect = $session_data['section'];
@@ -68,12 +66,51 @@ $this->load->model('user','',TRUE);
 					}
 				}
 
-				$this->patient->addPatientDashboardVersion($id, $refer, $userID, $date, $status, $approver, $section);
-				$this->patient->updatePatientRecordStatus($id, "for approval");
-				$this->patient->updateClinician($id, $userID);
-				$this->patient->resetPatientRemark($id);
+				$rolef = "";
+				$rolex2 = $session_data['role'];
+				foreach($rolex2 as $row){
+					if($row != "System Administrator"){
+						$rolef = $row;
+						break;
+					}
+				}
+ 
+				if($rolef == "Student"){
+					$date = date("Y-m-d");
+					$status = "Pending";
+					$approver = "Pending";
+
+					$this->patient->addPatientDashboardVersion($id, $refer, $userID, $date, $status, $approver, $section);
+					$this->patient->updatePatientRecordStatus($id, "for approval");
+					$this->patient->updateClinician($id, $userID);
+					$this->patient->resetPatientRemark($id);
+
+					redirect('/loaddashboard/patientdb/'.$id);
+				}
+				else{
+					$date = date("Y-m-d");
+					$status = "Approved";
+					$approver = $userID;
+
+					$this->patient->addPatientDashboardVersion($id, $refer, $userID, $date, $status, $approver, $section);
+					$this->patient->updatePatientRecordStatus($id, "Open");
+					$this->patient->updateClinician($id, $userID);
+					$this->patient->resetPatientRemark($id);
+
+					$student = $this->patient->getStudentId($id);
+					$section = "";
+					foreach($student as $row){
+						$section = $row['section7'];
+					}
+
+					$this->patient->deleteStudentTask($id);
+					$this->patient->updatePatient($id, $refer, $userid, "Approved");
+
+					redirect('/home');
+
+				}
 			
-				redirect('/loaddashboard/patientdb/'.$id);
+				
 			}
 		}
 		else{

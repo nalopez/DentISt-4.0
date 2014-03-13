@@ -49,8 +49,10 @@ class DentalData extends CI_Controller {
 				}*/
 				$userID222 = $session_data['username'];
 				$userID22 = $this->user->getUserID($userID222);
-				$userID2 = $userID22['$userID'];
+				$userID2 = $userID22['userID'];
 				$date = date("Y-m-d");
+
+				$clinicianID = $this->patient->isClinician($id);
 
 				if($this->patient->hasDentalData($id)){
 					$data['info'] = $this->patient->getPatientInfoDentalData($id);
@@ -62,8 +64,12 @@ class DentalData extends CI_Controller {
 					$this->user->addAuditTrail($userID2, 'SELECT', 'Dental Data', $id, $date);
 					redirect('dentaldata/view/'.$id);
 				}else{
-					$this->user->addAuditTrail($userID2, 'SELECT', 'Dental Data', $id, $date);
-					$this->load->view('dentaldata_view', $data);
+					if($clinicianID!=$userID2){
+						redirect('dentaldata/view/'.$id);
+					}
+					else{ 
+						$this->load->view('dentaldata_view', $data);
+					}
 				}
 			}
 			else
@@ -117,8 +123,12 @@ class DentalData extends CI_Controller {
 				}*/
 				$userID222 = $session_data['username'];
 				$userID22 = $this->user->getUserID($userID222);
-				$userID2 = $userID22['$userID'];
+				$userID2 = $userID22['userID'];
 				$date = date("Y-m-d");
+
+				$clinicianID = $this->patient->isClinician($id);
+				$data['private'] = false;
+				$data['forapproval'] = false;
 
 				if($this->patient->hasDentalData($id)){
 					$data['info'] = $this->patient->getPatientInfoDentalDataRO($id, $version);
@@ -127,6 +137,11 @@ class DentalData extends CI_Controller {
 
 				if($this->patient->isLatestForApproval4($id)){
 					$data['forapproval'] = true;
+				}
+
+				if($clinicianID!=$userID2){
+					$data['private'] = true;
+					//redirect('dentalchart/view/'.$id);
 				}
 
 				//print_r($data['info']);

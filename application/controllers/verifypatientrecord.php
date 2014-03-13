@@ -146,7 +146,7 @@ $this->load->model('user','',TRUE);
 				}
 				elseif($decision == "Rejected"){
 					if($this->patient->hasTempRecord($patientid)){
-						echo "hasTempRecord";
+						//echo "hasTempRecord";
 						$this->patient->deleteStudentTask($patientid);
 						$this->patient->updatePatientTemporary($studentid, $facultyid, $patientid, $decision, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan);
 						$this->patient->updatePatientApprover($patientid, $facultyid);
@@ -158,7 +158,7 @@ $this->load->model('user','',TRUE);
 						$this->patient->deleteStudentTask($patientid);
 					}*/
 					else{
-						echo "noTempRecord";
+						//echo "noTempRecord";
 						$this->patient->deleteStudentTask($patientid);
 						$this->patient->addRemark($studentid, $facultyid, $patientid, $decision, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan);
 						$this->patient->updatePatientApprover($patientid, $facultyid);

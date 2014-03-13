@@ -16,7 +16,7 @@ class LoadDashboard extends CI_Controller {
 			$bool = false;
 			$role = $session_data['role'];
 			foreach($role as $row){
-				if($row == "Student"){
+				if($row != "System Administrator"){
 					$bool = true;
 					break;
 				}
@@ -81,7 +81,7 @@ class LoadDashboard extends CI_Controller {
 
 				$userID222 = $session_data['username'];
 				$userID22 = $this->user->getUserID($userID222);
-				$userID2 = $userID22['$userID'];
+				$userID2 = $userID22['userID'];
 				$date = date("Y-m-d");
 
 				$clinicianID = $this->patient->isClinician($id);
@@ -112,7 +112,7 @@ class LoadDashboard extends CI_Controller {
 				}
 				else{
 					if($clinicianID!=$userID){
-						$this->load->view('patientdashboardpending_view', $data);
+						$this->load->view('patientdashboardprivate_view', $data);
 					}
 					else{ 
 						$this->load->view('patientdashboard_view', $data);
@@ -197,7 +197,7 @@ class LoadDashboard extends CI_Controller {
 				}
 				$userID222 = $session_data['username'];
 				$userID22 = $this->user->getUserID($userID222);
-				$userID2 = $userID22['$userID'];
+				$userID2 = $userID22['userID'];
 				$date = date("Y-m-d");
 
 				$data['status'] = "";

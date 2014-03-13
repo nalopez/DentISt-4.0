@@ -4,7 +4,7 @@
 	
 	echo "<link rel=\"stylesheet\" type=\"text/css\" href='".base_url()."css/style.css'>";
 	//echo "<script type\"text/javascript\" src=\"".base_url()."js/dynamic.js\"></script>";
-	echo "<script type\"text/javascript\" src=\"".base_url()."js/patientdb.js\"></script>"
+	//echo "<script type\"text/javascript\" src=\"".base_url()."js/patientdb.js\"></script>"
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -67,7 +67,8 @@
 	?>
 </div>
 
-<?php if($forapproval) echo "<h4 style='color:red;'>This patient's record is currently subject for approval.</h4>"; ?>
+<?php if($forapproval) echo "<h4 style='color:red;'>This patient's record is currently subject for approval.</h4>";
+elseif($private) echo "<h4 style='color:red;' align='center'>This patient's record is under other clinician's supervision.</h4>"; ?>
 
 		<table frame="box" class="frame" id="radio">
 		<tr class=header>

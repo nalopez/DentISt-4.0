@@ -50,8 +50,10 @@ class ConsultationAndFindings extends CI_Controller {
 
 				$userID222 = $session_data['username'];
 				$userID22 = $this->user->getUserID($userID222);
-				$userID2 = $userID22['$userID'];
+				$userID2 = $userID22['userID'];
 				$date = date("Y-m-d");
+
+				$clinicianID = $this->patient->isClinician($id);
 
 				if($this->patient->hasConFind($id)){
 					$data['info'] = $this->patient->getPatientInfoConFind($id);
@@ -63,8 +65,12 @@ class ConsultationAndFindings extends CI_Controller {
 					$this->user->addAuditTrail($userID2, 'SELECT', 'Consultation and Findings', $id, $date);
 					redirect('consultationandfindings/view/'.$id);
 				}else{
-					$this->user->addAuditTrail($userID2, 'SELECT', 'Consultation and Findings', $id, $date);
-					$this->load->view('consultationandfindings_view', $data);
+					if($clinicianID!=$userID2){
+						redirect('consultationandfindings/view/'.$id);
+					}
+					else{ 
+						$this->load->view('consultationandfindings_view', $data);
+					}
 				}
 			}
 			else
@@ -118,20 +124,32 @@ class ConsultationAndFindings extends CI_Controller {
 				}*/
 				$userID222 = $session_data['username'];
 				$userID22 = $this->user->getUserID($userID222);
-				$userID2 = $userID22['$userID'];
+				$userID2 = $userID22['userID'];
 				$date = date("Y-m-d");
 
+				echo $id;
+
+				$clinicianID = $this->patient->isClinician($id);
+				$data['private'] = false;
+				$data['forapproval'] = false;
+
 				if($this->patient->hasConFind($id)){
+					echo "withRecord";
 					$data['info'] = $this->patient->getPatientInfoConFindRO($id, $version);
 					$data['recordexist'] = true;
-					$this->user->addAuditTrail($userID2, 'SELECT', 'Consultation and Findings', $id, $date);
 				}
 
 				if($this->patient->isLatestForApproval9($id)){
 					$data['forapproval'] = true;
 				}
 
+				if($clinicianID!=$userID2){
+					$data['private'] = true;
+					//redirect('dentalchart/view/'.$id);
+				}				
+
 				//print_r($data['info']);
+				$this->user->addAuditTrail($userID2, 'SELECT', 'Consultation and Findings', $id, $date);
 				$this->load->view('consultationandfindingsreadonly_view', $data);
 			}
 			else

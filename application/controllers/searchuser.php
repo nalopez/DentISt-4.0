@@ -32,7 +32,7 @@ class SearchUser extends CI_Controller {
 				$this->load->view('manageusers_view', $data2);*/
 				$userID222 = $session_data['username'];
 				$userID22 = $this->user->getUserID($userID222);
-				$userID2 = $userID22['$userID'];
+				$userID2 = $userID22['userID'];
 				$date = date("Y-m-d");
 
 				$data2['users'] = $this->user->searchUser($string);

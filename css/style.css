@@ -96,7 +96,6 @@ input[type=submit]{
 	background-color: #9400D3;
 	border-color: #9400D3;
 	color: white;
-	width: 100px;
 	padding: 4px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
@@ -106,7 +105,6 @@ input[type=reset]{
 	background-color: #9400D3;
 	border-color: #9400D3;
 	color: white;
-	width: 100px;
 	padding: 4px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
@@ -116,7 +114,6 @@ input[type=button]{
 	background-color: #9400D3;
 	border-color: #9400D3;
 	color: white;
-	width: 100px;
 	padding: 4px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;

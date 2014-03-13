@@ -24,11 +24,14 @@ class VerifyLogin extends CI_Controller {
    else
    {
      //Go to private area
+		echo "Logging in..";
+
 		$username = $this->input->post('username');
 		$idd = $this->user->getUserID($username);
 		$id = $idd['userID'];
+			$date = date("Y-m-d");
 
-		$this->user->addAuditTrail($id, 'Login', 'Users', '', $date);
+		$this->user->addAuditTrail($id, 'LOGIN', 'Users', '', $date);
 	redirect('home', 'refresh');
 	
    }

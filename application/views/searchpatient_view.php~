@@ -99,6 +99,7 @@
 		}
 		else if(element == "saservneed"){
 			if(document.getElementById(element).checked){
+				document.getElementById('mopd').checked = true;
 				document.getElementById('class1').checked = true;
 				document.getElementById('extraction').checked = true;
 				document.getElementById('pulpsed').checked = true;
@@ -125,6 +126,7 @@
 				document.getElementById('removablepartialdenture').checked = true;
 			} 
 			else{
+				document.getElementById('mopd').checked = false;
 				document.getElementById('class1').checked = false;
 				document.getElementById('extraction').checked = false;
 				document.getElementById('pulpsed').checked = false;
@@ -162,40 +164,42 @@
 ?>
  <body>
   
-<div class="validation" style="display:<?if(validation_errors() == true) echo 'block'; else echo 'none'?>">
-   <?php echo validation_errors(); ?>
-</div>
+
 <br><br>
 <div style="border: 2px #7F00FF solid; text-align: center; -moz-border-radius: 12px; border-radius: 12px;">
 <h3 align="left" style="left: 1%;position: relative;">Query Patient</h3>
 
   	<form id="SEARCHPATIENT" name="SEARCHPATIENT" action="<?php echo base_url();?>index.php/querypatient" method="post">
-	
+	<div class="validation" style="display:<?if(validation_errors() == true) echo 'block'; else echo 'none'?>">
+   <?php if(form_error('gendersearch')) echo form_error('gendersearch'); ?>
+</div>
+
+<div style="position: relative; text-align:right; color: red; right: 5%;"><i>* means required</i></div>
 	<table frame="box" class="frame" style="width:98%; left:1%;">
 		<tr class="header">
 			<td colspan=4> Demographics
 		</tr>
 		<tr>
 			<td>Age
-			<td colspan=2><input type="text" name="agefrom" placeholder="From"> - 
-			<input type="text" name="ageto" placeholder="To">
+			<td colspan=2><input type="text" name="agefrom" placeholder="From" value="<?php echo set_value('agefrom'); ?>"> - 
+			<input type="text" name="ageto" placeholder="To" value="<?php echo set_value('ageto'); ?>">
 			<td>
 		</tr>
 		<tr>
-			<td>Gender
-			<td><input type="radio" name="gendersearch" value="Male">M &nbsp; <input type="radio" name="gendersearch" value="Female">F &nbsp; <input type="radio" name="gendersearch" value="Both">Both &nbsp; 
+			<td>Gender <font color='red'>*</font>
+			<td><input type="radio" name="gendersearch" value="Male" <?php if(set_value('gendersearch') == 'Male') echo "checked" ?>>M &nbsp; <input type="radio" name="gendersearch" value="Female" <?php if(set_value('gendersearch') == 'Female') echo "checked" ?>>F &nbsp; <input type="radio" name="gendersearch" value="Both" <?php if(set_value('gendersearch') == 'Both') echo "checked" ?>>Both &nbsp; 
 			<td>
 			<td>
 		</tr>
 		<tr>
 			<td>City
-			<td><input type="text" name="citysearch"> 
+			<td><input type="text" name="citysearch" value="<?php echo set_value('citysearch'); ?>"> 
 			<td>
 			<td>
 		</tr>
 		<tr>
 			<td>Occupation
-			<td><input type="text" name="occsearch">
+			<td><input type="text" name="occsearch" value="<?php echo set_value('occsearch'); ?>">
 			<td>
 			<td> 
 		</tr>
@@ -205,7 +209,7 @@
 		<tr class="header">
 			<td colspan=2 class="noborder">Other Conditions (Using Demographics)</td>
 			<td class="noborder">
-			<td class="noborder" style='text-align:right;'><input type="checkbox" name="demo[]" value="or"> Or | <input type="checkbox" value="and"> And
+			<td class="noborder" style='text-align:right;'><input type="checkbox" name="demo[]" value="or"> Or | <input type="checkbox" name="demo[]" value="and"> And
 		</tr>
 		<tr>
 			<td colspan=4>&nbsp;
@@ -295,7 +299,7 @@
 			<td colspan=4><u>Periodontics</u>
 		<tr>
 		<tr>
-			<td colspan=4><input type="checkbox" name="mopd">Management of Periodontal Disease
+			<td colspan=4><input type="checkbox" name="mopd" id="mopd" value="Yes">Management of Periodontal Disease
 		</tr>
 		<tr>
 			<td><br><u>Operative Dentistry</u>
@@ -348,7 +352,7 @@
 			<td>
 		</tr>
 		<tr>
-			<td><input type="checkbox" name="lamented" id="lamented" value="Yes">Lamented
+			<td><input type="checkbox" name="lamented" id="lamented" value="Yes">Laminated
 			<td><input type="checkbox" name="completedenture" id="completedenture" value="Yes">Complete Denture
 			<td><input type="checkbox" name="anterior" id="anterior" value="Yes">Anterior
 			<td>

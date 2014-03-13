@@ -4,7 +4,7 @@
 	
 	echo "<link rel=\"stylesheet\" type=\"text/css\" href='".base_url()."css/style.css'>";
 	echo "<script type\"text/javascript\" src=\"".base_url()."js/dynamic.js\"></script>";
-	echo "<script type\"text/javascript\" src=\"".base_url()."js/patientdb.js\"></script>"
+//	echo "<script type\"text/javascript\" src=\"".base_url()."js/patientdb.js\"></script>"
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -16,9 +16,47 @@
 
    <title>Consultation and Findings - Oral Diagnosis</title>
 <link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">	
+
 <script type="text/javascript">
 var fieldNum2;
 var j=0;
+var year = new Date().getFullYear();
+
+	$(function() {	
+		$('#date_0').datepicker({
+			dateFormat: 'yy-mm-dd',
+			showAnim: 'slideDown',
+			changeMonth: true,
+			changeYear: true,
+			yearRange: '1910:'+year
+	    	});
+	});
+			
+	$(function() {	
+		$('#startdate_0').datepicker({
+			dateFormat: 'yy-mm-dd',
+			showAnim: 'slideDown',
+			changeMonth: true,
+			changeYear: true,
+			yearRange: '1910:'+year ,
+			onClose: function( selectedDate ) {
+	       			$( "#enddate_0" ).datepicker( "option", "minDate", selectedDate );
+	      		}
+	    	});
+	});
+
+	$(function() {	
+		$('#enddate_0').datepicker({
+			dateFormat: 'yy-mm-dd',
+			showAnim: 'slideDown',
+			changeMonth: true,
+			changeYear: true,
+			yearRange: '1910:'+year ,
+			onClose: function( selectedDate ) {
+	       			$( "#startdate_0" ).datepicker( "option", "maxDate", selectedDate );
+	      		}
+	    	});
+	});
 
 function addConsult(tableID){
 	fieldNum2= j+1;
@@ -49,32 +87,36 @@ function addConsult(tableID){
 		showAnim: 'slideDown',
 		changeMonth: true,
 		changeYear: true,
-		yearRange: '1910:2014'
+		yearRange: '1910:'+year
     	});
 			
 	var str2 = '#startdate_'+fieldNum2;
-	$(str2).datepicker({
-		dateFormat: 'yy-mm-dd',
-		showAnim: 'slideDown',
-		changeMonth: true,
-		changeYear: true,
-		yearRange: '1910:2014',
-		onClose: function( selectedDate ) {
-       			$( "#enddate_"+fieldNum2 ).datepicker( "option", "maxDate", selectedDate );
-      		}
-    	});
+	$(function() {	
+		$(str2).datepicker({
+			dateFormat: 'yy-mm-dd',
+			showAnim: 'slideDown',
+			changeMonth: true,
+			changeYear: true,
+			yearRange: '1910:'+year ,
+			onClose: function( selectedDate ) {
+	       			$( "#enddate_"+fieldNum2 ).datepicker( "option", "minDate", selectedDate );
+	      		}
+	    	});
+	});
 
 	var str3 = '#enddate_'+fieldNum2;
-	$(str3).datepicker({
-		dateFormat: 'yy-mm-dd',
-		showAnim: 'slideDown',
-		changeMonth: true,
-		changeYear: true,
-		yearRange: '1910:2014',
-		onClose: function( selectedDate ) {
-       			$( "#startdate_"+fieldNum2 ).datepicker( "option", "minDate", selectedDate );
-      		}
-    	});
+	$(function() {	
+		$(str3).datepicker({
+			dateFormat: 'yy-mm-dd',
+			showAnim: 'slideDown',
+			changeMonth: true,
+			changeYear: true,
+			yearRange: '1910:' +year ,
+			onClose: function( selectedDate ) {
+	       			$( "#startdate_"+fieldNum2 ).datepicker( "option", "maxDate", selectedDate );
+	      		}
+	    	});
+	});
 }
 
 function deleteConsult(tableID){

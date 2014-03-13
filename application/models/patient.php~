@@ -1036,7 +1036,7 @@ Class Patient extends CI_Model
    		}
 	}
 
-	function searchPatient1($agefrom, $ageto, $gender, $city, $occ, $agefrom, $ageto, $gender, $city, $occ, $perio, $rpd, $ortho, $os, $fpd, $pedo, $endo, $cd, $resto, $caries, $extrusion, $compdent, $impacted, $recurrent, $intrusion, $singdent, $missing, $restoration, $mdr, $rempardent, $acrcr, $pftm, $ddr, $pafs, $metcr, $rot, $rct, $pcc, $extracted, $unerupted, $porcr, $class1, $class2, $class3, $class4, $class5, $onlay, $extraction, $odon, $specclass, $pedodontics, $orthodontics, $pulpsed, $roc, $temfill, $moai, $moti, $lamented, $completedenture, $anterior, $singlecrown, $posterior, $bridge, $singledenture, $removablepartialdenture, $demo, $dentdemo, $servdemo){
+	function searchPatient1($agefrom, $ageto, $gender, $city, $occ, $agefrom, $ageto, $gender, $city, $occ, $perio, $rpd, $ortho, $os, $fpd, $pedo, $endo, $cd, $resto, $caries, $extrusion, $compdent, $impacted, $recurrent, $intrusion, $singdent, $missing, $restoration, $mdr, $rempardent, $acrcr, $pftm, $ddr, $pafs, $metcr, $rot, $rct, $pcc, $extracted, $unerupted, $porcr, $class1, $class2, $class3, $class4, $class5, $onlay, $extraction, $odon, $specclass, $pedodontics, $orthodontics, $pulpsed, $roc, $temfill, $mopd, $moai, $moti, $lamented, $completedenture, $anterior, $singlecrown, $posterior, $bridge, $singledenture, $removablepartialdenture, $demo, $dentdemo, $servdemo){
 
 		/*$this -> db -> select('*');
 		$this -> db -> from('patient');
@@ -1057,6 +1057,1365 @@ Class Patient extends CI_Model
 // AND patient.age >= $agefrom AND patient.age <= $ageto*/
 
 //		$query = $this -> db -> get();
+
+
+		$carvar = "";
+		$recvar = "";
+		$resvar = "";
+		$impvar = "";
+		$extvar = "";
+		$intvar = "";
+		$sinvar = "";
+		$misvar = "";
+		$mdrvar = "";
+		$remvar = "";
+		$acrvar = "";
+		$pftvar = "";
+		$ddrvar = "";
+		$pafvar = "";
+		$metvar = "";
+		$rotvar = "";
+		$rctvar = "";
+		$pccvar = "";
+		$exrvar = "";
+		$unevar = "";
+		$porvar = "";
+
+		$patinfo = "";
+		$treatinfo = "";
+		$dentinfo = "";
+		$carinfo = "";
+		$recinfo = "";
+		$resinfo = "";
+		$servinfo = "";
+		$otherinfo = "";
+
+		$occs = "";
+		$perios = "";
+		$rpds = "";
+		$orthos = "";
+		$oss = "";
+		$fpds = "";
+		$pedos = "";
+		$endos = "";
+		$cds = "";
+		$restos = "";
+
+		$c1var = "";
+		$c2var = "";
+		$c3var = "";
+		$c4var = "";
+		$c5var = "";
+		$olvar = "";
+		$exvar = "";
+		$odvar = "";
+		$scvar = "";
+		$pdvar = "";
+		$orvar = "";
+		$psvar = "";
+		$rcvar = "";
+		$tfvar = "";
+		$lmvar = "";
+		$anvar = "";
+		$sivar = "";
+		$povar = "";
+		$bsvar = "";
+
+		$compvar = "";
+		$singvar = "";
+		$remparvar = "";
+		$mopdvar = "";
+		$pedovar = "";
+		$orthovar = "";
+		$moaivar = "";
+		$motivar = "";
+
+
+		if($occ != ""){
+			$patinfo = "patientinfo, ";
+			$occs = "AND patientinfo.occupation LIKE '%$occ%'";
+			
+		}
+		if($perio != ''){
+			$perios = "treatmentplan.perio='$perio'";
+			$treatinfo = "treatmentplan";
+		}
+		if($rpd != ''){
+			$rpds = "treatmentplan.rpd='$rpd'";
+			$treatinfo = "treatmentplan";
+		}
+		if($resto != ''){
+			$restos = "treatmentplan.resto='$resto'";
+			$treatinfo = "treatmentplan";
+		}
+		if($endo != ''){
+			$endos = "treatmentplan.endo='$endo'";
+			$treatinfo = "treatmentplan";
+		}
+		if($ortho != ''){
+			$orthos = "treatmentplan.ortho='$ortho'";
+			$treatinfo = "treatmentplan";
+		}
+		if($os != ''){
+			$oss = "treatmentplan.os='$os'";
+			$treatinfo = "treatmentplan";
+		}
+		if($cd != ''){
+			$cds = "treatmentplan.cd='$cd'";
+			$treatinfo = "treatmentplan";
+		}
+		if($fpd != ''){
+			$fpds = "treatmentplan.fpd='$fpd'";
+			$treatinfo = "treatmentplan";
+		}
+		if($pedo != ''){
+			$pedos = "treatmentplan.pedo='$pedo'";
+			$treatinfo = "treatmentplan";
+		}
+
+		if($caries == "Yes") { 
+			$carvar = "(cariesstatus.distal_caries != ' ' OR cariesstatus.mesial_caries != ' ' OR cariesstatus.buccal_caries != ' ' OR cariesstatus.occlusal_caries != ' ' OR cariesstatus.lingual_caries != ' ')";
+			$carinfo = "cariesstatus";
+		}
+		if($recurrent == "Yes") {
+			$recvar = "(recurrentstatus.distal_recurrent != ' ' OR recurrentstatus.mesial_recurrent != ' ' OR recurrentstatus.buccal_recurrent != ' ' OR recurrentstatus.occlusal_recurrent != ' ' OR recurrentstatus.lingual_recurrent != ' ')";
+			$recinfo = "recurrentstatus";
+		}		
+		if($restoration == "Yes") {
+			$resvar = "(restorationstatus.distal_restoration != ' ' OR restorationstatus.mesial_restoration != ' ' OR restorationstatus.buccal_restoration != ' ' OR restorationstatus.occlusal_restoration != ' ' OR restorationstatus.lingual_restoration != ' ')";
+			$resinfo = "restorationstatus";
+		}		
+
+		if($impacted == "Yes") {
+			$impvar = " dentalchart.impacted != ' '";
+			$dentinfo = "dentalchart";
+		}		
+		if($extrusion == "Yes") {
+			$extvar = " dentalchart.extrusion != ' '";
+			$dentinfo = "dentalchart";
+		}		
+		if($intrusion == "Yes") {
+			$intvar = " dentalchart.intrusion != ' '";
+			$dentinfo = "dentalchart";
+		}
+		if($missing == "Yes")  {
+			$misvar = " dentalchart.missing != ' '";
+			$dentinfo = "dentalchart";
+		}
+		if($mdr == "Yes") {
+			$mdrvar = " dentalchart.mesial_rotation != ' '";
+			$dentinfo = "dentalchart";
+		}
+		if($acrcr == "Yes") {
+			$acrvar = " dentalchart.acrylic_crown != ' '";
+			$dentinfo = "dentalchart";
+		}
+		if($pftm == "Yes") {
+			$pftvar = " dentalchart.porcelain_fused != ' '";
+			$dentinfo = "dentalchart";
+		}
+		if($ddr == "Yes") {
+			$ddrvar = " dentalchart.distal_rotation != ' '";
+			$dentinfo = "dentalchart";
+		}
+		if($pafs == "Yes") {
+			$pafvar = " dentalchart.pitfissure_sealants != ' '";
+			$dentinfo = "dentalchart";
+		}
+		if($metcr == "Yes") {
+			$metvar = " dentalchart.metal_crown != ''";
+			$dentinfo = "dentalchart";
+		}
+		if($rot == "Yes") {
+			$rotvar = " dentalchart.rotation != ' '";
+			$dentinfo = "dentalchart";
+		}
+		if($rct == "Yes") {
+			$rctvar = " dentalchart.rootcanal_treatment != ' '";
+			$dentinfo = "dentalchart";
+		}
+		if($pcc == "Yes") {
+			$pccvar = " dentalchart.postcore_crown != ' '";
+			$dentinfo = "dentalchart";
+		}
+		if($extracted == "Yes") {
+			$exrvar = " dentalchart.extracted != ' '";
+			$dentinfo = "dentalchart";
+		}
+		if($unerupted == "Yes") {
+			$unevar = " dentalchart.unerupted != ' '";
+			$dentinfo = "dentalchart";
+		}
+		if($porcr == "Yes") {
+			$porvar = " dentalchart.porcelain_crown != ' '";
+			$dentinfo = "dentalchart";
+		}
+
+		if($compdent == "Yes") {
+			$compvar = "otherservices.completedenture = 'Yes'";
+			$otherinfo = "otherservices";
+		}
+		if($singdent == "Yes") {
+			$singvar = "otherservices.singledenture = 'Yes'";
+			$otherinfo = "otherservices";
+		}
+		if($rempardent == "Yes") {
+			$remparvar = "otherservices.removablepartialdenture = 'Yes'";
+			$otherinfo = "otherservices";
+		}
+		if($pedodontics == "Yes") {
+			$pedovar = "otherservices.pedodontics = 'Yes'";
+			$otherinfo = "otherservices";
+		}
+		if($orthodontics == "Yes") {
+			$orthovar = "otherservices.orthodontics = 'Yes'";
+			$otherinfo = "otherservices";
+		}
+		if($mopd == "Yes") {
+			$mopdvar = "otherservices.periodontics = 'Yes'";
+			$otherinfo = "otherservices";
+		}
+		if($moai == "Yes") {
+			$moaivar = "otherservices.acuteinfections = 'Yes'";
+			$otherinfo = "otherservices";
+		}
+		if($moti == "Yes") {
+			$motivar = "otherservices.traumaticinjuries = 'Yes'";
+			$otherinfo = "otherservices";
+		}
+
+		if($class1 == "Yes") {
+			$c1var = " serviceneeded.class1 != ' '";
+			$servinfo = "serviceneeded";
+		}
+		if($class2 == "Yes") {
+			$c2var = " serviceneeded.class2 != ' '";
+			$servinfo = "serviceneeded";
+		}
+		if($class3 == "Yes") {
+			$c3var = " serviceneeded.class3 != ' '";
+			$servinfo = "serviceneeded";
+		}
+		if($class4 == "Yes") {
+			$c4var = " serviceneeded.class4 != ' '";
+			$servinfo = "serviceneeded";
+		}
+		if($class5 == "Yes") {
+			$c5var = " serviceneeded.class5 != ' '";
+			$servinfo = "serviceneeded";
+		}
+		if($onlay == "Yes") {
+			$olvar = " serviceneeded.onlay != ' '";
+			$servinfo = "serviceneeded";
+		}
+		if($extraction == "Yes") {
+			$exvar = " serviceneeded.extraction != ' '";
+			$servinfo = "serviceneeded";
+		}
+		if($odon == "Yes") {
+			$odvar = " serviceneeded.odontectomy != ' '";
+			$servinfo = "serviceneeded";
+		}
+		if($specclass == "Yes") {
+			$scvar = " serviceneeded.special_case != ' '";
+			$servinfo = "serviceneeded";
+		}
+		if($pulpsed == "Yes") {
+			$psvar = " serviceneeded.pulp_sedation != ' '";
+			$servinfo = "serviceneeded";
+		}
+		if($roc == "Yes") {
+			$rcvar = " serviceneeded.crown_recementation != ' '";
+			$servinfo = "serviceneeded";
+		}
+		if($temfill == "Yes") {
+			$tfvar = " serviceneeded.filling_service != ' '";
+			$servinfo = "serviceneeded";
+		}
+		if($lamented == "Yes") {
+			$lmvar = " serviceneeded.laminated != ' '";
+			$servinfo = "serviceneeded";
+		}
+		if($anterior == "Yes") {
+			$anvar = " serviceneeded.anterior != ' '";
+			$servinfo = "serviceneeded";
+		}
+		if($singlecrown == "Yes") {
+			$sivar = " serviceneeded.single_crown != ' '";
+			$servinfo = "serviceneeded";
+		}
+		if($posterior == "Yes") {
+			$povar = " serviceneeded.posterior != ' '";
+			$servinfo = "serviceneeded";
+		}
+		if($bridge == "Yes") {
+			$bsvar = " serviceneeded.bridge_service != ' '";
+			$servinfo = "serviceneeded";
+		}
+
+		$query = "";
+		
+		//echo "demo = $demo";
+
+		if($demo == "or" || $demo == "and"){
+			$txt = "SELECT * FROM  patient";
+			if($patinfo != "") $txt = $txt.", $patinfo"; 
+			if($treatinfo != "") $txt = $txt.", $treatinfo";
+
+			if($dentdemo == "" && $servdemo == ""){
+				$isfirstgood4 = true;
+
+				if($patinfo != "") $txt = $txt." WHERE patient.UPCD_ID = patientinfo.UPCD_ID ";
+				else $isfirstgood4 = false;
+				if($treatinfo != "" && !$isfirstgood4) {
+					$txt = $txt." WHERE patient.UPCD_ID = treatmentplan.UPCD_ID ";
+					$isfirstgood4 = true;
+				}
+				else $txt = $txt." AND patient.UPCD_ID = treatmentplan.UPCD_ID ";
+
+				$txt = $txt." AND ($gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%' $occs $demo (";
+
+				if($treatinfo != ""){
+					$txt = $txt." (";
+					$isfirstgood2 = true;
+
+					if($perios != "") $txt = $txt." $perios ";
+					else $isfirstgood2 = false;
+					if($fpds != ""  && !$isfirstgood2) {
+						$txt = $txt." $fpds ";
+						$isfirstgood2 = true;
+					}elseif($fpds != "" && $isfirstgood2){
+						$txt = $txt." OR $fpds ";
+					}
+					if($oss != "" && !$isfirstgood2) {
+						$txt = $txt." $oss ";
+						$isfirstgood2 = true;
+					}elseif($oss != "" && $isfirstgood2){
+						$txt = $txt."OR $oss ";
+					}
+					if($rpds != ""  && !$isfirstgood2) {
+						$txt = $txt." $rpds ";
+						$isfirstgood2 = true;
+					}elseif($rpds != "" && $isfirstgood2){
+						$txt = $txt."OR $rpds ";
+					}
+					if($endos != ""  && !$isfirstgood2) {
+						$txt = $txt." $endos ";
+						$isfirstgood2 = true;
+					}elseif($endos != "" && $isfirstgood2){
+						$txt = $txt."OR $endos ";
+					}
+					if($pedos != ""  && !$isfirstgood2) {
+						$txt = $txt." $pedos ";
+						$isfirstgood2 = true;
+					}elseif($pedos != "" && $isfirstgood2){
+						$txt = $txt."OR $pedos ";
+					}
+					if($orthos != ""  && !$isfirstgood2) {
+						$txt = $txt." $orthos ";
+						$isfirstgood2 = true;
+					}elseif($orthos != "" && $isfirstgood2){
+						$txt = $txt."OR $orthos ";
+					}
+					if($restos != ""  && !$isfirstgood2) {
+						$txt = $txt." $restos ";
+						$isfirstgood2 = true;
+					}elseif($restos != "" && $isfirstgood2){
+						$txt = $txt."OR $restos ";
+					}
+					if($cds != ""  && !$isfirstgood2) {
+						$txt = $txt." $fpds ";
+						$isfirstgood2 = true;
+					}elseif($cds != "" && $isfirstgood2){
+						$txt = $txt."OR $cds ";
+					}
+					$txt = $txt.") ";
+				}
+				$txt = $txt.") )";
+
+				echo "elseif1 = $txt";
+				$query = $this->db->query($txt);
+
+
+			}
+			elseif($dentdemo != "" && $servdemo == ""){
+
+				if($dentinfo != "") $txt = $txt.", $dentinfo";
+				if($otherinfo != "") $txt = $txt.", $otherinfo";
+				if($carinfo != "") $txt = $txt.", $carinfo"; 
+				if($recinfo != "") $txt = $txt.", $recinfo";
+				if($resinfo != "") $txt = $txt.", $resinfo";
+
+				$isfirstgood4 = true;
+				if($patinfo != "") $txt = $txt." WHERE patient.UPCD_ID = patientinfo.UPCD_ID ";
+				else $isfirstgood4 = false;
+				if($treatinfo != "" && !$isfirstgood4) {
+					$txt = $txt." WHERE patient.UPCD_ID = treatmentplan.UPCD_ID ";
+					$isfirstgood4 = true;
+				}
+				elseif($treatinfo != "" && $isfirstgood4) $txt = $txt." AND patient.UPCD_ID = treatmentplan.UPCD_ID ";
+
+				if($dentinfo != "" && !$isfirstgood4) {
+					$txt = $txt." WHERE patient.UPCD_ID = dentalchart.UPCD_ID";
+					$isfirstgood4 = true;
+				}
+				elseif($dentinfo != "" && $isfirstgood4)  $txt = $txt." AND patient.UPCD_ID = dentalchart.UPCD_ID";
+				if($otherinfo != "" && !$isfirstgood4) {
+					$txt = $txt." WHERE patient.UPCD_ID = otherservices.UPCD_ID";
+					$isfirstgood4 = true;
+				}
+				elseif($otherinfo != "" && $isfirstgood4)  $txt = $txt." AND patient.UPCD_ID = otherservices.UPCD_ID";
+				if($carinfo != "" && !$isfirstgood4) {
+					$txt = $txt." WHERE patient.UPCD_ID = cariesstatus.UPCD_ID";
+					$isfirstgood4 = true;
+				}
+				elseif($carinfo != "" && $isfirstgood4) $txt = $txt." AND patient.UPCD_ID = cariesstatus.UPCD_ID";
+				if($recinfo != "" && !$isfirstgood4) {
+					$txt = $txt." WHERE patient.UPCD_ID = recurrentstatus.UPCD_ID";
+					$isfirstgood4 = true;
+				}
+				elseif($recinfo != "" && $isfirstgood4) $txt = $txt." AND patient.UPCD_ID = recurrentstatus.UPCD_ID";
+				if($resinfo != "" && !$isfirstgood4) {
+					$txt = $txt." WHERE patient.UPCD_ID = restorationstatus.UPCD_ID";
+					$isfirstgood4 = true;
+				}
+				elseif($resinfo != "" && $isfirstgood4) $txt = $txt." AND patient.UPCD_ID = restorationstatus.UPCD_ID";
+
+				$txt = $txt." AND ($gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%' $occs $demo (";
+				if($treatinfo != ""){
+					$txt = $txt." (";
+					$isfirstgood2 = true;
+
+					if($perios != "") $txt = $txt." $perios ";
+					else $isfirstgood2 = false;
+					if($fpds != ""  && !$isfirstgood2) {
+						$txt = $txt." $fpds ";
+						$isfirstgood2 = true;
+					}elseif($fpds != "" && $isfirstgood){
+						$txt = $txt." OR $fpds ";
+					}
+					if($oss != "" && !$isfirstgood2) {
+						$txt = $txt." $oss ";
+						$isfirstgood2 = true;
+					}elseif($oss != "" && $isfirstgood2){
+						$txt = $txt."OR $oss ";
+					}
+					if($rpds != ""  && !$isfirstgood2) {
+						$txt = $txt." $rpds ";
+						$isfirstgood2 = true;
+					}elseif($rpds != "" && $isfirstgood2){
+						$txt = $txt."OR $rpds ";
+					}
+					if($endos != ""  && !$isfirstgood2) {
+						$txt = $txt." $endos ";
+						$isfirstgood2 = true;
+					}elseif($endos != "" && $isfirstgood2){
+						$txt = $txt."OR $endos ";
+					}
+					if($pedos != ""  && !$isfirstgood2) {
+						$txt = $txt." $pedos ";
+						$isfirstgood2 = true;
+					}elseif($pedos != "" && $isfirstgood2){
+						$txt = $txt."OR $pedos ";
+					}
+					if($orthos != ""  && !$isfirstgood2) {
+						$txt = $txt." $orthos ";
+						$isfirstgood2 = true;
+					}elseif($orthos != "" && $isfirstgood2){
+						$txt = $txt."OR $orthos ";
+					}
+					if($restos != ""  && !$isfirstgood2) {
+						$txt = $txt." $restos ";
+						$isfirstgood2 = true;
+					}elseif($restos != "" && $isfirstgood2){
+						$txt = $txt."OR $restos ";
+					}
+					if($cds != ""  && !$isfirstgood2) {
+						$txt = $txt." $fpds ";
+						$isfirstgood2 = true;
+					}elseif($fpds != "" && $isfirstgood2){
+						$txt = $txt."OR $cds ";
+					}
+					$txt = $txt.") ";
+				}
+				
+
+				if($dentdemo != "") {
+					if($treatinfo == "") $txt = $txt." (";
+					else $txt = $txt." $demo (";
+					$isfirstgood = true;
+
+					if($carvar != "") {
+						$txt = $txt." $carvar";
+					}else $isfirstgood = false;
+					if($recvar != "" && !$isfirstgood) {
+						$txt = $txt." $recvar";
+						$isfirstgood = true;
+					}elseif($recvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $recvar";
+					}
+					if($resvar != "" && !$isfirstgood) {
+						$txt = $txt." $resvar";
+						$isfirstgood = true;
+					}elseif($resvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $resvar";
+					}
+					if($extvar != "" && !$isfirstgood) {
+						$txt = $txt." $extvar";
+						$isfirstgood = true;
+					}elseif($extvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $extvar";
+					}
+					if($intvar != "" && !$isfirstgood) {
+						$txt = $txt." $intvar";
+						$isfirstgood = true;
+					}elseif($intvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $intvar";
+					}
+					if($mdrvar != "" && !$isfirstgood) {
+						$txt = $txt." $mdrvar";
+						$isfirstgood = true;
+					}elseif($mdrvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $mdrvar";
+					}
+					if($ddrvar != "" && !$isfirstgood) {
+						$txt = $txt." $ddrvar";
+						$isfirstgood = true;
+					}elseif($ddrvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $ddrvar";
+					}
+					if($rotvar != "" && !$isfirstgood) {
+						$txt = $txt." $rotvar";
+						$isfirstgood = true;
+					}elseif($rotvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $rotvar";
+					}
+					if($pccvar != "" && !$isfirstgood) {
+						$txt = $txt." $pccvar";
+						$isfirstgood = true;
+					}elseif($pccvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $pccvar";
+					}
+					if($rctvar != "" && !$isfirstgood) {
+						$txt = $txt." $rctvar";
+						$isfirstgood = true;
+					}elseif($rctvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $rctvar";
+					}
+					if($pafvar != "" && !$isfirstgood) {
+						$txt = $txt." $pafvar";
+						$isfirstgood = true;
+					}elseif($pafvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $pafvar";
+					}
+					if($exrvar != "" && !$isfirstgood) {
+						$txt = $txt." $exrvar";
+						$isfirstgood = true;
+					}elseif($exrvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $exrvar";
+					}
+					if($misvar != "" && !$isfirstgood) {
+						$txt = $txt." $misvar";
+						$isfirstgood = true;
+					}elseif($misvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $misvar";
+					}
+					if($unevar != "" && !$isfirstgood) {
+						$txt = $txt." $unevar";
+						$isfirstgood = true;
+					}elseif($unevar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $unevar";
+					}
+					if($impvar != "" && !$isfirstgood) {
+						$txt = $txt." $impvar";
+						$isfirstgood = true;
+					}elseif($impvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $impvar";
+					}
+					if($porvar != "" && !$isfirstgood) {
+						$txt = $txt." $porvar";
+						$isfirstgood = true;
+					}elseif($porvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $porvar";
+					} 
+					if($acrvar != "" && !$isfirstgood) {
+						$txt = $txt." $acrvar";
+						$isfirstgood = true;
+					}elseif($acrvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $acrvar";
+					}
+					if($metvar != "" && !$isfirstgood) {
+						$txt = $txt." $metvar";
+						$isfirstgood = true;
+					}elseif($metvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $metvar";
+					}
+					if($pftvar != "" && !$isfirstgood) {
+						$txt = $txt." $pftvar";
+						$isfirstgood = true;
+					}elseif($pftvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $pftvar";
+					}
+					if($compvar != "" && !$isfirstgood) {
+						$txt = $txt." $compvar";
+						$isfirstgood = true;
+					}elseif($compvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $compvar";
+					}
+					if($singvar != "" && !$isfirstgood) {
+						$txt = $txt." $singvar";
+						$isfirstgood = true;
+					}elseif($singvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $singvar";
+					}
+					if($remparvar != "" && !$isfirstgood) {
+						$txt = $txt." $remparvar";
+						$isfirstgood = true;
+					}elseif($remparvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $remparvar";
+					}
+					$txt = $txt.") ";
+
+				}
+				$txt = $txt.") )";
+
+				echo "elseif2 = $txt";
+				$query = $this->db->query($txt);	
+
+			}elseif($dentdemo == "" && $servdemo != ""){
+
+				if($servinfo != "") $txt = $txt.", $servinfo";
+				if($otherinfo != "") $txt = $txt.", $otherinfo";
+ 
+				$isfirstgood4 = true;
+
+				if($patinfo != "") $txt = $txt." WHERE patient.UPCD_ID = patientinfo.UPCD_ID ";
+				else $isfirstgood4 = false;
+				if($treatinfo != "" && !$isfirstgood4) {
+					$txt = $txt." WHERE patient.UPCD_ID = treatmentplan.UPCD_ID ";
+					$isfirstgood4 = true;
+				}
+				elseif($treatinfo != "" && $isfirstgood4) $txt = $txt." AND patient.UPCD_ID = treatmentplan.UPCD_ID ";
+
+				if($servinfo != "" && !$isfirstgood4) {
+					$txt = $txt." WHERE patient.UPCD_ID = serviceneeded.UPCD_ID";
+					$isfirstgood4 = true;
+				}
+				elseif($servinfo != "" && $isfirstgood4) $txt = $txt." AND patient.UPCD_ID = serviceneeded.UPCD_ID";
+				if($otherinfo != "" && !$isfirstgood4) {
+					$txt = $txt." WHERE patient.UPCD_ID = otherservices.UPCD_ID";
+					$isfirstgood4 = true;
+				}
+				elseif($otherinfo != "" && $isfirstgood4) $txt = $txt." AND patient.UPCD_ID = otherservices.UPCD_ID";
+				
+				$txt = $txt." AND ($gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%' $occs $demo (";
+				if($treatinfo != ""){
+					$txt = $txt." (";
+					$isfirstgood2 = true;
+
+					if($perios != "") $txt = $txt." $perios ";
+					else $isfirstgood2 = false;
+					if($fpds != ""  && !$isfirstgood2) {
+						$txt = $txt." $fpds ";
+						$isfirstgood2 = true;
+					}elseif($fpds != "" && $isfirstgood2){
+						$txt = $txt." OR $fpds ";
+					}
+					if($oss != "" && !$isfirstgood2) {
+						$txt = $txt." $oss ";
+						$isfirstgood2 = true;
+					}elseif($oss != "" && $isfirstgood2){
+						$txt = $txt."OR $oss ";
+					}
+					if($rpds != ""  && !$isfirstgood2) {
+						$txt = $txt." $rpds ";
+						$isfirstgood2 = true;
+					}elseif($rpds != "" && $isfirstgood2){
+						$txt = $txt."OR $rpds ";
+					}
+					if($endos != ""  && !$isfirstgood2) {
+						$txt = $txt." $endos ";
+						$isfirstgood2 = true;
+					}elseif($endos != "" && $isfirstgood2){
+						$txt = $txt."OR $endos ";
+					}
+					if($pedos != ""  && !$isfirstgood2) {
+						$txt = $txt." $pedos ";
+						$isfirstgood2 = true;
+					}elseif($pedos != "" && $isfirstgood2){
+						$txt = $txt."OR $pedos ";
+					}
+					if($orthos != ""  && !$isfirstgood2) {
+						$txt = $txt." $orthos ";
+						$isfirstgood2 = true;
+					}elseif($orthos != "" && $isfirstgood2){
+						$txt = $txt."OR $orthos ";
+					}
+					if($restos != ""  && !$isfirstgood2) {
+						$txt = $txt." $restos ";
+						$isfirstgood2 = true;
+					}elseif($restos != "" && $isfirstgood2){
+						$txt = $txt."OR $restos ";
+					}
+					if($cds != ""  && !$isfirstgood2) {
+						$txt = $txt." $fpds ";
+						$isfirstgood2 = true;
+					}elseif($fpds != "" && $isfirstgood2){
+						$txt = $txt."OR $cds ";
+					}
+					$txt = $txt.") ";
+				}
+
+				if($servdemo != "") {
+					if($treatinfo == "") $txt = $txt." (";
+					else $txt = $txt." $demo (";
+					$isfirstgood3 = true;
+
+					if($c1var != "") {
+						$txt = $txt." $c1var";
+					}else $isfirstgood3 = false;
+					if($c2var != "" && !$isfirstgood3) {
+						$txt = $txt." $c2var";
+						$isfirstgood3 = true;
+					}elseif($c2var != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $c2var";
+					}
+					if($c3var != "" && !$isfirstgood3) {
+						$txt = $txt." $c3var";
+						$isfirstgood3 = true;
+					}elseif($c3var != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $c3var";
+					}
+					if($c4var != "" && !$isfirstgood3) {
+						$txt = $txt." $c4var";
+						$isfirstgood3 = true;
+					}elseif($c4var != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $c4var";
+					}
+					if($c5var != "" && !$isfirstgood3) {
+						$txt = $txt." $c5var";
+						$isfirstgood3 = true;
+					}elseif($c5var != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $c5var";
+					}
+					if($olvar != "" && !$isfirstgood3) {
+						$txt = $txt." $olvar";
+						$isfirstgood3 = true;
+					}elseif($olvar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $olvar";
+					}
+					if($exvar != "" && !$isfirstgood3) {
+						$txt = $txt." $exvar";
+						$isfirstgood3 = true;
+					}elseif($exvar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $exvar";
+					}
+					if($odvar != "" && !$isfirstgood3) {
+						$txt = $txt." $odvar";
+						$isfirstgood3 = true;
+					}elseif($odvar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $odvar";
+					}
+					if($scvar != "" && !$isfirstgood3) {
+						$txt = $txt." $scvar";
+						$isfirstgood3 = true;
+					}elseif($scvar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $scvar";
+					}
+					if($psvar != "" && !$isfirstgood3) {
+						$txt = $txt." $psvar";
+						$isfirstgood3 = true;
+					}elseif($psvar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $psvar";
+					}
+					if($rcvar != "" && !$isfirstgood3) {
+						$txt = $txt." $rcvar";
+						$isfirstgood3 = true;
+					}elseif($rcvar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $rcvar";
+					}
+					if($tfvar != "" && !$isfirstgood3) {
+						$txt = $txt." $tfvar";
+						$isfirstgood3 = true;
+					}elseif($tfvar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $tfvar";
+					}
+					if($lmvar != "" && !$isfirstgood3) {
+						$txt = $txt." $lmvar";
+						$isfirstgood3 = true;
+					}elseif($lmvar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $lmvar";
+					}
+					if($anvar != "" && !$isfirstgood3) {
+						$txt = $txt." $anvar";
+						$isfirstgood3 = true;
+					}elseif($anvar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $anvar";
+					}
+					if($povar != "" && !$isfirstgood3) {
+						$txt = $txt." $povar";
+						$isfirstgood3 = true;
+					}elseif($povar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $povar";
+					}
+					if($bsvar != "" && !$isfirstgood3) {
+						$txt = $txt." $bsvar";
+						$isfirstgood3 = true;
+					}elseif($bsvar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $bsvar";
+					}
+					if($sivar != "" && !$isfirstgood3) {
+						$txt = $txt." $sivar";
+						$isfirstgood3 = true;
+					}elseif($sivar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $sivar";
+					}
+					if($mopdvar != "" && !$isfirstgood3) {
+						$txt = $txt." $mopdvar";
+						$isfirstgood3 = true;
+					}elseif($mopdvar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $mopdvar";
+					}
+					if($pedovar != "" && !$isfirstgood3) {
+						$txt = $txt." $pedovar";
+						$isfirstgood3 = true;
+					}elseif($pedovar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $pedovar";
+					}
+					if($orthovar != "" && !$isfirstgood3) {
+						$txt = $txt." $orthovar";
+						$isfirstgood3 = true;
+					}elseif($orthovar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $orthovar";
+					}
+					if($moaivar != "" && !$isfirstgood3) {
+						$txt = $txt." $moaivar";
+						$isfirstgood3 = true;
+					}elseif($moaivar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $moaivar";
+					}
+					if($motivar != "" && !$isfirstgood3) {
+						$txt = $txt." $motivar";
+						$isfirstgood3 = true;
+					}elseif($motivar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $motivar";
+					}
+					$txt = $txt.") )";
+				}
+
+				$txt = $txt.") ";
+				$query = $this->db->query($txt);
+
+				echo "elseif3 = $txt";
+			
+			}elseif($dentdemo != "" && $servdemo != ""){
+				if($dentinfo != "") $txt = $txt.", $dentinfo";
+				if($otherinfo != "") $txt = $txt.", $otherinfo"; 
+				if($carinfo != "") $txt = $txt.", $carinfo"; 
+				if($recinfo != "") $txt = $txt.", $recinfo";
+				if($resinfo != "") $txt = $txt.", $resinfo";
+				if($servinfo != "") $txt = $txt.", $servinfo"; 
+
+				$isfirstgood4 = true;
+
+				if($patinfo != "") $txt = $txt." WHERE patient.UPCD_ID = patientinfo.UPCD_ID ";
+				else $isfirstgood4 = false;
+			
+				$isfirstgood4 = true;
+
+				if($patinfo != "") $txt = $txt." WHERE patient.UPCD_ID = patientinfo.UPCD_ID ";
+				else $isfirstgood4 = false;
+
+				if($treatinfo != "" && !$isfirstgood4) {
+					$txt = $txt." WHERE patient.UPCD_ID = treatmentplan.UPCD_ID ";
+					$isfirstgood4 = true;
+				}
+				elseif($treatinfo != "" && $isfirstgood4) $txt = $txt." AND patient.UPCD_ID = treatmentplan.UPCD_ID ";
+
+				if($dentinfo != "" && !$isfirstgood4) {
+					$txt = $txt." WHERE patient.UPCD_ID = dentalchart.UPCD_ID";
+					$isfirstgood4 = true;
+				}
+				elseif($dentinfo != "" && $isfirstgood4) $txt = $txt." AND patient.UPCD_ID = dentalchart.UPCD_ID";
+
+				if($otherinfo != "" && !$isfirstgood4) {
+					$txt = $txt." WHERE patient.UPCD_ID = otherserviceschart.UPCD_ID";
+					$isfirstgood4 = true;
+				}
+				elseif($otherinfo != "" && $isfirstgood4) $txt = $txt." AND patient.UPCD_ID = otherservices.UPCD_ID";
+
+				if($carinfo != "" && !$isfirstgood4) {
+					$txt = $txt." WHERE patient.UPCD_ID = cariesstatus.UPCD_ID";
+					$isfirstgood4 = true;
+				}
+				elseif($carinfo != "" && $isfirstgood4) $txt = $txt." AND patient.UPCD_ID = cariesstatus.UPCD_ID";
+				if($recinfo != "" && !$isfirstgood4) {
+					$txt = $txt." WHERE patient.UPCD_ID = recurrentstatus.UPCD_ID";
+					$isfirstgood4 = true;
+				}
+				elseif($recinfo != "" && $isfirstgood4) $txt = $txt." AND patient.UPCD_ID = recurrentstatus.UPCD_ID";
+				if($resinfo != "" && !$isfirstgood4) {
+					$txt = $txt." WHERE patient.UPCD_ID = restorationstatus.UPCD_ID";
+					$isfirstgood4 = true;
+				}
+				elseif($resinfo != "" && $isfirstgood4) $txt = $txt." AND patient.UPCD_ID = restorationstatus.UPCD_ID";
+				if($servinfo != "" && !$isfirstgood4) {
+					$txt = $txt." WHERE patient.UPCD_ID = serviceneeded.UPCD_ID";
+					$isfirstgood4 = true;
+				}
+				else $txt = $txt." AND patient.UPCD_ID = serviceneeded.UPCD_ID";
+
+				$txt = $txt." AND ($gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%' $occs $demo (";
+				if($treatinfo != ""){
+					$txt = $txt." (";
+					$isfirstgood2 = true;
+
+					if($perios != "") $txt = $txt." $perios ";
+					else $isfirstgood2 = false;
+					if($fpds != ""  && !$isfirstgood2) {
+						$txt = $txt." $fpds ";
+						$isfirstgood2 = true;
+					}elseif($fpds != "" && $isfirstgood2){
+						$txt = $txt." OR $fpds ";
+					}
+					if($oss != "" && !$isfirstgood2) {
+						$txt = $txt." $oss ";
+						$isfirstgood2 = true;
+					}elseif($oss != "" && $isfirstgood2){
+						$txt = $txt."OR $oss ";
+					}
+					if($rpds != ""  && !$isfirstgood2) {
+						$txt = $txt." $rpds ";
+						$isfirstgood2 = true;
+					}elseif($rpds != "" && $isfirstgood2){
+						$txt = $txt."OR $rpds ";
+					}
+					if($endos != ""  && !$isfirstgood2) {
+						$txt = $txt." $endos ";
+						$isfirstgood2 = true;
+					}elseif($endos != "" && $isfirstgood2){
+						$txt = $txt."OR $endos ";
+					}
+					if($pedos != ""  && !$isfirstgood2) {
+						$txt = $txt." $pedos ";
+						$isfirstgood2 = true;
+					}elseif($pedos != "" && $isfirstgood2){
+						$txt = $txt."OR $pedos ";
+					}
+					if($orthos != ""  && !$isfirstgood2) {
+						$txt = $txt." $orthos ";
+						$isfirstgood2 = true;
+					}elseif($orthos != "" && $isfirstgood2){
+						$txt = $txt."OR $orthos ";
+					}
+					if($restos != ""  && !$isfirstgood2) {
+						$txt = $txt." $restos ";
+						$isfirstgood2 = true;
+					}elseif($restos != "" && $isfirstgood2){
+						$txt = $txt."OR $restos ";
+					}
+					if($cds != ""  && !$isfirstgood2) {
+						$txt = $txt." $fpds ";
+						$isfirstgood2 = true;
+					}elseif($fpds != "" && $isfirstgood2){
+						$txt = $txt."OR $cds ";
+					}
+					$txt = $txt.") ";
+				}
+
+				if($dentdemo != "") {
+					if($treatinfo == "") $txt = $txt." (";
+					else $txt = $txt." $demo (";
+					$isfirstgood = true;
+
+					if($carvar != "") {
+						$txt = $txt." $carvar";
+					}else $isfirstgood = false;
+					if($recvar != "" && !$isfirstgood) {
+						$txt = $txt." $recvar";
+						$isfirstgood = true;
+					}elseif($recvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $recvar";
+					}
+					if($resvar != "" && !$isfirstgood) {
+						$txt = $txt." $resvar";
+						$isfirstgood = true;
+					}elseif($resvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $resvar";
+					}
+					if($extvar != "" && !$isfirstgood) {
+						$txt = $txt." $extvar";
+						$isfirstgood = true;
+					}elseif($extvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $extvar";
+					}
+					if($intvar != "" && !$isfirstgood) {
+						$txt = $txt." $intvar";
+						$isfirstgood = true;
+					}elseif($intvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $intvar";
+					}
+					if($mdrvar != "" && !$isfirstgood) {
+						$txt = $txt." $mdrvar";
+						$isfirstgood = true;
+					}elseif($mdrvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $mdrvar";
+					}
+					if($ddrvar != "" && !$isfirstgood) {
+						$txt = $txt." $ddrvar";
+						$isfirstgood = true;
+					}elseif($ddrvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $ddrvar";
+					}
+					if($rotvar != "" && !$isfirstgood) {
+						$txt = $txt." $rotvar";
+						$isfirstgood = true;
+					}elseif($rotvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $rotvar";
+					}
+					if($pccvar != "" && !$isfirstgood) {
+						$txt = $txt." $pccvar";
+						$isfirstgood = true;
+					}elseif($pccvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $pccvar";
+					}
+					if($rctvar != "" && !$isfirstgood) {
+						$txt = $txt." $rctvar";
+						$isfirstgood = true;
+					}elseif($rctvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $rctvar";
+					}
+					if($pafvar != "" && !$isfirstgood) {
+						$txt = $txt." $pafvar";
+						$isfirstgood = true;
+					}elseif($pafvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $pafvar";
+					}
+					if($exrvar != "" && !$isfirstgood) {
+						$txt = $txt." $exrvar";
+						$isfirstgood = true;
+					}elseif($exrvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $exrvar";
+					}
+					if($misvar != "" && !$isfirstgood) {
+						$txt = $txt." $misvar";
+						$isfirstgood = true;
+					}elseif($misvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $misvar";
+					}
+					if($unevar != "" && !$isfirstgood) {
+						$txt = $txt." $unevar";
+						$isfirstgood = true;
+					}elseif($unevar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $unevar";
+					}
+					if($impvar != "" && !$isfirstgood) {
+						$txt = $txt." $impvar";
+						$isfirstgood = true;
+					}elseif($impvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $impvar";
+					}
+					if($porvar != "" && !$isfirstgood) {
+						$txt = $txt." $porvar";
+						$isfirstgood = true;
+					}elseif($porvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $porvar";
+					} 
+					if($acrvar != "" && !$isfirstgood) {
+						$txt = $txt." $acrvar";
+						$isfirstgood = true;
+					}elseif($acrvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $acrvar";
+					}
+					if($metvar != "" && !$isfirstgood) {
+						$txt = $txt." $metvar";
+						$isfirstgood = true;
+					}elseif($metvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $metvar";
+					}
+					if($pftvar != "" && !$isfirstgood) {
+						$txt = $txt." $pftvar";
+						$isfirstgood = true;
+					}elseif($pftvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $pftvar";
+					}
+					if($compvar != "" && !$isfirstgood) {
+						$txt = $txt." $compvar";
+						$isfirstgood = true;
+					}elseif($compvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $compvar";
+					}
+					if($singvar != "" && !$isfirstgood) {
+						$txt = $txt." $singvar";
+						$isfirstgood = true;
+					}elseif($singvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $singvar";
+					}
+					if($remparvar != "" && !$isfirstgood) {
+						$txt = $txt." $remparvar";
+						$isfirstgood = true;
+					}elseif($remparvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $remparvar";
+					}
+					$txt = $txt.") ";
+
+				}
+
+				if($servdemo != "") {
+					if($treatinfo == "" && $dentdemo == "") $txt = $txt." (";
+					else $txt = $txt." $demo (";
+					$isfirstgood3 = true;
+
+					if($c1var != "") {
+						$txt = $txt." $c1var";
+					}else $isfirstgood3 = false;
+					if($c2var != "" && !$isfirstgood3) {
+						$txt = $txt." $c2var";
+						$isfirstgood3 = true;
+					}elseif($c2var != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $c2var";
+					}
+					if($c3var != "" && !$isfirstgood3) {
+						$txt = $txt." $c3var";
+						$isfirstgood3 = true;
+					}elseif($c3var != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $c3var";
+					}
+					if($c4var != "" && !$isfirstgood3) {
+						$txt = $txt." $c4var";
+						$isfirstgood3 = true;
+					}elseif($c4var != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $c4var";
+					}
+					if($c5var != "" && !$isfirstgood3) {
+						$txt = $txt." $c5var";
+						$isfirstgood3 = true;
+					}elseif($c5var != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $c5var";
+					}
+					if($olvar != "" && !$isfirstgood3) {
+						$txt = $txt." $olvar";
+						$isfirstgood3 = true;
+					}elseif($olvar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $olvar";
+					}
+					if($exvar != "" && !$isfirstgood3) {
+						$txt = $txt." $exvar";
+						$isfirstgood3 = true;
+					}elseif($exvar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $exvar";
+					}
+					if($odvar != "" && !$isfirstgood3) {
+						$txt = $txt." $odvar";
+						$isfirstgood3 = true;
+					}elseif($odvar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $odvar";
+					}
+					if($scvar != "" && !$isfirstgood3) {
+						$txt = $txt." $scvar";
+						$isfirstgood3 = true;
+					}elseif($scvar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $scvar";
+					}
+					if($psvar != "" && !$isfirstgood3) {
+						$txt = $txt." $psvar";
+						$isfirstgood3 = true;
+					}elseif($psvar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $psvar";
+					}
+					if($rcvar != "" && !$isfirstgood3) {
+						$txt = $txt." $rcvar";
+						$isfirstgood3 = true;
+					}elseif($rcvar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $rcvar";
+					}
+					if($tfvar != "" && !$isfirstgood3) {
+						$txt = $txt." $tfvar";
+						$isfirstgood3 = true;
+					}elseif($tfvar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $tfvar";
+					}
+					if($lmvar != "" && !$isfirstgood3) {
+						$txt = $txt." $lmvar";
+						$isfirstgood3 = true;
+					}elseif($lmvar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $lmvar";
+					}
+					if($anvar != "" && !$isfirstgood3) {
+						$txt = $txt." $anvar";
+						$isfirstgood3 = true;
+					}elseif($anvar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $anvar";
+					}
+					if($povar != "" && !$isfirstgood3) {
+						$txt = $txt." $povar";
+						$isfirstgood3 = true;
+					}elseif($povar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $povar";
+					}
+					if($bsvar != "" && !$isfirstgood3) {
+						$txt = $txt." $bsvar";
+						$isfirstgood3 = true;
+					}elseif($bsvar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $bsvar";
+					}
+					if($sivar != "" && !$isfirstgood3) {
+						$txt = $txt." $sivar";
+						$isfirstgood3 = true;
+					}elseif($sivar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $sivar";
+					}
+					if($mopdvar != "" && !$isfirstgood3) {
+						$txt = $txt." $mopdvar";
+						$isfirstgood3 = true;
+					}elseif($mopdvar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $mopdvar";
+					}
+					if($pedovar != "" && !$isfirstgood3) {
+						$txt = $txt." $pedovar";
+						$isfirstgood3 = true;
+					}elseif($pedovar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $pedovar";
+					}
+					if($orthovar != "" && !$isfirstgood3) {
+						$txt = $txt." $orthovar";
+						$isfirstgood3 = true;
+					}elseif($orthovar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $orthovar";
+					}
+					if($moaivar != "" && !$isfirstgood3) {
+						$txt = $txt." $moaivar";
+						$isfirstgood3 = true;
+					}elseif($moaivar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $moaivar";
+					}
+					if($motivar != "" && !$isfirstgood3) {
+						$txt = $txt." $motivar";
+						$isfirstgood3 = true;
+					}elseif($motivar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $motivar";
+					}
+					$txt = $txt.") ";
+				}
+
+				$txt = $txt.") )";
+
+				echo "elseif4 = $txt";
+				$query = $this->db->query($txt);
+			}
+
+
+			
+//WHERE patient.UPCD_ID = serviceneeded.UPCD_ID AND patient.UPCD_ID = patientinfo.UPCD_ID AND patient.UPCD_ID = treatmentplan.UPCD_ID AND patient.UPCD_ID = dentalchart.UPCD_ID AND patient.UPCD_ID = cariesstatus.UPCD_ID AND patient.UPCD_ID = recurrentstatus.UPCD_ID AND patient.UPCD_ID = restorationstatus.UPCD_ID AND WHERE patient.UPCD_ID = patientinfo.UPCD_ID AND $gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%' $occs $demo ( ($perios OR $rpds OR $orthos OR $oss OR $fpds OR $pedos OR $endos OR $cds OR $restos) $demo ($carvar OR $recvar OR $resvar OR $remvar OR $extvar OR $intvar OR $mdrvar OR $ddrvar OR $rotvar OR $pccvar OR $rctvar OR $pafvar OR $exrvar OR $misvar OR $unevar OR $impvar OR $porvar OR $acrvar OR $metvar OR $pftvar) $demo ($c1var OR $c2var OR $c3var OR $c4var OR $c5var OR $olvar OR $exvar OR $odvar OR $scvar OR $pdvar OR $orvar OR $psvar OR $rcvar OR $tfvar OR $lmvar OR $anvar OR $povar OR $bsvar OR $sivar))"
+
+
+		}
+		else{
+			if($patinfo != ""){
+				$txt = "SELECT * FROM  patient, $patinfo WHERE patient.UPCD_ID = patientinfo.UPCD_ID AND $gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%' $occs";
+				//echo "elseif5 = $txt";
+
+				$query = $this->db->query($txt);
+			}
+			else{ 
+			$txt = "SELECT * FROM  patient WHERE $gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%'";
+			//echo "elseif6 = $txt";
+			$query = $this->db->query($txt);
+			}
+		}
+
+		if($query -> num_rows() >= 1)
+   		{
+     			return $query->result_array();
+   		}
+   		else
+   		{
+     			return false;
+   		}
+	}
+
+
+	function getGenderCount($gender, $datefrom, $dateto){
+		$this -> db -> select('*');
+		$this -> db -> from('patient');
+		$this->db->where('gender', $gender);
+		$this->db->where('date >=', $datefrom);
+		$this->db->where('date <=', $dateto);
+
+		$query = $this -> db -> get();
+
+		if($query -> num_rows() >= 1)
+   		{
+     			return $query->result_array();
+   		}
+   		else
+   		{
+     			return false;
+   		}
+
+	}
+
+	function searchPatientByAge($agefrom, $ageto){
+		$this->db->select('*');
+		$this -> db -> from('patient');
+		$this->db->where('age >=', $agefrom);
+		$this->db->where('age <=', $ageto);
+
+		$query = $this -> db -> get();
+
+		if($query -> num_rows() >= 1)
+   		{
+     			return $query->result_array();
+   		}
+   		else
+   		{
+     			return false;
+   		}
+	}
+
+	function searchPatientByDate($datefrom, $dateto){
+		$this->db->select('*');
+		$this -> db -> from('patient');
+		$this->db->where('date >=', $datefrom);
+		$this->db->where('date <=', $dateto);
+
+		//$query = $this->db->query("SELECT * FROM  patient where strtotime(date) >= strtotime('$datefrom') AND strtotime(date) <= strtotime('$dateto')");
+
+		$query = $this -> db -> get();
+
+		if($query -> num_rows() >= 1)
+   		{
+     			return $query->result_array();
+   		}
+   		else
+   		{
+     			return false;
+   		}
+	}
+
+	function searchForStatistics($datefrom, $dateto, $agefrom, $ageto, $city, $perio, $rpd, $ortho, $os, $fpd, $pedo, $endo, $cd, $resto, $caries, $extrusion, $compdent, $impacted, $recurrent, $intrusion, $singdent, $missing, $restoration, $mdr, $rempardent, $acrcr, $pftm, $ddr, $pafs, $metcr, $rot, $rct, $pcc, $extracted, $unerupted, $porcr, $class1, $class2, $class3, $class4, $class5, $onlay, $extraction, $odon, $specclass, $pedodontics, $orthodontics, $pulpsed, $roc, $temfill, $mopd, $moai, $moti, $lamented, $completedenture, $anterior, $singlecrown, $posterior, $bridge, $singledenture, $removablepartialdenture, $demo, $dentdemo, $servdemo){
+
+		/*$this -> db -> select('*');
+		$this -> db -> from('patient');
+		$this->db->join('patientinfo', 'patient.UPCD_ID = patientinfo.UPCD_ID');
+		//$this->db->where('patient.age >=', $agefrom);
+		//$this->db->where('patient.age <=', $ageto); 
+		$this->db->where('patient.gender', $gender);
+		$this->db->where('patient.city', $city);
+		$this->db->where('patientinfo.occupation', $occ);*/
+
+		/*$query = "";
+
+		if($occ == ""){
+			$query = $this->db->query("SELECT * FROM  patient WHERE $gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%'");
+		}
+		else $query = $this->db->query("SELECT * FROM  patient, patientinfo WHERE patient.UPCD_ID = patientinfo.UPCD_ID AND $gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%' AND patientinfo.occupation LIKE '%$occ%'");
+// AND patient.city LIKE '%$city%' AND patientinfo.occupation LIKE '%$occ%'
+// AND patient.age >= $agefrom AND patient.age <= $ageto*/
+
+//		$query = $this -> db -> get();
+
+		$gender = "(patient.gender = 'Male' OR patient.gender = 'Female')";
 
 
 		$carvar = "";
@@ -1120,12 +2479,15 @@ Class Patient extends CI_Model
 		$povar = "";
 		$bsvar = "";
 
+		$compvar = "";
+		$singvar = "";
+		$remparvar = "";
+		$mopdvar = "";
+		$pedovar = "";
+		$orthovar = "";
+		$moaivar = "";
+		$motivar = "";
 
-		if($occ != ""){
-			$patinfo = "patientinfo, ";
-			$occs = "AND patientinfo.occupation LIKE '%$occ%'";
-			
-		}
 		if($perio != ''){
 			$perios = "treatmentplan.perio='$perio'";
 			$treatinfo = "treatmentplan";
@@ -1164,28 +2526,28 @@ Class Patient extends CI_Model
 		}
 
 		if($caries == "Yes") { 
-			$carvar = "cariesstatus.distal_caries != '' $dentdemo cariesstatus.mesial_caries != '' $dentdemo cariesstatus.buccal_caries != '' $dentdemo cariesstatus.occlusal_caries != '' $dentdemo cariesstatus.lingual_caries != ''";
+			$carvar = "(cariesstatus.distal_caries != ' ' OR cariesstatus.mesial_caries != ' ' OR cariesstatus.buccal_caries != ' ' OR cariesstatus.occlusal_caries != ' ' OR cariesstatus.lingual_caries != ' ')";
 			$carinfo = "cariesstatus";
 		}
 		if($recurrent == "Yes") {
-			$recvar = "recurrentstatus.distal_recurrent != '' $dentdemo recurrentstatus.mesial_recurrent != '' $dentdemo recurrentstatus.buccal_recurrent != '' $dentdemo recurrentstatus.occlusal_recurrent != '' $dentdemo recurrentstatus.lingual_recurrent != ''";
+			$recvar = "(recurrentstatus.distal_recurrent != ' ' OR recurrentstatus.mesial_recurrent != ' ' OR recurrentstatus.buccal_recurrent != ' ' OR recurrentstatus.occlusal_recurrent != ' ' OR recurrentstatus.lingual_recurrent != ' ')";
 			$recinfo = "recurrentstatus";
 		}		
 		if($restoration == "Yes") {
-			$resvar = "restorationstatus.distal_restoration != '' $dentdemo restorationstatus.mesial_restoration != '' $dentdemo restorationstatus.buccal_restoration != '' $dentdemo restorationstatus.occlusal_restoration != '' $dentdemo restorationstatus.lingual_restoration != ''";
+			$resvar = "(restorationstatus.distal_restoration != ' ' OR restorationstatus.mesial_restoration != ' ' OR restorationstatus.buccal_restoration != ' ' OR restorationstatus.occlusal_restoration != ' ' OR restorationstatus.lingual_restoration != ' ')";
 			$resinfo = "restorationstatus";
 		}		
 
 		if($impacted == "Yes") {
-			$impvar = " dentalchart.impacted != ''";
+			$impvar = " dentalchart.impacted != ' '";
 			$dentinfo = "dentalchart";
 		}		
 		if($extrusion == "Yes") {
-			$extvar = " dentalchart.extrusion != ''";
+			$extvar = " dentalchart.extrusion != ' '";
 			$dentinfo = "dentalchart";
 		}		
 		if($intrusion == "Yes") {
-			$intvar = " dentalchart.intrusion != ''";
+			$intvar = " dentalchart.intrusion != ' '";
 			$dentinfo = "dentalchart";
 		}
 		/*if($singdent == "Yes") {
@@ -1193,142 +2555,171 @@ Class Patient extends CI_Model
 			$dentinfo = "dentalchart, ";
 		}*/
 		if($missing == "Yes")  {
-			$misvar = " dentalchart.missing != ''";
+			$misvar = " dentalchart.missing != ' '";
 			$dentinfo = "dentalchart";
 		}
 		if($mdr == "Yes") {
-			$mdrvar = " dentalchart.mesial_rotation != ''";
-			$dentinfo = "dentalchart";
-		}
-		if($rempardent == "Yes") {
-			$remvar = " dentalchart.removable_partial_denture != ''";
+			$mdrvar = " dentalchart.mesial_rotation != ' '";
 			$dentinfo = "dentalchart";
 		}
 		if($acrcr == "Yes") {
-			$acrvar = " dentalchart.acrylic_crown != ''";
+			$acrvar = " dentalchart.acrylic_crown != ' '";
 			$dentinfo = "dentalchart";
 		}
 		if($pftm == "Yes") {
-			$pftvar = " dentalchart.porcelain_fused != ''";
+			$pftvar = " dentalchart.porcelain_fused != ' '";
 			$dentinfo = "dentalchart";
 		}
 		if($ddr == "Yes") {
-			$ddrvar = " dentalchart.distal_rotation != ''";
+			$ddrvar = " dentalchart.distal_rotation != ' '";
 			$dentinfo = "dentalchart";
 		}
 		if($pafs == "Yes") {
-			$pafvar = " dentalchart.pitfissure_sealants != ''";
+			$pafvar = " dentalchart.pitfissure_sealants != ' '";
 			$dentinfo = "dentalchart";
 		}
 		if($metcr == "Yes") {
-			$metvar = " dentalchart.metal_crown != ''";
+			$metvar = " dentalchart.metal_crown != ' '";
 			$dentinfo = "dentalchart";
 		}
 		if($rot == "Yes") {
-			$rotvar = " dentalchart.rotation != ''";
+			$rotvar = " dentalchart.rotation != ' '";
 			$dentinfo = "dentalchart";
 		}
 		if($rct == "Yes") {
-			$rctvar = " dentalchart.rootcanal_treatment != ''";
+			$rctvar = " dentalchart.rootcanal_treatment != ' '";
 			$dentinfo = "dentalchart";
 		}
 		if($pcc == "Yes") {
-			$pccvar = " dentalchart.postcore_crown != ''";
+			$pccvar = " dentalchart.postcore_crown != ' '";
 			$dentinfo = "dentalchart";
 		}
 		if($extracted == "Yes") {
-			$exrvar = " dentalchart.extracted != ''";
+			$exrvar = " dentalchart.extracted != ' '";
 			$dentinfo = "dentalchart";
 		}
 		if($unerupted == "Yes") {
-			$unevar = " dentalchart.unerupted != ''";
+			$unevar = " dentalchart.unerupted != ' '";
 			$dentinfo = "dentalchart";
 		}
 		if($porcr == "Yes") {
-			$porvar = " dentalchart.porcelain_crown != ''";
+			$porvar = " dentalchart.porcelain_crown != ' '";
 			$dentinfo = "dentalchart";
 		}
 
+		if($compdent == "Yes") {
+			$compvar = "otherservices.completedenture = 'Yes'";
+			$otherinfo = "otherservices";
+		}
+		if($singdent == "Yes") {
+			$singvar = "otherservices.singledenture = 'Yes'";
+			$otherinfo = "otherservices";
+		}
+		if($rempardent == "Yes") {
+			$remparvar = "otherservices.removablepartialdenture = 'Yes'";
+			$otherinfo = "otherservices";
+		}
+		if($pedodontics == "Yes") {
+			$pedovar = "otherservices.pedodontics = 'Yes'";
+			$otherinfo = "otherservices";
+		}
+		if($orthodontics == "Yes") {
+			$orthovar = "otherservices.orthodontics = 'Yes'";
+			$otherinfo = "otherservices";
+		}
+		if($mopd == "Yes") {
+			$mopdvar = "otherservices.periodontics = 'Yes'";
+			$otherinfo = "otherservices";
+		}
+		if($moai == "Yes") {
+			$moaivar = "otherservices.acuteinfections = 'Yes'";
+			$otherinfo = "otherservices";
+		}
+		if($moti == "Yes") {
+			$motivar = "otherservices.traumaticinjuries = 'Yes'";
+			$otherinfo = "otherservices";
+		}
+
 		if($class1 == "Yes") {
-			$c1var = " serviceneeded.class1 != ''";
+			$c1var = " serviceneeded.class1 != ' '";
 			$servinfo = "serviceneeded";
 		}
 		if($class2 == "Yes") {
-			$c2var = " serviceneeded.class2 != ''";
+			$c2var = " serviceneeded.class2 != ' '";
 			$servinfo = "serviceneeded";
 		}
 		if($class3 == "Yes") {
-			$c3var = " serviceneeded.class3 != ''";
+			$c3var = " serviceneeded.class3 != ' '";
 			$servinfo = "serviceneeded";
 		}
 		if($class4 == "Yes") {
-			$c4var = " serviceneeded.class4 != ''";
+			$c4var = " serviceneeded.class4 != ' '";
 			$servinfo = "serviceneeded";
 		}
 		if($class5 == "Yes") {
-			$c5var = " serviceneeded.class5 != ''";
+			$c5var = " serviceneeded.class5 != ' '";
 			$servinfo = "serviceneeded";
 		}
 		if($onlay == "Yes") {
-			$olvar = " serviceneeded.onlay != ''";
+			$olvar = " serviceneeded.onlay != ' '";
 			$servinfo = "serviceneeded";
 		}
 		if($extracted == "Yes") {
-			$exvar = " serviceneeded.extracted != ''";
+			$exvar = " serviceneeded.extraction != ' '";
 			$servinfo = "serviceneeded";
 		}
 		if($odon == "Yes") {
-			$odvar = " serviceneeded.odontectomy != ''";
+			$odvar = " serviceneeded.odontectomy != ' '";
 			$servinfo = "serviceneeded";
 		}
 		if($specclass == "Yes") {
-			$scvar = " serviceneeded.special_case != ''";
+			$scvar = " serviceneeded.special_case != ' '";
 			$servinfo = "serviceneeded";
 		}
-		if($pedodontics == "Yes") {
-			$pdvar = " serviceneeded.pedodontics != ''";
+		/*if($pedodontics == "Yes") {
+			$pdvar = " serviceneeded.pedodontics != ' '";
 			$servinfo = "serviceneeded";
-		}
-		if($orthodontics == "Yes") {
-			$orvar = " serviceneeded.orthodontics != ''";
+		}*/
+		/*if($orthodontics == "Yes") {
+			$orvar = " serviceneeded.orthodontics != ' '";
 			$servinfo = "serviceneeded";
-		}
+		}*/
 		if($pulpsed == "Yes") {
-			$psvar = " serviceneeded.pulp_sedation != ''";
+			$psvar = " serviceneeded.pulp_sedation != ' '";
 			$servinfo = "serviceneeded";
 		}
 		if($roc == "Yes") {
-			$rcvar = " serviceneeded.crown_recementation != ''";
+			$rcvar = " serviceneeded.crown_recementation != ' '";
 			$servinfo = "serviceneeded";
 		}
 		if($temfill == "Yes") {
-			$tfvar = " serviceneeded.filling_service != ''";
+			$tfvar = " serviceneeded.filling_service != ' '";
 			$servinfo = "serviceneeded";
 		}
 		if($lamented == "Yes") {
-			$lmvar = " serviceneeded.lamented != ''";
+			$lmvar = " serviceneeded.laminated != ' '";
 			$servinfo = "serviceneeded";
 		}
 		if($anterior == "Yes") {
-			$anvar = " serviceneeded.anterior != ''";
+			$anvar = " serviceneeded.anterior != ' '";
 			$servinfo = "serviceneeded";
 		}
 		if($singlecrown == "Yes") {
-			$sivar = " serviceneeded.single_crown != ''";
+			$sivar = " serviceneeded.single_crown != ' '";
 			$servinfo = "serviceneeded";
 		}
 		if($posterior == "Yes") {
-			$povar = " serviceneeded.posterior != ''";
+			$povar = " serviceneeded.posterior != ' '";
 			$servinfo = "serviceneeded";
 		}
 		if($bridge == "Yes") {
-			$bsvar = " serviceneeded.bridge_service != ''";
+			$bsvar = " serviceneeded.bridge_service != ' '";
 			$servinfo = "serviceneeded";
 		}
 
 		$query = "";
 		
-		echo "demo = $demo";
+		//echo "demo = $demo";
 
 		if($demo == "or" || $demo == "and"){
 			$txt = "SELECT * FROM  patient";
@@ -1346,7 +2737,7 @@ Class Patient extends CI_Model
 				}
 				else $txt = $txt." AND patient.UPCD_ID = treatmentplan.UPCD_ID ";
 
-				$txt = $txt." AND $gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%' $occs $demo (";
+				$txt = $txt." AND ($gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%'  $demo (";
 
 				if($treatinfo != ""){
 					$txt = $txt." (";
@@ -1357,7 +2748,7 @@ Class Patient extends CI_Model
 					if($fpds != ""  && !$isfirstgood2) {
 						$txt = $txt." $fpds ";
 						$isfirstgood2 = true;
-					}elseif($fpds != "" && $isfirstgood){
+					}elseif($fpds != "" && $isfirstgood2){
 						$txt = $txt." OR $fpds ";
 					}
 					if($oss != "" && !$isfirstgood2) {
@@ -1399,14 +2790,14 @@ Class Patient extends CI_Model
 					if($cds != ""  && !$isfirstgood2) {
 						$txt = $txt." $fpds ";
 						$isfirstgood2 = true;
-					}elseif($fpds != "" && $isfirstgood2){
+					}elseif($cds != "" && $isfirstgood2){
 						$txt = $txt."OR $cds ";
 					}
 					$txt = $txt.") ";
 				}
-				$txt = $txt.") ";
+				$txt = $txt.") )";
 
-				echo "elseif1 = $txt";
+				//echo "elseif1 = $txt <br>";
 				$query = $this->db->query($txt);
 
 
@@ -1414,6 +2805,7 @@ Class Patient extends CI_Model
 			elseif($dentdemo != "" && $servdemo == ""){
 
 				if($dentinfo != "") $txt = $txt.", $dentinfo";
+				if($otherinfo != "") $txt = $txt.", $otherinfo";
 				if($carinfo != "") $txt = $txt.", $carinfo"; 
 				if($recinfo != "") $txt = $txt.", $recinfo";
 				if($resinfo != "") $txt = $txt.", $resinfo";
@@ -1432,6 +2824,11 @@ Class Patient extends CI_Model
 					$isfirstgood4 = true;
 				}
 				elseif($dentinfo != "" && $isfirstgood4)  $txt = $txt." AND patient.UPCD_ID = dentalchart.UPCD_ID";
+				if($otherinfo != "" && !$isfirstgood4) {
+					$txt = $txt." WHERE patient.UPCD_ID = otherservices.UPCD_ID";
+					$isfirstgood4 = true;
+				}
+				elseif($otherinfo != "" && $isfirstgood4)  $txt = $txt." AND patient.UPCD_ID = otherservices.UPCD_ID";
 				if($carinfo != "" && !$isfirstgood4) {
 					$txt = $txt." WHERE patient.UPCD_ID = cariesstatus.UPCD_ID";
 					$isfirstgood4 = true;
@@ -1446,9 +2843,9 @@ Class Patient extends CI_Model
 					$txt = $txt." WHERE patient.UPCD_ID = restorationstatus.UPCD_ID";
 					$isfirstgood4 = true;
 				}
-				elseif($recinfo != "" && $isfirstgood4) $txt = $txt." AND patient.UPCD_ID = restorationstatus.UPCD_ID";
+				elseif($resinfo != "" && $isfirstgood4) $txt = $txt." AND patient.UPCD_ID = restorationstatus.UPCD_ID";
 
-				$txt = $txt." AND $gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%' $occs $demo (";
+				$txt = $txt." AND ($gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%'  $demo (";
 				if($treatinfo != ""){
 					$txt = $txt." (";
 					$isfirstgood2 = true;
@@ -1458,7 +2855,7 @@ Class Patient extends CI_Model
 					if($fpds != ""  && !$isfirstgood2) {
 						$txt = $txt." $fpds ";
 						$isfirstgood2 = true;
-					}elseif($fpds != "" && $isfirstgood){
+					}elseif($fpds != "" && $isfirstgood2){
 						$txt = $txt." OR $fpds ";
 					}
 					if($oss != "" && !$isfirstgood2) {
@@ -1526,12 +2923,6 @@ Class Patient extends CI_Model
 						$isfirstgood = true;
 					}elseif($resvar != "" && $isfirstgood){
 						$txt = $txt." $dentdemo $resvar";
-					}
-					if($remvar != "" && !$isfirstgood) {
-						$txt = $txt." $remvar";
-						$isfirstgood = true;
-					}elseif($remvar != "" && $isfirstgood){
-						$txt = $txt." $dentdemo $remvar";
 					}
 					if($extvar != "" && !$isfirstgood) {
 						$txt = $txt." $extvar";
@@ -1629,17 +3020,35 @@ Class Patient extends CI_Model
 					}elseif($pftvar != "" && $isfirstgood){
 						$txt = $txt." $dentdemo $pftvar";
 					}
+					if($compvar != "" && !$isfirstgood) {
+						$txt = $txt." $compvar";
+						$isfirstgood = true;
+					}elseif($compvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $compvar";
+					}
+					if($singvar != "" && !$isfirstgood) {
+						$txt = $txt." $singvar";
+						$isfirstgood = true;
+					}elseif($singvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $singvar";
+					}
+					if($remparvar != "" && !$isfirstgood) {
+						$txt = $txt." $remparvar";
+						$isfirstgood = true;
+					}elseif($remparvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $remparvar";
+					}
 					$txt = $txt.") ";
-
 				}
-				$txt = $txt.") ";
+				$txt = $txt.") )";
 
-				echo "elseif2 = $txt";
+				//echo "elseif2 = $txt <br>";
 				$query = $this->db->query($txt);	
 
 			}elseif($dentdemo == "" && $servdemo != ""){
 
 				if($servinfo != "") $txt = $txt.", $servinfo"; 
+				if($otherinfo != "") $txt = $txt.", $otherinfo"; 
 				$isfirstgood4 = true;
 
 				if($patinfo != "") $txt = $txt." WHERE patient.UPCD_ID = patientinfo.UPCD_ID ";
@@ -1655,8 +3064,14 @@ Class Patient extends CI_Model
 					$isfirstgood4 = true;
 				}
 				elseif($servinfo != "" && $isfirstgood4) $txt = $txt." AND patient.UPCD_ID = serviceneeded.UPCD_ID";
+
+				if($otherinfo != "" && !$isfirstgood4) {
+					$txt = $txt." WHERE patient.UPCD_ID = otherservices.UPCD_ID";
+					$isfirstgood4 = true;
+				}
+				elseif($otherinfo != "" && $isfirstgood4) $txt = $txt." AND patient.UPCD_ID = otherservices.UPCD_ID";
 				
-				$txt = $txt." AND $gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%' $occs $demo (";
+				$txt = $txt." AND ($gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%'  $demo (";
 				if($treatinfo != ""){
 					$txt = $txt." (";
 					$isfirstgood2 = true;
@@ -1666,7 +3081,7 @@ Class Patient extends CI_Model
 					if($fpds != ""  && !$isfirstgood2) {
 						$txt = $txt." $fpds ";
 						$isfirstgood2 = true;
-					}elseif($fpds != "" && $isfirstgood){
+					}elseif($fpds != "" && $isfirstgood2){
 						$txt = $txt." OR $fpds ";
 					}
 					if($oss != "" && !$isfirstgood2) {
@@ -1770,18 +3185,6 @@ Class Patient extends CI_Model
 					}elseif($scvar != "" && $isfirstgood3){
 						$txt = $txt." $servdemo $scvar";
 					}
-					if($pdvar != "" && !$isfirstgood3) {
-						$txt = $txt." $pdvar";
-						$isfirstgood3 = true;
-					}elseif($pdvar != "" && $isfirstgood3){
-						$txt = $txt." $servdemo $pdvar";
-					}
-					if($orvar != "" && !$isfirstgood3) {
-						$txt = $txt." $orvar";
-						$isfirstgood3 = true;
-					}elseif($orvar != "" && $isfirstgood3){
-						$txt = $txt." $servdemo $orvar";
-					}
 					if($psvar != "" && !$isfirstgood3) {
 						$txt = $txt." $psvar";
 						$isfirstgood3 = true;
@@ -1830,16 +3233,47 @@ Class Patient extends CI_Model
 					}elseif($sivar != "" && $isfirstgood3){
 						$txt = $txt." $servdemo $sivar";
 					}
-					$txt = $txt.") ";
+					if($mopdvar != "" && !$isfirstgood3) {
+						$txt = $txt." $mopdvar";
+						$isfirstgood3 = true;
+					}elseif($mopdvar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $mopdvar";
+					}
+					if($pedovar != "" && !$isfirstgood3) {
+						$txt = $txt." $pedovar";
+						$isfirstgood3 = true;
+					}elseif($pedovar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $pedovar";
+					}
+					if($orthovar != "" && !$isfirstgood3) {
+						$txt = $txt." $orthovar";
+						$isfirstgood3 = true;
+					}elseif($orthovar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $orthovar";
+					}
+					if($moaivar != "" && !$isfirstgood3) {
+						$txt = $txt." $moaivar";
+						$isfirstgood3 = true;
+					}elseif($moaivar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $moaivar";
+					}
+					if($motivar != "" && !$isfirstgood3) {
+						$txt = $txt." $motivar";
+						$isfirstgood3 = true;
+					}elseif($motivar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $motivar";
+					}
+					$txt = $txt.") )";
 				}
 
 				$txt = $txt.") ";
 				$query = $this->db->query($txt);
 
-				echo "elseif3 = $txt";
+				//echo "elseif3 = $txt <br>";
 			
 			}elseif($dentdemo != "" && $servdemo != ""){
 				if($dentinfo != "") $txt = $txt.", $dentinfo";
+				if($otherinfo != "") $txt = $txt.", $otherinfo";
 				if($carinfo != "") $txt = $txt.", $carinfo"; 
 				if($recinfo != "") $txt = $txt.", $recinfo";
 				if($resinfo != "") $txt = $txt.", $resinfo";
@@ -1849,15 +3283,11 @@ Class Patient extends CI_Model
 
 				if($patinfo != "") $txt = $txt." WHERE patient.UPCD_ID = patientinfo.UPCD_ID ";
 				else $isfirstgood4 = false;
-				if($treatinfo != "" && !$isfirstgood4) {
-					$txt = $txt." WHERE patient.UPCD_ID = treatmentplan.UPCD_ID ";
-					$isfirstgood4 = true;
-				}
-				elseif($treatinfo != "" && $isfirstgood4) $txt = $txt." AND patient.UPCD_ID = treatmentplan.UPCD_ID ";
 
 				$isfirstgood4 = true;
 				if($patinfo != "") $txt = $txt." WHERE patient.UPCD_ID = patientinfo.UPCD_ID ";
 				else $isfirstgood4 = false;
+
 				if($treatinfo != "" && !$isfirstgood4) {
 					$txt = $txt." WHERE patient.UPCD_ID = treatmentplan.UPCD_ID ";
 					$isfirstgood4 = true;
@@ -1869,6 +3299,12 @@ Class Patient extends CI_Model
 					$isfirstgood4 = true;
 				}
 				elseif($dentinfo != "" && $isfirstgood4) $txt = $txt." AND patient.UPCD_ID = dentalchart.UPCD_ID";
+
+				if($otherinfo != "" && !$isfirstgood4) {
+					$txt = $txt." WHERE patient.UPCD_ID = otherservices.UPCD_ID";
+					$isfirstgood4 = true;
+				}
+				elseif($otherinfo != "" && $isfirstgood4) $txt = $txt." AND patient.UPCD_ID = otherservices.UPCD_ID";
 
 				if($carinfo != "" && !$isfirstgood4) {
 					$txt = $txt." WHERE patient.UPCD_ID = cariesstatus.UPCD_ID";
@@ -1891,7 +3327,7 @@ Class Patient extends CI_Model
 				}
 				else $txt = $txt." AND patient.UPCD_ID = serviceneeded.UPCD_ID";
 
-				$txt = $txt." AND $gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%' $occs $demo (";
+				$txt = $txt." AND ($gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%'  $demo (";
 				if($treatinfo != ""){
 					$txt = $txt." (";
 					$isfirstgood2 = true;
@@ -1901,7 +3337,7 @@ Class Patient extends CI_Model
 					if($fpds != ""  && !$isfirstgood2) {
 						$txt = $txt." $fpds ";
 						$isfirstgood2 = true;
-					}elseif($fpds != "" && $isfirstgood){
+					}elseif($fpds != "" && $isfirstgood2){
 						$txt = $txt." OR $fpds ";
 					}
 					if($oss != "" && !$isfirstgood2) {
@@ -1952,6 +3388,7 @@ Class Patient extends CI_Model
 				if($dentdemo != "") {
 					if($treatinfo == "") $txt = $txt." (";
 					else $txt = $txt." $demo (";
+
 					$isfirstgood = true;
 
 					if($carvar != "") {
@@ -1968,12 +3405,6 @@ Class Patient extends CI_Model
 						$isfirstgood = true;
 					}elseif($resvar != "" && $isfirstgood){
 						$txt = $txt." $dentdemo $resvar";
-					}
-					if($remvar != "" && !$isfirstgood) {
-						$txt = $txt." $remvar";
-						$isfirstgood = true;
-					}elseif($remvar != "" && $isfirstgood){
-						$txt = $txt." $dentdemo $remvar";
 					}
 					if($extvar != "" && !$isfirstgood) {
 						$txt = $txt." $extvar";
@@ -2071,12 +3502,30 @@ Class Patient extends CI_Model
 					}elseif($pftvar != "" && $isfirstgood){
 						$txt = $txt." $dentdemo $pftvar";
 					}
+					if($compvar != "" && !$isfirstgood) {
+						$txt = $txt." $compvar";
+						$isfirstgood = true;
+					}elseif($compvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $compvar";
+					}
+					if($singvar != "" && !$isfirstgood) {
+						$txt = $txt." $singvar";
+						$isfirstgood = true;
+					}elseif($singvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $singvar";
+					}
+					if($remparvar != "" && !$isfirstgood) {
+						$txt = $txt." $remparvar";
+						$isfirstgood = true;
+					}elseif($remparvar != "" && $isfirstgood){
+						$txt = $txt." $dentdemo $remparvar";
+					}
 					$txt = $txt.") ";
 
 				}
 
 				if($servdemo != "") {
-					if($treatinfo == "" && $dentinfo == "") $txt = $txt." (";
+					if($treatinfo == "" && $dentdemo == "") $txt = $txt." (";
 					else $txt = $txt." $demo (";
 					$isfirstgood3 = true;
 
@@ -2131,18 +3580,18 @@ Class Patient extends CI_Model
 					}elseif($scvar != "" && $isfirstgood3){
 						$txt = $txt." $servdemo $scvar";
 					}
-					if($pdvar != "" && !$isfirstgood3) {
+					/*if($pdvar != "" && !$isfirstgood3) {
 						$txt = $txt." $pdvar";
 						$isfirstgood3 = true;
 					}elseif($pdvar != "" && $isfirstgood3){
 						$txt = $txt." $servdemo $pdvar";
-					}
-					if($orvar != "" && !$isfirstgood3) {
+					}*/
+					/*if($orvar != "" && !$isfirstgood3) {
 						$txt = $txt." $orvar";
 						$isfirstgood3 = true;
 					}elseif($orvar != "" && $isfirstgood3){
 						$txt = $txt." $servdemo $orvar";
-					}
+					}*/
 					if($psvar != "" && !$isfirstgood3) {
 						$txt = $txt." $psvar";
 						$isfirstgood3 = true;
@@ -2191,12 +3640,42 @@ Class Patient extends CI_Model
 					}elseif($sivar != "" && $isfirstgood3){
 						$txt = $txt." $servdemo $sivar";
 					}
+					if($mopdvar != "" && !$isfirstgood3) {
+						$txt = $txt." $mopdvar";
+						$isfirstgood3 = true;
+					}elseif($mopdvar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $mopdvar";
+					}
+					if($pedovar != "" && !$isfirstgood3) {
+						$txt = $txt." $pedovar";
+						$isfirstgood3 = true;
+					}elseif($pedovar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $pedovar";
+					}
+					if($orthovar != "" && !$isfirstgood3) {
+						$txt = $txt." $orthovar";
+						$isfirstgood3 = true;
+					}elseif($orthovar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $orthovar";
+					}
+					if($moaivar != "" && !$isfirstgood3) {
+						$txt = $txt." $moaivar";
+						$isfirstgood3 = true;
+					}elseif($moaivar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $moaivar";
+					}
+					if($motivar != "" && !$isfirstgood3) {
+						$txt = $txt." $motivar";
+						$isfirstgood3 = true;
+					}elseif($motivar != "" && $isfirstgood3){
+						$txt = $txt." $servdemo $motivar";
+					}
 					$txt = $txt.") ";
 				}
 
-				$txt = $txt.") ";
+				$txt = $txt.") )";
 
-				echo "elseif4 = $txt";
+				//echo "elseif4 = $txt <br>";
 				$query = $this->db->query($txt);
 			}
 
@@ -2208,137 +3687,17 @@ Class Patient extends CI_Model
 		}
 		else{
 			if($patinfo != ""){
-				$txt = "SELECT * FROM  patient, $patinfo WHERE patient.UPCD_ID = patientinfo.UPCD_ID AND $gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%' $occs";
-				echo "elseif5 = $txt";
+				$txt = "SELECT * FROM  patient, $patinfo WHERE patient.UPCD_ID = patientinfo.UPCD_ID AND $gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%' ";
+				//echo "elseif5 = $txt <br>";
 
 				$query = $this->db->query($txt);
 			}
 			else{ 
 			$txt = "SELECT * FROM  patient WHERE $gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%'";
-			echo "elseif6 = $txt";
+			//echo "elseif6 = $txt <br>";
 			$query = $this->db->query($txt);
 			}
 		}
-
-		if($query -> num_rows() >= 1)
-   		{
-     			return $query->result_array();
-   		}
-   		else
-   		{
-     			return false;
-   		}
-	}
-
-	function searchPatient2($perio, $rpd, $ortho, $os, $fpd, $pedo, $endo, $cd, $resto){
-		/*$this -> db -> select('*');
-		$this -> db -> from('patient');
-		$this->db->join('patientinfo', 'patient.UPCD_ID = patientinfo.UPCD_ID');
-		//$this->db->where('patient.age >=', $agefrom);
-		//$this->db->where('patient.age <=', $ageto); 
-		$this->db->where('patient.gender', $gender);
-		$this->db->where('patient.city', $city);
-		$this->db->where('patientinfo.occupation', $occ);*/
-
-		$query = $this->db->query("SELECT * FROM  patient, treatmentplan WHERE patient.UPCD_ID = treatmentplan.UPCD_ID AND section = '$section' AND (treatmentplan.perio='$perio' OR treatmentplan.rpd='$rpd' OR treatmentplan.ortho='$ortho' OR treatmentplan.os='$os' OR treatmentplan.fpd='$fpd' OR treatmentplan.pedo='$pedo' OR treatmentplan.endo='$endo' OR treatmentplan.cd='$cd' OR treatmentplan.resto='$resto')");
-
-//		$query = $this -> db -> get();
-
-		if($query -> num_rows() >= 1)
-   		{
-     			return $query->result_array();
-   		}
-   		else
-   		{
-     			return false;
-   		}
-	}
-
-	function searchPatient3($caries, $extrusion, $compdent, $impacted, $recurrent, $intrusion, $singdent, $missing, $restoration, $mdr, $rempardent, $acrcr, $pftm, $ddr, $pafs, $metcr, $rot, $rct, $pcc, $extracted, $unerupted, $porcr){
-
-		$carvar = "";
-		$recvar = "";
-		$resvar = "";
-		$impvar = "";
-		$extvar = "";
-		$intvar = "";
-		$sinvar = "";
-		$misvar = "";
-		$mdrvar = "";
-		$remvar = "";
-		$acrvar = "";
-		$pftvar = "";
-		$ddrvar = "";
-		$pafvar = "";
-		$metvar = "";
-		$rotvar = "";
-		$rctvar = "";
-		$pccvar = "";
-		$exrvar = "";
-		$unevar = "";
-		$porvar = "";
-
-		if($caries == "Yes") $carvar = "!";
-		if($recurrent == "Yes") $recvar = "!";
-		if($restoration == "Yes") $resvar = "!";
-		if($impacted == "Yes") $impvar = "!";
-		if($extrusion == "Yes") $extvar = "!";
-		if($intrusion == "Yes") $resvar = "!";
-		if($singdent == "Yes") $sinvar = "!";
-		if($missing == "Yes") $misvar = "!";
-		if($mdr == "Yes") $mdrvar = "!";
-		if($rempardent == "Yes") $remvar = "!";
-		if($acrcr == "Yes") $acrvar = "!";
-		if($pftm == "Yes") $pftvar = "!";
-		if($ddr == "Yes") $ddrvar = "!";
-		if($pafs == "Yes") $pafvar = "!";
-		if($metcr == "Yes") $metvar = "!";
-		if($rot == "Yes") $rotvar = "!";
-		if($rct == "Yes") $rctvar = "!";
-		if($pcc == "Yes") $pccvar = "!";
-		if($extracted == "Yes") $exrvar = "!";
-		if($unerupted == "Yes") $unevar = "!";
-		if($porcr == "Yes") $porvar = "!";
-
-		$query = $this->db->query("SELECT * FROM  patient, dentalchart, cariesstatus, recurrentstatus, restorationstatus WHERE patient.UPCD_ID = dentalchart.UPCD_ID AND patient.UPCD_ID = cariesstatus.UPCD_ID AND patient.UPCD_ID = recurrentstatus.UPCD_ID AND patient.UPCD_ID = restorationstatus.UPCD_ID AND (cariesstatus.distal_caries $carvar= '' OR cariesstatus.mesial_caries $carvar= '' OR cariesstatus.buccal_caries $carvar= '' OR cariesstatus.occlusal_caries $carvar= '' OR cariesstatus.lingual_caries $carvar= '' OR recurrentstatus.distal_recurrent $recvar= '' OR recurrentstatus.mesial_recurrent $recvar= '' OR recurrentstatus.buccal_recurrent $recvar= '' OR recurrentstatus.occlusal_recurrent $recvar= '' OR recurrentstatus.lingual_recurrent $recvar= '' OR restorationstatus.distal_restoration $resvar= '' OR restorationstatus.mesial_restoration $resvar= '' OR restorationstatus.buccal_restoration $resvar= '' OR restorationstatus.occlusal_restoration $resvar= '' OR restorationstatus.lingual_restoration $resvar= '' OR dentalchart.removable_partial_denture $remvar= '' OR dentalchart.extrusion $extvar= '' OR dentalchart.intrusion $intvar= '' OR dentalchart.mesial_rotation $mdrvar= '' OR dentalchart.distal_rotation $ddrvar= '' OR dentalchart.rotation $rot= '' OR dentalchart.postcore_crown $pccvar= '' OR dentalchart.rootcanal_treatment $rct= '' OR dentalchart.pitfissure_sealants $pafvar= '' OR dentalchart.extracted $exr= '' OR dentalchart.missing $misvar= '' OR dentalchart.unerupted $unevar= '' OR dentalchart.impacted $impvar= '' OR dentalchart.porcelain_crown $porvar= '' OR dentalchart.acrylic_crown $acrvar= '' OR dentalchart.metal_crown $metvar= '' OR dentalchart.porcelain_fused $pftvar= '')");
-
-//		$query = $this -> db -> get();
-
-		if($query -> num_rows() >= 1)
-   		{
-     			return $query->result_array();
-   		}
-   		else
-   		{
-     			return false;
-   		}
-	}
-
-	function searchPatient4($class1, $class2, $class3, $class4, $class5, $onlay, $extraction, $odon, $specclass, $pedodontics, $orthodontics, $pulpsed, $roc, $temfill, $moai, $moti, $lamented, $completedenture, $anterior, $singlecrown, $posterior, $bridge, $singledenture, $removablepartialdenture){
-
-		if($class1 == "Yes") $c1var = "!";
-		if($class2 == "Yes") $c2var = "!";
-		if($class3 == "Yes") $c3var = "!";
-		if($class4 == "Yes") $c4var = "!";
-		if($class5 == "Yes") $c5var = "!";
-		if($onlay == "Yes") $olvar = "!";
-		if($extracted == "Yes") $exvar = "!";
-		if($odon == "Yes") $odvar = "!";
-		if($specclass == "Yes") $scvar = "!";
-		if($pedodontics == "Yes") $pdvar = "!";
-		if($orthodontics == "Yes") $orvar = "!";
-		if($pulpsed == "Yes") $psvar = "!";
-		if($roc == "Yes") $rcvar = "!";
-		if($tempfill == "Yes") $tfvar = "!";
-		if($lamented == "Yes") $lmvar = "!";
-		if($anterior == "Yes") $anvar = "!";
-		if($singlecrown == "Yes") $sivar = "!";
-		if($posterior == "Yes") $povar = "!";
-		if($bridge == "Yes") $bsvar = "!";
-
-		$query = $this->db->query("SELECT * FROM  patient, serviceneeded WHERE patient.UPCD_ID = serviceneeded.UPCD_ID AND (serviceneeded.class1 $c1var= '' OR serviceneeded.class2 $c2var= '' OR serviceneeded.class3 $c3var= '' OR serviceneeded.class4 $c4var= '' OR serviceneeded.class5 $c5var= '' OR serviceneeded.onlay $olvar= '' OR serviceneeded.extracted $exvar= '' OR serviceneeded.odontectomy $odvar= '' OR serviceneeded.special_case $scvar= '' OR serviceneeded.pedodontics $pdvar= '' OR serviceneeded.orthodontics $orvar= '' OR serviceneeded.pulp_sedation $psvar= '' OR serviceneeded.crown_recementation $rcvar= '' OR serviceneeded.filling_service $tfvar= '' OR serviceneeded.lamented $lmvar= '' OR serviceneeded.anterior $anvar= '' OR serviceneeded.posterior $povar= '' OR serviceneeded.bridge_service $bsvar= '' OR serviceneeded.single_crown $sivar= '')");
-
-//		$query = $this -> db -> get();
 
 		if($query -> num_rows() >= 1)
    		{
@@ -3137,6 +4496,27 @@ Class Patient extends CI_Model
 		$this->db->delete('appointment');
 	}
 
+	function updatePatient2($patientID, $section, $facultyID, $status){
+		$data = array(
+               		'section' => $section,
+			'status' => "Open",
+			'clinician' => 'Pending'
+            	);
+		$this->db->where('UPCD_ID', $patientID);
+		$this->db->update('patient', $data); 	
+
+		$data3 = array(
+			'UPCD_ID' => $patientID,
+			'section' => $section,
+			'taskdescription' => 'Assign to '.$section.' Clinician'
+		);
+		$this->db->insert('studenttasks', $data3);
+
+		$this->db->where('UPCD_ID', $patientID);
+		$this->db->delete('appointment');
+	}
+
+
 	function updatePatientRejected($patientID, $userid, $status, $currentsection, $referredsection){
 		$data = array(
                		'updateStatus7' => $status
@@ -3210,24 +4590,9 @@ Class Patient extends CI_Model
 		$this->db->where('UPCD_ID', $id);
 		$this->db->delete('appointment');
 
-		$audit = array(	
-			'committedBy' => $userID,
-			'action' => 'DELETE',
-			'form' => 'Appointment',
-			'committedTo' => $id,
-			'committedOn' => $date);
-		$this->db->insert('audittrail', $audit);
 	}
 
 	function getAppointments($id){
-
-		$audit = array(	
-			'committedBy' => $id,
-			'action' => 'SELECT',
-			'form' => 'Appointment',
-			'committedTo' => '',
-			'committedOn' => $date);
-		$this->db->insert('audittrail', $audit);
 
 		$this -> db -> select('*');
 		$this -> db -> from('appointment');
@@ -3505,7 +4870,12 @@ Class Patient extends CI_Model
 
 		$query = $this -> db -> get();
 		$res2 = $query->row_array();
-		$versionID = $res2['updateStatus'];
+		if($res2){
+			$versionID = $res2['updateStatus'];
+		}
+		else 
+			$versionID = false;
+
 
 		if($versionID == 'Pending')
    		{

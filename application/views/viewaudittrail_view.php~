@@ -24,12 +24,39 @@
 <div class="maindiv">
 <h3 align=center>Audit Trail </h3>
 
-<form action="<?php echo base_url().'index.php/searchuser'?>" method=post>
+<form action="<?php echo base_url().'index.php/searchaudittrail'?>" method=post>
 
-<input type="text" name="searchuser" id="searchuser" class="search"> <input type="submit" value="Search" name="searchbtn"><br><br>
+Search Input: <input type="text" name="searchtext" id="searchtext" class="search"> <input type="text" class="datepicker" name="auditfrom" id="auditfrom" placeholder="From"> <input type="text" class="datepicker" name="auditto" id="auditto" placeholder="To"> <br> <br>
+<select name="audit_action"> 
+	<option value=""> Select one..
+	<option value="LOGIN"> LOGIN
+	<option value="LOGOUT"> LOGOUT
+	<option value="SELECT"> SELECT
+	<option value="INSERT"> INSERT
+	<option value="DELETE"> DELETE
+	<option value="UPDATE"> UPDATE
+</select>
 
+<select name="audit_form"> 
+	<option value=""> Select one..
+	<option value="Users"> Users
+	<option value="Patient"> Patient
+	<option value="Patient Information"> Patient Information
+	<option value="Patient Checklist"> Patient Checklist
+	<option value="Medical and Social History"> Medical and Social History
+	<option value="Dental Data"> Dental Data
+	<option value="Dental Status Chart"> Dental Status Chart
+	<option value="Treatment Plan"> Treatment Plan
+	<option value="Radiographic Examination"> Radiographic Examination
+	<option value="Services Rendered"> Services Rendered
+	<option value="Consultations and Findings"> Consultations and Findings
+</select>
+<input type="submit" value="Search" name="searchbtn"><br><br>
+
+<hr width="95%">
+<br>
 	<center>
-		<table class="tab" border=1px color="violet" cellpadding=5px width="80%" align="center">
+		<table class="tab" border=1px color="violet" cellpadding=5px width="90%" align="center">
 			<tr class="header">
 				<td class="tab" align="center"> Name
 				<td class="tab" align="center"> Action
@@ -43,20 +70,27 @@
 				$patientname = "";
 				foreach($audit as $row){
 					$user = $this->user->getUserInfo($row['committedBy']);
-					foreach($user as $row2){
-						$username = $row2['userFName']." ".substr($row2['userMName'], 0, 1).". ".$row2['userLName'];
-						$uname = $row2 ['username'];
-					}
+					$usernym = $this->user->getUsernameTrue($row['committedBy']);
+					$uname = $usernym['username'];
+					//foreach($user as $row2){
+						$username = $user['userFName']." ".substr($user['userMName'], 0, 1).". ".$user['userLName'];
+					//	$uname = $user['username'];
+					//}
 
+					if($row['committedTo'] != ''){
 					$patient = $this->patient->getPatient($row['committedTo']);
-					foreach($patient as $row2){
-						$patientname = $row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
-					}					
-					echo "<tr><td>".$ctr;
+					
+					if($patient){
+						foreach($patient as $row2){
+							$patientname = $row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
+						}
+					}
+					}									
+					echo "<tr>";
 					echo "<td> $username <br> ($uname)";
 					echo "<td> ".$row['action'];
 					echo "<td> ".$row['form'];
-					echo "<td> $patientname";
+					echo "<td>"; if($row['committedTo'] == '') echo "&nbsp;"; else echo $patientname;
 					echo "<td> ".$row['committedOn'];						
 					echo "</tr>";
 					$ctr++;

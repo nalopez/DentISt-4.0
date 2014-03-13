@@ -60,7 +60,8 @@
 	?>
 </div>
 
-<?php if($forapproval) echo "<h4 style='color:red;'>This patient's record is currently subject for approval.</h4>"; ?>
+<?php if($forapproval) echo "<h4 style='color:red;'>This patient's record is currently subject for approval.</h4>";
+elseif($private) echo "<h4 style='color:red;' align='center'>This patient's record is under other clinician's supervision.</h4>"; ?>
 
 		<table id="service" frame="box" class="frame">
 		<tr class=header>
@@ -73,22 +74,30 @@
 			<td>Fees
 		</tr>
 		<?php
-			$size = sizeof($servicedate);
-			for($i=0; $i<$size; $i++){
-			echo "
-				<tr>
-					<td>";//<input type='checkbox' name='0' id='ck0'>
-				echo "	<td><input type='text' name='servicedate[]' class='datepicker' id='servicedate_$id' value='".$servicedate[$i]."' readonly>
-					<td><textarea name='rendered[]' id='rendered_$id' cols=50 readonly>".$rendered[$i]."</textarea>
-					<td><input type='text' name='fees[]' id='fees_$id' value='".$fees[$i]."' readonly>
+			if($recordexist){
+				$size = sizeof($servicedate);
+				for($i=0; $i<$size; $i++){
+				echo "
+					<tr>
+						<td>";//<input type='checkbox' name='0' id='ck0'>
+					echo "	<td><input type='text' name='servicedate[]' class='datepicker' id='servicedate_$id' value='".$servicedate[$i]."' readonly>
+						<td><textarea name='rendered[]' id='rendered_$id' cols=50 readonly>".$rendered[$i]."</textarea>
+						<td><input type='text' name='fees[]' id='fees_$id' value='".$fees[$i]."' readonly>
 				
+					</tr>";
+				}
+			}
+			else{
+				echo "<tr>
+					<td>";//<input type='checkbox' name='0' id='ck0'>
+				echo "	<td><input type='text' name='servicedate[]' class='datepicker' id='servicedate_0' readonly>
+					<td><textarea name='rendered[]' id='rendered_0' cols=50 readonly></textarea>
+					<td><input type='text' name='fees[]' id='fees_$0' readonly>
 				</tr>";
 			}
 		?>
 		</table><br><br>
-		<input type="button" onClick="addService('service')" value="Add Row">
-		<input type="button" onClick="deleteService('service')" value="Delete Row/s"><br><br>
-		<input type="submit" value="Save"/> <input type="reset" value="Clear entries"/>
+
 </form>
 
 </div>

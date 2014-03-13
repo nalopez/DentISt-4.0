@@ -20,6 +20,15 @@
 
 var fieldNum3;
 var k=0;
+var year = new Date().getFullYear();
+
+	$('#servicedate_0').datepicker({
+		dateFormat: 'yy-mm-dd',
+		showAnim: 'slideDown',
+		changeMonth: true,
+		changeYear: true,
+		yearRange: '1910:' + year
+    	});
 
 function addService(tableID){
 	fieldNum3= k+1;
@@ -47,7 +56,7 @@ function addService(tableID){
 		showAnim: 'slideDown',
 		changeMonth: true,
 		changeYear: true,
-		yearRange: '1910:2014'
+		yearRange: '1910:' + year
     	});
 }
 
@@ -136,9 +145,9 @@ function deleteService(tableID){
 			for($i=0; $i<$size; $i++){
 				echo "<tr>
 					<td><input type='checkbox' name='$i' id='ck$i' checked>
-					<td><input type='text' name='servicedate[]' class='datepicker' id='servicedate_$i' value='".$servicedate2[$i]."'>
-					<td><textarea name='rendered[]' id='rendered_$i' cols=50>".$rendered2[$i]."</textarea>
-					<td><input type='text' name='fees[]' id='fees_$i' value='".$fees2[$i]."'>
+					<td><input type='text' name='servicedate[]' class='datepicker' id='servicedate_$i' value='".$servicedate2[0][$i]."'>
+					<td><textarea name='rendered[]' id='rendered_$i' cols=50>".$rendered2[0][$i]."</textarea>
+					<td><input type='text' name='fees[]' id='fees_$i' value='".$fees2[0][$i]."'>
 				</tr>";
 			}
 		}

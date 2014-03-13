@@ -1,0 +1,145 @@
+<?php 
+	include('header.php'); 
+	include('navigation.php');
+	echo "<link rel=\"stylesheet\" type=\"text/css\" href='".base_url()."css/style.css'>";
+?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+   <title>Users - System Administrator </title>
+<link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">
+	<script type="text/javascript">
+		function confirmDelete(choice){
+			alert("choice: "+choice);
+			var conf = confirm("Delete this user?");
+			alert("conf: "+conf);
+			if(conf == true){
+				var url = "http://localhost/DentISt/index.php/deleteuser/delete/" + choice;
+				window.location = url;			
+			}
+		}	
+	</script>
+
+<script>
+
+	$(function() {
+		$("#auditfrom").datepicker({
+			dateFormat: 'yy-mm-dd',
+			showAnim: 'slideDown',
+			changeMonth: true,
+			changeYear: true,
+			yearRange: '1910:2014',
+			onClose: function( selectedDate ) {
+				$( "#auditto" ).datepicker( "option", "minDate", selectedDate );
+	      		}
+	    	});
+	});
+	
+	$(function() {
+		$("#auditto").datepicker({
+			dateFormat: 'yy-mm-dd',
+			showAnim: 'slideDown',
+			changeMonth: true,
+			changeYear: true,
+			yearRange: '1910:2014',
+			onClose: function( selectedDate ) {
+				$( "#auditfrom" ).datepicker( "option", "maxDate", selectedDate );
+	      		}
+	    	});
+	});
+
+</script>
+
+ </head>
+ <body>
+<div class="maindiv">
+<h3 align=center>Users</h3>
+
+<form action="<?php echo base_url().'index.php/searchaudittrail'?>" method=post>
+
+
+Search Input: <input type="text" name="searchtext" id="searchtext" class="search" value="<?php echo $text; ?>"> <input type="text" class="datepicker" name="auditfrom" id="auditfrom" placeholder="From" value="<?php echo $from; ?>"> <input type="text" class="datepicker" name="auditto" id="auditto" placeholder="To" value="<?php echo $to; ?>"> <br> <br>
+<select name="audit_action"> 
+	<option value="" <?php if($action == "") echo "selected"; ?>> Select one..
+	<option value="LOGIN" <?php if($action == "LOGIN") echo "selected"; ?>> LOGIN
+	<option value="LOGOUT" <?php if($action == "LOGOUT") echo "selected"; ?>> LOGOUT
+	<option value="SELECT" <?php if($action == "SELECT") echo "selected"; ?>> SELECT
+	<option value="INSERT" <?php if($action == "INSERT") echo "selected"; ?>> INSERT
+	<option value="DELETE" <?php if($action == "DELETE") echo "selected"; ?>> DELETE
+	<option value="UPDATE" <?php if($action == "UPDATE") echo "selected"; ?>> UPDATE
+</select>
+
+<select name="audit_form"> 
+	<option value="" <?php if($form == "") echo "selected"; ?>> Select one..
+	<option value="Users" <?php if($form == "Users") echo "selected"; ?>> Users
+	<option value="Patient" <?php if($form == "Patient") echo "selected"; ?>> Patient
+	<option value="Patient Information" <?php if($form == "Patient Information") echo "selected"; ?>> Patient Information
+	<option value="Patient Checklist" <?php if($form == "Patient Checklist") echo "selected"; ?>> Patient Checklist
+	<option value="Medical and Social History" <?php if($form == "Medical and Social History") echo "selected"; ?>> Medical and Social History
+	<option value="Dental Data" <?php if($form == "Dental Data") echo "selected"; ?>> Dental Data
+	<option value="Dental Status Chart" <?php if($form == "Dental Status Chart") echo "selected"; ?>> Dental Status Chart
+	<option value="Treatment Plan" <?php if($form == "Treatment Plan") echo "selected"; ?>> Treatment Plan
+	<option value="Radiographic Examination" <?php if($form == "Radiographic Examination") echo "selected"; ?>> Radiographic Examination
+	<option value="Services Rendered" <?php if($form == "Services Rendered") echo "selected"; ?>> Services Rendered
+	<option value="Consultation and Findings" <?php if($form == "Consultation and Findings") echo "selected"; ?>> Consultation and Findings
+</select>
+<input type="submit" value="Search" name="searchbtn"><br><br>
+
+<hr width="95%">
+<br>
+	<center>
+		<table class="tab" border=1px color="violet" cellpadding=5px width="90%" align="center">
+			<tr class="header">
+				<td class="tab" align="center"> Name
+				<td class="tab" align="center"> Action
+				<td class="tab" align="center"> Form
+				<td class="tab" align="center"> Action Performed To
+				<td class="tab"align="center"> Action Date
+			</tr>
+			<?php //print_r($audit); 
+			if($audit){
+				$count = sizeof($audit);
+				$ctr = 1;
+				$patientname = "";
+				foreach($audit as $row){
+					if(strtotime($row['committedOn'])>=strtotime($from) && strtotime($row['committedOn'])<=strtotime($to)){
+						$user = $this->user->getUserInfo($row['committedBy']);
+						$usernym = $this->user->getUsernameTrue($row['committedBy']);
+						$uname = $usernym['username'];
+						//foreach($user as $row2){
+							$username = $user['userFName']." ".substr($user['userMName'], 0, 1).". ".$user['userLName'];
+						//	$uname = $user['username'];
+						//}
+
+						if($row['committedTo'] != ''){
+						$patient = $this->patient->getPatient($row['committedTo']);
+					
+						if($patient){
+							foreach($patient as $row2){
+								$patientname = $row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
+							}
+						}
+						}									
+						echo "<tr>";
+						echo "<td> $username <br> ($uname)";
+						echo "<td> ".$row['action'];
+						echo "<td> ".$row['form'];
+						echo "<td>"; if($row['committedTo'] == '') echo "&nbsp;"; else echo $patientname;
+						echo "<td> ".$row['committedOn'];						
+						echo "</tr>";
+						$ctr++;
+					}
+				}
+			}
+				
+			?>
+		</table>
+		
+	</center>	
+</form>
+</div>
+ </body>
+</html>
+
+

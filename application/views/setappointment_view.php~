@@ -75,8 +75,11 @@
 <div class="maindiv">
 
 	<?php include('patient_header.php'); ?>
-<div class="validation" style="display:<?if(validation_errors() == true) echo 'block'; else echo 'none'?>">
-   <?php echo validation_errors(); ?>
+
+<div class="validationexc" style="display: <?php if($this->session->userdata('has_error')) echo 'block'; else 'none' ?>;">
+   		<?php $session_data = $this->session->userdata('has_error');
+     		echo $session_data['error'];
+	?>
 </div>
 
 <?php $id = $this->uri->segment(3);  ?>

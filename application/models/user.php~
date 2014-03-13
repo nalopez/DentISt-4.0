@@ -231,6 +231,33 @@ Class User extends CI_Model
      			return false;
    		}
 	}
+	
+	function selectUsersBySection($section){
+/*		$audit = array(	
+			'committedBy' => $userID2,
+			'action' => 'SELECT',
+			'form' => 'Users',
+			'committedTo' => '',
+			'committedOn' => $date);
+		$this->db->insert('audittrail', $audit);*/
+
+
+		$this -> db -> select('users.userID, users.userFName, users.userMName, users.userLName, users_auth.username, users_role.role_type');
+   		$this -> db -> from('users', 'users_auth', 'users_role');
+		$this->db->join('users_auth', 'users.userID = users_auth.userID');
+		$this->db->join('users_role', 'users.userID = users_role.userID');
+		$this->db->where('users_role.role_section', $section);
+		$query = $this -> db -> get();
+
+   		if($query -> num_rows() >= 1)
+   		{
+     			return $query->result_array();
+   		}
+   		else
+   		{
+     			return false;
+   		}
+	}
 
 	function getUsers($section){
 		$this -> db -> select('userID, role_section');
@@ -510,7 +537,7 @@ Class User extends CI_Model
 
 		$audit = array(	
 			'committedBy' => $userID2,
-			'action' => 'EDIT',
+			'action' => 'UPDATE',
 			'form' => 'Users',
 			'committedTo' => $userID,
 			'committedOn' => $date);
@@ -534,7 +561,7 @@ Class User extends CI_Model
    		}
 	}
 
-	function addAuditTrail($comittedBy, $action, $form, $committedTo, $date){
+	function addAuditTrail($committedBy, $action, $form, $committedTo, $date){
 		$audit = array(	
 			'committedBy' => $committedBy,
 			'action' => $action,
@@ -543,6 +570,40 @@ Class User extends CI_Model
 			'committedOn' => $date);
 		$this->db->insert('audittrail', $audit);
 
+	}
+
+	function searchAuditTrail($text, $from, $to, $action, $form){
+		$query = $this->db->query("SELECT * FROM users, users_auth, audittrail WHERE users.userID = users_auth.userID AND users.userID = audittrail.committedBy AND (CONCAT(users.userFName, ' ', users.userLName) LIKE '%$text%' OR users_auth.username LIKE '%$text%') AND action LIKE '%$action%' AND form LIKE '%$form%'");
+
+   		if($query -> num_rows() >= 1)
+   		{
+     			return $query->result_array();
+   		}
+   		else
+   		{
+     			return false;
+   		}
+	}
+
+	function getUsernameTrue($userID){
+		$this -> db -> select('username');
+   		$this -> db -> from('users_auth');
+		//$this->db->join('users', 'users_auth.userID = users.userID');
+		//$this -> db -> where('users.userFName !=', $fname);
+		//$this -> db -> where('users.userLName !=', $lname);
+		$this -> db -> where('userID', $userID);
+   	
+		
+		$query = $this -> db -> get();
+
+   		if($query -> num_rows() >= 1)
+   		{
+     			return $query->row_array();
+   		}
+   		else
+   		{
+     			return false;
+   		}
 	}
 }
 ?>

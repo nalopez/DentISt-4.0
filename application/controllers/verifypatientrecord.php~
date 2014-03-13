@@ -114,7 +114,7 @@ $this->load->model('user','',TRUE);
 						$this->patient->deleteStudentTask($patientid);
 						$this->patient->updatePatientTemporary($studentid, $facultyid, $patientid, $decision, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan);
 						$this->patient->updatePatient($patientid, $section, $facultyid, $decision);
-						$this->patient->setApproved($patientid);
+						$this->patient->setApproved($patientid, $facultyid);
 					}
 					/*elseif($statxs = 'Pending' && $stats = 'Rejected'){
 						$this->patient->updatePatientRejected2($studentid, $facultyid, $patientid, $decision, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan);

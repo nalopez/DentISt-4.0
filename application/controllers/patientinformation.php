@@ -49,8 +49,9 @@ class PatientInformation extends CI_Controller {
 				}*/
 				$userID222 = $session_data['username'];
 				$userID22 = $this->user->getUserID($userID222);
-				$userID2 = $userID22['$userID'];
+				$userID2 = $userID22['userID'];
 				$date = date("Y-m-d");
+				$clinicianID = $this->patient->isClinician($id);
 
 				if($this->patient->hasPatientInfo($id)){
 					$data['info'] = $this->patient->getPatientInfoPatientInfo($id);
@@ -62,8 +63,13 @@ class PatientInformation extends CI_Controller {
 					$this->user->addAuditTrail($userID2, 'SELECT', 'Patient Information', $id, $date);
 					redirect('patientinformation/view/'.$id);
 				}else{
-					$this->user->addAuditTrail($userID2, 'SELECT', 'Patient Information', $id, $date);
-					$this->load->view('patientinformation_view', $data);
+					//$this->user->addAuditTrail($userID2, 'SELECT', 'Patient Information', $id, $date);
+					if($clinicianID!=$userID2){
+						redirect('patientinformation/view/'.$id);
+					}
+					else{ 		
+						$this->load->view('patientinformation_view', $data);
+					}
 				}
 
 			}
@@ -116,6 +122,15 @@ class PatientInformation extends CI_Controller {
 				/*foreach($ver as $row){
 					$version = $row['patientinfoID'];
 				}*/
+				$userID222 = $session_data['username'];
+				$userID22 = $this->user->getUserID($userID222);
+				$userID2 = $userID22['userID'];
+				$date = date("Y-m-d");
+
+				$clinicianID = $this->patient->isClinician($id);
+				$data['private'] = false;
+				$data['forapproval'] = false;
+
 				if($this->patient->hasPatientInfo($id)){
 					$data['info'] = $this->patient->getPatientInfoPatientInformationRO($id, $version);
 					$data['recordexist'] = true;
@@ -127,6 +142,12 @@ class PatientInformation extends CI_Controller {
 					$data['forapproval'] = true;
 				}
 
+				if($clinicianID!=$userID2){
+					$data['private'] = true;
+					//redirect('dentalchart/view/'.$id);
+				}
+
+				$this->user->addAuditTrail($userID2, 'SELECT', 'Patient Information', $id, $date);
 				$this->load->view('patientinformationreadonly_view', $data);
 			}
 			else

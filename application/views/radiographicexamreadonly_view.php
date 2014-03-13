@@ -67,7 +67,8 @@
 	?>
 </div>
 
-<?php if($forapproval) echo "<h4 style='color:red;'>This patient's record is currently subject for approval.</h4>"; ?>
+<?php if($forapproval) echo "<h4 style='color:red;'>This patient's record is currently subject for approval.</h4>";
+elseif($private) echo "<h4 style='color:red;' align='center'>This patient's record is under other clinician's supervision.</h4>"; ?>
 
 		<table frame="box" class="frame" id="radio">
 		<tr class=header>
@@ -80,13 +81,23 @@
 			<td>Findings
 		</tr>
 		<?php
-		$size = sizeof($date);
-		for($i=0; $i<$size; $i++){
+		if($recordexist){
+			$size = sizeof($date);
+			for($i=0; $i<$size; $i++){
+				echo "<tr>";
+					echo "<td>";//<input type='checkbox' name=0 id='ck0' checked/></td>
+					echo "<td><input type='text' name='date[]' class='datepicker' id='date$i' value='".$date[$i]."' readonly /></td>
+					<td><input type='text' name='tooth[]' id='toothnum_$i' value='".$tooth[$i]."' readonly /></td>
+					<td><textarea name='findings[]' id='findings_$i' cols='40' readonly>".$findings[$i]."</textarea></td>
+				</tr>";
+			}
+		}
+		else{
 			echo "<tr>";
-				echo "<td>";//<input type='checkbox' name=0 id='ck0' checked/></td>
-				echo "<td><input type='text' name='date[]' class='datepicker' id='date$i' value='".$date[$i]."' readonly /></td>
-				<td><input type='text' name='tooth[]' id='toothnum_$i' value='".$tooth[$i]."' readonly /></td>
-				<td><textarea name='findings[]' id='findings_$i' cols='40' readonly>".$findings[$i]."</textarea></td>
+			echo "<td>";//<input type='checkbox' name=0 id='ck0' checked/></td>
+			echo "<td><input type='text' name='date[]' class='datepicker' id='date0' readonly /></td>
+			<td><input type='text' name='tooth[]' id='toothnum_0' readonly /></td>
+			<td><textarea name='findings[]' id='findings_0' cols='40' readonly></textarea></td>
 			</tr>";
 		}
 		?>

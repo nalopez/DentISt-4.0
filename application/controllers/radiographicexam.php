@@ -16,7 +16,7 @@ class RadiographicExam extends CI_Controller {
 			$bool = false;
 			$sec = $session_data['section'];
 			foreach($sec as $row){
-				if($row != "System Maintenance"){
+				if($row == "Oral Diagnosis"){
 					$bool = true;
 					break;
 				}
@@ -49,21 +49,27 @@ class RadiographicExam extends CI_Controller {
 				}*/
 				$userID222 = $session_data['username'];
 				$userID22 = $this->user->getUserID($userID222);
-				$userID2 = $userID22['$userID'];
+				$userID2 = $userID22['userID'];
 				$date = date("Y-m-d");
 
 				if($this->patient->hasRadioExam($id)){
 					$data['info'] = $this->patient->getPatientInfoRadioExam($id);
 					$data['recordexist'] = true;
 				}
+				$clinicianID = $this->patient->isClinician($id);
 
 				//print_r($data['info']);
 				if($this->patient->isLatestForApproval7($id)){
 					$this->user->addAuditTrail($userID2, 'SELECT', 'Radiographic Exam', $id, $date);
 					redirect('radiographicexam/view/'.$id);
 				}else{
-					$this->user->addAuditTrail($userID2, 'SELECT', 'Radiographic Exam', $id, $date);
-					$this->load->view('radiographicexam_view', $data);
+					//$this->user->addAuditTrail($userID2, 'SELECT', 'Radiographic Exam', $id, $date);
+					if($clinicianID!=$userID2){
+						redirect('radiographicexam/view/'.$id);
+					}
+					else{ 
+						$this->load->view('radiographicexam_view', $data);
+					}
 				}
 			}
 			else
@@ -115,10 +121,14 @@ class RadiographicExam extends CI_Controller {
 				/*foreach($ver as $row){
 					$version = $row['patientinfoID'];
 				}*/
-			$userID222 = $session_data['username'];
-			$userID22 = $this->user->getUserID($userID222);
-			$userID2 = $userID22['$userID'];
-			$date = date("Y-m-d");
+				$userID222 = $session_data['username'];
+				$userID22 = $this->user->getUserID($userID222);
+				$userID2 = $userID22['userID'];
+				$date = date("Y-m-d");
+
+				$clinicianID = $this->patient->isClinician($id);
+				$data['private'] = false;
+				$data['forapproval'] = false;
 
 				if($this->patient->hasRadioExam($id)){
 					$data['info'] = $this->patient->getPatientInfoRadioExamRO($id, $version);
@@ -127,6 +137,11 @@ class RadiographicExam extends CI_Controller {
 
 				if($this->patient->isLatestForApproval7($id)){
 					$data['forapproval'] = true;
+				}
+
+				if($clinicianID!=$userID2){
+					$data['private'] = true;
+					//redirect('dentalchart/view/'.$id);
 				}
 
 				//print_r($data['info']);

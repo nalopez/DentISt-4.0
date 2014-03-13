@@ -89,6 +89,7 @@
 					$ctr++;
 				}
 			}
+			else echo "<tr> <td colspan=4> No results found </tr>";
 		?>
 		<!-- <a href='".base_url()."index.php/setappointment' -->
 		<input type=hidden name="id" id="patientid">

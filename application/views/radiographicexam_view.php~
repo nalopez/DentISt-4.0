@@ -20,6 +20,16 @@
 
 var fieldNum;
 var i=0;
+var year = new Date().getFullYear();
+
+$(function() {
+	$('#date0').datepicker({
+		dateFormat: 'yy-mm-dd',
+			showAnim: 'slideDown',
+				changeMonth: true,
+				changeYear: true,
+				yearRange: '1910:' + year
+    			});
 
 function addRadio(tableID){
 	fieldNum= i+1;
@@ -44,7 +54,7 @@ function addRadio(tableID){
 			showAnim: 'slideDown',
 				changeMonth: true,
 				changeYear: true,
-				yearRange: '1910:2014'
+				yearRange: '1910:' + year
     			});
 
 	i++;
@@ -134,7 +144,7 @@ function deleteRadio(tableID){
 			$size = sizeof($date2[0]);
 			for($i=0; $i<$size; $i++){
 				echo "<tr>";
-					echo "<td><input type='checkbox' name=$id id='ck$i' /></td>";
+					echo "<td><input type='checkbox' name=$id id='ck$i' checked /></td>";
 					echo "<td><input type='text' name='date[]' class='datepicker' id='date$i' value='".$date2[0][$i]."'/></td>
 					<td><input type='text' name='tooth[]' id='toothnum_$i' value='".$tooth2[0][$i]."' /></td>
 					<td><textarea name='findings[]' id='findings_$i' cols='40'>".$findings2[0][$i]."</textarea></td>

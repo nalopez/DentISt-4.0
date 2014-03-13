@@ -16,7 +16,7 @@ class DentalChart extends CI_Controller {
 			$bool = false;
 			$sec = $session_data['section'];
 			foreach($sec as $row){
-				if($row == "Oral Diagnosis" || $row == "Oral Medicine"){
+				if($row != "System Maintenance"){
 					$bool = true;
 					break;
 				}
@@ -49,7 +49,7 @@ class DentalChart extends CI_Controller {
 				}*/
 				$userID222 = $session_data['username'];
 				$userID22 = $this->user->getUserID($userID222);
-				$userID2 = $userID22['$userID'];
+				$userID2 = $userID22['userID'];
 				$date = date("Y-m-d");
 
 				if($this->patient->hasDentalChart($id)){
@@ -62,12 +62,20 @@ class DentalChart extends CI_Controller {
 				//echo $data['info'];
 				//if($data['info'] == false) echo "false";
 
+
+				$clinicianID = $this->patient->isClinician($id);
+
 				if($this->patient->isLatestForApproval5($id)){
 					$this->user->addAuditTrail($userID2, 'SELECT', 'Dental Status Chart', $id, $date);
 					redirect('dentalchart/view/'.$id);
 				}else{
-					$this->user->addAuditTrail($userID2, 'SELECT', 'Dental Status Chart', $id, $date);
-					$this->load->view('dentalchart_view', $data);
+					//$this->user->addAuditTrail($userID2, 'SELECT', 'Dental Status Chart', $id, $date);
+					if($clinicianID!=$userID2){
+						redirect('dentalchart/view/'.$id);
+					}
+					else{ 
+						$this->load->view('dentalchart_view', $data);
+					}
 				}
 			}
 			else
@@ -122,8 +130,12 @@ class DentalChart extends CI_Controller {
 
 				$userID222 = $session_data['username'];
 				$userID22 = $this->user->getUserID($userID222);
-				$userID2 = $userID22['$userID'];
+				$userID2 = $userID22['userID'];
 				$date = date("Y-m-d");
+
+				$clinicianID = $this->patient->isClinician($id);
+				$data['private'] = false;
+				$data['forapproval'] = false;
 
 				if($this->patient->hasDentalChart($id)){
 					$data['info'] = $this->patient->getPatientInfoDentalChartRO($id, $version);
@@ -135,6 +147,10 @@ class DentalChart extends CI_Controller {
 					$data['forapproval'] = true;
 				}
 
+				if($clinicianID!=$userID2){
+					$data['private'] = true;
+					//redirect('dentalchart/view/'.$id);
+				}
 				//print_r($data['info']);
 
 				//print_r($data['info']);

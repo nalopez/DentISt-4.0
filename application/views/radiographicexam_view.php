@@ -20,6 +20,17 @@
 
 var fieldNum;
 var i=0;
+var year = new Date().getFullYear();
+
+$(function() {
+	$('#date0').datepicker({
+		dateFormat: 'yy-mm-dd',
+			showAnim: 'slideDown',
+				changeMonth: true,
+				changeYear: true,
+				yearRange: '1910:' + year
+    			});
+});
 
 function addRadio(tableID){
 	fieldNum= i+1;
@@ -44,7 +55,7 @@ function addRadio(tableID){
 			showAnim: 'slideDown',
 				changeMonth: true,
 				changeYear: true,
-				yearRange: '1910:2014'
+				yearRange: '1910:' + year
     			});
 
 	i++;

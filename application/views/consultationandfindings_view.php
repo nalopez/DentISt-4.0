@@ -4,7 +4,7 @@
 	
 	echo "<link rel=\"stylesheet\" type=\"text/css\" href='".base_url()."css/style.css'>";
 	echo "<script type\"text/javascript\" src=\"".base_url()."js/dynamic.js\"></script>";
-	echo "<script type\"text/javascript\" src=\"".base_url()."js/patientdb.js\"></script>"
+//	echo "<script type\"text/javascript\" src=\"".base_url()."js/patientdb.js\"></script>"
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -16,9 +16,47 @@
 
    <title>Consultation and Findings - Oral Diagnosis</title>
 <link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">	
+
 <script type="text/javascript">
 var fieldNum2;
 var j=0;
+var year = new Date().getFullYear();
+
+	$(function() {	
+		$('#date_0').datepicker({
+			dateFormat: 'yy-mm-dd',
+			showAnim: 'slideDown',
+			changeMonth: true,
+			changeYear: true,
+			yearRange: '1910:'+year
+	    	});
+	});
+			
+	$(function() {	
+		$('#startdate_0').datepicker({
+			dateFormat: 'yy-mm-dd',
+			showAnim: 'slideDown',
+			changeMonth: true,
+			changeYear: true,
+			yearRange: '1910:'+year ,
+			onClose: function( selectedDate ) {
+	       			$( "#enddate_0" ).datepicker( "option", "minDate", selectedDate );
+	      		}
+	    	});
+	});
+
+	$(function() {	
+		$('#enddate_0').datepicker({
+			dateFormat: 'yy-mm-dd',
+			showAnim: 'slideDown',
+			changeMonth: true,
+			changeYear: true,
+			yearRange: '1910:'+year ,
+			onClose: function( selectedDate ) {
+	       			$( "#startdate_0" ).datepicker( "option", "maxDate", selectedDate );
+	      		}
+	    	});
+	});
 
 function addConsult(tableID){
 	fieldNum2= j+1;
@@ -31,13 +69,13 @@ function addConsult(tableID){
 	var cellA = row.insertCell(0);
 	cellA.innerHTML ="<input type='checkbox' name='"+fieldNum2+"' id='ck"+fieldNum2+"'>";
 	var cellB = row.insertCell(1);
-	cellB.innerHTML ="<input type='text' name='date[]' class='datepicker' id='date_" + fieldNum2 +"' size=8px>";
+	cellB.innerHTML ="<input type='text' name='date[]' class='datepicker' id='date_" + fieldNum2 +"' size=8px readonly>";
 	var cellC = row.insertCell(2);
 	cellC.innerHTML ="<input type='text' name='reason[]' id='reason_" + fieldNum2 +"' size=10px>";
 	var cellD = row.insertCell(3);
-	cellD.innerHTML ="<input type='text' name='startdate[]' class='datepicker' id='startdate_" + fieldNum2 +"' size=8px>";
+	cellD.innerHTML ="<input type='text' name='startdate[]' class='datepicker' id='startdate_" + fieldNum2 +"' size=8px readonly>";
 	var cellE = row.insertCell(4);
-	cellE.innerHTML ="<input type='text' name='enddate[]' class='datepicker' id='enddate_" + fieldNum2 +"' size=8px>";
+	cellE.innerHTML ="<input type='text' name='enddate[]' class='datepicker' id='enddate_" + fieldNum2 +"' size=8px readonly>";
 	var cellF = row.insertCell(5);
 	cellF.innerHTML ="<textarea name='findings[]' id='findings_" + fieldNum2 +"' cols=30></textarea>";
 
@@ -49,32 +87,36 @@ function addConsult(tableID){
 		showAnim: 'slideDown',
 		changeMonth: true,
 		changeYear: true,
-		yearRange: '1910:2014'
+		yearRange: '1910:'+year
     	});
 			
 	var str2 = '#startdate_'+fieldNum2;
-	$(str2).datepicker({
-		dateFormat: 'yy-mm-dd',
-		showAnim: 'slideDown',
-		changeMonth: true,
-		changeYear: true,
-		yearRange: '1910:2014',
-		onClose: function( selectedDate ) {
-       			$( "#enddate_"+fieldNum2 ).datepicker( "option", "minDate", selectedDate );
-      		}
-    	});
+	$(function() {	
+		$(str2).datepicker({
+			dateFormat: 'yy-mm-dd',
+			showAnim: 'slideDown',
+			changeMonth: true,
+			changeYear: true,
+			yearRange: '1910:'+year ,
+			onClose: function( selectedDate ) {
+	       			$( "#enddate_"+fieldNum2 ).datepicker( "option", "minDate", selectedDate );
+	      		}
+	    	});
+	});
 
 	var str3 = '#enddate_'+fieldNum2;
-	$(str3).datepicker({
-		dateFormat: 'yy-mm-dd',
-		showAnim: 'slideDown',
-		changeMonth: true,
-		changeYear: true,
-		yearRange: '1910:2014',
-		onClose: function( selectedDate ) {
-       			$( "#startdate_"+fieldNum2 ).datepicker( "option", "maxDate", selectedDate );
-      		}
-    	});
+	$(function() {	
+		$(str3).datepicker({
+			dateFormat: 'yy-mm-dd',
+			showAnim: 'slideDown',
+			changeMonth: true,
+			changeYear: true,
+			yearRange: '1910:' +year ,
+			onClose: function( selectedDate ) {
+	       			$( "#startdate_"+fieldNum2 ).datepicker( "option", "maxDate", selectedDate );
+	      		}
+	    	});
+	});
 }
 
 function deleteConsult(tableID){
@@ -174,10 +216,10 @@ function deleteConsult(tableID){
 				for($i=0; $i<$size; $i++){
 					echo "<tr>";
 						echo "<td><input type='checkbox' name='$id' id='ck$id' checked>";
-						echo "<td><input type='text' name='datenew[]' class='datepicker' id='date_$i' size=8px value='".$date2[0][$i]."'>
+						echo "<td><input type='text' name='datenew[]' class='datepicker' id='date_$i' size=8px value='".$date2[0][$i]."' readonly>
 						<td><input type='text' name='reason[]' id='reason_$i' size=10px value='".$reason2[0][$i]."'>
-						<td><input type='text' name='startdate[]' class='datepicker' id='startdate_$i' size=8px value='".$startdate2[0][$i]."' >
-						<td><input type='text' name='enddate[]' class='datepicker' id='enddate_$i' size=8px value='".$enddate2[0][$i]."' >
+						<td><input type='text' name='startdate[]' class='datepicker' id='startdate_$i' size=8px value='".$startdate2[0][$i]."' readonly>
+						<td><input type='text' name='enddate[]' class='datepicker' id='enddate_$i' size=8px value='".$enddate2[0][$i]."' readonly>
 						<td><textarea name='findings[]' id='findings_$i' cols=30>".$findings2[0][$i]."</textarea>
 					</tr>";
 				}
@@ -187,10 +229,10 @@ function deleteConsult(tableID){
 				for($i=0; $i<$size; $i++){
 					echo "<tr>";
 						echo "<td><input type='checkbox' name='$id' id='ck$id' checked>";
-						echo "<td><input type='text' name='datenew[]' class='datepicker' id='date_$i' size=8px value='".$date[$i]."'>
+						echo "<td><input type='text' name='datenew[]' class='datepicker' id='date_$i' size=8px value='".$date[$i]."' readonly>
 						<td><input type='text' name='reason[]' id='reason_$i' size=10px value='".$reason[$i]."'>
-						<td><input type='text' name='startdate[]' class='datepicker' id='startdate_$i' size=8px value='".$startdate[$i]."' >
-						<td><input type='text' name='enddate[]' class='datepicker' id='enddate_$i' size=8px value='".$enddate[$i]."' >
+						<td><input type='text' name='startdate[]' class='datepicker' id='startdate_$i' size=8px value='".$startdate[$i]."' readonly>
+						<td><input type='text' name='enddate[]' class='datepicker' id='enddate_$i' size=8px value='".$enddate[$i]."' readonly>
 						<td><textarea name='findings[]' id='findings_$i' cols=30>".$findings[$i]."</textarea>
 					</tr>";
 				}
@@ -198,10 +240,10 @@ function deleteConsult(tableID){
 			else{
 				echo "<tr>
 					<td><input type='checkbox' name='0' id='ck0'>
-					<td><input type='text' name='datenew[]' class='datepicker' id='date_0' size=8px>
+					<td><input type='text' name='datenew[]' class='datepicker' id='date_0' size=8px readonly>
 					<td><input type='text' name='reason[]' id='reason_0' size=10px>
-					<td><input type='text' name='startdate[]' class='datepicker' id='startdate_0' size=8px>
-					<td><input type='text' name='enddate[]' class='datepicker' id='enddate_0' size=8px>
+					<td><input type='text' name='startdate[]' class='datepicker' id='startdate_0' size=8px readonly>
+					<td><input type='text' name='enddate[]' class='datepicker' id='enddate_0' size=8px readonly>
 					<td><textarea name='findings[]' id='findings_0' cols=30></textarea>
 					<!--<td><input type='text' name='clinician2[]' id='clinician2_0' size=7px>
 					<td><input type='text' name='clinician2_nat[]' id='clinician2nat_0' size=7px>

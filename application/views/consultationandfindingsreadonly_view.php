@@ -46,8 +46,6 @@
 		$enddate = explode("|", $enddatetxt);
 		$findings = explode("|", $findingstxt);
 
-
-		
 	}
 ?>
  <body>
@@ -67,7 +65,8 @@
 	?>
 </div>
 
-<?php if($forapproval) echo "<h4 style='color:red;'>This patient's record is currently subject for approval.</h4>"; ?>
+<?php if($forapproval) echo "<h4 style='color:red;'>This patient's record is currently subject for approval.</h4>";
+elseif($private) echo "<h4 style='color:red;'>This patient's record is under other clinician's supervision.</h4>"; ?>
 
 		<table id="consult" frame="box" class="frame">
 		<tr class=header>
@@ -82,16 +81,29 @@
 				<td>Findings/Recommendation
 			</tr>
 			<?php
-		$size = sizeof($date);
-		for($i=0; $i<$size; $i++){
+		if($recordexist){
+			$size = sizeof($date);
+			for($i=0; $i<$size; $i++){
+				echo "<tr>";
+					echo "<td>";//<input type='checkbox' name='0' id='ck0'>
+					echo "<td><input type='text' name='datenew[]' class='datepicker' id='date_$i' size=8px value='".$date[$i]."' readonly>
+					<td><input type='text' name='reason[]' id='reason_$i' size=10px value='".$reason[$i]."' readonly>
+					<td><input type='text' name='startdate[]' class='datepicker' id='startdate_$i' size=8px value='".$startdate[$i]."' readonly>
+					<td><input type='text' name='enddate[]' class='datepicker' id='enddate_$i' size=8px value='".$enddate[$i]."' readonly>
+					<td><textarea name='findings[]' id='findings_$i' cols=30 readonly>".$findings[$i]."</textarea>
+				</tr>";
+			}
+		}
+		else{	
 			echo "<tr>";
-				echo "<td>";//<input type='checkbox' name='0' id='ck0'>
-				echo "<td><input type='text' name='datenew[]' class='datepicker' id='date_$i' size=8px value='".$date[$i]."' readonly>
-				<td><input type='text' name='reason[]' id='reason_$i' size=10px value='".$reason[$i]."' readonly>
-				<td><input type='text' name='startdate[]' class='datepicker' id='startdate_$i' size=8px value='".$startdate[$i]."' readonly>
-				<td><input type='text' name='enddate[]' class='datepicker' id='enddate_$i' size=8px value='".$enddate[$i]."' readonly>
-				<td><textarea name='findings[]' id='findings_0' cols=30 readonly>".$findings[$i]."</textarea>
-			</tr>";
+			echo "<td>";//<input type='checkbox' name='0' id='ck0'>
+			echo "<td><input type='text' name='datenew[]' class='datepicker' id='date_0' size=8px readonly>
+				<td><input type='text' name='reason[]' id='reason_0' size=10px readonly>
+				<td><input type='text' name='startdate[]' class='datepicker' id='startdate_0' size=8px  readonly>
+				<td><input type='text' name='enddate[]' class='datepicker' id='enddate_0' size=8px readonly>
+				<td><textarea name='findings[]' id='findings_0' cols=30 readonly></textarea>
+				</tr>";
+
 		}
 		?>
 		</table><br><br>

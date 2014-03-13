@@ -32,7 +32,7 @@ class ManageUsers extends CI_Controller {
 
 			$userID222 = $session_data['username'];
 			$userID22 = $this->user->getUserID($userID222);
-			$userID2 = $userID22['$userID'];
+			$userID2 = $userID22['userID'];
 			$date = date("Y-m-d");
 
 			$this->user->addAuditTrail($userID2, 'SELECT', 'Users', '', $date);

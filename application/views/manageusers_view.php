@@ -28,6 +28,9 @@
 
 <input type="text" name="searchuser" id="searchuser" class="search"> <input type="submit" value="Search" name="searchbtn"><br><br>
 
+
+<hr width="95%">
+<br>
 	<center>
 		<table class="tab" border=1px color="violet" cellpadding=5px>
 			<tr class="header">

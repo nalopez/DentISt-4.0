@@ -50,8 +50,10 @@ class MedAndSocHistory extends CI_Controller {
 
 				$userID222 = $session_data['username'];
 				$userID22 = $this->user->getUserID($userID222);
-				$userID2 = $userID22['$userID'];
+				$userID2 = $userID22['userID'];
 				$date = date("Y-m-d");
+
+				$clinicianID = $this->patient->isClinician($id);
 
 				if($this->patient->hasMedAndSocHisto($id)){
 					$data['info'] = $this->patient->getPatientInfoMedAndSocHisto($id);
@@ -64,8 +66,13 @@ class MedAndSocHistory extends CI_Controller {
 					$this->user->addAuditTrail($userID2, 'SELECT', 'Medical and Social History', $id, $date);
 					redirect('medandsochistory/view/'.$id);
 				}else{
-					$this->user->addAuditTrail($userID2, 'SELECT', 'Medical and Social History', $id, $date);
-					$this->load->view('medandsochistory_view', $data);
+					if($clinicianID!=$userID2){
+						redirect('medandsochistory/view/'.$id);
+					}
+					else{ 
+						//$this->user->addAuditTrail($userID2, 'SELECT', 'Medical and Social History', $id, $date);
+						$this->load->view('medandsochistory_view', $data);
+					}
 				}
 			}
 			else
@@ -120,8 +127,12 @@ class MedAndSocHistory extends CI_Controller {
 
 				$userID222 = $session_data['username'];
 				$userID22 = $this->user->getUserID($userID222);
-				$userID2 = $userID22['$userID'];
+				$userID2 = $userID22['userID'];
 				$date = date("Y-m-d");
+
+				$clinicianID = $this->patient->isClinician($id);
+				$data['private'] = false;
+				$data['forapproval'] = false;
 
 				if($this->patient->hasMedAndSocHisto($id)){
 					$data['info'] = $this->patient->getPatientInfoMedAndSocHistoRO($id, $version);
@@ -131,6 +142,11 @@ class MedAndSocHistory extends CI_Controller {
 
 				if($this->patient->isLatestForApproval3($id)){
 					$data['forapproval'] = true;
+				}
+
+				if($clinicianID!=$userID2){
+					$data['private'] = true;
+					//redirect('dentalchart/view/'.$id);
 				}
 				//print_r($data['info']);
 				$this->user->addAuditTrail($userID2, 'SELECT', 'Medical and Social History', $id, $date);

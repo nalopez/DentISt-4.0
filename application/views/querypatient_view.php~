@@ -27,7 +27,7 @@
 
 	if($gender == "") $gender="both";
 
-	print_r($patientmatch);
+	//print_r($patientmatch);
 
 ?>
  <body>
@@ -75,7 +75,7 @@
 			}
 		?>
 		<tr>
-			<td colspan=6 style="text-align: right;"> <?php echo "<br>".(sizeof($patientmatch)-1)?> record/s found.
+			<td colspan=6 style="text-align: right;"> <?php echo "<br>".(sizeof($patientmatch))?> record/s found.
 		</tr>
 		<tr>
 			<td> &nbsp;
@@ -108,6 +108,7 @@
 		
 				//foreach($patientmatch as $row){
 					if($perio == "Yes"){
+						$ctr=0;
 						echo "<tr><td style='text-align:center;'> Periodontics";
 						echo "<td>";
 						foreach($patientmatch as $row){
@@ -115,6 +116,7 @@
 							if($row['perio'] == "Yes") {
 								echo "<tr><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row['UPCD_ID'].">".$row['UPCD_ID']."</a>"; 
 								echo "</tr>";
+								$ctr++;
 							}
 						}
 						echo "</table></td><td>";
@@ -126,10 +128,14 @@
 							}
 						}
 						echo "</table></td></tr>";
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br>
+						<hr width='98%'>
+						</tr>";
 					//echo "<td>";
 					//echo "</tr>";
 					}
 					if($rpd == "Yes"){
+						$ctr=0;
 						echo "<tr><td style='text-align:center;'> Removable Prosthodontics </tr>";
 						echo "<td>";
 						foreach($patientmatch as $row){
@@ -137,6 +143,7 @@
 							if($row['rpd'] == "Yes") {
 								echo "<tr><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row['UPCD_ID'].">".$row['UPCD_ID']."</a>"; 
 								echo "</tr>";
+								$ctr++;
 							}
 						}
 						echo "</table></td><td>";
@@ -148,17 +155,22 @@
 							}
 						}
 						echo "</table></td></tr>";
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br>
+						<hr width='98%'>
+						</tr>";
 					//echo "<td>";
 					//echo "</tr>";
 					}
 					if($ortho == "Yes"){
-						echo "<tr><td style='text-align:center;'> Orthodontics </tr>";
+						$ctr=0;
+						echo "<tr><td style='text-align:center;'> Orthodontics";
 						echo "<td>";
 						foreach($patientmatch as $row){
 							echo "<table style='text-align: center;' width=100%;>";
 							if($row['ortho'] == "Yes") {
 								echo "<tr><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row['UPCD_ID'].">".$row['UPCD_ID']."</a>"; 
 								echo "</tr>";
+								$ctr++;
 							}
 						}
 						echo "</table></td><td>";
@@ -170,17 +182,22 @@
 							}
 						}
 						echo "</table></td></tr>";
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br>
+						<hr width='98%'>
+						</tr>";
 					//echo "<td>";
 					//echo "</tr>";
 					}					
 					if($os == "Yes"){
-						echo "<tr><td style='text-align:center;'> Oral Surgery </tr>";
+						$ctr=0;
+						echo "<tr><td style='text-align:center;'> Oral Surgery";
 						echo "<td>";
 						foreach($patientmatch as $row){
 							echo "<table style='text-align: center;' width=100%;>";
 							if($row['os'] == "Yes") {
 								echo "<tr><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row['UPCD_ID'].">".$row['UPCD_ID']."</a>"; 
 								echo "</tr>";
+								$ctr++;
 							}
 						}
 						echo "</table></td><td>";
@@ -192,17 +209,22 @@
 							}
 						}
 						echo "</table></td></tr>";
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br>
+						<hr width='98%'>
+						</tr>";
 					//echo "<td>";
 					//echo "</tr>";
 					}
 					if($fpd == "Yes"){
-						echo "<tr><td style='text-align:center;'> Fixed Partial Prosthodontics </tr>";
+						$ctr=0;
+						echo "<tr><td style='text-align:center;'> Fixed Partial Prosthodontics";
 						echo "<td>";
 						foreach($patientmatch as $row){
 							echo "<table style='text-align: center;' width=100%;>";
 							if($row['fpd'] == "Yes") {
 								echo "<tr><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row['UPCD_ID'].">".$row['UPCD_ID']."</a>"; 
 								echo "</tr>";
+								$ctr++;
 							}
 						}
 						echo "</table></td><td>";
@@ -214,17 +236,22 @@
 							}
 						}
 						echo "</table></td></tr>";
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br>
+						<hr width='98%'>
+						</tr>";
 					//echo "<td>";
 					//echo "</tr>";
 					}
 					if($pedo == "Yes"){
-						echo "<tr><td style='text-align:center;'> Pedodontics </tr>";
+						$ctr=0;
+						echo "<tr><td style='text-align:center;'> Pedodontics";
 						echo "<td>";
 						foreach($patientmatch as $row){
 							echo "<table style='text-align: center;' width=100%;>";
 							if($row['pedo'] == "Yes") {
 								echo "<tr><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row['UPCD_ID'].">".$row['UPCD_ID']."</a>"; 
 								echo "</tr>";
+								$ctr++;
 							}
 						}
 						echo "</table></td><td>";
@@ -236,17 +263,22 @@
 							}
 						}
 						echo "</table></td></tr>";
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br>
+						<hr width='98%'>
+						</tr>";
 					//echo "<td>";
 					//echo "</tr>";
 					}
 					if($endo == "Yes"){
-						echo "<tr><td style='text-align:center;'> Endodontics </tr>";
+						$ctr=0;
+						echo "<tr><td style='text-align:center;'> Endodontics";
 						echo "<td>";
 						foreach($patientmatch as $row){
 							echo "<table style='text-align: center;' width=100%;>";
 							if($row['endo'] == "Yes") {
 								echo "<tr><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row['UPCD_ID'].">".$row['UPCD_ID']."</a>"; 
 								echo "</tr>";
+								$ctr++;
 							}
 						}
 						echo "</table></td><td>";
@@ -258,17 +290,22 @@
 							}
 						}
 						echo "</table></td></tr>";
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br>
+						<hr width='98%'>
+						</tr>";
 					//echo "<td>";
 					//echo "</tr>";
 					}
 					if($cd == "Yes"){
-						echo "<tr><td style='text-align:center;'> Complete Denture </tr>";
+						$ctr=0;
+						echo "<tr><td style='text-align:center;'> Complete Denture";
 						echo "<td>";
 						foreach($patientmatch as $row){
 							echo "<table style='text-align: center;' width=100%;>";
 							if($row['cd'] == "Yes") {
 								echo "<tr><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row['UPCD_ID'].">".$row['UPCD_ID']."</a>"; 
 								echo "</tr>";
+								$ctr++;
 							}
 						}
 						echo "</table></td><td>";
@@ -280,17 +317,22 @@
 							}
 						}
 						echo "</table></td></tr>";
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br>
+						<hr width='98%'>
+						</tr>";
 					//echo "<td>";
 					//echo "</tr>";
 					}
 					if($resto == "Yes"){
-						echo "<tr><td style='text-align:center;'> Restorative Dentistry </tr>";
+						$ctr=0;
+						echo "<tr><td style='text-align:center;'> Restorative Dentistry";
 						echo "<td>";
 						foreach($patientmatch as $row){
 							echo "<table style='text-align: center;' width=100%;>";
 							if($row['resto'] == "Yes") {
 								echo "<tr><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row['UPCD_ID'].">".$row['UPCD_ID']."</a>"; 
 								echo "</tr>";
+								$ctr++;
 							}
 						}
 						echo "</table></td><td>";
@@ -302,6 +344,9 @@
 							}
 						}
 						echo "</table></td></tr>";
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><br>
+						<hr width='98%'>
+						</tr>";
 					//echo "<td>";
 					//echo "</tr>";
 					}
@@ -332,73 +377,207 @@
 		
 				//foreach($patientmatch as $row){
 					if($caries == "Yes"){
+						$ctr = 0;
 						echo "<tr><td style='text-align:center;'> Caries</tr>";
 						foreach($patientmatch as $row2){
-							if($row2['distal_caries'] != "" || $row2['buccal_caries'] != "" || $row2['mesial_caries'] != "" || $row2['occlusal_caries'] != "" || $row2['lingual_caries'] != "") {
+							$tok = explode(' ', $row2['distal_caries']);
+							$tok2 = explode(' ', $row2['buccal_caries']);
+							$tok3 = explode(' ', $row2['lingual_caries']);
+							$tok4 = explode(' ', $row2['mesial_caries']);
+							$tok5 = explode(' ', $row2['occlusal_caries']);
+
+							$tootharray = array();
+							foreach($tok as $row){
+								if(!in_array($row, $tootharray) && $row != ""){
+									array_push($tootharray, $row);
+								}
+							}
+							foreach($tok2 as $row){
+								if(!in_array($row, $tootharray) && $row != ""){
+									array_push($tootharray, $row);
+								}
+							}
+							foreach($tok3 as $row){
+								if(!in_array($row, $tootharray) && $row != ""){
+									array_push($tootharray, $row);
+								}
+							}
+							foreach($tok4 as $row){
+								if(!in_array($row, $tootharray) && $row != ""){
+									array_push($tootharray, $row);
+								}
+							}
+							foreach($tok5 as $row){
+								if(!in_array($row, $tootharray) && $row != ""){
+									array_push($tootharray, $row);
+								}
+							}
+
+
+							if(sizeof($tootharray) >= 1) {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
-								echo "<td style='text-align:center;'>".$row2['distal_caries']." ".$row2['buccal_caries']." ".$row2['mesial_caries']." ".$row2['occlusal_caries']." ".$row2['lingual_caries'];
+								echo "<td style='text-align:center;'>";
+								foreach($tootharray as $tth){
+									echo $tth." ";
+								}
 								echo "</tr>";
+								$ctr++;
 							}
+							
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
+		
 					}
 					if($recurrent == "Yes"){
+						$ctr++;
 						echo "<tr><td style='text-align:center;'> Recurrent Caries </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['distal_recurrent'] != "" || $row2['buccal_recurrent'] != "" || $row2['mesial_recurrent'] != "" || $row2['occlusal_recurrent'] != "" || $row2['lingual_recurrent'] != "") {
+							$tok = explode(' ', $row2['distal_recurrent']);
+							$tok2 = explode(' ', $row2['buccal_recurrent']);
+							$tok3 = explode(' ', $row2['lingual_recurrent']);
+							$tok4 = explode(' ', $row2['mesial_recurrent']);
+							$tok5 = explode(' ', $row2['occlusal_recurrent']);
+
+							$tootharray = array();
+							foreach($tok as $row){
+								if(!in_array($row, $tootharray) && $row != ""){
+									array_push($tootharray, $row);
+								}
+							}
+							foreach($tok2 as $row){
+								if(!in_array($row, $tootharray) && $row != ""){
+									array_push($tootharray, $row);
+								}
+							}
+							foreach($tok3 as $row){
+								if(!in_array($row, $tootharray) && $row != ""){
+									array_push($tootharray, $row);
+								}
+							}
+							foreach($tok4 as $row){
+								if(!in_array($row, $tootharray) && $row != ""){
+									array_push($tootharray, $row);
+								}
+							}
+							foreach($tok5 as $row){
+								if(!in_array($row, $tootharray) && $row != ""){
+									array_push($tootharray, $row);
+								}
+							}
+
+
+							if(sizeof($tootharray) >= 1) {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
-								echo "<td style='text-align:center;'>".$row2['distal_recurrent']." ".$row2['buccal_recurrent']." ".$row2['mesial_recurrent']." ".$row2['occlusal_recurrent']." ".$row2['lingual_recurrent'];
+								echo "<td style='text-align:center;'>";
+								foreach($tootharray as $tth){
+									echo $tth." ";
+								}
 								echo "</tr>";
 							}
-							else echo "<td colspan='3'>No results found";
+							//else echo "<td colspan='3'>No results found";
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($restoration == "Yes"){
+						$ctr=0;
 						echo "<tr><td style='text-align:center;'> Restoration </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['distal_restoration'] != "" || $row2['buccal_restoration'] != "" || $row2['mesial_restoration'] != "" || $row2['occlusal_restoration'] != "" || $row2['lingual_restoration'] != "") {
+							$tok = explode(' ', $row2['distal_restoration']);
+							$tok2 = explode(' ', $row2['buccal_restoration']);
+							$tok3 = explode(' ', $row2['lingual_restoration']);
+							$tok4 = explode(' ', $row2['mesial_restoration']);
+							$tok5 = explode(' ', $row2['occlusal_restoration']);
+
+							$tootharray = array();
+							foreach($tok as $row){
+								if(!in_array($row, $tootharray) && $row != ""){
+									array_push($tootharray, $row);
+								}
+							}
+							foreach($tok2 as $row){
+								if(!in_array($row, $tootharray) && $row != ""){
+									array_push($tootharray, $row);
+								}
+							}
+							foreach($tok3 as $row){
+								if(!in_array($row, $tootharray) && $row != ""){
+									array_push($tootharray, $row);
+								}
+							}
+							foreach($tok4 as $row){
+								if(!in_array($row, $tootharray) && $row != ""){
+									array_push($tootharray, $row);
+								}
+							}
+							foreach($tok5 as $row){
+								if(!in_array($row, $tootharray) && $row != ""){
+									array_push($tootharray, $row);
+								}
+							}
+
+
+							if(sizeof($tootharray) >= 1) {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
-								echo "<td style='text-align:center;'>".$row2['distal_restoration']." ".$row2['buccal_restoration']." ".$row2['mesial_restoration']." ".$row2['occlusal_restoration']." ".$row2['lingual_restoration'];
+								echo "<td style='text-align:center;'>";
+								foreach($tootharray as $tth){
+									echo $tth." ";
+								}
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($pftm == "Yes"){
+						$ctr=0;
 						echo "<tr><td style='text-align:center;'> Porcelain Fused to Metal </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['porcelain_fused'] != "") {
+							$tok = str_replace(' ', '', $row2['porcelain_fused']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['porcelain_fused'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($rot == "Yes"){
+						$ctr=0;
 						echo "<tr><td style='text-align:center;'> Rotation </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['rotation'] != "") {
+							$tok = str_replace(' ', '', $row2['rotation']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['rotation'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($extracted == "Yes"){
+						$ctr=0;
 						echo "<tr><td style='text-align:center;'> Extracted </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['extracted'] != "") {
+							$tok = str_replace(' ', '', $row2['extracted']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['extracted'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($extrusion == "Yes"){
+						$ctr=0;
 						echo "<tr><td style='text-align:center;'> Extrusion </tr>";
 						foreach($patientmatch as $row2){
 							if($row2['extrusion'] != "") {
@@ -406,171 +585,227 @@
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['extrusion'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($intrusion == "Yes"){
+						$ctr=0;
 						echo "<tr><td style='text-align:center;'> Intrusion </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['extracted'] != "") {
+							$tok = str_replace(' ', '', $row2['intrusion']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['intrusion'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($mdr == "Yes"){
+						$ctr=0;
 						echo "<tr><td style='text-align:center;'> Mesial Drifting Rotation </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['mesial_rotation'] != "") {
+							$tok = str_replace(' ', '', $row2['mesial_rotation']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['mesial_rotation'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($ddr == "Yes"){
+						$ctr=0;
 						echo "<tr><td style='text-align:center;'> Distal Drift Rotation </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['distal_rotation'] != "") {
+							$tok = str_replace(' ', '', $row2['distal_rotation']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['distal_rotation'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($rct == "Yes"){
+						$ctr=0;
 						echo "<tr><td style='text-align:center;'> Root Canal Treatment </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['rootcanal_treatment'] != "") {
+							$tok = str_replace(' ', '', $row2['rootcanal_treatment']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['rootcanal_treatment'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($unerupted == "Yes"){
+						$ctr=0;
 						echo "<tr><td style='text-align:center;'> Unerupted </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['unerupted'] != "") {
+							$tok = str_replace(' ', '', $row2['unerupted']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['unerupted'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
-					/*if($compdent == "Yes"){
-						echo "<tr><td style='text-align:center;'> Complete Denture";
+					if($compdent == "Yes"){
+						echo "<tr><td style='text-align:center;'> Complete Denture </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['unerupted'] != "") {
-								echo "<td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
+							if($row2['completedenture'] == "Yes") {
+								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
-								echo "<td style='text-align:center;'>".$row2['unerupted'];
+								echo "<td style='text-align:center;'></tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($singdent == "Yes"){
-						echo "<tr><td style='text-align:center;'> Single Denture";
+						echo "<tr><td style='text-align:center;'> Single Denture </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['unerupted'] != "") {
-								echo "<td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
-								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
-								echo "<td style='text-align:center;'>".$row2['unerupted'];
-							}
-						}
-					}*/
-					if($rempardent == "Yes"){
-						echo "<tr><td style='text-align:center;'> Removable Partial Denture </tr>";
-						foreach($patientmatch as $row2){
-							if($row2['removable_partial_denture'] != "") {
+							if($row2['singledenture'] == "Yes") {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
-								echo "<td style='text-align:center;'>".$row2['removable_partial_denture'];
-								echo "</tr>";
+								echo "<td style='text-align:center;'></tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
+					}
+					if($rempardent == "Yes"){
+						$ctr=0;
+						echo "<tr><td style='text-align:center;'> Removable Partial Denture </tr>";
+						foreach($patientmatch as $row2){
+							if($row2['removablepartialdenture'] == "Yes") {
+								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
+								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
+								echo "<td style='text-align:center;'></tr>";
+								$ctr++;
+							}
+						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($pafs == "Yes"){
+						$ctr=0;
 						echo "<tr><td style='text-align:center;'> Pit and Fissure Sealants </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['pitfissure_sealants'] != "") {
+							$tok = str_replace(' ', '', $row2['pitfissure_sealants']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['pitfissure_sealants'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($pcc == "Yes"){
+						$ctr=0;
 						echo "<tr><td style='text-align:center;'> Postcore Crown </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['postcore_crown'] != "") {
+							$tok = str_replace(' ', '', $row2['postcore_crown']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['postcore_crown'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($porcr == "Yes"){
+						$ctr=0;
 						echo "<tr><td style='text-align:center;'> Porcelain Crown </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['porcelain_crown'] != "") {
+							$tok = str_replace(' ', '', $row2['porcelain_crown']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['porcelain_crown'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($impacted == "Yes"){
+						$ctr = 0;
 						echo "<tr><td style='text-align:center;'> Impacted </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['impacted'] != "") {
+							$tok = str_replace(' ', '', $row2['impacted']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['impacted'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($missing == "Yes"){
+						$ctr=0;
 						echo "<tr><td style='text-align:center;'> Missing </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['unerupted'] != "") {
+							$tok = str_replace(' ', '', $row2['missing']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['unerupted'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($acrcr == "Yes"){
+						$ctr = 0;
 						echo "<tr><td style='text-align:center;'> Acrylic Crown </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['acrylic_crown'] != "") {
+							$tok = str_replace(' ', '', $row2['acrylic_crown']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['acrylic_crown'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($metcr == "Yes"){
+						$ctr = 0;
 						echo "<tr><td style='text-align:center;'> Metal Crown </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['metal_crown'] != "") {
+							$tok = str_replace(' ', '', $row2['metal_crown']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['metal_crown'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 
 
@@ -590,7 +825,7 @@
 		echo "<table frame='box' class='frame alttable' style='width:98%; left:1%;'><tr class='header'>
 			<td colspan=6> Needed Services Queries
 		</tr>
-		<tr>
+		<tr style='text-align: center;'>
 			<td>
 			<td> <b>Id</b>
 			<td> <b>Name</b>
@@ -599,158 +834,214 @@
 		
 				//foreach($servicematch as $row){
 					if($class1 == "Yes"){
+						$ctr = 0;
 						echo "<tr><td style='text-align:center;'> Class I</tr>";
 						foreach($patientmatch as $row2){
-							if($row2['class1']) {
+							$tok = str_replace(' ', '', $row2['class1']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['class1'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($class2 == "Yes"){
+						$ctr = 0;
 						echo "<tr><td style='text-align:center;'> Class II </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['class2']) {
+							$tok = str_replace(' ', '', $row2['class2']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['class2'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($class3 == "Yes"){
+						$ctr = 0;
 						echo "<tr><td style='text-align:center;'> Class III</tr>";
 						foreach($patientmatch as $row2){
-							if($row2['class3']) {
+							$tok = str_replace(' ', '', $row2['class3']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['class3'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($class4 == "Yes"){
+						$ctr = 0;
 						echo "<tr><td style='text-align:center;'> Class IV </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['class4']) {
+							$tok = str_replace(' ', '', $row2['class4']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['class4'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($class5 == "Yes"){
+						$ctr = 0;
 						echo "<tr><td style='text-align:center;'> Class V </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['class5']) {
+							$tok = str_replace(' ', '', $row2['class5']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['class5'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($onlay == "Yes"){
+						$ctr = 0;
 						echo "<tr><td style='text-align:center;'> Onlay </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['onlay']) {
+							$tok = str_replace(' ', '', $row2['onlay']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['onlay'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($extraction == "Yes"){
+						$ctr = 0;
 						echo "<tr><td style='text-align:center;'> Extraction </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['extraction']) {
+							$tok = str_replace(' ', '', $row2['extraction']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['extraction'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($odon == "Yes"){
+						$ctr = 0;
 						echo "<tr><td style='text-align:center;'> Odontectomy </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['odontectomy']) {
+							$tok = str_replace(' ', '', $row2['odontectomy']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['odontectomy'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($specclass == "Yes"){
+						$ctr=0;
 						echo "<tr><td style='text-align:center;'> Special Case </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['special_case']) {
+							$tok = str_replace(' ', '', $row2['special_case']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['special_case'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
-					if($pedodontics == "Yes"){
+					/*if($pedodontics == "Yes"){
+						$ctr = 0;
 						echo "<tr><td style='text-align:center;'> Pedodontics </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['pedodontics']) {
+							$tok = str_replace(' ', '', $row2['pedodontics']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['pedodontics'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br></tr>";
 					}
 					if($orthodontics == "Yes"){
+						$ctr = 0;
 						echo "<tr><td style='text-align:center;'> Orthodontics </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['orthodontics']) {
+							$tok = str_replace(' ', '', $row2['orthodontics']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['orthodontics'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
-					}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br></tr>";
+					}*/
 					if($pulpsed == "Yes"){
+						$ctr = 0;
 						echo "<tr><td style='text-align:center;'> Pulp Sedation </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['pulp_sedation']) {
+							$tok = str_replace(' ', '', $row2['pulp_sedation']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['pulp_sedation'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($roc == "Yes"){
+						$ctr = 0;
 						echo "<tr><td style='text-align:center;'> Recementation of Crown </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['crown_recementation']) {
+							$tok = str_replace(' ', '', $row2['crown_recementation']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['crown_recementation'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($temfill == "Yes"){
+						$ctr = 0;
 						echo "<tr><td style='text-align:center;'> Temporary Fillings </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['filling_service']) {
+							$tok = str_replace(' ', '', $row2['filling_service']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['filling_service'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					/*if($moai == "Yes"){
 						echo "<tr><td style='text-align:center;'> Management of Acute Infections";
@@ -773,59 +1064,79 @@
 						}
 					}*/
 					if($lamented == "Yes"){
-						echo "<tr><td style='text-align:center;'> Lamented </tr>";
+						$ctr = 0;
+						echo "<tr><td style='text-align:center;'> Laminated </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['lamented']) {
+							$tok = str_replace(' ', '', $row2['laminated']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
-								echo "<td style='text-align:center;'>".$row2['lamented'];
+								echo "<td style='text-align:center;'>".$row2['laminated'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($singlecrown == "Yes"){
+						$ctr = 0;
 						echo "<tr><td style='text-align:center;'> Single Crown </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['single_crown']) {
+							$tok = str_replace(' ', '', $row2['single_crown']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['single_crown'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($bridge == "Yes"){
+						$ctr = 0;
 						echo "<tr><td style='text-align:center;'> Bridge";
-						foreach($servicematch as $row2){
-							if($row2['bridge_service']) {
-								echo "<td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
+						foreach($patientmatch as $row2){
+							$tok = str_replace(' ', '', $row2['bridge_service']);
+							if($tok != '') {
+								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['bridge_service'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($anterior == "Yes"){
+						$ctr = 0;
 						echo "<tr><td style='text-align:center;'> Anterior </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['anterior']) {
+							$tok = str_replace(' ', '', $row2['anterior']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['anterior'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					if($posterior == "Yes"){
+						$ctr = 0;
 						echo "<tr><td style='text-align:center;'> Posterior </tr>";
 						foreach($patientmatch as $row2){
-							if($row2['posterior']) {
+							$tok = str_replace(' ', '', $row2['posterior']);
+							if($tok != '') {
 								echo "<tr><td><td style='text-align:center;'><a href=".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID'].">".$row2['UPCD_ID']."</a>"; 
 								echo "<td style='text-align:center;'>".$row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 								echo "<td style='text-align:center;'>".$row2['posterior'];
 								echo "</tr>";
+								$ctr++;
 							}
 						}
+						echo "<tr><td colspan=6 style='text-align: right;'> <br>".$ctr." record/s found.<br><hr width='98%'></tr>";
 					}
 					echo "</tr>";
 				//}

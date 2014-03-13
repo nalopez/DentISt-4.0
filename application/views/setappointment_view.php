@@ -44,6 +44,8 @@
 <link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">
 	
 <script>
+var year = new Date().getFullYear();
+
 	$(function() {
 		$('.datepicker').each(function(){
     			$(this).datepicker({
