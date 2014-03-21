@@ -14,7 +14,20 @@
 	<script src="<?php echo base_url(); ?>js/jquery-1.9.1.js"></script>
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 
-   <title>Consultation and Findings - Oral Diagnosis</title>
+<?php 
+	$session_data = $this->session->userdata('logged_in');
+     	$sect = $session_data['section'];
+	$section = "";
+	foreach($sect as $row){
+		if($row != "System Maintenance"){
+			$section = $row;
+			break;
+		}
+	}
+
+?>
+
+   <title>Consultation and Findings - <?php echo $section; ?></title>
 <link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">	
 <script type="text/javascript">
 
@@ -57,7 +70,7 @@
 
 	<form id="ADDCONSULTATIONFINDINGS" name="ADDCONSULTATIONFINDINGS" action="<?php echo base_url();?>index.php/verifyaddconsultationandfindings" method="post">
 
-<br><a href="<?php echo base_url();?>index.php/loaddashboard/patientdb/<?php echo $id; ?>"> Dashboard </a> &nbsp; <a href="<?php echo base_url();?>index.php/viewconsultationversions"> View Versions </a><br><br>
+<br><br>
 
 <div class="validationexc" style="display: <?php if($this->session->userdata('has_error')) echo 'block'; else 'none' ?>;">
    		<?php $session_data = $this->session->userdata('has_error');
@@ -94,15 +107,14 @@ elseif($private) echo "<h4 style='color:red;'>This patient's record is under oth
 				</tr>";
 			}
 		}
-		else{
-			
-				echo "<tr>";
-					echo "<td>";//<input type='checkbox' name='0' id='ck0'>
-					echo "<td><input type='text' name='datenew[]' class='datepicker' id='date_0' size=8px readonly>
-					<td><input type='text' name='reason[]' id='reason_0' size=10px readonly>
-					<td><input type='text' name='startdate[]' class='datepicker' id='startdate_0' size=8px  readonly>
-					<td><input type='text' name='enddate[]' class='datepicker' id='enddate_0' size=8px readonly>
-					<td><textarea name='findings[]' id='findings_0' cols=30 readonly></textarea>
+		else{	
+			echo "<tr>";
+			echo "<td>";//<input type='checkbox' name='0' id='ck0'>
+			echo "<td><input type='text' name='datenew[]' class='datepicker' id='date_0' size=8px readonly>
+				<td><input type='text' name='reason[]' id='reason_0' size=10px readonly>
+				<td><input type='text' name='startdate[]' class='datepicker' id='startdate_0' size=8px  readonly>
+				<td><input type='text' name='enddate[]' class='datepicker' id='enddate_0' size=8px readonly>
+				<td><textarea name='findings[]' id='findings_0' cols=30 readonly></textarea>
 				</tr>";
 
 		}

@@ -6,7 +6,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
  <head>
-   <title>Users - System Administrator </title>
+<?php 
+$session_data = $this->session->userdata('logged_in');
+     	$sect = $session_data['section'];
+	$section = "";
+	foreach($sect as $row){
+		if($row != "System Maintenance"){
+			$section = $row;
+			break;
+		}
+	}
+	if($section == ""){
+		$section = "System Administrator";
+	}
+
+?>
+
+   <title>Audit Trail - <?php echo $section; ?> </title>
 <link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">
 	<script type="text/javascript">
 		function confirmDelete(choice){
@@ -88,7 +104,7 @@ Search Input: <input type="text" name="searchtext" id="searchtext" class="search
 <hr width="95%">
 <br>
 	<center>
-		<table class="tab" border=1px color="violet" cellpadding=5px width="90%" align="center">
+		<table class="altcolor" color="violet" style="text-align: center;" cellpadding=5px width="90%" align="center">
 			<tr class="header">
 				<td class="tab" align="center"> Name
 				<td class="tab" align="center"> Action
@@ -110,13 +126,13 @@ Search Input: <input type="text" name="searchtext" id="searchtext" class="search
 					//}
 
 					if($row['committedTo'] != ''){
-					$patient = $this->patient->getPatient($row['committedTo']);
+						$patient = $this->patient->getPatient($row['committedTo']);
 					
-					if($patient){
-						foreach($patient as $row2){
-							$patientname = $row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
+						if($patient){
+							foreach($patient as $row2){
+								$patientname = $row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
+							}
 						}
-					}
 					}									
 					echo "<tr>";
 					echo "<td> $username <br> ($uname)";

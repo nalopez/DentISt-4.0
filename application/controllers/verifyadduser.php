@@ -52,16 +52,18 @@ class VerifyAddUser extends CI_Controller {
 			$username = $this->input->post('username');
 			$password = $this->input->post('password');
 
+			$userID222 = $session_data['username'];
+			$userID22 = $this->user->getUserID($userID222);
+			$userID2 = $userID22['userID'];
+			$date = date("Y-m-d");
+
 			if($section == "Select one.."){
 				$section = " ";
 			}
 
-			$this->user->addUser($lname, $fname, $mname, $role, $section, $username, $password);
+			$this->user->addUser($lname, $fname, $mname, $role, $section, $username, $password, $date);
 	
-			$userID222 = $session_data['username'];
-			$userID22 = $this->user->getUserID($userID222);
-			$userID2 = $userID22['$userID'];
-			$date = date("Y-m-d");
+			
 
 			$idd = $this->user->getUserID($username);
 			$id = $idd['userID'];

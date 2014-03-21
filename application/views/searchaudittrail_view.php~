@@ -7,7 +7,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
  <head>
-   <title>Users - System Administrator </title>
+<?php 
+$session_data = $this->session->userdata('logged_in');
+     	$sect = $session_data['section'];
+	$section = "";
+	foreach($sect as $row){
+		if($row != "System Maintenance"){
+			$section = $row;
+			break;
+		}
+	}
+
+?>
+
+   <title>Search Audit Trail - <?php echo $section; ?> </title>
 <link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">
 	<script type="text/javascript">
 		function confirmDelete(choice){
@@ -24,27 +37,27 @@
 <script>
 
 	$(function() {
-		$("#datefrom").datepicker({
+		$("#auditfrom").datepicker({
 			dateFormat: 'yy-mm-dd',
 			showAnim: 'slideDown',
 			changeMonth: true,
 			changeYear: true,
 			yearRange: '1910:2014',
 			onClose: function( selectedDate ) {
-				$( "#dateto" ).datepicker( "option", "minDate", selectedDate );
+				$( "#auditto" ).datepicker( "option", "minDate", selectedDate );
 	      		}
 	    	});
 	});
 	
 	$(function() {
-		$("#dateto").datepicker({
+		$("#auditto").datepicker({
 			dateFormat: 'yy-mm-dd',
 			showAnim: 'slideDown',
 			changeMonth: true,
 			changeYear: true,
 			yearRange: '1910:2014',
 			onClose: function( selectedDate ) {
-				$( "#datefrom" ).datepicker( "option", "maxDate", selectedDate );
+				$( "#auditfrom" ).datepicker( "option", "maxDate", selectedDate );
 	      		}
 	    	});
 	});
@@ -89,7 +102,7 @@ Search Input: <input type="text" name="searchtext" id="searchtext" class="search
 <hr width="95%">
 <br>
 	<center>
-		<table class="tab" border=1px color="violet" cellpadding=5px width="90%" align="center">
+		<table class="altcolor" style="text-align:center;" color="violet" cellpadding=5px width="90%" align="center">
 			<tr class="header">
 				<td class="tab" align="center"> Name
 				<td class="tab" align="center"> Action
@@ -99,6 +112,27 @@ Search Input: <input type="text" name="searchtext" id="searchtext" class="search
 			</tr>
 			<?php //print_r($audit); 
 			if($audit){
+				if($from == ""){
+					$dates = $this->user->getAuditDate();
+					$from = date("Y-m-d");
+					foreach($dates as $row){
+						if(strtotime($row['committedOn']) < strtotime($from)){
+							$from = $row['committedOn'];
+						}
+					}
+
+				}
+				if($to == ""){
+					$dates = $this->user->getAuditDate();
+					$to = date("2001-01-01");
+					foreach($dates as $row){
+						if(strtotime($row['committedOn'])>strtotime($to)){
+							$to = $row['committedOn'];
+						}
+					}
+
+				}			
+
 				$count = sizeof($audit);
 				$ctr = 1;
 				$patientname = "";

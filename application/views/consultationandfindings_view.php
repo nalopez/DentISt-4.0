@@ -14,7 +14,19 @@
 	<script src="<?php echo base_url(); ?>js/jquery-1.9.1.js"></script>
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 
-   <title>Consultation and Findings - Oral Diagnosis</title>
+<?php 
+	$session_data = $this->session->userdata('logged_in');
+     	$sect = $session_data['section'];
+	$section = "";
+	foreach($sect as $row){
+		if($row != "System Maintenance"){
+			$section = $row;
+			break;
+		}
+	}
+
+?>
+   <title>Consultation and Findings - <?php echo $section; ?></title>
 <link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">	
 
 <script type="text/javascript">
@@ -202,11 +214,11 @@ function deleteConsult(tableID){
 		</tr>
 		<tr>
 				<td>
-				<td>Date
-				<td>Reason for Consult
-				<td>From
-				<td>To
-				<td>Findings/Recommendation
+				<td>Date <font color="red">*</font>
+				<td>Reason for Consult <font color="red">*</font>
+				<td>From <font color="red">*</font>
+				<td>To <font color="red">*</font>
+				<td>Findings/Recommendation <font color="red">*</font>
 			</tr>
 			<?php
 

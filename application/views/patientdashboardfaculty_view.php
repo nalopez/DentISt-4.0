@@ -22,52 +22,144 @@
 			if(document.getElementById(element).checked){
 				document.getElementById('patientinfodiv').style.display = "block";
 			} 
-			else
+			else{
 				document.getElementById('patientinfodiv').style.display = "none";
+				document.getElementById('patientinfotxt').value = "";
+			}
 		}
 		else if(element == "patientchecklistcb"){
 			if(document.getElementById(element).checked){
 				document.getElementById('patientchecklistdiv').style.display = "block";
 			} 
-			else
+			else{
 				document.getElementById('patientchecklistdiv').style.display = "none";
+				document.getElementById('patientchecklisttxt').value = "";
+			}
 		}
 		else if(element == "medandsochistocb"){
 			if(document.getElementById(element).checked){
 				document.getElementById('medandsochistodiv').style.display = "block";
 			} 
-			else
+			else{
 				document.getElementById('medandsochistodiv').style.display = "none";
+				document.getElementById('medandsochistotxt').value = "";
+			}
+
 		}
 		else if(element == "dentaldatacb"){
 			if(document.getElementById(element).checked){
 				document.getElementById('dentaldatadiv').style.display = "block";
 			} 
-			else
+			else{
 				document.getElementById('dentaldatadiv').style.display = "none";
+				document.getElementById('dentaldatatxt').value = "";
+			}
+
 		}
 		else if(element == "dentalchartcb"){
 			if(document.getElementById(element).checked){
 				document.getElementById('dentalchartdiv').style.display = "block";
 			} 
-			else
+			else{
 				document.getElementById('dentalchartdiv').style.display = "none";
+				document.getElementById('dentalcharttxt').value = "";
+			}
+
 		}
 		else if(element == "treatmentplancb"){
 			if(document.getElementById(element).checked){
 				document.getElementById('treatmentplandiv').style.display = "block";
 			} 
-			else
+			else{
 				document.getElementById('treatmentplandiv').style.display = "none";
+				document.getElementById('treatmentplantxt').value = "";
+			}
+
+		}
+		else if(element == "radioexamcb"){
+			if(document.getElementById(element).checked){
+				document.getElementById('radioexamdiv').style.display = "block";
+			} 
+			else{
+				document.getElementById('radioexamdiv').style.display = "none";
+				document.getElementById('radioexamtxt').value = "";
+			}
+
+		}
+		else if(element == "servicesrenderedcb"){
+			if(document.getElementById(element).checked){
+				document.getElementById('servicesrendereddiv').style.display = "block";
+			} 
+			else{
+				document.getElementById('servicesrendereddiv').style.display = "none";
+				document.getElementById('servicesrenderedtxt').value = "";
+			}
+
+		}
+		else if(element == "confindcb"){
+			if(document.getElementById(element).checked){
+				document.getElementById('confinddiv').style.display = "block";
+			} 
+			else{
+				document.getElementById('confinddiv').style.display = "none";
+				document.getElementById('confindtxt').value = "";
+			}
+
 		}
 		
 
 	}
 
 	function decide(txt){
-		document.getElementById('decision').value = txt;
-		document.getElementById('CONFIRMPATIENTDB').submit();
+		var validate = validation();
+		if(validate == false){ 
+			return false; 
+		}
+		else{
+			document.getElementById('decision').value = txt;
+			document.getElementById('CONFIRMPATIENTDB').submit();
+		}
 	}
+
+	function validation(){
+		if(document.getElementById('patientinfocb').checked && document.getElementById('patientinfotxt').value == ""){
+			alert("Fill up remark at Patient Information text area");
+			return false;
+		}
+		else if(document.getElementById('patientchecklistcb').checked && document.getElementById('patientchecklisttxt').value == ""){
+			alert("Fill up remark at Patient Checklist text area");
+			return false;
+		}
+		else if(document.getElementById('medandsochistocb').checked && document.getElementById('medandsochistotxt').value == ""){
+			alert("Fill up remark at Medical and Social History text area");
+			return false;
+		}
+		else if(document.getElementById('dentaldatacb').checked && document.getElementById('dentaldatatxt').value == ""){
+			alert("Fill up remark at Dental Data text area");
+			return false;
+		}
+		else if(document.getElementById('dentalchartcb').checked && document.getElementById('dentalcharttxt').value == ""){
+			alert("Fill up remark at Dental Status Chart text area");
+			return false;
+		}
+		else if(document.getElementById('treatmentplancb').checked && document.getElementById('treatmentplantxt').value == ""){
+			alert("Fill up remark at Treatment Plan text area");
+			return false;
+		}
+		else if(document.getElementById('radioexamcb').checked && document.getElementById('radioexamtxt').value == ""){
+			alert("Fill up remark at Radiographic Exam text area");
+			return false;
+		}
+		else if(document.getElementById('servicesrenderedcb').checked && document.getElementById('servicesrenderedtxt').value == ""){
+			alert("Fill up remark at Services Rendered text area");
+			return false;
+		}
+		else if(document.getElementById('confindcb').checked && document.getElementById('confindtxt').value == ""){
+			alert("Fill up remark at Consultation and Findings text area");
+			return false;
+		}
+		return true;
+	} 
 
 	/*document.getElementById('accept-button').addEventListener("click", function () {
     	var hiddenid = document.getElementById('decision');
@@ -104,6 +196,9 @@
 				$dentaldata = $row['dentaldata'];
 				$dentalchart = $row['dentalchart'];
 				$treatmentplan = $row['treatmentplan'];
+				$radioexam = $row['radiographicexam'];
+				$servicesrendered = $row['servicesrendered'];
+				$confind = $row['consultationandfindings'];
 			}
 		}
 
@@ -160,27 +255,39 @@
 				<tr>
 					<td><input type="checkbox" name="sctn[]" id="patientinfocb" value="Patient Information" onClick="visibility(this.id)" <?php if($remarkVisible && $patientinfo != "") echo " checked"; if($status == 'Approved' || $status == 'Rejected') echo " disabled";
 ?> > Patient Information 
-					<td><div id="patientinfodiv" style="display:<?php if($remarkVisible && $patientinfo != '') echo 'block'; else echo 'none'; ?>;"><textarea name="patientinfotxt" cols="30" <?php if($status == 'Approved' || $status == 'Rejected') echo "readonly";?>><?php if($remarkVisible) echo $patientinfo; ?></textarea></div>
+					<td><div id="patientinfodiv" style="display:<?php if($remarkVisible && $patientinfo != '') echo 'block'; else echo 'none'; ?>;"><textarea name="patientinfotxt" id="patientinfotxt" cols="30" <?php if($status == 'Approved' || $status == 'Rejected') echo "readonly";?>><?php if($remarkVisible) echo $patientinfo; ?></textarea></div>
 				</tr>
 				<tr>
 					<td><input type="checkbox" name="sctn[]" id="patientchecklistcb" value="Patient Checklist" onClick="visibility(this.id)" <?php if($remarkVisible && $patientchecklist != "") echo " checked"; if($status == 'Approved' || $status == 'Rejected') echo " disabled";?>> Patient Checklist 
-					<td><div id="patientchecklistdiv" style="display:<?if($remarkVisible && $patientchecklist != '') echo 'block'; else echo 'none'; ?>;"><textarea name="patientchecklisttxt" cols="30" <?php if($status == 'Approved' || $status == 'Rejected') echo "readonly";?>><?php if($remarkVisible) echo $patientchecklist; ?></textarea></div>
+					<td><div id="patientchecklistdiv" style="display:<?if($remarkVisible && $patientchecklist != '') echo 'block'; else echo 'none'; ?>;"><textarea name="patientchecklisttxt" id="patientchecklisttxt" cols="30" <?php if($status == 'Approved' || $status == 'Rejected') echo "readonly";?>><?php if($remarkVisible) echo $patientchecklist; ?></textarea></div>
 				</tr>
 				<tr>
 					<td><input type="checkbox" name="sctn[]" id="medandsochistocb" value="Medical & Social History" onClick="visibility(this.id)" <?php if($remarkVisible && $medandsochisto != "" ) echo " checked"; if($status == 'Approved' || $status == 'Rejected') echo "  disabled"; ?>> Medical & Social History 
-					<td><div id="medandsochistodiv" style="display:<?if($remarkVisible && $medandsochisto != '') echo 'block'; else echo 'none'; ?>;"><textarea name="medandsochistotxt" cols="30" <?php if($status == 'Approved' || $status == 'Rejected') echo "readonly"; ?>><?php if($remarkVisible) echo $medandsochisto; ?></textarea></div>
+					<td><div id="medandsochistodiv" style="display:<?if($remarkVisible && $medandsochisto != '') echo 'block'; else echo 'none'; ?>;"><textarea name="medandsochistotxt" id="medandsochistotxt" cols="30" <?php if($status == 'Approved' || $status == 'Rejected') echo "readonly"; ?>><?php if($remarkVisible) echo $medandsochisto; ?></textarea></div>
 				</tr>
 				<tr>
 					<td><input type="checkbox" name="sctn[]" id="dentaldatacb" value="Dental Data" onClick="visibility(this.id)" <?php if($remarkVisible && $dentaldata != "") echo " checked"; if($status == 'Approved' || $status == 'Rejected') echo " disabled"; ?>> Dental Data 
-					<td><div id="dentaldatadiv" style="display:<?php if($remarkVisible && $dentaldata != '') echo 'block'; else echo 'none'; ?>;"><textarea name="dentaldatatxt" cols="30" <?php if($status == 'Approved' || $status == 'Rejected') echo "readonly"; ?>><?php if($remarkVisible) echo $dentaldata; ?></textarea></div>
+					<td><div id="dentaldatadiv" style="display:<?php if($remarkVisible && $dentaldata != '') echo 'block'; else echo 'none'; ?>;"><textarea name="dentaldatatxt" id="dentaldatatxt" cols="30" <?php if($status == 'Approved' || $status == 'Rejected') echo "readonly"; ?>><?php if($remarkVisible) echo $dentaldata; ?></textarea></div>
 				</tr>
 				<tr>
 					<td><input type="checkbox" name="sctn[]" id="dentalchartcb" value="Dental Status Chart" onClick="visibility(this.id)" <?php if($remarkVisible && $dentalchart != "") echo " checked"; if($status == 'Approved' || $status == 'Rejected') echo " disabled"; ?>> Dental Status Chart
-					<td><div id="dentalchartdiv" style="display:<?php if($remarkVisible && $dentalchart != '') echo 'block'; else echo 'none'; ?>;"><textarea name="dentalcharttxt" cols="30" <?php if($status == 'Approved' || $status == 'Rejected') echo "readonly"; ?>><?php if($remarkVisible) echo $dentalchart; ?></textarea></div> 
+					<td><div id="dentalchartdiv" style="display:<?php if($remarkVisible && $dentalchart != '') echo 'block'; else echo 'none'; ?>;"><textarea name="dentalcharttxt" id="dentalcharttxt" cols="30" <?php if($status == 'Approved' || $status == 'Rejected') echo "readonly"; ?>><?php if($remarkVisible) echo $dentalchart; ?></textarea></div> 
 				</tr>
 				<tr>
 					<td><input type="checkbox" name="sctn[]" id="treatmentplancb" value="Treatment Plan" onClick="visibility(this.id)" <?php if($remarkVisible && $treatmentplan != "") echo " checked"; if($status == 'Approved' || $status == 'Rejected') echo " disabled"; ?>> Treatment Plan
-					<td><div id="treatmentplandiv" style="display:<?php if($remarkVisible && $treatmentplan != '') echo 'block'; else echo 'none'; ?>;"><textarea name="treatmentplantxt" cols="30" <?php if($status == 'Approved' || $status == 'Rejected') echo "readonly"; ?>><?php if($remarkVisible) echo $treatmentplan; ?></textarea></div>
+					<td><div id="treatmentplandiv" style="display:<?php if($remarkVisible && $treatmentplan != '') echo 'block'; else echo 'none'; ?>;"><textarea name="treatmentplantxt" id="treatmentplantxt" cols="30" <?php if($status == 'Approved' || $status == 'Rejected') echo "readonly"; ?>><?php if($remarkVisible) echo $treatmentplan; ?></textarea></div>
+				</tr>
+				<tr>
+					<td><input type="checkbox" name="sctn[]" id="radioexamcb" value="Radiographic Exam" onClick="visibility(this.id)" <?php if($remarkVisible && $radioexam != "") echo " checked"; if($status == 'Approved' || $status == 'Rejected') echo " disabled"; ?>> Radiographic Exam
+					<td><div id="radioexamdiv" style="display:<?php if($remarkVisible && $radioexam != '') echo 'block'; else echo 'none'; ?>;"><textarea name="radioexamtxt" id="radioexamtxt" cols="30" <?php if($status == 'Approved' || $status == 'Rejected') echo "readonly"; ?>><?php if($remarkVisible) echo $radioexam; ?></textarea></div>
+				</tr>
+				<tr>
+					<td><input type="checkbox" name="sctn[]" id="servicesrenderedcb" value="Services Rendered" onClick="visibility(this.id)" <?php if($remarkVisible && $servicesrendered != "") echo " checked"; if($status == 'Approved' || $status == 'Rejected') echo " disabled"; ?>> Services Rendered
+					<td><div id="servicesrendereddiv" style="display:<?php if($remarkVisible && $servicesrendered != '') echo 'block'; else echo 'none'; ?>;"><textarea name="servicesrenderedtxt" id="servicesrenderedtxt" cols="30" <?php if($status == 'Approved' || $status == 'Rejected') echo "readonly"; ?>><?php if($remarkVisible) echo $servicesrendered; ?></textarea></div>
+				</tr>
+				<tr>
+					<td><input type="checkbox" name="sctn[]" id="confindcb" value="Consultation and Findings" onClick="visibility(this.id)" <?php if($remarkVisible && $confind != "") echo " checked"; if($status == 'Approved' || $status == 'Rejected') echo " disabled"; ?>> Consultation and Findings
+					<td><div id="confinddiv" style="display:<?php if($remarkVisible && $confind != '') echo 'block'; else echo 'none'; ?>;"><textarea name="confindtxt" id="confindtxt" cols="30" <?php if($status == 'Approved' || $status == 'Rejected') echo "readonly"; ?>><?php if($remarkVisible) echo $confind; ?></textarea></div>
 				</tr>
 			</table><br>
 

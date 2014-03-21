@@ -28,6 +28,10 @@ class AddPatient extends CI_Controller {
 			$this->load->helper(array('form'));
 
 			$ID = $this->patient->getMaxId();
+			if($ID == false){
+				$yr = date("y");
+				$ID[0]['UPCD_ID'] = $yr."-00000"; 
+			}
 			foreach($ID as $row){
 				$upcdid[] = $row['UPCD_ID']; 
 			}

@@ -16,7 +16,21 @@
 
    <title>Medical & Social History - Oral Diagnosis</title>
 	<link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">
-<script type="text/javascript">
+<script>
+
+$(function() {
+		$('.datepicker').each(function(){
+    			$(this).datepicker({
+				dateFormat: 'yy-mm-dd',
+				showAnim: 'slideDown',
+				changeMonth: true,
+				changeYear: true,
+				yearRange: '1910:'+year,
+				maxDate: 0
+			});
+		});
+
+	});
 	
 	
 </script>

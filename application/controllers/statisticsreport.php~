@@ -38,7 +38,7 @@ class StatisticsReport extends CI_Controller {
 
 			if($this->form_validation->run() == FALSE)
 		 	{
-		     		$this->load->view('searchpatient_view');
+		     		$this->load->view('statistics_view');
 		   	}
 		   	else
 		   	{

@@ -14,7 +14,20 @@
 	<script src="<?php echo base_url(); ?>js/jquery-1.9.1.js"></script>
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 
-   <title>Radiographic Exam - Oral Diagnosis</title>
+<?php 
+	$session_data = $this->session->userdata('logged_in');
+     	$sect = $session_data['section'];
+	$section = "";
+	foreach($sect as $row){
+		if($row != "System Maintenance"){
+			$section = $row;
+			break;
+		}
+	}
+
+?>
+
+   <title>Radiographic Exam - <?php echo $section; ?></title>
 <link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">	
 <script type="text/javascript">
 
@@ -122,7 +135,7 @@ function deleteRadio(tableID){
 
 	<form id="ADDRADIOGRAPHICEXAM" name="ADDRADIOGRAPHICEXAM" action="<?php echo base_url();?>index.php/verifyaddradiographicexam" method="post">
 
-<br><a href="<?php echo base_url();?>index.php/loaddashboard/patientdb/<?php echo $id; ?>"> Dashboard </a> &nbsp; <a href="<?php echo base_url();?>index.php/viewdentaldataversions"> View Versions </a><br><br>
+<br><a href="<?php echo base_url();?>index.php/loaddashboard/patientdb/<?php echo $id; ?>"> Dashboard </a> &nbsp; <a href="<?php echo base_url();?>index.php/viewradioexamversions"> View Versions </a><br><br>
 
 <div class="validationexc" style="display: <?php if($this->session->userdata('has_error')) echo 'block'; else 'none' ?>;">
    		<?php $session_data = $this->session->userdata('has_error');
@@ -136,9 +149,9 @@ function deleteRadio(tableID){
 		</tr>
 		<tr>
 			<td>
-			<td>Date
-			<td>Tooth No.
-			<td>Findings
+			<td>Date <font color="red">*</font>
+			<td>Tooth No. <font color="red">*</font>
+			<td>Findings <font color="red">*</font>
 		</tr>
 		<?php
 		if($invalid_input){

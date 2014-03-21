@@ -919,6 +919,7 @@ function index(){
 				$date = date("Y-m-d");
 				$status = "Pending";
 				$approver = "Pending";
+				$approvedate = "Pending";
 
 				//echo "$id, $name, $date, $status, $approver";
 				$userID222 = $session_data['username'];
@@ -1014,7 +1015,7 @@ function index(){
 
 				$this->patient->addPatientInfo_tab5($id, $discar, $buccar, $lincar, $mescar, $occcar, $discaries, $buccaries, $lincaries, $mescaries, $occcaries, $disrec, $bucrec, $linrec, $mesrec, $occrec, $disrecur, $bucrecur, $linrecur, $mesrecur, $occrecur, $disres, $bucres, $linres, $mesres, $occres, $disresto, $bucresto, $linresto, $mesresto, $occresto, $name, $rpds, $extrusions, $intrusions, $mesdrifts, $disdrifts, $rotations, $postcores, $rootcanals, $pitandfissures, $extracteds, $missings, $unerupteds, $impacteds, $porcelains, $acrylics, $metals, $porcelainfuseds, $fixedbridges, $c1s, $c2s, $c3s, $c4s, $c5s, $ols, $exs, $ods, $scs, $pss, $crs, $fss, $lams, $scrs, $bss, $ants, $poss, $oths, $periodontics, $pedodontics, $orthodontics, $acuteinfections, $traumaticinjuries, $completedent, $singledent, $removedent, $othersdent, $notes, $compdent, $updent, $lowdent);
 
-				$this->patient->addDentalChartVersion($id, $userID, $date, $status, $approver);
+				$this->patient->addDentalChartVersion($id, $userID, $date, $status, $approver, $approvedate);
 				
 				redirect('/loaddashboard/patientdb/'.$id.'/');
 				

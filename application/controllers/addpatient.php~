@@ -44,7 +44,6 @@ class AddPatient extends CI_Controller {
 			}
 
 			$data['maxID'] = $max;
-			echo strlen($max+1);
 
 			$this->load->view('addpatient_view', $data);
 			}

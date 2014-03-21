@@ -16,7 +16,7 @@ class ViewStat extends CI_Controller {
 			$session_data = $this->session->userdata('logged_in');
 			$rolex = $session_data['role'];
 			foreach($rolex as $row){
-				if($row == "Student" || $row == "Faculty"){
+				if($row == "System Administrator" || $row == "Faculty"){
 					$bool = true;
 					break;
 				}

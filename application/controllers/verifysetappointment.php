@@ -19,7 +19,7 @@ class VerifySetAppointment extends CI_Controller {
 		$bool = false;
 			$rolex = $session_data['role'];
 			foreach($rolex as $row){
-				if($row == "Student"){
+				if($row == "Student" || $row == "Faculty"){
 					$bool = true;
 					break;
 				}

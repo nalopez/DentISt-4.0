@@ -39,7 +39,9 @@ margin:-5px -5px 0 0;
  width:10px;
  text-align:center; }
 /* shared */
-td.calendar-day, td.calendar-day-np { width:120px; padding:5px; border-bottom:1px solid #999; border-right:1px solid #999; }
+td.calendar-day, td.calendar-day-np { width:120px; padding:5px; border: 1px solid #999;}
+
+#accordion .ui-accordion-content { padding: 0;}
 
 </style>
 <?php
@@ -59,7 +61,7 @@ td.calendar-day, td.calendar-day-np { width:120px; padding:5px; border-bottom:1p
 		});
 	</script>
 	<body><br>
-	<div style="align: left; width: 20%; position: absolute; height:100%; position: fixed;">
+	<div style="align: left; width: 20%; position: absolute; height:100%;">
 	<?php
 
 		$sysad = false;
@@ -100,9 +102,11 @@ td.calendar-day, td.calendar-day-np { width:120px; padding:5px; border-bottom:1p
 		//echo "<center>";
 		if($sysad){
 			echo "<h3 align='center'> System Administrator</h3>";
-			echo "<div style='text-align:center;'><p><a href='".base_url()."index.php/adduser'>Add a User</a><br><a href='".base_url()."index.php/manageusers'> View Users </a><br>
-		<a href='".base_url()."index.php/viewstat'> View Statistics </a><br>
-		<a href='".base_url()."index.php/viewaudittrail'> View Audit Trail </a></p></div>";
+			echo "<div style='text-align:center;'>
+		<div class='accord'><a href='".base_url()."index.php/adduser'>Add a User</a></div>
+		<div class='accord'><a href='".base_url()."index.php/manageusers'> View Users </a></div>
+		<div class='accord'><a href='".base_url()."index.php/viewstat'> View Statistics </a></div>
+		<div class='accord'><a href='".base_url()."index.php/searchpatient'><a href='".base_url()."index.php/viewaudittrail'> View Audit Trail </a></div></div>";
 		}
 		if($fac){
 			echo "<h3 align='center'> Faculty<br> (";
@@ -111,15 +115,15 @@ td.calendar-day, td.calendar-day-np { width:120px; padding:5px; border-bottom:1p
 				elseif($PD) echo "Prosthodontrics";
 				elseif($ODe) echo "Operative Dentistry";
 				elseif($GQ) echo "General Query"; 
-			echo ") </h3><div style='text-align:center;'>";
+			echo ") </h3><div style='text-align:left;' >";
 			if($ODi){
-				echo "<a href='".base_url()."index.php/addpatient'> Add a Patient </a><br>";
+				echo "<div class='accord'>&diams;<a href='".base_url()."index.php/addpatient'> Add a Patient </a></div>";
 			}
-			echo "<a href='".base_url()."index.php/searchpatient'> Query for Patient/s </a><br>";
-			echo "<a href='".base_url()."index.php/facultytasks'> Tasks </a><br>";
-			echo "<a href='".base_url()."index.php/clinicianappointments'> View Clinician Appointments </a>";
-			echo "<a href='".base_url()."index.php/viewclinicians'> View Section Clinicians </a>";
-			echo "<a href='".base_url()."index.php/viewstat'> View Statistics </a> </div>";
+			echo "<div class='accord'>&diams;<a href='".base_url()."index.php/searchpatient'> Query for Patient/s </a></div>";
+			echo "<div class='accord'>&diams;<a href='".base_url()."index.php/facultytasks'> Tasks </a></div>";
+			echo "<div class='accord'>&diams;<a href='".base_url()."index.php/clinicianappointments'> View Clinician Appointments </a></div>";
+			echo "<div class='accord'>&diams;<a href='".base_url()."index.php/viewclinicians'> View Section Clinicians </a></div>";
+			echo "<div class='accord'>&diams;<a href='".base_url()."index.php/viewstat'> View Statistics </a></div> </div>";
 		}
 		if($stud){
 			echo "<h3 align='center'> Student<br> (";
@@ -130,11 +134,11 @@ td.calendar-day, td.calendar-day-np { width:120px; padding:5px; border-bottom:1p
 				elseif($GQ) echo "General Query"; 
 			echo ") </h3><div style='text-align:center;'>";
 			if($ODi){
-				echo "<a href='".base_url()."index.php/addpatient'> Add a Patient </a><br>";
+				echo "<div class='accord'><a href='".base_url()."index.php/searchpatient'><a href='".base_url()."index.php/addpatient'> Add a Patient </a></div>";
 			}
-			echo "<a href='".base_url()."index.php/searchpatient'> Query for Patient/s </a><br>
-				<a href='".base_url()."index.php/studenttasks'> Tasks </a><br>
-				<a href='".base_url()."index.php/viewappointments'> View Appointments </a> </div>";
+			echo "<div class='accord'><a href='".base_url()."index.php/searchpatient'> Query for Patient/s </a></div>
+				<div class='accord'><a href='".base_url()."index.php/studenttasks'> Tasks </a></div>
+				<div class='accord'><a href='".base_url()."index.php/viewappointments'> View Appointments </a></div> </div>";
 		}
 		echo "</center>";
 		echo"</div>"

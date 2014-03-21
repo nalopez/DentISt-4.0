@@ -183,9 +183,11 @@
 	margin-top: -8px;
 }
 .ui-accordion .ui-accordion-content {
-	padding: 1em 2.2em;
+	/*padding: 1em 2.2em;*/
+	padding: 0;
 	border-top: 0;
 	overflow: auto;
+	margin: 0;
 }
 .ui-autocomplete {
 	position: absolute;

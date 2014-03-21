@@ -100,6 +100,17 @@ function index(){
 				$id = $session_data['id'];
 
 				$this->session->unset_userdata('has_error');
+
+				$userID222 = $session_data['username'];
+				$userID22 = $this->user->getUserID($userID222);
+				$userID2 = $userID22['$userID'];
+				$date = date("Y-m-d");
+
+				if($this->patient->hasConfind($id)) $this->user->addAuditTrail($userID2, 'UPDATE', 'Services Rendered', $id, $date);
+					else $this->user->addAuditTrail($userID2, 'INSERT', 'Services Rendered', $id, $date);
+		
+
+
 				$this->patient->addPatientInfo_tab8($id, $servicedatetxt, $renderedtxt, $feestxt);
 
 				$session_data2 = $this->session->userdata('current_patient');
@@ -119,6 +130,7 @@ function index(){
 				$date = date("Y-m-d");
 				$status = "Pending";
 				$approver = "Pending";
+				$approvedate = "Pending";
 
 				/*print_r($servicedate);
 				print_r($rendered);

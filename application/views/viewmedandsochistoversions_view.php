@@ -14,7 +14,7 @@
 	<script src="<?php echo base_url(); ?>js/jquery-1.9.1.js"></script>
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 
-   <title>Medical & Social Histoy Versions - Oral Diagnosis</title>
+   <title>Medical & Social History - View Versions</title>
 <link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">	
 <script type="text/javascript">
 	
@@ -39,16 +39,16 @@
 	
 <div align="left"><br><a href="<?php echo base_url();?>index.php/medandsochistory/patient/<?php echo $id; ?>"> Go Back </a></div><br>
 
-	<table frame="box" class="frame" style="width:98%; left:1%; text-align: center;">
+	<table align="center" class="altcolor" style="width:98%; left:1%; text-align: center;">
 		<tr class="header">
 			<td colspan=6> Medical & Social History Versions
 		</tr>
 		<tr>
-			<td><br><b>Version</b>
-			<td><br><b>Updated By</b>
-			<td><br><b>Update Date</b>
-			<td><br><b>Status</b>
-			<td><br><b>Approved By</b>
+			<td><b>Version</b>
+			<td><b>Updated By</b>
+			<td><b>Update Date</b>
+			<td><b>Status</b>
+			<td><b>Approved By</b>
 		</tr>
 		<?php 	if($version){
 				$count = sizeof($version);
@@ -65,6 +65,7 @@
 					$ctr++;
 				}
 			}
+			else echo "<tr> <td colspan=5> <br>No versions found </tr> ";
 		?>
 		
 	</table><br>

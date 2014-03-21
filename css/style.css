@@ -37,12 +37,6 @@ table.tab, tr.tab, td.tab2{
 	border-spacing: 0;*/
 }
 
-tr.header{
-	background-color: #9400D3;
-	color: white;
-	border-top: 2px solid red;
-	border-collapse: collapse;
-}
 
 td.noborder{
 	border-right: 2px double #9400D3;
@@ -74,6 +68,16 @@ td.noborder{
 	padding-bottom: 5px; 
 	padding-left: 5px;
 	height:80px;
+}
+
+.rounded3{
+border-top-left-radius:12px;
+	border-top-right-radius:12px;
+}
+
+.rounded4{
+border-bottom-left-radius:12px;
+	border-bottom-right-radius:12px;
 }
 
 input[type=text]:focus { 
@@ -242,26 +246,16 @@ table.toothAlign1 td {
 	z-index:1002;
 	overflow: auto;
 }
-/*
-.alttable{
-		width:100%; 
-		border-collapse:collapse; 
-	}
-	.alttable td{ 
-		padding:7px; border:#FFFFFF 1px solid;
-	}
-	 provide some minimal visual accomodation for IE8 and below 
-	.alttable tr{
-		background: #FFFFFF;
-	}
-	  Define the background color for all the ODD background rows  
-	.alttable tr:nth-child(odd){ 
-		background: #FFFFFF;
-	}
-	  Define the background color for all the EVEN background rows  
-	.alttable tr:nth-child(even){
-		background: #E066FF;
-	}*/
+
+.altcolor tr:nth-child(even) {
+    background-color: #EEAEEE;
+}
+
+tr.header{
+	background-color: #9400D3;
+	color: white;
+	border-top: 2px solid red;
+}
 
 #footer {
  clear: both;
@@ -270,3 +264,18 @@ table.toothAlign1 td {
  height: 3em;
  margin-top: -3em;
 }
+
+.accord{
+padding: 5px; 
+text-align: left; 
+margin-left: 20%; 
+
+}
+
+.accord2{
+padding: 5px; 
+text-align: left; 
+margin-left: 10%; 
+}
+
+

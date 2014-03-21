@@ -130,6 +130,7 @@ function index(){
 				$date = date("Y-m-d");
 				$status = "Pending";
 				$approver = "Pending";
+				$approvedate = "Pending";
 
 				/*print_r($servicedate);
 				print_r($rendered);
@@ -139,7 +140,7 @@ function index(){
 
 				//echo "$id, $name, $date, $status, $approver";
 
-				$this->patient->addServicesRenderedVersion($id, $userID, $date, $status, $approver);
+				$this->patient->addServicesRenderedVersion($id, $userID, $date, $status, $approver, $approvedate);
 
 				redirect('/loaddashboard/patientdb/'.$id.'/');
 				

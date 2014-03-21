@@ -55,8 +55,8 @@
 				$ctr = 1;
 				foreach($version as $row){
 					echo "<tr><td><a href=".base_url()."index.php/medandsochistory/view/".$row['UPCD_ID']."/".$row['medandsochistoversionID'].">"."Version ".$ctr."</a>";
-					$student = $this->user->getPatientInfo($row['updatedBy']);
-					$faculty = $this->user->getPatientInfo($row['approvedBy']);
+					$student = $this->user->getUserInfo($row['updatedBy']);
+					$faculty = $this->user->getUserInfo($row['approvedBy']);
 					echo "<td>".$student['userFName']." ".substr($student['userMName'], 0, 1).". ".$student['userLName'];
 					echo "<td>".$row['updateDate'];
 					echo "<td>".$row['updateStatus'];

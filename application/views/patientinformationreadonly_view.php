@@ -14,7 +14,20 @@
 	<script src="<?php echo base_url(); ?>js/jquery-1.9.1.js"></script>
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 
-   <title>Add User - Oral Diagnosis</title>
+<?php 
+	$session_data = $this->session->userdata('logged_in');
+     	$sect = $session_data['section'];
+	$section = "";
+	foreach($sect as $row){
+		if($row != "System Maintenance"){
+			$section = $row;
+			break;
+		}
+	}
+
+?>
+
+   <title>Patient Information - <?php echo $section; ?></title>
 <link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">	
 <script type="text/javascript">
 	
@@ -172,6 +185,8 @@
 	$id = $this->uri->segment(3);
 ?>
 <div id="Content_Area" style="border: solid 1px #7F00FF;">
+
+<center><a href="<?php echo base_url();?>index.php/loaddashboard/patientdb/<?php echo $id; ?>"> Dashboard </a> &nbsp; <a href="<?php echo base_url();?>index.php/viewdentalchartversions"> View Versions </a><br><br></center><br><br>
 
 <form id="ADDPATIENTINFORMATION" name="ADDPATIENTINFORMATION" action="<?php echo base_url();?>index.php/verifyaddpatientinformation" method="post">
 

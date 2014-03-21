@@ -16,7 +16,7 @@ class ViewStat extends CI_Controller {
 			$session_data = $this->session->userdata('logged_in');
 			$rolex = $session_data['role'];
 			foreach($rolex as $row){
-				if($row == "Student" || $row == "Faculty"){
+				if($row == "System Maintenance" || $row == "Faculty"){
 					$bool = true;
 					break;
 				}
@@ -29,7 +29,7 @@ class ViewStat extends CI_Controller {
 				$session_data = $this->session->userdata('logged_in');
 	     			$data2['usernamelog'] = $session_data['username'];
 				//echo "good";
-				$this->load->view('searchpatient_view', $data2);
+				$this->load->view('statistics_view', $data2);
 				
 				}
 			else{

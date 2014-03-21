@@ -1,12 +1,24 @@
 <?php 
 	include('header.php'); 
 	echo "<link rel=\"stylesheet\" type=\"text/css\" href='".base_url()."css/style.css'>";
+
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
  <head>
-   <title>Users - System Administrator </title>
+<?php $session_data = $this->session->userdata('logged_in');
+     	$sect = $session_data['section'];
+	$section = "";
+	foreach($sect as $row){
+		if($row != "System Maintenance"){
+			$section = $row;
+			break;
+		}
+	}
+?>
+
+   <title>View Clinicians - <?php echo $section; ?> </title>
 <link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">
 	<script type="text/javascript">
 		function confirmDelete(choice){
@@ -22,17 +34,19 @@
  <body>
 <?php include('navigation.php'); ?>
 <div class="maindiv">
-<h3 align=center>Users </h3>
+
+
+<h3 align=center> <?php echo $section; ?> Clinicians </h3>
 
 <form action="<?php echo base_url().'index.php/searchuser'?>" method=post>
 
-<input type="text" name="searchuser" id="searchuser" class="search"> <input type="submit" value="Search" name="searchbtn"><br><br>
+<!--<input type="text" name="searchuser" id="searchuser" class="search"> <input type="submit" value="Search" name="searchbtn"><br><br>-->
 
 
 <hr width="95%">
 <br>
-	<center>/
-		<table class="tab" border=1px color="violet" cellpadding=5px width="90%">
+	<center>
+		<table class="altcolor" cellpadding=5px width="90%">
 			<tr class="header">
 				<td class="tab" align="center"> User
 				<td class="tab" align="center"> Username

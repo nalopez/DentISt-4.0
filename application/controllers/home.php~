@@ -21,23 +21,48 @@ class Home extends CI_Controller {
 	$data3 = $this->user->getRole($userID);
 
 	foreach($data3 as $row){
-		$role[] = $row['role_type'];
-		$section[] = $row['role_section'];
+		$rolex[] = $row['role_type'];
+		$sect[] = $row['role_section'];
 	}
 
 	
-	$data['role'] = $role; 
-	$data['section'] = $section; 
+	//$data['role'] = $role; 
+	//$data['section'] = $section; 
+
+	$section = "";
+	foreach($sect as $row){
+		if($row != "System Maintenance"){
+			$section = $row;
+			break;
+		}
+	}
+	if($section == ""){
+		$section = "System Maintenance";
+	}
+
+	$role = "";
+	foreach($rolex as $row){
+		if($row != "System Administrator"){
+			$role = $row;
+			break;
+		}
+	}
+	if($role == ""){
+		$role = "System Administrator";
+	}
 
 	$user = $this->user->getUserID($session_data['username']);
 	$userID = $user['userID'];
 				//echo $userID;
 
-	 $data2['appointments'] = $this->patient->getAppointments($userID);
+	$data2['appointments'] = $this->patient->getAppointments($userID);
 				//print_r($data2['appointments']);
-
-				
-	$this->load->view('viewappointments_view', $data2);
+	if($role == "Faculty") $data2['factasks'] = $this->patient->getFacultyTask($section, $userID);
+	$data2['tasks'] = $this->patient->getStudentTask($section, $userID);
+	$data2['section'] = $section;
+	$this->load->helper(array('form'));
+	$this->load->view('home_view', $data2);	
+	//$this->load->view('viewappointments_view', $data2);
 
 	//print_r($data3);
 	//if($role == 'System Administrator'){

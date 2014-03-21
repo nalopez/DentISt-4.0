@@ -246,7 +246,7 @@ class LoadDashboard extends CI_Controller {
 			$bool = false;
 			$role = $session_data['role'];
 			foreach($role as $row){
-				if($row == "Student"){
+				if($row == "Student" || $row="Faculty"){
 					$bool = true;
 					break;
 				}

@@ -112,7 +112,7 @@ class LoadDashboard extends CI_Controller {
 				}
 				else{
 					if($clinicianID!=$userID){
-						$this->load->view('patientdashboardpending_view', $data);
+						$this->load->view('patientdashboardprivate_view', $data);
 					}
 					else{ 
 						$this->load->view('patientdashboard_view', $data);

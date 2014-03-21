@@ -12,7 +12,7 @@
 	<script src="<?php echo base_url(); ?>js/jquery-1.9.1.js"></script>
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 
-   <title>Add User - Oral Diagnosis</title>
+   <title>Add Patient - Oral Diagnosis</title>
 <link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">
 <script>
 
@@ -95,18 +95,30 @@ function getAge(value) {
 </div>	
 	<table align="center">
 	<tr>
+		<td colspan=3> <hr width=100% align="center" color="#d3d3d3">
+	</tr>
+	<tr>
 		<td width="20%"><label for="firstname">Name:</label>  
 		<td colspan=2><input type="text" name="firstname" placeholder="Given Name" size="15" value="<?php echo set_value('firstname'); ?>"><input type="text" name="midname" placeholder="Middle Name" size="15" value="<?php echo set_value('midname'); ?>"><input type="text" name="lastname" placeholder="Surname" size="15" value="<?php echo set_value('lastname'); ?>">
+	</tr>
+	<tr>
+		<td colspan=3> <hr width=100% align="center" color="#d3d3d3">
 	</tr>
 	<tr>
 		<td width="20%"><label for="UPCDid"> UPCD ID
 		<td colspan=2><input type="text" name="idyr" id="idyr" size=1px maxlength=2 readonly>-<input type="text" name="idnum" size=1px maxlength=5 readonly value="<?php echo str_pad($maxID+1, 5, '0', STR_PAD_LEFT); ?>">
 	</tr>
 	<tr>
+		<td colspan=3> <hr width=100% align="center" color="#d3d3d3">
+	</tr>
+	<tr>
 		<td width="20%"><label for="address">Address:</label> 
 		<td colspan=2><input type="text" name="houseno" placeholder="No." size=4 value="<?php echo set_value('houseno'); ?>"><input type="text" name="street" placeholder="Street" value="<?php echo set_value('street'); ?>">
 			<input type="text" name="brgy" placeholder="Baranggay" value="<?php echo set_value('brgy'); ?>"><br>
 			<input type="text" name="city" placeholder="City/Municipality" value="<?php echo set_value('city'); ?>"><input type="text" name="province" placeholder="Province" value="<?php echo set_value('province'); ?>">
+	</tr>
+	<tr>
+		<td colspan=3> <hr width=100% align="center" color="#d3d3d3">
 	</tr>
 	<tr>
 		<td width="20%">Demographics
@@ -121,7 +133,7 @@ function getAge(value) {
 			</tr>
 			<tr>
 				<td><label for="bdate">Birthdate:</td>
-				<td><input type="text" class="datepicker" id="birthdate" name="bdate" onchange="getAge(this.value);" value="<?php echo set_value('bdate'); ?>" >
+				<td><input type="text" class="datepicker" id="birthdate" name="bdate" onchange="getAge(this.value);" value="<?php echo set_value('bdate'); ?>" size=12>
 			</tr> 
 			<tr>
 				<td><label for="age">Age:</label>
@@ -130,8 +142,14 @@ function getAge(value) {
 		</table>
 	</tr>
 	<tr>
+		<td colspan=3> <hr width=100% align="center" color="#d3d3d3">
+	</tr>
+	<tr>
 		<td>Deceased?
 		<td><input name="deceased" type="radio" value="Yes" <?php if(set_value('deceased') == 'Yes') echo 'checked';  ?>> Yes &nbsp; <input name="deceased" type="radio" value="Yes" <?php if(set_value('deceased') == 'No') echo 'checked';  ?>> No 
+	</tr>
+	<tr>
+		<td colspan=3> <hr width=100% align="center" color="#d3d3d3">
 	</tr>
 </table>
 

@@ -416,7 +416,7 @@ Class User extends CI_Model
    		}
 	}
 
-	function addUser($lname, $fname, $mname, $role, $section, $username, $password){
+	function addUser($lname, $fname, $mname, $role, $section, $username, $password, $date){
 		$this -> db -> select('salt');
    		$this -> db -> from('users_auth');
    		$this -> db -> where('username', $username);
@@ -474,7 +474,8 @@ Class User extends CI_Model
 		$data2 = array(
 			'userID' => $userID,
 			'role_type' => $role,
-			'role_section' => $section);
+			'role_section' => $section,
+			'role_date' => $date);
 		$this->db->insert('users_role', $data2);
 
 		//$pword = MD5($password);
@@ -599,6 +600,25 @@ Class User extends CI_Model
    		if($query -> num_rows() >= 1)
    		{
      			return $query->row_array();
+   		}
+   		else
+   		{
+     			return false;
+   		}
+	}
+
+	function getAuditDate(){
+		$this -> db -> select('committedOn');
+   		$this -> db -> from('audittrail');
+		//$this->db->join('users', 'users_auth.userID = users.userID');
+		//$this -> db -> where('users.userFName !=', $fname);
+		//$this -> db -> where('users.userLName !=', $lname); 	
+		
+		$query = $this -> db -> get();
+
+   		if($query -> num_rows() >= 1)
+   		{
+     			return $query->result_array();
    		}
    		else
    		{

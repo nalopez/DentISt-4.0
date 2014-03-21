@@ -14,7 +14,20 @@
 	<script src="<?php echo base_url(); ?>js/jquery-1.9.1.js"></script>
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 
-   <title>Add User - Oral Diagnosis</title>
+<?php 
+	$session_data = $this->session->userdata('logged_in');
+     	$sect = $session_data['section'];
+	$section = "";
+	foreach($sect as $row){
+		if($row != "System Maintenance"){
+			$section = $row;
+			break;
+		}
+	}
+
+?>
+
+   <title>Patient Information - <?php echo $section; ?></title>
 <link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">	
 <script type="text/javascript">
 	
@@ -182,7 +195,9 @@
 	?>
 	</div>
 
-	<?php if($forapproval) echo "<h4 style='color:red;'>This patient's record is currently subject for approval.</h4>"; ?>
+	<?php if($forapproval) echo "<h4 style='color:red;'>This patient's record is currently subject for approval.</h4>";
+elseif($private) echo "<h4 style='color:red;' align='center'>This patient's record is under other clinician's supervision.</h4>";
+ ?>
 
 	<table frame="box" class="frame">
 	<tr class="header">

@@ -49,7 +49,7 @@ Class Patient extends CI_Model
    		}
    		else
    		{
-     			return "false";
+     			return false;
    		}
 	}
 
@@ -1433,7 +1433,7 @@ Class Patient extends CI_Model
 				}
 				$txt = $txt.") )";
 
-				echo "elseif1 = $txt";
+				//echo "elseif1 = $txt";
 				$query = $this->db->query($txt);
 
 
@@ -1531,9 +1531,9 @@ Class Patient extends CI_Model
 						$txt = $txt."OR $restos ";
 					}
 					if($cds != ""  && !$isfirstgood2) {
-						$txt = $txt." $fpds ";
+						$txt = $txt." $cds ";
 						$isfirstgood2 = true;
-					}elseif($fpds != "" && $isfirstgood2){
+					}elseif($cds != "" && $isfirstgood2){
 						$txt = $txt."OR $cds ";
 					}
 					$txt = $txt.") ";
@@ -1679,7 +1679,7 @@ Class Patient extends CI_Model
 				}
 				$txt = $txt.") )";
 
-				echo "elseif2 = $txt";
+				//echo "elseif2 = $txt";
 				$query = $this->db->query($txt);	
 
 			}elseif($dentdemo == "" && $servdemo != ""){
@@ -1758,9 +1758,9 @@ Class Patient extends CI_Model
 						$txt = $txt."OR $restos ";
 					}
 					if($cds != ""  && !$isfirstgood2) {
-						$txt = $txt." $fpds ";
+						$txt = $txt." $cds ";
 						$isfirstgood2 = true;
-					}elseif($fpds != "" && $isfirstgood2){
+					}elseif($cds != "" && $isfirstgood2){
 						$txt = $txt."OR $cds ";
 					}
 					$txt = $txt.") ";
@@ -1906,7 +1906,7 @@ Class Patient extends CI_Model
 				$txt = $txt.") ";
 				$query = $this->db->query($txt);
 
-				echo "elseif3 = $txt";
+				//echo "elseif3 = $txt";
 			
 			}elseif($dentdemo != "" && $servdemo != ""){
 				if($dentinfo != "") $txt = $txt.", $dentinfo";
@@ -2015,9 +2015,9 @@ Class Patient extends CI_Model
 						$txt = $txt."OR $restos ";
 					}
 					if($cds != ""  && !$isfirstgood2) {
-						$txt = $txt." $fpds ";
+						$txt = $txt." $cds ";
 						$isfirstgood2 = true;
-					}elseif($fpds != "" && $isfirstgood2){
+					}elseif($cds != "" && $isfirstgood2){
 						$txt = $txt."OR $cds ";
 					}
 					$txt = $txt.") ";
@@ -2300,7 +2300,7 @@ Class Patient extends CI_Model
 
 				$txt = $txt.") )";
 
-				echo "elseif4 = $txt";
+				//echo "elseif4 = $txt";
 				$query = $this->db->query($txt);
 			}
 
@@ -2447,6 +2447,7 @@ Class Patient extends CI_Model
 		$recinfo = "";
 		$resinfo = "";
 		$servinfo = "";
+		$otherinfo = "";
 
 		$occs = "";
 		$perios = "";
@@ -2788,7 +2789,7 @@ Class Patient extends CI_Model
 						$txt = $txt."OR $restos ";
 					}
 					if($cds != ""  && !$isfirstgood2) {
-						$txt = $txt." $fpds ";
+						$txt = $txt." $cds ";
 						$isfirstgood2 = true;
 					}elseif($cds != "" && $isfirstgood2){
 						$txt = $txt."OR $cds ";
@@ -2895,9 +2896,9 @@ Class Patient extends CI_Model
 						$txt = $txt."OR $restos ";
 					}
 					if($cds != ""  && !$isfirstgood2) {
-						$txt = $txt." $fpds ";
+						$txt = $txt." $cds ";
 						$isfirstgood2 = true;
-					}elseif($fpds != "" && $isfirstgood2){
+					}elseif($cds != "" && $isfirstgood2){
 						$txt = $txt."OR $cds ";
 					}
 					$txt = $txt.") ";
@@ -3121,9 +3122,9 @@ Class Patient extends CI_Model
 						$txt = $txt."OR $restos ";
 					}
 					if($cds != ""  && !$isfirstgood2) {
-						$txt = $txt." $fpds ";
+						$txt = $txt." $cds ";
 						$isfirstgood2 = true;
-					}elseif($fpds != "" && $isfirstgood2){
+					}elseif($cds != "" && $isfirstgood2){
 						$txt = $txt."OR $cds ";
 					}
 					$txt = $txt.") ";
@@ -3377,9 +3378,9 @@ Class Patient extends CI_Model
 						$txt = $txt."OR $restos ";
 					}
 					if($cds != ""  && !$isfirstgood2) {
-						$txt = $txt." $fpds ";
+						$txt = $txt." $cds ";
 						$isfirstgood2 = true;
-					}elseif($fpds != "" && $isfirstgood2){
+					}elseif($cds != "" && $isfirstgood2){
 						$txt = $txt."OR $cds ";
 					}
 					$txt = $txt.") ";
@@ -3819,7 +3820,7 @@ Class Patient extends CI_Model
 
 	function getRadioExamVersions($id){
 		$this -> db -> select('*');
-		$this -> db -> from('radiographicexamversion');
+		$this -> db -> from('radioexamversion');
 		$this->db->where('UPCD_ID', $id);
 		$this->db->where('updateStatus', 'Approved');
 
@@ -4402,7 +4403,7 @@ Class Patient extends CI_Model
 		$this->db->update('patient', $data); 
 	}
 
-	function updatePatientTemporary($studentid, $facultyid, $patientid, $remark, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan){
+	function updatePatientTemporary($studentid, $facultyid, $patientid, $remark, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan, $radiographicexam, $servicesrendered, $consultationandfindings){
 		/*$data = array(
 			'remarkStatus' => $remark,
 			'patientinfo' => $patientinfo,
@@ -4416,10 +4417,10 @@ Class Patient extends CI_Model
 		$this->db->where('remarkStatus', 'Temporary');
 		$this->db->update('remark', $data);*/
 
-		$query = $this->db->query("UPDATE remark SET remarkStatus='$remark', patientinfo='$patientinfo', patientchecklist='$patientchecklist', medandsochisto='$medandsochisto', dentaldata='$dentaldata', dentalchart='$dentalchart', treatmentplan='$treatmentplan' WHERE patientID='$patientid' AND (remarkStatus='Temporary' or remarkStatus='Pending')"); 
+		$query = $this->db->query("UPDATE remark SET remarkStatus='$remark', patientinfo='$patientinfo', patientchecklist='$patientchecklist', medandsochisto='$medandsochisto', dentaldata='$dentaldata', dentalchart='$dentalchart', treatmentplan='$treatmentplan', radiographicexam='$radiographicexam', servicesrendered='$servicesrendered', consultationandfindings='$consultationandfindings' WHERE patientID='$patientid' AND (remarkStatus='Temporary' or remarkStatus='Pending')"); 
 	}
 
-	function updatePatientRejected2($studentid, $facultyid, $patientid, $remark, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan){
+	function updatePatientRejected2($studentid, $facultyid, $patientid, $remark, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan, $radiographicexam, $servicesrendered, $consultationandfindings){
 		$data = array(
 			'remarkStatus' => $remark,
 			'patientinfo' => $patientinfo,
@@ -4427,7 +4428,10 @@ Class Patient extends CI_Model
 			'medandsochisto' => $medandsochisto,
 			'dentaldata' => $dentaldata,
 			'dentalchart' => $dentalchart,
-			'treatmentplan' => $treatmentplan
+			'treatmentplan' => $treatmentplan,
+			'radiographicexam' => $radiographicexam,
+			'servicesrendered' => $servicesrendered,
+			'consultationandfindings' => $consultationandfindings
             	);
 		$this->db->where('patientID', $patientid);
 		$this->db->where('remarkStatus', 'Pending');
@@ -4452,7 +4456,7 @@ Class Patient extends CI_Model
    		}
 	}
 
-	function addRemark($studentid, $facultyid, $patientid, $remark, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan){
+	function addRemark($studentid, $facultyid, $patientid, $remark, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan, $radiographicexam, $servicesrendered, $consultationandfindings){
 		$data = array(
 			'userID' => $studentid,
 			'patientID' => $patientid,
@@ -4463,7 +4467,10 @@ Class Patient extends CI_Model
 			'medandsochisto' => $medandsochisto,
 			'dentaldata' => $dentaldata,
 			'dentalchart' => $dentalchart,
-			'treatmentplan' => $treatmentplan);
+			'treatmentplan' => $treatmentplan,
+			'radiographicexam' => $radiographicexam,
+			'servicesrendered' => $servicesrendered,
+			'consultationandfindings' => $consultationandfindings);
 		$this->db->insert('remark', $data);
 	}
 
@@ -4639,13 +4646,16 @@ Class Patient extends CI_Model
 			'medandsochisto' => '',
 			'dentaldata' => '',
 			'dentalchart' => '',
-			'treatmentplan' => ''
+			'treatmentplan' => '',
+			'radiographicexam' => '',
+			'servicesrendered' => '',
+			'consultationandfindings' => ''
             	);
 		$this->db->where('patientID', $patientid);
 		$this->db->update('remark', $data2);
 	}
 
-	function setApproved($patientid, $facultyid){
+	function setApproved($patientid, $facultyid, $date){
 
 		//PATIENT INFORMATION
 		$this->db->select_max('patientinfoID');
@@ -4659,7 +4669,8 @@ Class Patient extends CI_Model
 		if($patientinfoID){
 			$data = array(
 		       		'updateStatus' => 'Approved',
-				'approvedBy' => $facultyid
+				'approvedBy' => $facultyid,
+				'approvedOn' => $date
 		    	);
 			$this->db->where('UPCD_ID', $patientid);
 			$this->db->where('patientinfoversionID', $patientinfoID);
@@ -4678,7 +4689,8 @@ Class Patient extends CI_Model
 		if($checklistID){
 			$data2 = array(
 		       		'updateStatus' => 'Approved',
-				'approvedBy' => $facultyid
+				'approvedBy' => $facultyid,
+				'approvedOn' => $date
 		    	);
 			$this->db->where('UPCD_ID', $patientid);
 			$this->db->where('patientchecklistversionID', $checklistID);
@@ -4697,7 +4709,8 @@ Class Patient extends CI_Model
 		if($medhistoID){
 			$data3 = array(
 		       		'updateStatus' => 'Approved',
-				'approvedBy' => $facultyid
+				'approvedBy' => $facultyid,
+				'approvedOn' => $date
 		    	);
 			$this->db->where('UPCD_ID', $patientid);
 			$this->db->where('medandsochistoversionID', $medhistoID);
@@ -4716,7 +4729,8 @@ Class Patient extends CI_Model
 		if($denthistoID){
 			$data4 = array(
 		       		'updateStatus' => 'Approved',
-				'approvedBy' => $facultyid
+				'approvedBy' => $facultyid,
+				'approvedOn' => $date
 		    	);
 			$this->db->where('UPCD_ID', $patientid);
 			$this->db->where('dentaldataversionID', $denthistoID);
@@ -4735,7 +4749,8 @@ Class Patient extends CI_Model
 		if($dentalchartID){
 			$data5 = array(
 		       		'updateStatus' => 'Approved',
-				'approvedBy' => $facultyid
+				'approvedBy' => $facultyid,
+				'approvedOn' => $date
 		    	);
 			$this->db->where('UPCD_ID', $patientid);
 			$this->db->where('dentalchartversionID', $dentalchartID);
@@ -4754,7 +4769,8 @@ Class Patient extends CI_Model
 		if($treatmentplanID){
 			$data6 = array(
 		       		'updateStatus' => 'Approved',
-				'approvedBy' => $facultyid
+				'approvedBy' => $facultyid,
+				'approvedOn' => $date
 		    	);
 			$this->db->where('UPCD_ID', $patientid);
 			$this->db->where('treatmentplanversionID', $treatmentplanID);
@@ -4773,7 +4789,8 @@ Class Patient extends CI_Model
 		if($radioexamID){
 			$data7 = array(
 		       		'updateStatus' => 'Approved',
-				'approvedBy' => $facultyid
+				'approvedBy' => $facultyid,
+				'approvedOn' => $date
 		    	);
 			$this->db->where('UPCD_ID', $patientid);
 			$this->db->where('radioexamversionID', $treatmentplanID);
@@ -4792,7 +4809,8 @@ Class Patient extends CI_Model
 		if($servicesrenderedID){
 			$data8 = array(
 		       		'updateStatus' => 'Approved',
-				'approvedBy' => $facultyid
+				'approvedBy' => $facultyid,
+				'approvedOn' => $date
 		    	);
 			$this->db->where('UPCD_ID', $patientid);
 			$this->db->where('servicesrenderedversionID', $servicesrenderedID);
@@ -4811,7 +4829,8 @@ Class Patient extends CI_Model
 		if($confindID){
 			$data9 = array(
 		       		'updateStatus' => 'Approved',
-				'approvedBy' => $facultyid
+				'approvedBy' => $facultyid,
+				'approvedOn' => $date
 		    	);
 			$this->db->where('UPCD_ID', $patientid);
 			$this->db->where('confindversionID', $confindID);

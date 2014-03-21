@@ -130,16 +130,17 @@ function index(){
 				$date = date("Y-m-d");
 				$status = "Pending";
 				$approver = "Pending";
-				print_r($date);
-				print_r($tooth);
-				print_r($findings);
+				$approvedate = "Pending";
+				//print_r($date);
+				//print_r($tooth);
+				//print_r($findings);
 				
 
 				echo "$datetxt, $toothtxt, $findingstxt";
 
 				//echo "$id, $name, $date, $status, $approver";
 
-				$this->patient->addRadiographicExamVersion($id, $userID, $date, $status, $approver);
+				$this->patient->addRadiographicExamVersion($id, $userID, $date, $status, $approver, $approvedate);
 
 				redirect('/loaddashboard/patientdb/'.$id.'/');
 				

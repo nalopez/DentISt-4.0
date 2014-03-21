@@ -14,7 +14,15 @@
 	<script src="<?php echo base_url(); ?>js/jquery-1.9.1.js"></script>
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 
-   <title>Medical & Social History - Oral Diagnosis</title>
+<?php
+			$sec = $session_data['section']; 	
+			$sect = "";
+			foreach($sec as $row){
+			if($row != "System Maintenance");
+			$sect = $row;
+		} ?>
+
+   <title>Medical & Social History - <?php echo $section; ?></title>
 	<link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">
 <script>
 
@@ -25,7 +33,8 @@ $(function() {
 				showAnim: 'slideDown',
 				changeMonth: true,
 				changeYear: true,
-				yearRange: '1910:'+year
+				yearRange: '1910:'+year,
+				maxDate: 0
 			});
 		});
 

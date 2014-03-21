@@ -13,8 +13,19 @@
 <link href="<?php echo base_url(); ?>css/ui-lightness/jquery-ui-1.10.3.custom.css" rel="stylesheet">
 	<script src="<?php echo base_url(); ?>js/jquery-1.9.1.js"></script>
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
+<?php 
+	$session_data = $this->session->userdata('logged_in');
+     	$sect = $session_data['section'];
+	$section = "";
+	foreach($sect as $row){
+		if($row != "System Maintenance"){
+			$section = $row;
+			break;
+		}
+	}
 
-   <title>Services Rendered - Oral Diagnosis</title>
+?>
+   <title>Services Rendered - <?php echo $section; ?></title>
 <link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">	
 <script type="text/javascript">
 
@@ -22,13 +33,15 @@ var fieldNum3;
 var k=0;
 var year = new Date().getFullYear();
 
-	$('#servicedate_0').datepicker({
-		dateFormat: 'yy-mm-dd',
-		showAnim: 'slideDown',
-		changeMonth: true,
-		changeYear: true,
-		yearRange: '1910:' + year
-    	});
+	$(function() {	
+		$('#servicedate_0').datepicker({
+			dateFormat: 'yy-mm-dd',
+			showAnim: 'slideDown',
+			changeMonth: true,
+			changeYear: true,
+			yearRange: '1910:' + year
+	    	});
+	});
 
 function addService(tableID){
 	fieldNum3= k+1;
@@ -135,9 +148,9 @@ function deleteService(tableID){
 		</tr>
 		<tr>
 			<td>
-			<td>Date
-			<td>Services Rendered
-			<td>Fees
+			<td>Date <font color='red'> * </font>
+			<td>Services Rendered  <font color='red'> * </font>
+			<td>Fees  <font color='red'> * </font>
 		</tr>
 		<?php
 		if($invalid_input){

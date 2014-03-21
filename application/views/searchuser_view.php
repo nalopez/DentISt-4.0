@@ -30,7 +30,7 @@
 
 <input type="text" class="search" name="searchuser" value="<?php echo $string; ?>"> <input type="submit" value="Search" name="searchbtn" value="<?php echo $string; ?>"> <br><br>
 There <?php if($users == FALSE){
-		echo "is no record";
+		echo "are no records";
  	}elseif($count == 1){
 		echo "is 1 record";
 	}else
@@ -38,7 +38,7 @@ There <?php if($users == FALSE){
 
 ?> that matched the keyword '<?php echo $string; ?>' <br><br>
 	<center>
-		<table class="tab" border=1 cellpadding=5>
+		<table class="altcolor" style="width: 90%;" cellpadding=5>
 			<tr class="header">
 				<td class="tab" align="center"> User
 				<td class="tab" align="center"> Username

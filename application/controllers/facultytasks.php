@@ -34,14 +34,10 @@ $this->load->model('user','',TRUE);
 				$idx = $this->user->getUserID($session_data['username']);
 				$facultyID = $idx['userID'];
 
-				$userID222 = $session_data['username'];
-				$userID22 = $this->user->getUserID($userID222);
-				$userID2 = $userID22['$userID'];
-				$date = date("Y-m-d");
 
 		     		$data['info'] = $this->patient->getFacultyTask($section, $facultyID);
 				//$id = $info['UPCD_ID']; 
-				$this->user->addAuditTrail($userID2, 'SELECT', 'Faculty Tasks', '', $date);
+				$data['info2'] = $this->patient->getStudentTask($section, $facultyID);
 
 				$this->load->view('facultytasks_view', $data);
 				//print_r($data['info']);

@@ -34,8 +34,12 @@ $this->load->model('user','',TRUE);
 				$idx = $this->user->getUserID($session_data['username']);
 				$facultyID = $idx['userID'];
 
+
 		     		$data['info'] = $this->patient->getFacultyTask($section, $facultyID);
-				//$id = $info['UPCD_ID'];
+				//$id = $info['UPCD_ID']; 
+				$data['info2'] = $this->patient->getStudentTask($section, $facultyID);
+
+				print_r($data['info2']);
 
 				$this->load->view('facultytasks_view', $data);
 				//print_r($data['info']);

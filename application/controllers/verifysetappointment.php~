@@ -60,11 +60,11 @@ class VerifySetAppointment extends CI_Controller {
 
 				//echo "Id=$id";
 					
-					/*if($this->patient->hasAppointment($id)){
+					if($this->patient->hasAppointment($id)){
 						$this->patient->updateAppointment($id, $user, $dateappointment);
 					}
 					else $this->patient->setAppointment($id, $user, $dateappointment);
-					redirect('loaddashboard/patientdb/'.$id);*/
+					redirect('loaddashboard/patientdb/'.$id);
 				}
 				//echo "$id, $user, $dateappointment";
 				

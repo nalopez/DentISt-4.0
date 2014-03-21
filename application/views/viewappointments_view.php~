@@ -60,14 +60,14 @@
 	
 <div align="left"><br><a href="<?php echo base_url();?>index.php/home"> Go Back </a></div><br>
 
-	<table frame="box" class="frame" style="width:98%; left:1%; text-align: center;">
+	<table class="altcolor" align="center" style="width:98%; left:1%; text-align: center;">
 		<tr class="header">
 			<td colspan=6> Appointments
 		</tr>
 		<tr>
 			<td><br>
-			<td><br>Patient
-			<td><br>Date
+			<td><b>Patient</b>
+			<td><b>Date</b>
 			<td>
 		</tr>
 		<?php 	if($appointments){
@@ -89,7 +89,7 @@
 					$ctr++;
 				}
 			}
-			else echo "<tr> <td colspan=4> No results found </tr>"
+			else echo "<tr<br>td colspan=4> No appointments found </tr>";
 		?>
 		<!-- <a href='".base_url()."index.php/setappointment' -->
 		<input type=hidden name="id" id="patientid">

@@ -35,16 +35,16 @@
 <form id="ADDUSER" name="ADDUSER" action="verifyadduser" method="post">
 	<table align="center">
 	<tr>
-		<td><label for="firstname">First Name:</label>  
-		<td><input type="text" name="firstname" value="<?php echo set_value('firstname'); ?>">
+		<td colspan=3> <hr width=100% align="center" color="#d3d3d3">
 	</tr>
 	<tr>
-		<td><label for="midname">Middle Name:</label> 
-		<td><input type="text" name="midname" value="<?php echo set_value('midname'); ?>">
+		<td> Name: 
+		<td><input type="text" name="firstname" value="<?php echo set_value('firstname'); ?>" placeholder="First Name" size="15">
+			<input type="text" name="midname" value="<?php echo set_value('midname'); ?>" placeholder="Middle Name" size="15">
+			<input type="text" name="lastname" value="<?php echo set_value('lastname'); ?>" placeholder="Last Name" size="15">
 	</tr>
 	<tr>
-		<td><label for="lastname">Last Name:</label> 
-		<td><input type="text" name="lastname" value="<?php echo set_value('lastname'); ?>">
+		<td colspan=3> <hr width=100% align="center" color="#d3d3d3">
 	</tr>
 	<tr>
 		<td>Section: 
@@ -133,6 +133,9 @@
 		</select></td>
 	</tr>
 	<tr>
+		<td colspan=3> <hr width=100% align="center" color="#d3d3d3">
+	</tr>
+	<tr>
 		<td><label for="username">Username:</label>
      		<td><input type="text" size="20" id="username" name="username" value="<?php echo set_value('username'); ?>">
      	</tr>
@@ -144,6 +147,9 @@
 		<td><label for="password2">Retype password:</label>
      		<td><input type="password" size="20" id="password2" name="password2" value="<?php echo set_value('password2'); ?>">
      	</tr>
+	<tr>
+		<td colspan=3> <hr width=100% align="center" color="#d3d3d3">
+	</tr>
 	</table><br>
      <input type="submit" value="Add User"/> <input type="reset" value="Clear entries"/>
    </form>

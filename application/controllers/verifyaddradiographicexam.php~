@@ -100,7 +100,18 @@ function index(){
 				$id = $session_data['id'];
 
 				$this->session->unset_userdata('has_error');
-				//$this->patient->addPatientInfo_tab7($id, $datetxt, $toothtxt, $findingstxt);
+
+				$userID222 = $session_data['username'];
+				$userID22 = $this->user->getUserID($userID222);
+				$userID2 = $userID22['$userID'];
+				$date = date("Y-m-d");
+
+				if($this->patient->hasConfind($id)) $this->user->addAuditTrail($userID2, 'UPDATE', 'Radiographic Exam', $id, $date);
+				else $this->user->addAuditTrail($userID2, 'INSERT', 'Radiographic Exam', $id, $date);
+		
+
+
+				$this->patient->addPatientInfo_tab7($id, $datetxt, $toothtxt, $findingstxt);
 
 				$session_data2 = $this->session->userdata('current_patient');
 				$session_data3 = $this->session->userdata('logged_in');
@@ -128,7 +139,7 @@ function index(){
 
 				//echo "$id, $name, $date, $status, $approver";
 
-				//$this->patient->addRadiographicExamVersion($id, $userID, $date, $status, $approver);
+				$this->patient->addRadiographicExamVersion($id, $userID, $date, $status, $approver);
 
 				redirect('/loaddashboard/patientdb/'.$id.'/');
 				

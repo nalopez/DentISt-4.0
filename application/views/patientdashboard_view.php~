@@ -1039,7 +1039,7 @@
 </div>-->
 	<center>
 
-		<?php 	$OM = false;
+		<?php 	$OD = false;
 			$session_data = $this->session->userdata('logged_in');
      			$section = $session_data['section'];
 			if(in_array("Oral Diagnosis", $section)) $OD = true;
@@ -1069,7 +1069,7 @@
 		<br>
 		<?php if($remarksInfo){
 			foreach($remarksInfo as $row){
-			echo "<table frame='box' class='frame' style='width: 50%; left:0%; right:0%;'>";
+			echo "<table align='center' class='altcolor' style='width: 50%; left:0%; right:0%;'>";
 			echo "<tr class='header'> <td colspan=2 style='text-align:center;'> Remarks </tr>";
 			if($row['patientinfo'] != ""){			
 			echo "<tr><td> Patient Information

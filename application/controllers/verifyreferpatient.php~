@@ -104,7 +104,7 @@ $this->load->model('user','',TRUE);
 					}
 
 					$this->patient->deleteStudentTask($id);
-					$this->patient->updatePatient($id, $refer, $userid, "Approved");
+					$this->patient->updatePatient2($id, $refer, $userid, "Approved");
 
 					redirect('/home');
 

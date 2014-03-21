@@ -929,7 +929,7 @@ function index(){
 				if($this->patient->hasDentalChart($id)) $this->user->addAuditTrail($userID2, 'UPDATE', 'Dental Status Chart', $id, $date);
 					else $this->user->addAuditTrail($userID2, 'INSERT', 'Dental Status Chart', $id, $date);
 		
-				if(strlen(trim($discar)) == 0) $discar = '';
+				/*if(strlen(trim($discar)) == 0) $discar = '';
 				if(strlen(trim($buccar)) == 0) $buccar = '';
 				if(strlen(trim($lincar)) == 0) $lincar = '';
 				if(strlen(trim($mescar)) == 0) $mescar = '';
@@ -1008,7 +1008,7 @@ function index(){
 				if(strlen(trim($notes)) == 0) $notes = '';
 				if(strlen(trim($compdent)) == 0) $compdent = '';
 				if(strlen(trim($updent)) == 0) $updent = '';
-				if(strlen(trim($lowdent)) == 0) $lowdent = '';
+				if(strlen(trim($lowdent)) == 0) $lowdent = '';*/
 
 
 

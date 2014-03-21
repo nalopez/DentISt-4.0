@@ -54,7 +54,8 @@
 
 <form id="ADDTREATMENTPLAN" name="ADDTREATMENTPLAN" action="<?php echo base_url();?>index.php/verifyaddtreatmentplan" method="post">
 
-<br><?php if($forapproval) echo "<h4 style='color:red;'>This patient's record is currently subject for approval.</h4>"; ?>
+<br><?php if($forapproval) echo "<h4 style='color:red;'>This patient's record is currently subject for approval.</h4>";
+elseif($private) echo "<h4 style='color:red;' align='center'>This patient's record is under other clinician's supervision.</h4>"; ?>
 
 <div class="validationexc" style="display: <?php if($this->session->userdata('has_error')) echo 'block'; else 'none' ?>;">
    		<?php $session_data = $this->session->userdata('has_error');

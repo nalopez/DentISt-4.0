@@ -1069,7 +1069,7 @@
 		<br>
 		<?php if($remarksInfo){
 			foreach($remarksInfo as $row){
-			echo "<table frame='box' class='frame' style='width: 50%; left:0%; right:0%;'>";
+			echo "<table align='center' class='altcolor' style='width: 50%; left:0%; right:0%;'>";
 			echo "<tr class='header'> <td colspan=2 style='text-align:center;'> Remarks </tr>";
 			if($row['patientinfo'] != ""){			
 			echo "<tr><td> Patient Information
@@ -1099,6 +1099,21 @@
 			echo "<tr>
 				<td> Treatment Plan
 				<td> ".$row['treatmentplan']."</tr>";
+			}
+			if($row['radiographicexam'] != ""){			
+			echo "<tr>
+				<td> Radiographic Exam
+				<td> ".$row['radiographicexam']."</tr>";
+			}
+			if($row['servicesrendered'] != ""){			
+			echo "<tr>
+				<td> Services Rendered
+				<td> ".$row['servicesrendered']."</tr>";
+			}
+			if($row['consultationandfindings'] != ""){			
+			echo "<tr>
+				<td> Consultation and Findings
+				<td> ".$row['consultationandfindings']."</tr>";
 			}
 			echo"</table>";
 			}

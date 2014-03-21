@@ -14,8 +14,24 @@
 	<script src="<?php echo base_url(); ?>js/jquery-1.9.1.js"></script>
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 
-   <title>Add User - Oral Diagnosis</title>
-	
+<?php 
+$session_data = $this->session->userdata('logged_in');
+     	$sect = $session_data['section'];
+	$section = "";
+	foreach($sect as $row){
+		if($row != "System Maintenance"){
+			$section = $row;
+			break;
+		}
+	}
+
+	$session_data = $this->session->userdata('current_patient');
+	$id = $session_data['id'];
+
+?>
+
+   <title>View Clinician Appointments - <?php echo $section; ?></title>
+<link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">	
 <script type="text/javascript">
 	
 	
@@ -39,15 +55,15 @@
 	
 <div align="left"><br><a href="<?php echo base_url();?>index.php/dentaldata/patient/<?php echo $id; ?>"> Go Back </a></div><br>
 
-	<table frame="box" class="frame" style="width:98%; left:1%; text-align: center;">
+	<table class="altcolor" align="center" style="width:98%; left:1%; text-align: center;">
 		<tr class="header">
-			<td colspan=6> Appointments
+			<td colspan=6> Clinician Appointments
 		</tr>
 		<tr>
 			<td><br>
-			<td><br><b>Patient</b>
-			<td><br><b>Clinician</b>
-			<td><br><b>Date of Appointment</b>
+			<td><b>Patient</b>
+			<td><b>Clinician</b>
+			<td><b>Date of Appointment</b>
 		</tr>
 		<?php 	if($appointments){
 				//print_r($appointments);
@@ -61,25 +77,27 @@
 					//$patient = $this->patient->getPatient($row['UPCD_ID']);
 
 					if(!empty($row)){
-					foreach($row as $row2){
-						//echo "<tr><td>".$row2['UPCD_ID'].", ".$row2['studentID']."</tr>";
-						$patient = $this->patient->getPatient($row2['UPCD_ID']);
-						foreach($patient as $row3){
-							$patientname = $row3['patientFName']." ".substr($row3['patientMName'], 0, 1).". ".$row3['patientLName'];
+						foreach($row as $row2){
+							//echo "<tr><td>".$row2['UPCD_ID'].", ".$row2['studentID']."</tr>";
+							$patient = $this->patient->getPatient($row2['UPCD_ID']);
+							foreach($patient as $row3){
+								$patientname = $row3['patientFName']." ".substr($row3['patientMName'], 0, 1).". ".$row3['patientLName'];
+							}
+							$student = $this->user->getUserInfopt1($row2['studentID']);
+							foreach($student as $row3){
+								$studentname = $row3['userFName']." ".substr($row3['userMName'], 0, 1).". ".$row3['userLName'];
+							}			
+							echo "<tr><td>".$ctr;
+							echo "<td><a href='".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID']."'>".$patientname."</a>";
+							echo "<td>".$studentname;
+							echo "<td>".$row2['appointmentDate'];
+							echo "</tr>";
+							$ctr++;
 						}
-						$student = $this->user->getUserInfopt1($row2['studentID']);
-						foreach($student as $row3){
-							$studentname = $row3['userFName']." ".substr($row3['userMName'], 0, 1).". ".$row3['userLName'];
-						}			
-						echo "<tr><td>".$ctr;
-						echo "<td><a href='".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID']."'>".$patientname."</a>";
-						echo "<td>".$studentname;
-						echo "<td>".$row2['appointmentDate'];
-						echo "</tr>";
-						$ctr++;
-					}}
+					}
 				}
 			}
+			else echo "<tr> <td colspan=4> <br> No task found </br>";
 		?>
 		
 	</table><br>

@@ -14,39 +14,57 @@ class SetAppointment extends CI_Controller {
    if($this->session->userdata('logged_in'))
    {
      $session_data = $this->session->userdata('logged_in');
-     $data['username'] = $session_data['username'];
-
-	$id = $this->uri->segment(3); 
-
-	$user = $this->user->getUserID($session_data['username']);
-	$userID = $user['userID'];
-
-	//$id=$this->input->post('id');
-	$data['patientid'] = $id;
-
-	$this->patient->updateClinician($id, $userID);
-	$this->patient->deleteStudentTask($id);
-
-	if(!$this->patient->hasAppointment($id)){
-		$this->patient->setAppointment($id, $userID, 'Pending');
+	$bool = false;
+	$role = $session_data['role'];
+	foreach($role as $row){
+		if($row == "Student" || $row="Faculty"){
+			$bool = true;
+			break;
+		}
 	}
+ 
+	if($bool){
 
-	$data = $this->patient->getPatient($id);
-	$ptnt_array = array();
-	foreach($data as $row){
-     		$ptnt_array = array(
-         		'id' => $row['UPCD_ID'],
-         		'name' => $row['patientFName']." ".substr($row['patientMName'], 0, 1).". ".$row['patientLName'],
-			'age' => $row['age'],
-			'address' => $row['houseno']." ".$row['street']." ".$row['brgy'].", ".$row['city'].", ".$row['province'],
-			'gender' => $row['gender']
-       		);
+
+	     $data['username'] = $session_data['username'];
+
+		$id = $this->uri->segment(3); 
+
+		$user = $this->user->getUserID($session_data['username']);
+		$userID = $user['userID'];
+
+		//$id=$this->input->post('id');
+		$data['patientid'] = $id;
+
+		$this->patient->updateClinician($id, $userID);
+		$this->patient->deleteStudentTask($id);
+
+		if(!$this->patient->hasAppointment($id)){
+			$this->patient->setAppointment($id, $userID, 'Pending');
 		}
 
-	$this->session->set_userdata('current_patient', $ptnt_array);
+		$data = $this->patient->getPatient($id);
+		$ptnt_array = array();
+		foreach($data as $row){
+	     		$ptnt_array = array(
+		 		'id' => $row['UPCD_ID'],
+		 		'name' => $row['patientFName']." ".substr($row['patientMName'], 0, 1).". ".$row['patientLName'],
+				'age' => $row['age'],
+				'address' => $row['houseno']." ".$row['street']." ".$row['brgy'].", ".$row['city'].", ".$row['province'],
+				'gender' => $row['gender']
+	       		);
+			}
 
-	$this->load->helper(array('form'));
-	$this->load->view('setappointment_view', $data);
+		$this->session->set_userdata('current_patient', $ptnt_array);
+
+		$this->load->helper(array('form'));
+		$this->load->view('setappointment_view', $data);
+	}
+	else{
+		redirect('home');
+	}
+
+
    }
    else
    {

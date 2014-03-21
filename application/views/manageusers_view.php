@@ -32,7 +32,7 @@
 <hr width="95%">
 <br>
 	<center>
-		<table class="tab" border=1px color="violet" cellpadding=5px>
+		<table class="altcolor" style="width: 90%;" color="violet" cellpadding=5px>
 			<tr class="header">
 				<td class="tab" align="center"> User
 				<td class="tab" align="center"> Username

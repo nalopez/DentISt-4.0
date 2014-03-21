@@ -20,7 +20,17 @@
 	<script src="<?php echo base_url(); ?>js/jquery-1.9.1.js"></script>
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 
-   <title>Add User - Oral Diagnosis</title>
+<?php $session_data = $this->session->userdata('logged_in');
+     	$sect = $session_data['section'];
+	$section = "";
+	foreach($sect as $row){
+		if($row != "System Maintenance"){
+			$section = $row;
+			break;
+		}
+	}
+?>
+   <title>Faculty Tasks - <?php echo $section; ?></title>
 <link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">
  </head>
 
@@ -29,7 +39,7 @@
 <div class="maindiv">	
 <div align="left"><br><a href="<?php echo base_url();?>index.php/home"> Go Back </a></div><br>
 
-	<table frame="box" class="frame" style="width:90%; left:5%; text-align: center;">
+	<table align ="center" class="altcolor" style="width:90%; left:5%; text-align: center;">
 		<tr class="header">
 			<td colspan=6> Tasks Lists
 		</tr>
@@ -40,94 +50,45 @@
 			<td> <b>Update Date</b>
 			<td> <b>Patient Name</b>
 		</tr>
-		<?php if($info){
+		<?php 
+			$ctr = 0;
+			if($info){
 				$patientname="";
 				$count = sizeof($info);
-				$ctr = 1;
 				foreach($info as $row){
 					if($row['patientdashboardversionID'] && $row['updateStatus7'] == "Pending"){
+						$ctr++;	
 						echo "<tr><td> $ctr ";
 						echo "<td> Verify Referral to ".$row['section7'];
 						$user = $this->user->getUserInfo($row['updatedBy7']);
 						echo "<td>".$user['userFName']." ".substr($user['userMName'], 0, 1).". ".$user['userLName']; 
-							echo "<td>".$row['updateDate7'];
-							$patient = $this->patient->getPatient($row['UPCD_ID7']);
-							foreach($patient as $row2){
-								$patientname = $row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName']; 
-							}
-							echo "<td><a href=".base_url()."index.php/loaddashboard/verifyentry/".$row['UPCD_ID7'].">".$patientname;
-							echo "</tr>";
-							$ctr++;
-						}/*
-						if($row['patientchecklistversionID'] && $row['updateStatus2'] == "Pending"){
-							echo "<tr><td> $ctr ";
-							echo "<td> Verify Patient Checklist Form Entry";
-							echo "<td>".$row['updatedBy2'];
-							echo "<td>".$row['updateDate2'];
-							$patient = $this->patient->getPatient($row['UPCD_ID2']);
-							foreach($patient as $row2){
-								$patientname = $row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName']; 
-							}
-							echo "<td><a href=".base_url()."index.php/loaddashboard/verifyentry/".$row['UPCD_ID'].">".$patientname;
-							echo "</tr>";
-							$ctr++;
+						echo "<td>".$row['updateDate7'];
+						$patient = $this->patient->getPatient($row['UPCD_ID7']);
+						foreach($patient as $row2){
+							$patientname = $row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName']; 
 						}
-						if($row['medandsochistoversionID'] && $row['updateStatus3'] == "Pending"){
-							echo "<tr><td> $ctr ";
-							echo "<td> Verify Medical & Social History Form Entry";
-							echo "<td>".$row['updatedBy3'];
-							echo "<td>".$row['updateDate3'];
-							$patient = $this->patient->getPatient($row['UPCD_ID3']);
-							foreach($patient as $row2){
-								$patientname = $row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName']; 
-							}
-							echo "<td><a href=".base_url()."index.php/loaddashboard/verifyentry/".$row['UPCD_ID'].">".$patientname;
-							echo "</tr>";
-							$ctr++;
-						}
-						if($row['dentaldataversionID'] && $row['updateStatus4'] == "Pending"){
-							echo "<tr><td> $ctr ";
-							echo "<td> Verify Dental Data Form Entry";
-							echo "<td>".$row['updatedBy4'];
-							echo "<td>".$row['updateDate4'];
-							$patient = $this->patient->getPatient($row['UPCD_ID4']);
-							foreach($patient as $row2){
-								$patientname = $row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName']; 
-							}
-							echo "<td><a href=".base_url()."index.php/loaddashboard/verifyentry/".$row['UPCD_ID'].">".$patientname;
-							echo "</tr>";
-							$ctr++;
-						}
-						if($row['dentalchartversionID'] && $row['updateStatus5'] == "Pending"){
-							echo "<tr><td> $ctr ";
-							echo "<td> Verify Dental Chart Form Entry";
-							echo "<td>".$row['updatedBy5'];
-							echo "<td>".$row['updateDate5'];
-							$patient = $this->patient->getPatient($row['UPCD_ID5']);
-							foreach($patient as $row2){
-								$patientname = $row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName']; 
-							}
-							echo "<td><a href=".base_url()."index.php/loaddashboard/verifyentry/".$row['UPCD_ID'].">".$patientname;
-							echo "</tr>";
-							$ctr++;
-						}
-						if($row['treatmentplanversionID'] && $row['updateStatus6'] == "Pending"){
-							echo "<tr><td> $ctr ";
-							echo "<td> Verify Treatment Plan Form Entry";
-							echo "<td>".$row['updatedBy6'];
-							echo "<td>".$row['updateDate6'];
-							$patient = $this->patient->getPatient($row['UPCD_ID6']);
-							foreach($patient as $row2){
-								$patientname = $row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName']; 
-							}
-							echo "<td><a href=".base_url()."index.php/loaddashboard/verifyentry/".$row['UPCD_ID'].">".$patientname;
-							echo "</tr>";
-							$ctr++;
-						}*/
-						
+						echo "<td><a href=".base_url()."index.php/loaddashboard/verifyentry/".$row['UPCD_ID7'].">".$patientname;
+						echo "</tr>";				
 					}
+				}
 			}
+			if($info2){
+				foreach($info2 as $row){
+					$ctr++;
+					$patientname = "";
+					$patient = $this->patient->getPatient($row['UPCD_ID']);
+					foreach($patient as $row2){
+						$patientname = $row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
+					}
+					echo "<tr> <td> $ctr";
+					echo "<td>".$row['taskdescription'];
+					echo "<td> <i> Pending </i>";
+					echo "<td> <i> Pending </i>";
+					echo "<td><a href=".base_url()."index.php/loaddashboard/claimpatient/".$row['UPCD_ID'].">".$patientname."</a></tr>";
+				}
 
+			}
+			if($ctr==0) echo "<tr> <td colspan=5> <br> No tasks found </br>";
 		?>
 		
 	</table><br>

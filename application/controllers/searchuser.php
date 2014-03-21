@@ -36,10 +36,12 @@ class SearchUser extends CI_Controller {
 				$date = date("Y-m-d");
 
 				$data2['users'] = $this->user->searchUser($string);
-				foreach($data2['users'] as $row){
-					$name = $row->userFName." ".$row->userLName;
-					$uname = $row->username;
-					$data2['users2'][$uname] = $this->user->selectUsers_pt2($name, $uname);
+				if($data2['users']){
+					foreach($data2['users'] as $row){
+						$name = $row->userFName." ".$row->userLName;
+						$uname = $row->username;
+						$data2['users2'][$uname] = $this->user->selectUsers_pt2($name, $uname);
+					}
 				}			
 			
 				$this->user->addAuditTrail($userID2, 'SELECT', 'Users', '', $date);	

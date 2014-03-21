@@ -139,6 +139,11 @@ class RadiographicExam extends CI_Controller {
 					$data['forapproval'] = true;
 				}
 
+				if($clinicianID!=$userID2){
+					$data['private'] = true;
+					//redirect('dentalchart/view/'.$id);
+				}
+
 				//print_r($data['info']);
 				$this->user->addAuditTrail($userID2, 'SELECT', 'Radiographic Exam', $id, $date);
 				$this->load->view('radiographicexamreadonly_view', $data);

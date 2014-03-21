@@ -14,7 +14,19 @@
 	<script src="<?php echo base_url(); ?>js/jquery-1.9.1.js"></script>
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 
-   <title>Services Rendered - Oral Diagnosis</title>
+<?php 
+$session_data = $this->session->userdata('logged_in');
+     	$sect = $session_data['section'];
+	$section = "";
+	foreach($sect as $row){
+		if($row != "System Maintenance"){
+			$section = $row;
+			break;
+		}
+	}
+?>
+
+   <title>Services Rendered - <?php echo $section; ?></title>
 <link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">	
 <script type="text/javascript">
 
@@ -50,9 +62,11 @@
 
 <div id="Content_Area">
 
+<center><a href="<?php echo base_url();?>index.php/loaddashboard/patientdb/<?php echo $id; ?>"> Dashboard </a> &nbsp; <a href="<?php echo base_url();?>index.php/viewdentalchartversions"> View Versions </a><br><br></center><br><br>
+
 	<form id="ADDCONSULTATIONFINDINGS" name="ADDCONSULTATIONFINDINGS" action="<?php echo base_url();?>index.php/verifyaddservicerendered" method="post">
 
-<br><a href="<?php echo base_url();?>index.php/loaddashboard/patientdb/<?php echo $id; ?>"> Dashboard </a> &nbsp; <a href="<?php echo base_url();?>index.php/viewconsultationversions"> View Versions </a><br><br>
+
 
 <div class="validationexc" style="display: <?php if($this->session->userdata('has_error')) echo 'block'; else 'none' ?>;">
    		<?php $session_data = $this->session->userdata('has_error');
@@ -69,9 +83,9 @@ elseif($private) echo "<h4 style='color:red;' align='center'>This patient's reco
 		</tr>
 		<tr>
 			<td>
-			<td>Date
-			<td>Services Rendered
-			<td>Fees
+			<td>Date <font color="red">*</font>
+			<td>Services Rendered <font color="red">*</font>
+			<td>Fees <font color="red">*</font>
 		</tr>
 		<?php
 			if($recordexist){

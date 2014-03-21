@@ -116,6 +116,17 @@ function index(){
 				$id = $session_data['id'];
 
 				$this->session->unset_userdata('has_error');
+
+				$userID222 = $session_data['username'];
+				$userID22 = $this->user->getUserID($userID222);
+				$userID2 = $userID22['$userID'];
+				$date = date("Y-m-d");
+
+				if($this->patient->hasDentalData($id)) $this->user->addAuditTrail($userID2, 'UPDATE', 'Dental Data', $id, $date);
+					else $this->user->addAuditTrail($userID2, 'INSERT', 'Dental Data', $id, $date);
+		
+
+
 				$this->patient->addPatientInfo_tab4($id, $dolv, $pdolv, $fodv, $eortle, $cdaoadp, $hntd, $lfnd, $mucd, $pltd, $prxd, $ftmd, $tngd, $lymd, $sald, $thyd, $ggvd);
 
 				$session_data2 = $this->session->userdata('current_patient');
@@ -135,10 +146,11 @@ function index(){
 				$date = date("Y-m-d");
 				$status = "Pending";
 				$approver = "Pending";
+				$approvedate = "Pending";
 
 				//echo "$id, $name, $date, $status, $approver";
 
-				$this->patient->addDentalDataVersion($id, $userID, $date, $status, $approver);
+				$this->patient->addDentalDataVersion($id, $userID, $date, $status, $approver, $approvedate);
 
 				redirect('/loaddashboard/patientdb/'.$id.'/');
 				

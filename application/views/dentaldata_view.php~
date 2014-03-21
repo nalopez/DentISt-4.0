@@ -16,8 +16,19 @@
 
    <title>Dental Data - Oral Diagnosis</title>
 <link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">	
-<script type="text/javascript">
-	
+<script>
+	var year = new Date().getFullYear();
+
+	$(function() {	
+		$('#dolv').datepicker({
+			dateFormat: 'yy-mm-dd',
+			showAnim: 'slideDown',
+			changeMonth: true,
+			changeYear: true,
+			yearRange: '1910:'+year,
+			maxDate: 0
+	    	});
+	});
 	
 </script>
  </head>

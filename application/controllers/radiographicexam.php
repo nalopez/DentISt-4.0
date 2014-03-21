@@ -72,8 +72,10 @@ class RadiographicExam extends CI_Controller {
 					}
 				}
 			}
-			else
-				redirect('home', 'refresh');
+			else{
+				$id = $this->uri->segment(3);
+				redirect('/loaddashboard/patient/'.$id, 'refresh');
+			}
 		}
 		else
    		{

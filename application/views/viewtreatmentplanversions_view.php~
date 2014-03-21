@@ -14,7 +14,7 @@
 	<script src="<?php echo base_url(); ?>js/jquery-1.9.1.js"></script>
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 
-   <title>Treatment Plan Versions - Oral Diagnosis</title>
+   <title>Treatment Plan - View Versions</title>
 <link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">	
 <script type="text/javascript">
 	
@@ -39,7 +39,7 @@
 	
 <div align="left"><br><a href="<?php echo base_url();?>index.php/treatmentplan/patient/<?php echo $id; ?>"> Go Back </a></div><br>
 
-	<table frame="box" class="frame" style="width:98%; left:1%; text-align: center;">
+	<table align="center" class="altcolor" style="width:98%; left:1%; text-align: center;">
 		<tr class="header">
 			<td colspan=6>Treatment Plan Versions
 		</tr>
@@ -55,8 +55,8 @@
 				$ctr = 1;
 				foreach($version as $row){
 					echo "<tr><td><a href=".base_url()."index.php/treatmentplan/view/".$row['UPCD_ID']."/".$row['treatmentplanversionID'].">"."Version ".$ctr."</a>";
-					$student = $this->user->getPatientInfo($row['updatedBy']);
-					$faculty = $this->user->getPatientInfo($row['approvedBy']);
+					$student = $this->user->getUserInfo($row['updatedBy']);
+					$faculty = $this->user->getUserInfo($row['approvedBy']);
 					echo "<td>".$student['userFName']." ".substr($student['userMName'], 0, 1).". ".$student['userLName'];
 					echo "<td>".$row['updateDate'];
 					echo "<td>".$row['updateStatus'];
@@ -65,6 +65,7 @@
 					$ctr++;
 				}
 			}
+			else echo "<tr> <td colspan=5> <br>No versions found </tr> ";
 		?>
 		
 	</table><br>
