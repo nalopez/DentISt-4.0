@@ -64,8 +64,7 @@ create table patientdashboardversion(patientdashboardversionID int(5) auto_incre
 
 create table studenttasks(studenttaskID int(5) auto_increment primary key, UPCD_ID varchar(8), section varchar(30), taskdescription varchar(100), clinicianID varchar(5));
 
-create table remark(remarkID int(5) auto_increment primary key, userID int(5), facultyID int(5), patientID varchar(8), remarkStatus varchar(30), patientinfo varchar(100), patientchecklist varchar(100), medandsochisto varchar(100), dentaldata varchar(100), dentalchart varchar(100), treatmentplan varchar(100));
-
+create table remark(remarkID int(5) auto_increment primary key, userID int(5), facultyID int(5), patientID varchar(8), remarkStatus varchar(30), patientinfo varchar(100), patientchecklist varchar(100), medandsochisto varchar(100), dentaldata varchar(100), dentalchart varchar(100), treatmentplan varchar(100), radiographicexam varchar(100), servicesrendered varchar(100), consultationandfindings varchar(100));
 create table radiographicexam(radioexamID int(5) auto_increment primary key, UPCD_ID varchar(8), date varchar(300), toothno varchar(30), findings varchar(500));
 
 create table radioexamversion(radioexamversionID int(5) auto_increment primary key, UPCD_ID varchar(8), updatedBy varchar(50), updateDate varchar(10), updateStatus varchar(10), approvedBy int(5), approvedOn varchar(10));

@@ -1,0 +1,83 @@
+create table users(userID int(5)   primary key, userFName varchar(30), userMName varchar(30), userLName varchar(30));
+
+create table users_role(roleID int(5) primary key, userID int(5), role_type varchar(30), role_section varchar(30), role_date varchar(10));
+
+create table users_auth(authID int(5)   primary key, userID int(5), username varchar(30), userpword varchar(100), salt varchar(6), secret_question varchar(100), secret_answer varchar(100));
+
+insert into users values(1, 'Nicole Anne', 'Dela Cruz', 'Lopez');
+insert into users_role values(1, 1, 'System Administrator', 'System Maintenance', '2013-12-11');
+insert into users_auth values (1, 1, 'nalopez', '30ada58d09cd8e332d3abcf011df51693022414294d3289a76fc533657a9e5ad', 'f0f225', "What is your favorite childhood movie?", "Monsters Inc.");
+
+create table patient(UPCD_ID varchar(8), patientFName varchar(30), patientMName varchar(30), patientLName varchar(30), homeno varchar(10), street varchar(30), brgy varchar(30), city varchar(30), province varchar(30), gender varchar(30), bdate varchar(30), age int(3), clinician varchar(10), section varchar(30), date varchar(30), deceased varchar(3), status varchar(30));
+
+create table patientinfo(patientinfoID int(5)   primary key, UPCD_ID varchar(8), civstat varchar(30), phonenum varchar(15), edattain varchar(30), occupation varchar(30), persontonotify varchar(50), persontonotifynum varchar(15), histo varchar(100));
+
+create table phyassess(phyassessID int(5)   primary key, UPCD_ID varchar(8), gait varchar(30), appear varchar(30), dfcts varchar(30));
+
+create table vitalsigns(vitalsignsID int(5)   primary key, UPCD_ID varchar(8), bp varchar(10), pr varchar(5), rr varchar(5), temp varchar(5), weight varchar(5));
+
+create table patientchecklist(checklistID int(5)   primary key, UPCD_ID varchar(8), highbloodpressure varchar(3), joint_pain varchar(3), heart_attack varchar(3), tremors varchar(3), chest_pain varchar(3), blood_transfusion varchar(3), swollen_ankles varchar(3), denied_blood varchar(3), high_fever varchar(3), pallor varchar(3), pacemaker varchar(3), diabetes varchar(3), emphysema varchar(3), goiter varchar(3), afternoon_fever varchar(3), bruising_tendency varchar(3), chronic_cough varchar(3), weight_change varchar(3), breathing_problem varchar(3), frequent_thirst varchar(3), bloody_sputum varchar(3), frequent_hunger varchar(3), sinusitis varchar(3), frequent_urination varchar(3), frequent_headaches varchar(3), chemotherapy varchar(3), dizziness varchar(3), pain_urination varchar(3), loss_consciousness varchar(3), urine_blood varchar(3), visual_impairment varchar(3), hepatitis varchar(3), hearing_impairment varchar(3), HIV_positive varchar(3), arthritis varchar(3), pelvic_discomfort varchar(3), nervousness varchar(3), depression varchar(3), anxiety varchar(3), asthma varchar(3), patientothers varchar(3), patientothers_text varchar(30));
+
+create table familychecklist(checklistID int(5)   primary key, UPCD_ID varchar(8), familydiabetes varchar(3), bleeding_disorder varchar(3), heart_diseases varchar(3), cancer varchar(3), familyothers varchar(3), familyothers_text varchar(30));
+
+create table allergychecklist(checklistID int(5)   primary key, UPCD_ID varchar(8), drugs varchar(3), food varchar(3), rubber varchar(3), allergyothers varchar(3), allergyothers_text varchar(30));
+
+create table femalechecklist(checklistID int(5)   primary key, UPCD_ID varchar(8), pregnant varchar(3), breastfeeding varchar(3), hormonetherapy varchar(3), menstruation varchar(3), contraceptive varchar(3));
+
+create table medicalhistory(medhistoID int(5)   primary key, UPCD_ID varchar(8), physician_name varchar(30), physician_phone varchar(15), dateoflatesthospitalization varchar(10), hospitalizationreason varchar(30), allergies varchar(30), illnesses varchar(30), medications varchar(30), childhood_illnesses varchar(30));
+
+create table socialhistory(socialhistoID int(5)   primary key, UPCD_ID varchar(8), cigarette varchar(3), cigarette_type varchar(30), cigarette_frequency varchar(30), cigarette_duration varchar(30), cigarette_dateoflastexposure varchar(10), alcohol varchar(3), alcohol_type varchar(30), alcohol_frequency varchar(30), alcohol_duration varchar(30), alcohol_dateoflastexposure varchar(10), drug varchar(3), drug_type varchar(30), drug_frequency varchar(30), drug_duration varchar(30), drug_dateoflastexposure varchar(10));
+
+create table dentalhistory(denthistoID int(5)   primary key, UPCD_ID varchar(8), dateoflastvisit varchar(10), proceduresonlastvisit varchar(100), frequencyofvisit varchar(100), anesthesia_exposure varchar(100), dental_complications varchar(100));
+
+create table softtissueexamination(softtissueexamID int(5)   primary key, UPCD_ID varchar(8), headneckTMJ varchar(100), lipstrenum varchar(100), mucosa varchar(100), palate varchar(100), pharynx varchar(100), floorofthemouth varchar(100), tongue varchar(100), lymphnodes varchar(100), salivarygland varchar(100), thyroid varchar(100), gingiva varchar(100));
+
+create table recurrentstatus(recurrentstatusID int(5)   primary key, UPCD_ID varchar(8), distal_recurrent varchar(200), buccal_recurrent varchar(200), lingual_recurrent varchar(200), mesial_recurrent varchar(200), occlusal_recurrent varchar(200), distal_restorable_recurrent varchar(200), buccal_restorable_recurrent varchar(200), lingual_restorable_recurrent varchar(200), mesial_restorable_recurrent varchar(200), occlusal_restorable_recurrent varchar(200));
+
+create table cariesstatus(cariesstatusID int(5)   primary key, UPCD_ID varchar(8), distal_caries varchar(200), buccal_caries varchar(200), lingual_caries varchar(200), mesial_caries varchar(200), occlusal_caries varchar(200), distal_restorable_caries varchar(200), buccal_restorable_caries varchar(200), lingual_restorable_caries varchar(200), mesial_restorable_caries varchar(200), occlusal_restorable_caries varchar(200));
+
+create table restorationstatus(restorationstatusID int(5)   primary key, UPCD_ID varchar(8), distal_restoration varchar(200), buccal_restoration varchar(200), lingual_restoration varchar(200), mesial_restoration varchar(200), occlusal_restoration varchar(200), distal_restorable_restoration varchar(200), buccal_restorable_restoration varchar(200), lingual_restorable_restoration varchar(200), mesial_restorable_restoration varchar(200), occlusal_restorable_restoration varchar(200));
+
+create table serviceneeded(serviceneededID int(5)   primary key, UPCD_ID varchar(8), class1 varchar(200), class2 varchar(200), class3 varchar(200), class4 varchar(200), class5 varchar(200), onlay varchar(200), extraction varchar(200), odontectomy varchar(200), special_case varchar(200), pulp_sedation varchar(200), crown_recementation varchar(200), filling_service varchar(200), laminated varchar(200), single_crown varchar(200), bridge_service varchar(200), anterior varchar(200), posterior varchar(200), orthoendo varchar(200));
+
+create table dentalchart(dentalchartID int(5)   primary key, UPCD_ID varchar(8), removable_partial_denture varchar(200), extrusion varchar(200), intrusion varchar(200), mesial_rotation varchar(200), distal_rotation varchar(200), rotation varchar(200), postcore_crown varchar(200), rootcanal_treatment varchar(200), pitfissure_sealants varchar(200), extracted varchar(200), missing varchar(200), unerupted varchar(200), impacted varchar(200),  porcelain_crown varchar(200), acrylic_crown varchar(200), metal_crown varchar(200), porcelain_fused varchar(200), fixed_bridge varchar(200));
+
+create table dentures(denturesID int(5)   primary key, UPCD_ID varchar(8), complete_denture varchar(10), upper_denture varchar(10), lower_denture varchar(10));
+
+create table otherservices(otherservicesID int(5)   primary key, UPCD_ID varchar(8), periodontics varchar(10), pedodontics varchar(10), orthodontics varchar(10), acuteinfections varchar(10), traumaticinjuries varchar(10), completedenture varchar(10), singledenture varchar(10), removablepartialdenture varchar(10), otherdenture varchar(10), dentalnotes varchar(300));
+
+create table treatmentplan(treatmentplanID int(5)   primary key, UPCD_ID varchar(8), chiefcomplaints varchar(100), perio varchar(3), rpd varchar(3), resto varchar(3), os varchar(3), fpd varchar(3), pedo varchar(3), endo varchar(3), cd varchar(3), ortho varchar(3), proposedtreatment varchar(100));
+
+create table patientinfoversion(patientinfoversionID int(5)   primary key, UPCD_ID varchar(8), updatedBy int(5), updateDate varchar(10), updateStatus varchar(30), approvedBy int(5), approvedOn varchar(10));
+
+create table patientchecklistversion(patientchecklistversionID int(5)   primary key, UPCD_ID varchar(8), updatedBy int(5), updateDate varchar(10), updateStatus varchar(30), approvedBy int(5), approvedOn varchar(10));
+
+create table medandsochistoversion(medandsochistoversionID int(5)   primary key, UPCD_ID varchar(8), updatedBy int(5), updateDate varchar(10), updateStatus varchar(30), approvedBy int(5), approvedOn varchar(10));
+
+create table dentaldataversion(dentaldataversionID int(5)   primary key, UPCD_ID varchar(8), updatedBy int(5), updateDate varchar(10), updateStatus varchar(30), approvedBy int(5), approvedOn varchar(10));
+
+create table dentalchartversion(dentalchartversionID int(5)   primary key, UPCD_ID varchar(8), updatedBy int(5), updateDate varchar(10), updateStatus varchar(30), approvedBy int(5), approvedOn varchar(10));
+
+create table treatmentplanversion(treatmentplanversionID int(5)   primary key, UPCD_ID varchar(8), updatedBy int(5), updateDate varchar(10), updateStatus varchar(30), approvedBy int(5), approvedOn varchar(10));
+
+create table patientdashboardversion(patientdashboardversionID int(5)   primary key, UPCD_ID7 varchar(8), section7 varchar(30), updatedBy7 int(5), updateDate7 varchar(10), updateStatus7 varchar(10), approvedBy7 int(5), currentsection7 varchar(30));
+
+create table studenttasks(studenttaskID int(5)   primary key, UPCD_ID varchar(8), section varchar(30), taskdescription varchar(100), clinicianID varchar(5));
+
+create table remark(remarkID int(5)   primary key, userID int(5), facultyID int(5), patientID varchar(8), remarkStatus varchar(30), patientinfo varchar(100), patientchecklist varchar(100), medandsochisto varchar(100), dentaldata varchar(100), dentalchart varchar(100), treatmentplan varchar(100), radiographicexam varchar(100), servicesrendered varchar(100), consultationandfindings varchar(100));
+
+create table radiographicexam(radioexamID int(5)   primary key, UPCD_ID varchar(8), date varchar(300), toothno varchar(30), findings varchar(500));
+
+create table radioexamversion(radioexamversionID int(5)   primary key, UPCD_ID varchar(8), updatedBy varchar(50), updateDate varchar(10), updateStatus varchar(10), approvedBy int(5), approvedOn varchar(10));
+
+ create table consultationandfindings(confindID int(5)   primary key, UPCD_ID varchar(8), date varchar(300), reason varchar(300), startdate varchar(300), enddate varchar(300), findings varchar(500));
+ 
+ create table servicesrendered(servicesrenderedID int(5)   primary key, UPCD_ID varchar(8), date varchar(300), services varchar(300), fees varchar(500));
+
+create table servicesrenderedversion(servicesrenderedversionID int(5)   primary key, UPCD_ID varchar(8), updatedBy varchar(50), updateDate varchar(10), updateStatus varchar(10), approvedBy int(5), approvedOn varchar(10));
+
+create table confindversion(confindversionID int(5)   primary key, UPCD_ID varchar(8), updatedBy varchar(50), updateDate varchar(10), updateStatus varchar(10), approvedBy int(5), approvedOn varchar(10));
+
+create table audittrail(audittrailid int(7)   primary key, committedBy int(5), action varchar(20), form varchar(50), committedTo varchar(8), committedOn varchar(8));
+
+create table appointment(appointmentID int(5)   primary key, UPCD_ID varchar(8), studentID int(5), appointmentDate varchar(10));
