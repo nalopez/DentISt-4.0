@@ -520,9 +520,9 @@ $session_data = $this->session->userdata('logged_in');
 			<td>
 		</tr>
 		<tr>
-			<td><input type="checkbox" name="extracted" id="extracted" value="Yes">Extracted
-			<td><input type="checkbox" name="unerupted" id="unerupted" value="Yes">Unerupted
-			<td><input type="checkbox" name="porcr" id="porcr" value="Yes">Porcelain Crown
+			<td><input type="checkbox" name="extracted" id="extracted" value="Yes" disabled>Extracted
+			<td><input type="checkbox" name="unerupted" id="unerupted" value="Yes" disabled>Unerupted
+			<td><input type="checkbox" name="porcr" id="porcr" value="Yes" disabled>Porcelain Crown
 			<td>
 		</tr>
 		</table><br><br>
@@ -536,7 +536,7 @@ $session_data = $this->session->userdata('logged_in');
 			<td colspan=4><u>Periodontics</u>
 		<tr>
 		<tr>
-			<td colspan=4><input type="checkbox" name="mopd" id="mopd" value="Yes">Management of Periodontal Disease
+			<td colspan=4><input type="checkbox" name="mopd" id="mopd" value="Yes" disabled>Management of Periodontal Disease
 		</tr>
 		<tr>
 			<td><br><u>Operative Dentistry</u>

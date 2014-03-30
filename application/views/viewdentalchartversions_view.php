@@ -62,6 +62,7 @@
 					echo "<td>".$row['updateStatus'];
 					echo "<td>".$faculty['userFName']." ".substr($faculty['userMName'], 0, 1).". ".$faculty['userLName'];
 					echo "</tr>";
+					echo "<td>".$row['approvedOn'];
 					$ctr++;
 				}
 			}

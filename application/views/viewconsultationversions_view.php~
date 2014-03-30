@@ -65,7 +65,7 @@
 					$ctr++;
 				}
 			}
-			else echo "<tr> <td colspan=5> No versions found </tr> ";
+			else echo "<tr> <td colspan=5><br> No versions found </tr> ";
 		?>
 		
 	</table><br>

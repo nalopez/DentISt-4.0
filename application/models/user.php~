@@ -278,17 +278,10 @@ Class User extends CI_Model
 	}
 
 	function selectUsers_pt2($name, $uname){
-
-		/*
-		$this -> db -> select('users_role.role_type, users_role.role_section');
-   		$this -> db -> from('users_role');
-		$this->db->join('users_auth', 'users.userID = users_auth.userID');
-		$this->db->join('users_role', 'users.userID = users_role.userID');
-		$this->db->where(CONCAT_WS(' ', 'users.userFName', 'users.userLName'), $name);
-		$this->db->where('users_auth.username', $uname);
-   		$query = $this -> db -> get();*/
 	
-		$query = $this->db->query("SELECT users_role.role_type, users_role.role_section FROM  users_role, users_auth, users WHERE users.userID = users_auth.userID AND users.userID = users_role.userID AND CONCAT(users.userFName, ' ', users.userLName)='$name' AND users_auth.username='$uname'");
+		/*$query = $this->db->query("SELECT users_role.role_type, users_role.role_section FROM  users_role, users_auth, users WHERE users.userID = users_auth.userID AND users.userID = users_role.userID AND CONCAT(users.userFName, ' ', users.userLName)='$name' AND users_auth.username='$uname'");*/
+
+		$query = $this->db->query("SELECT users_role.role_type, users_role.role_section FROM  users_role, users_auth, users WHERE users.userID = users_auth.userID AND users.userID = users_role.userID AND users_auth.username='$uname'");
 
    		if($query -> num_rows() >= 1)
    		{
@@ -317,7 +310,7 @@ Class User extends CI_Model
 	}*/
 
 	function selectUsers2($userID){
-		$this -> db -> select('users.userID, users.userFName, users.userMName, users.userLName, users_auth.username, users_auth.userpword, users_role.role_type, users_role.role_section');
+		$this -> db -> select('users.userID, users.userFName, users.userMName, users.userLName, users_auth.username, users_auth.userpword, users_role.role_type, users_role.role_section, users_auth.secret_question, users_auth.secret_answer');
    		$this -> db -> from('users', 'users_auth', 'users_role');
 		$this->db->join('users_auth', 'users.userID = users_auth.userID');
 		$this->db->join('users_role', 'users.userID = users_role.userID');
@@ -336,7 +329,9 @@ Class User extends CI_Model
 
 	function searchUser($string){
 
-		$query = $this->db->query("SELECT users.userID, users.userFName, users.userMName, users.userLName, users_auth.username FROM users_auth, users WHERE users.userID = users_auth.userID AND CONCAT(users.userFName, ' ', users.userLName) LIKE '%$string%'");
+		/*$query = $this->db->query("SELECT users.userID, users.userFName, users.userMName, users.userLName, users_auth.username FROM users_auth, users WHERE users.userID = users_auth.userID AND CONCAT(users.userFName, ' ', users.userLName) LIKE '%$string%'");*/
+
+		$query = $this->db->query("SELECT users.userID, users.userFName, users.userMName, users.userLName, users_auth.username FROM users_auth, users WHERE users.userID = users_auth.userID AND (users.userFName='$string' OR users.userMName='$string' OR users.userLName='$string')");
 
    		if($query -> num_rows() >= 1)
    		{
@@ -416,7 +411,7 @@ Class User extends CI_Model
    		}
 	}
 
-	function addUser($lname, $fname, $mname, $role, $section, $username, $password, $date){
+	function addUser($lname, $fname, $mname, $role, $section, $username, $password, $date, $secques, $secans){
 		$this -> db -> select('salt');
    		$this -> db -> from('users_auth');
    		$this -> db -> where('username', $username);
@@ -446,7 +441,16 @@ Class User extends CI_Model
 
 
 		if($userID != 0){
+			$maxroleID = 0;
+
+			$this->db->select_max('roleID');
+			$query1 = $this->db->get('users_role');
+			$res1 = $query1->row_array();
+
+			if($query1 -> num_rows() >= 1) $maxroleID = $res1['roleID'];
+
 			$data2 = array(
+			'roleID' => $maxroleID+1,
 			'userID' => $userID,
 			'role_type' => $role,
 			'role_section' => $section);
@@ -454,7 +458,16 @@ Class User extends CI_Model
 
 		}
 		else{
+			$maxuserID = 0;
+
+			$this->db->select_max('userID');
+			$query1 = $this->db->get('users');
+			$res1 = $query1->row_array();
+
+			if($query1 -> num_rows() >= 1) $maxuserID = $res1['userID'];
+
 		$data = array(
+			'userID' => $maxuserID+1,
 			'userLName' => $lname,
 			'userFName' => $fname,
 			'userMName' => $mname);
@@ -470,8 +483,15 @@ Class User extends CI_Model
 		foreach($result as $row){
 			$userID = $row['userID'];
 		}
+
+		$this->db->select_max('roleID');
+		$query1 = $this->db->get('users_role');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxroleID = $res1['roleID'];
 	
 		$data2 = array(
+			'roleID' => $maxroleID+1,
 			'userID' => $userID,
 			'role_type' => $role,
 			'role_section' => $section,
@@ -484,11 +504,20 @@ Class User extends CI_Model
 		$salt = substr($intermediateSalt, 0, 6);
 		$salted = hash("sha256", $password.$salt);
 
+		$this->db->select_max('authID');
+		$query1 = $this->db->get('users_auth');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxauthID = $res1['authID'];
+
 		$data3 = array(	
+			'authID' => $maxauthID+1,
 			'userID' => $userID,
 			'username' => $username,
 			'userpword' => $salted,
-			'salt' => $salt);
+			'salt' => $salt,
+			'secret_question' => $secques,
+			'secret_answer' => $secans);
 		$this->db->insert('users_auth', $data3);
 		}
 	}
@@ -536,7 +565,16 @@ Class User extends CI_Model
 		$this->db->where('userID', $userID);
 		$this->db->update('users_auth', $data3);
 
+		$maxauditID = 0;
+
+		$this->db->select_max('audittrailID');
+		$query1 = $this->db->get('audittrail');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxauditID = $res1['audittrailID'];
+
 		$audit = array(	
+			'audittrailID' => $maxauditID+1,
 			'committedBy' => $userID2,
 			'action' => 'UPDATE',
 			'form' => 'Users',
@@ -563,7 +601,17 @@ Class User extends CI_Model
 	}
 
 	function addAuditTrail($committedBy, $action, $form, $committedTo, $date){
+
+		$maxauditID = 0;
+
+		$this->db->select_max('audittrailID');
+		$query1 = $this->db->get('audittrail');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxauditID = $res1['audittrailID'];
+
 		$audit = array(	
+			'audittrailID' => $maxauditID+1,
 			'committedBy' => $committedBy,
 			'action' => $action,
 			'form' => $form,
@@ -574,7 +622,17 @@ Class User extends CI_Model
 	}
 
 	function searchAuditTrail($text, $from, $to, $action, $form){
-		$query = $this->db->query("SELECT * FROM users, users_auth, audittrail WHERE users.userID = users_auth.userID AND users.userID = audittrail.committedBy AND (CONCAT(users.userFName, ' ', users.userLName) LIKE '%$text%' OR users_auth.username LIKE '%$text%') AND action LIKE '%$action%' AND form LIKE '%$form%'");
+		$actionq = "";
+		$formq = "";
+
+		if($action != ""){
+			$actionq = "AND action = '$action'";
+		}
+		if($form != ""){
+			$formq = "AND form = '$form'";
+		}
+
+		$query = $this->db->query("SELECT * FROM users, users_auth, audittrail WHERE users.userID = users_auth.userID AND users.userID = audittrail.committedBy AND (users.userFName='$text' OR users.userMName='$text' OR users.userLName='$text' OR users_auth.username='$text') $actionq $formq");
 
    		if($query -> num_rows() >= 1)
    		{

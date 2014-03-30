@@ -36,6 +36,8 @@
 		//$role = $row->role_type;
 		//$section = $row->role_section;
 		$uname = $row->username;
+		$secques = $row->secret_question;
+		$secans = $row->secret_answer;
 		//$pword = $row->userpword;
 		}
 	}
@@ -65,16 +67,13 @@
 	<input type="hidden" name="userID" value="<?php echo $userID; ?>">
 	<table align="center">
 	<tr>
-		<td><label for="firstname">First Name:</label>  
-		<td><input type="text" name="firstname" value="<?php echo $fname; ?>">
+		<td>Name:
+		<td><input type="text" name="firstname" value="<?php echo $fname; ?>" size=15>
+			<input type="text" name="midname" value="<?php echo $mname; ?>"  size=15>
+			<input type="text" name="lastname" value="<?php echo $lname; ?>"  size=15>
 	</tr>
 	<tr>
-		<td><label for="midname">Middle Name:</label> 
-		<td><input type="text" name="midname" value="<?php echo $mname; ?>">
-	</tr>
-	<tr>
-		<td><label for="lastname">Last Name:</label> 
-		<td><input type="text" name="lastname" value="<?php echo $lname; ?>">
+		<td colspan=3> <hr width=100% align="center" color="#d3d3d3">
 	</tr>
 	<tr>
 		<td>Section/Role: 
@@ -159,6 +158,9 @@
 	
 		</td>
 	</tr>
+	<tr>
+		<td colspan=3> <hr width=100% align="center" color="#d3d3d3">
+	</tr>
 	<!--<tr>
 		<td>Role:
 		<td><select name="role" id="role">
@@ -180,7 +182,22 @@
 		<td><label for="password2">Retype password:</label>
      		<td><input type="password" size="20" id="password2" name="password2"/>
      	</tr>
-	</table>
+	<tr>
+		<td colspan=3> <hr width=100% align="center" color="#d3d3d3">
+	</tr>
+	<tr>
+		<td><label for="secques">Security Question:</label>
+     		<td><select name="secques" id="secques">
+			<option value="Select a question.."> Select a question.. </option>
+			<option value="What is your favorite childhood movie?" <?php if($secques == "What is your favorite childhood movie?") echo "selected";?>> What is your favorite childhood movie? </option>
+		</select></td>
+		
+     	</tr>
+	<tr>
+		<td><label for="secans">Security Answer:</label>
+     		<td><input type="text" size="20" id="secans" name="secans" value="<?php echo $secans; ?>">
+     	</tr>
+	</table><br>
      <input type="submit" value="Edit User"/> <input type="reset" value="Clear entries"/>
    </form>
 </div>

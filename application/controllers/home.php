@@ -56,10 +56,18 @@ class Home extends CI_Controller {
 				//echo $userID;
 
 	$data2['factasks'] = false;
-
+	$data2['users'] = false;
 	$data2['appointments'] = $this->patient->getAppointments($userID);
 				//print_r($data2['appointments']);
 	if($role == "Faculty") $data2['factasks'] = $this->patient->getFacultyTask($section, $userID);
+	if($role == "System Administrator") {
+		$data2['users'] = $this->user->selectUsers();
+		foreach($data2['users'] as $row){
+			$name = $row->userFName." ".$row->userLName;
+			$uname = $row->username;
+			$data2['users2'][$uname] = $this->user->selectUsers_pt2($name, $uname);
+		}
+	}
 	$data2['tasks'] = $this->patient->getStudentTask($section, $userID);
 	$data2['section'] = $section;
 	$this->load->helper(array('form'));
@@ -93,6 +101,7 @@ class Home extends CI_Controller {
 			$date = date("Y-m-d");
 
 		$this->user->addAuditTrail($id, 'LOGOUT', 'Users', '', $date);
+		echo "Logging out";
 
 
    $this->session->unset_userdata('logged_in');

@@ -57,13 +57,6 @@ class LoadDashboard extends CI_Controller {
        				);
 				}
 
-				$data['services'] = $this->patient->getPatientServices($id);
-				if($data['services']) {
-					$data['servicetrue'] = true;
-				} 
-				else 
-					$data['servicetrue'] = false; 
-
 				//print_r($ptnt_array);
        				$this->session->set_userdata('current_patient', $ptnt_array);
 				$data['recordexist'] = false;

@@ -146,7 +146,7 @@ function getAge(value) {
 	</tr>
 	<tr>
 		<td>Deceased?
-		<td><input name="deceased" type="radio" value="Yes" <?php if(set_value('deceased') == 'Yes') echo 'checked';  ?>> Yes &nbsp; <input name="deceased" type="radio" value="Yes" <?php if(set_value('deceased') == 'No') echo 'checked';  ?>> No 
+		<td><input name="deceased" type="radio" value="Yes" <?php if(set_value('deceased') == 'Yes') echo 'checked';  ?>> Yes &nbsp; <input name="deceased" type="radio" value="No" <?php if(set_value('deceased') == 'No') echo 'checked';  ?>> No 
 	</tr>
 	<tr>
 		<td colspan=3> <hr width=100% align="center" color="#d3d3d3">

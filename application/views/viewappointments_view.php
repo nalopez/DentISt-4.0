@@ -70,7 +70,8 @@
 			<td><b>Date</b>
 			<td>
 		</tr>
-		<?php 	if($appointments){
+		<?php 	
+			if($appointments){
 				$count = sizeof($appointments);
 				$ctr = 1;
 				$patientname = "";

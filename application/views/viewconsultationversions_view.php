@@ -49,6 +49,7 @@
 			<td><b>Update Date</b>
 			<td><b>Status</b>
 			<td><b>Approved By</b>
+			<td><b>Approved On </b>
 		</tr>
 		<?php 	if($version){
 				$count = sizeof($version);
@@ -61,6 +62,7 @@
 					echo "<td>".$row['updateDate'];
 					echo "<td>".$row['updateStatus'];
 					echo "<td>".$faculty['userFName']." ".substr($faculty['userMName'], 0, 1).". ".$faculty['userLName'];
+					echo "<td>".$row['approvedOn'];
 					echo "</tr>";
 					$ctr++;
 				}

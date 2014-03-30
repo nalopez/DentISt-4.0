@@ -65,10 +65,13 @@ $session_data = $this->session->userdata('logged_in');
 			<td><b>Clinician</b>
 			<td><b>Date of Appointment</b>
 		</tr>
-		<?php 	if($appointments){
+		<?php
+			$ctr = 0;
+			print_r($appointments);
+		 	if($appointments){
+				echo "appointments";
 				//print_r($appointments);
 				$count = sizeof($appointments);
-				$ctr = 1;
 				$patientname = "";
 				$studentname = "";
 				foreach($appointments as $row){
@@ -78,26 +81,30 @@ $session_data = $this->session->userdata('logged_in');
 
 					if(!empty($row)){
 						foreach($row as $row2){
-							//echo "<tr><td>".$row2['UPCD_ID'].", ".$row2['studentID']."</tr>";
-							$patient = $this->patient->getPatient($row2['UPCD_ID']);
-							foreach($patient as $row3){
-								$patientname = $row3['patientFName']." ".substr($row3['patientMName'], 0, 1).". ".$row3['patientLName'];
-							}
-							$student = $this->user->getUserInfopt1($row2['studentID']);
-							foreach($student as $row3){
-								$studentname = $row3['userFName']." ".substr($row3['userMName'], 0, 1).". ".$row3['userLName'];
-							}			
-							echo "<tr><td>".$ctr;
-							echo "<td><a href='".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID']."'>".$patientname."</a>";
-							echo "<td>".$studentname;
-							echo "<td>".$row2['appointmentDate'];
-							echo "</tr>";
-							$ctr++;
+							//if($row2 != ""){
+								echo $row2;
+								//echo "<tr><td>".$row2['UPCD_ID'].", ".$row2['studentID']."</tr>";
+								$patient = $this->patient->getPatient($row2['UPCD_ID']);
+								foreach($patient as $row3){
+									$patientname = $row3['patientFName']." ".substr($row3['patientMName'], 0, 1).". ".$row3['patientLName'];
+								}
+								$student = $this->user->getUserInfopt1($row2['studentID']);
+								foreach($student as $row3){
+									$studentname = $row3['userFName']." ".substr($row3['userMName'], 0, 1).". ".$row3['userLName'];
+								}			
+								echo "<tr><td>".($ctr+1);
+								echo "<td><a href='".base_url()."index.php/loaddashboard/patientdb/".$row2['UPCD_ID']."'>".$patientname."</a>";
+								echo "<td>".$studentname;
+								echo "<td>".$row2['appointmentDate'];
+								echo "</tr>";
+								$ctr++;
+							//}
 						}
 					}
 				}
+				echo "ctr = $ctr";
 			}
-			else echo "<tr> <td colspan=4> <br> No task found </br>";
+			if($ctr == 0) echo "<tr> <td colspan=4> <br> No appointments found </br>";
 		?>
 		
 	</table><br>

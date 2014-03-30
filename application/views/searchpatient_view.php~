@@ -579,8 +579,9 @@ $session_data = $this->session->userdata('logged_in');
 			<td>
 			<td>
 		</tr>
-		</table><br><br>
-		<table frame="box" class="frame" style="width:98%; left:1%;">
+		<tr>
+			<td> &nbsp;
+		<tr>
 		<tr>
 			<td><u>Fixed Partial Denture</u>
 			<td><u>Prosthodontics</u>

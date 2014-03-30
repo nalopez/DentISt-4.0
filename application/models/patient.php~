@@ -3,7 +3,17 @@ Class Patient extends CI_Model
 {
 
 	function addPatient($id, $fname, $mname, $lname, $houseno, $street, $brgy, $city, $province, $sex, $bdate, $age, $deceased, $section, $clinician, $status, $date){
+
+		/*$maxpatientID = 0;
+
+		$this->db->select_max('patientID');
+		$query1 = $this->db->get('patient');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxpatientID = $res1['patientID'];*/
+
 		$data = array(
+		//	'patientID' => $maxpatientID+1,
 			'UPCD_ID' => $id,
 			'patientFName' => $fname,
 			'patientMName' => $mname,
@@ -23,7 +33,16 @@ Class Patient extends CI_Model
 			'date' => $date);
 		$this->db->insert('patient', $data);
 
+		$maxauditID = 0;
+
+		$this->db->select_max('audittrailID');
+		$query1 = $this->db->get('audittrail');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxauditID = $res1['audittrailID'];
+
 		$audit = array(	
+			'audittrailID' => $maxauditID+1,
 			'committedBy' => $clinician,
 			'action' => 'INSERT',
 			'form' => 'Patient',
@@ -54,7 +73,17 @@ Class Patient extends CI_Model
 	}
 
 	function addPatientInfo_tab1($id, $civstat, $phone, $edattain, $occupation, $ptnicoe, $ptnicoenum, $hopi, $gait, $appear, $dfcts, $bp, $pr, $rr, $temp, $wt){
+
+		$maxpatientinfoID = 0;
+
+		$this->db->select_max('patientinfoID');
+		$query1 = $this->db->get('patientinfo');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxpatientinfoID = $res1['patientinfoID'];
+
 		$data = array(
+			'patientinfoID' => $maxpatientinfoID+1,
 			'UPCD_ID' => $id,
 			'civstat' => $civstat,
 			'phonenum' => $phone,
@@ -66,6 +95,7 @@ Class Patient extends CI_Model
 		$this->db->insert('patientinfo', $data);
 
 		$data2 = array(
+			'phyassessID' => $maxpatientinfoID+1,
 			'UPCD_ID' => $id,
 			'gait' => $gait,
 			'appear' => $appear,
@@ -73,6 +103,7 @@ Class Patient extends CI_Model
 		$this->db->insert('phyassess', $data2);
 		
 		$data3 = array(
+			'vitalsignsID' => $maxpatientinfoID+1,
 			'UPCD_ID' => $id,
 			'bp' => $bp,
 			'pr' => $pr,
@@ -84,7 +115,18 @@ Class Patient extends CI_Model
 	}
 
 	function addPatientInfo_tab2($id, $hbp, $pij, $ha, $trem, $apcp, $bt, $sa, $dptgb, $fhf, $pal, $pahv, $dia, $emp, $goi, $af, $bobt, $cc, $swlog, $brp, $ft, $bs, $fh, $sin, $fur, $fha, $che, $diz, $puu, $fslc, $biu, $vi, $hep, $hi, $hiv, $art, $pad, $ner, $dep, $anx, $ast, $oth, $checklist, $diaf, $bdf, $hdf, $canf, $famoth, $family, $druga, $fooda, $ruba, $aloth, $allergy, $pregfe, $bffe, $hrtfe, $mensfe, $confe){
+
+		$maxchecklistID = 0;
+
+		$this->db->select_max('checklistID');
+		$query1 = $this->db->get('patientchecklist');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxchecklistID = $res1['checklistID'];
+		
+
 		$data = array(
+			'checklistID' => $maxchecklistID+1,
 			'UPCD_ID' => $id,
 			'highbloodpressure' => $hbp,
 			'joint_pain' => $pij,
@@ -131,6 +173,7 @@ Class Patient extends CI_Model
 		$this->db->insert('patientchecklist', $data);
 
 		$data2 = array(
+			'checklistID' => $maxchecklistID+1,
 			'UPCD_ID' => $id,
 			'familydiabetes' => $diaf,
 			'bleeding_disorder' => $bdf,
@@ -141,6 +184,7 @@ Class Patient extends CI_Model
 		$this->db->insert('familychecklist', $data2);
 
 		$data3 = array(
+			'checklistID' => $maxchecklistID+1,
 			'UPCD_ID' => $id,
 			'drugs' => $druga,
 			'food' => $fooda,
@@ -150,6 +194,7 @@ Class Patient extends CI_Model
 		$this->db->insert('allergychecklist', $data3);
 
 		$data4 = array(
+			'checklistID' => $maxchecklistID+1,
 			'UPCD_ID' => $id,
 			'pregnant' => $pregfe,
 			'breastfeeding' => $bffe,
@@ -160,7 +205,17 @@ Class Patient extends CI_Model
 	}
 
 	function addPatientInfo_tab3($id, $phyname, $phyphone, $hospdate, $hospreason, $allergies, $illnesses, $medications, $ci, $cig, $cigkind, $cigfreq, $cigdur, $cigdole, $alco, $alcokind, $alcofreq, $alcodur, $alcodole, $drug, $drugkind, $drugfreq, $drugdur, $drugdole){
+
+		$maxmedhistoID = 0;
+
+		$this->db->select_max('medhistoID');
+		$query1 = $this->db->get('medicalhistory');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxmedhistoID = $res1['medhistoID'];
+
 		$data = array(
+			'medhistoID' => $maxmedhistoID+1,
 			'UPCD_ID' => $id,
 			'physician_name' => $phyname,
 			'physician_phone' => $phyphone,
@@ -173,6 +228,7 @@ Class Patient extends CI_Model
 		$this->db->insert('medicalhistory', $data);
 		
 		$data2 = array(
+			'socialhistoID' => $maxmedhistoID+1,
 			'UPCD_ID' => $id,
 			'cigarette' => $cig,
 			'cigarette_type' => $cigkind,
@@ -194,7 +250,17 @@ Class Patient extends CI_Model
 	}
 
 	function addPatientInfo_tab4($id, $dolv, $pdolv, $fodv, $eortle, $cdaoadp, $hntd, $lfnd, $mucd, $pltd, $prxd, $ftmd, $tngd, $lymd, $sald, $thyd, $ggvd){
+
+		$maxdenthistoID = 0;
+
+		$this->db->select_max('denthistoID');
+		$query1 = $this->db->get('dentalhistory');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxdenthistoID = $res1['denthistoID'];
+
 		$data = array(
+			'denthistoID' => $maxdenthistoID+1,
 			'UPCD_ID' => $id,
 			'dateoflastvisit' => $dolv,
 			'proceduresonlastvisit' => $pdolv,
@@ -204,6 +270,7 @@ Class Patient extends CI_Model
 		$this->db->insert('dentalhistory', $data);
 
 		$data2 = array(
+			'softtissueexamID' => $maxdenthistoID+1,
 			'UPCD_ID' => $id,
 			'headneckTMJ' => $hntd,
 			'lipsfrenum' => $lfnd,
@@ -221,7 +288,16 @@ Class Patient extends CI_Model
 
 	function addPatientInfo_tab5($id, $discar, $buccar, $lincar, $mescar, $occcar, $discaries, $buccaries, $lincaries, $mescaries, $occcaries, $disrec, $bucrec, $linrec, $mesrec, $occrec, $disrecur, $bucrecur, $linrecur, $mesrecur, $occrecur, $disres, $bucres, $linres, $mesres, $occres, $disresto, $bucresto, $linresto, $mesresto, $occresto, $name, $rpds, $extrusions, $intrusions, $mesdrifts, $disdrifts, $rotations, $postcores, $rootcanals, $pitandfissures, $extracteds, $missings, $unerupteds, $impacteds, $porcelains, $acrylics, $metals, $porcelainfuseds, $fixedbridges, $c1s, $c2s, $c3s, $c4s, $c5s, $ols, $exs, $ods, $scs, $pss, $crs, $fss, $lams, $scrs, $bss, $ants, $poss, $oths, $periodontics, $pedodontics, $orthodontics, $acuteinfections, $traumaticinjuries, $completedent, $singledent, $removedent, $othersdent, $notes, $compdent, $updent, $lowdent){
 
+		$maxdentalchartID = 0;
+
+		$this->db->select_max('dentalchartID');
+		$query1 = $this->db->get('dentalchart');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxdentalchartID = $res1['dentalchartID'];
+
 		$data = array(
+			'cariesstatusID' => $maxdentalchartID+1,
 			'UPCD_ID' => $id,
 			'distal_caries' => $discar,
 			'buccal_caries' => $buccar,
@@ -236,6 +312,7 @@ Class Patient extends CI_Model
 		$this->db->insert('cariesstatus', $data);
 
 		$data2 = array(
+			'recurrentstatusID' => $maxdentalchartID+1,
 			'UPCD_ID' => $id,
 			'distal_recurrent' => $disrec,
 			'buccal_recurrent' => $bucrec,
@@ -250,6 +327,7 @@ Class Patient extends CI_Model
 		$this->db->insert('recurrentstatus', $data2);
 
 		$data3 = array(
+			'restorationstatusID' => $maxdentalchartID+1,
 			'UPCD_ID' => $id,
 			'distal_restoration' => $disres,
 			'buccal_restoration' => $bucres,
@@ -264,8 +342,9 @@ Class Patient extends CI_Model
 		$this->db->insert('restorationstatus', $data3);
 
 		$data4 = array(
+			'dentalchartID' => $maxdentalchartID+1,
 			'UPCD_ID' => $id,
-			'clinician' => $name,
+			//'clinician' => $name,
 			'removable_partial_denture' => $rpds,
 			'extrusion' => $extrusions,
 			'intrusion' => $intrusions,
@@ -287,6 +366,7 @@ Class Patient extends CI_Model
 		$this->db->insert('dentalchart', $data4);
 
 		$data5 = array(
+			'serviceneededID' => $maxdentalchartID+1,
 			'UPCD_ID' => $id,
 			'class1' => $c1s,
 			'class2' => $c2s,
@@ -309,6 +389,7 @@ Class Patient extends CI_Model
 		$this->db->insert('serviceneeded', $data5);
 
 		$data6 = array(
+			'otherservicesID' => $maxdentalchartID+1,
 			'UPCD_ID' => $id,
 			'periodontics' => $periodontics,
 			'pedodontics' => $pedodontics,
@@ -323,6 +404,7 @@ Class Patient extends CI_Model
 		$this->db->insert('otherservices', $data6);
 
 		$data7 = array(
+			'denturesID' => $maxdentalchartID+1,
 			'UPCD_ID' => $id,
 			'complete_denture' => $compdent,
 			'upper_denture' => $updent,
@@ -332,7 +414,17 @@ Class Patient extends CI_Model
 	}
 
 	function addPatientInfo_tab6($id, $chiefcomp, $perio, $rpd, $resto, $os, $fpd, $pedo, $endo, $cd, $ortho,$ptp){
+
+		$maxtreatmentplanID = 0;
+
+		$this->db->select_max('treatmentplanID');
+		$query1 = $this->db->get('treatmentplan');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxtreatmentplanID = $res1['treatmentplanID'];
+
 		$data = array(
+			'treatmentplanID' => $maxtreatmentplanID+1,
 			'UPCD_ID' => $id,
 			'chiefcomplaints' => $chiefcomp,
 			'perio' => $perio,
@@ -349,7 +441,17 @@ Class Patient extends CI_Model
 	}
 
 	function addPatientInfo_tab7($id, $datetxt, $toothtxt, $findingstxt){
+
+		$maxradioexamID = 0;
+
+		$this->db->select_max('radioexamID');
+		$query1 = $this->db->get('radiographicexam');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxradioexamID = $res1['radioexamID'];
+
 		$data = array(
+			'radioexamID' => $maxradioexamID+1,
 			'UPCD_ID' => $id,
 			'date' => $datetxt,
 			'toothno' => $toothtxt,
@@ -358,7 +460,17 @@ Class Patient extends CI_Model
 	}
 
 	function addPatientInfo_tab8($id, $servicedatetxt, $renderedtxt, $feestxt){
+
+		$maxservicesrenderedID = 0;
+
+		$this->db->select_max('servicesrenderedID');
+		$query1 = $this->db->get('servicesrendered');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxservicesrenderedID = $res1['servicesrenderedID'];
+
 		$data = array(
+			'servicesrenderedID' => $maxservicesrenderedID+1,
 			'UPCD_ID' => $id,
 			'date' => $servicedatetxt,
 			'services' => $renderedtxt,
@@ -367,7 +479,17 @@ Class Patient extends CI_Model
 	}
 
 	function addPatientInfo_tab9($id, $datenewtxt, $reasontxt, $startdatetxt, $enddatetxt, $findingstxt){
+
+		$maxconfindID = 0;
+
+		$this->db->select_max('confindID');
+		$query1 = $this->db->get('consultationandfindings');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxconfindID = $res1['confindID'];
+
 		$data = array(
+			'confindID' => $maxconfindID+1,
 			'UPCD_ID' => $id,
 			'date' => $datenewtxt,
 			'reason' => $reasontxt,
@@ -378,7 +500,17 @@ Class Patient extends CI_Model
 	}
 
 	function addPatientInformationVersion($id, $name, $date, $status, $approver){
+
+		$maxpatientinfoverID = 0;
+
+		$this->db->select_max('patientinfoversionID');
+		$query1 = $this->db->get('patientinfoversion');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxpatientinfoverID = $res1['patientinfoversionID'];
+
 		$data = array(
+			'patientinfoversionID' => $maxpatientinfoverID+1,
 			'UPCD_ID' => $id,
 			'updatedBy' => $name,
 			'updateDate' => $date,
@@ -388,7 +520,16 @@ Class Patient extends CI_Model
 	}
 
 	function addPatientChecklistVersion($id, $name, $date, $status, $approver){
+
+		$maxchecklistverID = 0;
+
+		$this->db->select_max('patientchecklistversionID');
+		$query1 = $this->db->get('patientchecklistversion');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxchecklistverID = $res1['patientchecklistversionID'];
 		$data = array(
+			'patientchecklistversionID' => $maxchecklistver+1,
 			'UPCD_ID' => $id,
 			'updatedBy' => $name,
 			'updateDate' => $date,
@@ -398,7 +539,16 @@ Class Patient extends CI_Model
 	}
 
 	function addMedAndSocHistoVersion($id, $name, $date, $status, $approver){
+
+		$maxmedandsochistoverID = 0;
+
+		$this->db->select_max('medandsochistoversionID');
+		$query1 = $this->db->get('medandsochistoversion');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxmedandsochistoverID = $res1['medandsochistoversionID'];
 		$data = array(
+			'medandsochistoversionID' => $maxmedandsochistoverID+1,
 			'UPCD_ID' => $id,
 			'updatedBy' => $name,
 			'updateDate' => $date,
@@ -408,7 +558,17 @@ Class Patient extends CI_Model
 	}
 
 	function addDentalDataVersion($id, $name, $date, $status, $approver){
+
+		$maxdentaldataverID = 0;
+
+		$this->db->select_max('dentaldataversionID');
+		$query1 = $this->db->get('dentaldataversion');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxdentaldataverID = $res1['dentaldataversionID'];
+
 		$data = array(
+			'dentaldataversionID' => $maxdentaldataverID+1,
 			'UPCD_ID' => $id,
 			'updatedBy' => $name,
 			'updateDate' => $date,
@@ -418,7 +578,17 @@ Class Patient extends CI_Model
 	}
 
 	function addDentalChartVersion($id, $name, $date, $status, $approver){
+
+		$maxdentalchartverID = 0;
+
+		$this->db->select_max('dentalchartversionID');
+		$query1 = $this->db->get('dentalchartversion');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxdentalchartverID = $res1['dentalchartversionID'];
+
 		$data = array(
+			'dentalchartversionID' => $maxdentalchartverID+1,
 			'UPCD_ID' => $id,
 			'updatedBy' => $name,
 			'updateDate' => $date,
@@ -428,7 +598,17 @@ Class Patient extends CI_Model
 	}
 
 	function addTreatmentPlanVersion($id, $name, $date, $status, $approver){
+
+		$maxtreatmentplanverID = 0;
+
+		$this->db->select_max('treatmentplanversionID');
+		$query1 = $this->db->get('treatmentplanversion');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxtreatmentplanverID = $res1['treatmentplanversionID'];
+
 		$data = array(
+			'treatmentplanversionID' => $treatmentplanverID+1,
 			'UPCD_ID' => $id,
 			'updatedBy' => $name,
 			'updateDate' => $date,
@@ -438,7 +618,17 @@ Class Patient extends CI_Model
 	}
 
 	function addRadiographicExamVersion($id, $name, $date, $status, $approver){
+
+		$maxradioexamverID = 0;
+
+		$this->db->select_max('radioexamversionID');
+		$query1 = $this->db->get('radioexamversion');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxradioexamverID = $res1['radioexamversionID'];
+
 		$data = array(
+			'radioexamversionID' => $maxradioexamverID+1,
 			'UPCD_ID' => $id,
 			'updatedBy' => $name,
 			'updateDate' => $date,
@@ -448,7 +638,16 @@ Class Patient extends CI_Model
 	}
 
 	function addServicesRenderedVersion($id, $name, $date, $status, $approver){
+
+		$maxservicesrenderedverID = 0;
+
+		$this->db->select_max('servicesrenderedversionID');
+		$query1 = $this->db->get('servicesrenderedversion');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxservicesrenderedverID = $res1['servicesrenderedversionID'];
 		$data = array(
+			'servicesrenderedversionID' => $maxservicesrenderedverID+1,
 			'UPCD_ID' => $id,
 			'updatedBy' => $name,
 			'updateDate' => $date,
@@ -458,7 +657,17 @@ Class Patient extends CI_Model
 	}
 
 	function addConFindVersion($id, $name, $date, $status, $approver){
+
+		$maxconfindverID = 0;
+
+		$this->db->select_max('confindversionID');
+		$query1 = $this->db->get('confindversion');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxconfindverID = $res1['confindversionID'];
+
 		$data = array(
+			'confindversionID' => $maxconfindverID+1,
 			'UPCD_ID' => $id,
 			'updatedBy' => $name,
 			'updateDate' => $date,
@@ -468,7 +677,17 @@ Class Patient extends CI_Model
 	}
 
 	function addPatientDashboardVersion($id, $section, $studentID, $date, $status, $facultyID, $curr_section){
+
+		$maxpatientdbverID = 0;
+
+		$this->db->select_max('patientdashboardversionID');
+		$query1 = $this->db->get('patientdashboardversion');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxpatientdbverID = $res1['patientdashboardversionID'];
+
 		$data = array(
+			'patientdashboardversionID' => $maxpatientdbverID+1,
 			'UPCD_ID7' => $id,
 			'section7' => $section,
 			'updatedBy7' => $studentID,
@@ -4457,7 +4676,17 @@ Class Patient extends CI_Model
 	}
 
 	function addRemark($studentid, $facultyid, $patientid, $remark, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan, $radiographicexam, $servicesrendered, $consultationandfindings){
+
+		$maxremarkID = 0;
+
+		$this->db->select_max('remarkID');
+		$query1 = $this->db->get('remark');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxremarkID = $res1['remarkID'];
+
 		$data = array(
+			'remarkID' => $maxremarkID+1,
 			'userID' => $studentid,
 			'patientID' => $patientid,
 			'facultyID' => $facultyid,
@@ -4492,7 +4721,16 @@ Class Patient extends CI_Model
 		$this->db->where('updateStatus7', 'Pending');
 		$this->db->update('patientdashboardversion', $data2);
 
+		$maxstudenttaskID = 0;
+
+		$this->db->select_max('studenttaskID');
+		$query1 = $this->db->get('studenttasks');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxstudenttaskID = $res1['studenttaskID'];
+
 		$data3 = array(
+			'studenttaskID' => $maxstudenttaskID+1,
 			'UPCD_ID' => $patientID,
 			'section' => $section,
 			'taskdescription' => 'Assign to '.$section.' Clinician'
@@ -4512,7 +4750,16 @@ Class Patient extends CI_Model
 		$this->db->where('UPCD_ID', $patientID);
 		$this->db->update('patient', $data); 	
 
+		$maxstudenttaskID = 0;
+
+		$this->db->select_max('studenttaskID');
+		$query1 = $this->db->get('studenttasks');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxstudenttaskID = $res1['studenttaskID'];
+
 		$data3 = array(
+			'studenttaskID' => $maxstudenttaskID+1,
 			'UPCD_ID' => $patientID,
 			'section' => $section,
 			'taskdescription' => 'Assign to '.$section.' Clinician'
@@ -4532,7 +4779,17 @@ Class Patient extends CI_Model
 		$this->db->where('updateStatus7', 'Pending');
 		$this->db->update('patientdashboardversion', $data);
 
+		$maxstudenttaskID = 0;
+
+		$this->db->select_max('studenttaskID');
+		$query1 = $this->db->get('studenttasks');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxstudenttaskID = $res1['studenttaskID'];
+
+
 		$data2 = array(
+			'studenttaskID' => $maxstudenttaskID+1,
 			'UPCD_ID' => $patientID,
 			'clinicianID' => $userid,
 			'section' => $currentsection,
@@ -4577,7 +4834,18 @@ Class Patient extends CI_Model
 	}
 
 	function setAppointment($patientID, $studentID, $date){
+
+		$maxappointmentID = 0;
+
+		$this->db->select_max('appointmentID');
+		$query1 = $this->db->get('appointment');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $maxappointmentID = $res1['appointmentID'];
+
+
 		$data = array(
+			'appointmentID' => $maxappointmentID+1,
 			'UPCD_ID' => $patientID,
 			'studentID' => $studentID,
 			'appointmentDate' => $date);

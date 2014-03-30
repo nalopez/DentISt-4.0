@@ -117,9 +117,10 @@ function index(){
 
 				$this->session->unset_userdata('has_error');
 
-				$userID222 = $session_data['username'];
+				$session_data5 = $this->session->userdata('logged_in');
+				$userID222 = $session_data5['username'];
 				$userID22 = $this->user->getUserID($userID222);
-				$userID2 = $userID22['$userID'];
+				$userID2 = $userID22['userID'];
 				$date = date("Y-m-d");
 
 				if($this->patient->hasDentalData($id)) $this->user->addAuditTrail($userID2, 'UPDATE', 'Dental Data', $id, $date);

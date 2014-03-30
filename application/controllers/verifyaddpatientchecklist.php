@@ -291,16 +291,17 @@ function index(){
 
 				
 				$session_data = $this->session->userdata('current_patient');
+				$session_data2 = $this->session->userdata('logged_in');
 				$id = $session_data['id'];
 
 				$this->session->unset_userdata('has_error');
 
-				$userID222 = $session_data['username'];
+				$userID222 = $session_data2['username'];
 				$userID22 = $this->user->getUserID($userID222);
-				$userID2 = $userID22['$userID'];
+				$userID2 = $userID22['userID'];
 				$date = date("Y-m-d");
 
-				if($this->patient->hasConfind($id)) $this->user->addAuditTrail($userID2, 'UPDATE', 'Patient Checklist', $id, $date);
+				if($this->patient->hasPatientChecklist($id)) $this->user->addAuditTrail($userID2, 'UPDATE', 'Patient Checklist', $id, $date);
 					else $this->user->addAuditTrail($userID2, 'INSERT', 'Patient Checklist', $id, $date);
 		
 	

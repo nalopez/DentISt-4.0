@@ -118,7 +118,7 @@ function index(){
 				$userID2 = $userID22['$userID'];
 				$date = date("Y-m-d");
 
-				if($this->patient->hasConfind($id)) $this->user->addAuditTrail($userID2, 'UPDATE', 'Patient Information', $id, $date);
+				if($this->patient->hasPatientInfo($id)) $this->user->addAuditTrail($userID2, 'UPDATE', 'Patient Information', $id, $date);
 				else $this->user->addAuditTrail($userID2, 'INSERT', 'Patient Information', $id, $date);
 		
 

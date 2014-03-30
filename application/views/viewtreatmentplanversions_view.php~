@@ -44,11 +44,11 @@
 			<td colspan=6>Treatment Plan Versions
 		</tr>
 		<tr>
-			<td><br><b>Version</b>
-			<td><br><b>Updated By</b>
-			<td><br><b>Update Date</b>
-			<td><br><b>Status</b>
-			<td><br><b>Approved By</b>
+			<td><b>Version</b>
+			<td><b>Updated By</b>
+			<td><b>Update Date</b>
+			<td><b>Status</b>
+			<td><b>Approved By</b>
 		</tr>
 		<?php 	if($version){
 				$count = sizeof($version);

@@ -30,6 +30,8 @@
 		elseif(form_error('username')) echo form_error('username');
 		elseif(form_error('password')) echo form_error('password');
 		elseif(form_error('password2')) echo form_error('password2');
+		elseif(form_error('secques')) echo form_error('secques');
+		elseif(form_error('secans')) echo form_error('secans');
  ?>
 </div>
 <form id="ADDUSER" name="ADDUSER" action="verifyadduser" method="post">
@@ -150,6 +152,19 @@
 	<tr>
 		<td colspan=3> <hr width=100% align="center" color="#d3d3d3">
 	</tr>
+	<tr>
+		<td><label for="secques">Security Question:</label>
+     		<td><select name="secques" id="secques">
+			<option value="Select a question.."> Select a question.. </option>
+			<option value="What is your favorite childhood movie?"> What is your favorite childhood movie? </option>
+		</select></td>
+		
+     	</tr>
+	<tr>
+		<td><label for="secans">Security Answer:</label>
+     		<td><input type="text" size="20" id="secans" name="secans" >
+     	</tr>
+		
 	</table><br>
      <input type="submit" value="Add User"/> <input type="reset" value="Clear entries"/>
    </form>

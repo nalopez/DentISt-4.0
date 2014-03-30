@@ -115,18 +115,19 @@ function index(){
 
 				$this->session->unset_userdata('has_error');
 
-				$userID222 = $session_data['username'];
+				$session_data5 = $this->session->userdata('logged_in');
+				$userID222 = $session_data5['username'];
 				$userID22 = $this->user->getUserID($userID222);
-				$userID2 = $userID22['$userID'];
+				$userID2 = $userID22['userID'];
 				$date = date("Y-m-d");
 
-				if($this->patient->hasConfind($id)) $this->user->addAuditTrail($userID2, 'UPDATE', 'Treatment Plan', $id, $date);
+				if($this->patient->hasTreatmentPlan($id)) $this->user->addAuditTrail($userID2, 'UPDATE', 'Treatment Plan', $id, $date);
 					else $this->user->addAuditTrail($userID2, 'INSERT', 'Treatment Plan', $id, $date);
 		
 
 
 				$this->patient->addPatientInfo_tab6($id, $chiefcomp, $perio, $rpd, $resto, $os, $fpd, $pedo, $endo, $cd, $ortho,$ptp);
-				$this->patient->addPatientServices($id, $perio, $rpd, $resto, $os, $fpd, $pedo, $endo, $cd, $ortho);
+				//$this->patient->addPatientServices($id, $perio, $rpd, $resto, $os, $fpd, $pedo, $endo, $cd, $ortho);
 
 				$session_data2 = $this->session->userdata('current_patient');
 				$session_data3 = $this->session->userdata('logged_in');

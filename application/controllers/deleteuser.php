@@ -25,7 +25,7 @@ class DeleteUser extends CI_Controller {
 			if($bool){
 			$userID222 = $session_data['username'];
 			$userID22 = $this->user->getUserID($userID222);
-			$userID2 = $userID22['$userID'];
+			$userID2 = $userID22['userID'];
 			$date = date("Y-m-d");
 
 			$userID = $this->uri->segment(3);

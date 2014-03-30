@@ -12,7 +12,44 @@
  </head>
  <body>
 <div class="maindiv">
+<br>
 
+<?php
+$session_data = $this->session->userdata('logged_in');
+$roles = $session_data['role'];
+
+if(in_array("System Administrator", $roles)){
+	echo "<table align='center' class='altcolor' style='width: 98%;' color='violet' cellpadding=5px>
+			<tr class='header'> 
+				<td colspan=5 style='text-align:center;'> Users
+			</tr>
+			<tr>
+				<td class='tab' align='center'><b> User </b>
+				<td class='tab' align='center'><b> Username </b>
+				<td class='tab' align='center'><b> Role </b>
+				<td class='tab' align='center'><b> Section </b>
+				<td class='tab' align='center'><b> Options </b>
+			</tr>";
+		if($users == FALSE) echo "<tr><td colspan=5><br> No users found <tr>";
+		else{
+			foreach($users as $row){
+				$uname = $row->username;
+				echo "<tr class='tab'><td class='tab'>".$row->userFName." ".$row->userLName;
+				echo "<td class='tab'>".$row->username;
+				echo "<td class='tab'>";
+				foreach($users2[$uname] as $row2){
+					echo $row2->role_type."<br>";
+				}
+				echo "<td class='tab'>";
+				foreach($users2[$uname] as $row2){
+					echo $row2->role_section."<br>";
+				}
+				echo "<td class='tab'><a href='".base_url()."index.php/edituser/edit/".$row->userID."'>Edit</a>&nbsp;<a href=# onClick='confirmDelete(".$row->userID.")'>Delete</a><input type='hidden' name='userID' value='".$row->userID."'></tr>";
+			}
+		}
+		echo "</table><br><br>";
+}
+?>
 	<table class="altcolor" align="center" style="width:98%; left:1%; text-align: center;">
 		<tr class="header">
 			<td colspan=6> Appointments
@@ -48,7 +85,7 @@
 		<input type=hidden name="id" id="patientid">
 	</table><br><br>
 
-	<table align ="center" class="altcolor" style="width:90%; left:5%; text-align: center;">
+	<table align ="center" class="altcolor" style="width:98%; left:5%; text-align: center;">
 		<tr class="header">
 			<td colspan=6> Tasks Lists
 		</tr>

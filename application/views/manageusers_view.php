@@ -18,6 +18,13 @@
 		}
 
 	</script>
+
+<style>
+.altcolor tr:nth-child(even) {
+    background-color: #EEAEEE;
+}
+</style>
+
  </head>
  <body>
 <?php include('navigation.php'); ?>

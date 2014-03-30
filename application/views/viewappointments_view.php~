@@ -70,7 +70,9 @@
 			<td><b>Date</b>
 			<td>
 		</tr>
-		<?php 	if($appointments){
+		<?php 	
+			print_r($appointments);
+			if($appointments){
 				$count = sizeof($appointments);
 				$ctr = 1;
 				$patientname = "";
@@ -89,7 +91,7 @@
 					$ctr++;
 				}
 			}
-			else echo "<tr<br>td colspan=4> No appointments found </tr>";
+			else echo "<tr><td colspan=4> <br>No appointments found </tr>";
 		?>
 		<!-- <a href='".base_url()."index.php/setappointment' -->
 		<input type=hidden name="id" id="patientid">

@@ -101,12 +101,13 @@ function index(){
 
 				$this->session->unset_userdata('has_error');
 
-				$userID222 = $session_data['username'];
+				$session_data5 = $this->session->userdata('logged_in');
+				$userID222 = $session_data5['username'];
 				$userID22 = $this->user->getUserID($userID222);
-				$userID2 = $userID22['$userID'];
+				$userID2 = $userID22['userID'];
 				$date = date("Y-m-d");
 
-				if($this->patient->hasConfind($id)) $this->user->addAuditTrail($userID2, 'UPDATE', 'Radiographic Exam', $id, $date);
+				if($this->patient->hasRadioExam($id)) $this->user->addAuditTrail($userID2, 'UPDATE', 'Radiographic Exam', $id, $date);
 				else $this->user->addAuditTrail($userID2, 'INSERT', 'Radiographic Exam', $id, $date);
 		
 

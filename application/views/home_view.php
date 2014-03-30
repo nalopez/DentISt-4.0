@@ -12,9 +12,47 @@
  </head>
  <body>
 <div class="maindiv">
+<br>
 
-	<table class="altcolor" align="center" style="width:98%; left:1%; text-align: center;">
-		<tr class="header">
+<?php
+$session_data = $this->session->userdata('logged_in');
+$roles = $session_data['role'];
+
+if(in_array("System Administrator", $roles)){
+	echo "<table align='center' class='altcolor' style='width: 98%;' color='violet' cellpadding=5px>
+			<tr class='header'> 
+				<td colspan=5 style='text-align:center;'> Users
+			</tr>
+			<tr>
+				<td class='tab' align='center'><b> User </b>
+				<td class='tab' align='center'><b> Username </b>
+				<td class='tab' align='center'><b> Role </b>
+				<td class='tab' align='center'><b> Section </b>
+				<td class='tab' align='center'><b> Options </b>
+			</tr>";
+		if($users == FALSE) echo "<tr><td colspan=5><br> No users found <tr>";
+		else{
+			foreach($users as $row){
+				$uname = $row->username;
+				echo "<tr class='tab'><td class='tab'>".$row->userFName." ".$row->userLName;
+				echo "<td class='tab'>".$row->username;
+				echo "<td class='tab'>";
+				foreach($users2[$uname] as $row2){
+					echo $row2->role_type."<br>";
+				}
+				echo "<td class='tab'>";
+				foreach($users2[$uname] as $row2){
+					echo $row2->role_section."<br>";
+				}
+				echo "<td class='tab'><a href='".base_url()."index.php/edituser/edit/".$row->userID."'>Edit</a>&nbsp;<a href=# onClick='confirmDelete(".$row->userID.")'>Delete</a><input type='hidden' name='userID' value='".$row->userID."'></tr>";
+			}
+		}
+		echo "</table><br><br>";
+}
+
+if(in_array("Faculty", $roles) || in_array("Student", $roles)){
+	echo "<table class='altcolor' align='center' style='width:98%; left:1%; text-align: center;'>
+		<tr class='header'>
 			<td colspan=6> Appointments
 		</tr>
 		<tr>
@@ -22,34 +60,33 @@
 			<td><b>Patient</b>
 			<td><b>Date</b>
 			<td>
-		</tr>
-		<?php 	if($appointments){
-				$count = sizeof($appointments);
-				$ctr = 1;
-				$patientname = "";
-				foreach($appointments as $row){
-					$patient = $this->patient->getPatient($row['UPCD_ID']);
-					foreach($patient as $row2){
-						$patientname = $row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
-					}					
-					echo "<tr><td>".$ctr;
-					echo "<td><a href='".base_url()."index.php/loaddashboard/patientdb/".$row['UPCD_ID']."'>".$patientname."</a>";
-					echo "<td>".$row['appointmentDate'];
-					echo "<td>";
-						if($row['appointmentDate'] == 'Pending') echo "<a href='".base_url()."index.php/setappointment/patient/".$row['UPCD_ID']."' onClick='setIDvalue(\"".$row['UPCD_ID']."\")'> Set Appointment </a>" ;
-						else echo "<a href='".base_url()."index.php/setappointment/patient/".$row['UPCD_ID']."'> Reschedule </a> &nbsp; &nbsp; <a href='#' onClick='confirmDeleteSched(\"".$row['UPCD_ID']."\")'> Remove </a>";
-					echo "</tr>";
-					$ctr++;
-				}
-			}
-			else echo "<tr><td colspan=4> <br>No appointments found </tr>";
-		?>
-		<!-- <a href='".base_url()."index.php/setappointment' -->
-		<input type=hidden name="id" id="patientid">
+		</tr>";
+	if($appointments){
+		$count = sizeof($appointments);
+		$ctr = 1;
+		$patientname = "";
+		foreach($appointments as $row){
+			$patient = $this->patient->getPatient($row['UPCD_ID']);
+			foreach($patient as $row2){
+				$patientname = $row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
+			}					
+			echo "<tr><td>".$ctr;
+			echo "<td><a href='".base_url()."index.php/loaddashboard/patientdb/".$row['UPCD_ID']."'>".$patientname."</a>";
+			echo "<td>".$row['appointmentDate'];
+			echo "<td>";
+			if($row['appointmentDate'] == 'Pending') echo "<a href='".base_url()."index.php/setappointment/patient/".$row['UPCD_ID']."' onClick='setIDvalue(\"".$row['UPCD_ID']."\")'> Set Appointment </a>" ;
+			else echo "<a href='".base_url()."index.php/setappointment/patient/".$row['UPCD_ID']."'> Reschedule </a> &nbsp; &nbsp; <a href='#' onClick='confirmDeleteSched(\"".$row['UPCD_ID']."\")'> Remove </a>";
+			echo "</tr>";
+			$ctr++;
+		}
+	}
+	else echo "<tr><td colspan=4> <br>No appointments found </tr>";
+
+	echo "<input type=hidden name='id' id='patientid'>
 	</table><br><br>
 
-	<table align ="center" class="altcolor" style="width:98%; left:5%; text-align: center;">
-		<tr class="header">
+	<table align ='center' class='altcolor' style='width:98%; left:5%; text-align: center;'>
+		<tr class='header'>
 			<td colspan=6> Tasks Lists
 		</tr>
 		<tr>
@@ -58,49 +95,50 @@
 			<td> <b>Updated By</b>
 			<td> <b>Update Date</b>
 			<td> <b>Patient Name</b>
-		</tr>
-		<?php 
-			$ctr = 0;
-			if($factasks){
-				$patientname="";
-				$count = sizeof($factasks);
-				foreach($factasks as $row){
-					if($row['patientdashboardversionID'] && $row['updateStatus7'] == "Pending"){
-						$ctr++;	
-						echo "<tr><td> $ctr ";
-						echo "<td> Verify Referral to ".$row['section7'];
-						$user = $this->user->getUserInfo($row['updatedBy7']);
-						echo "<td>".$user['userFName']." ".substr($user['userMName'], 0, 1).". ".$user['userLName']; 
-						echo "<td>".$row['updateDate7'];
-						$patient = $this->patient->getPatient($row['UPCD_ID7']);
-						foreach($patient as $row2){
-							$patientname = $row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName']; 
-						}
-						echo "<td><a href=".base_url()."index.php/loaddashboard/verifyentry/".$row['UPCD_ID7'].">".$patientname;
-						echo "</tr>";				
-					}
+		</tr>";
+	$ctr = 0;
+	if($factasks){
+		$patientname="";
+		$count = sizeof($factasks);
+		foreach($factasks as $row){
+			if($row['patientdashboardversionID'] && $row['updateStatus7'] == "Pending"){
+				$ctr++;	
+				echo "<tr><td> $ctr ";
+				echo "<td> Verify Referral to ".$row['section7'];
+				$user = $this->user->getUserInfo($row['updatedBy7']);
+				echo "<td>".$user['userFName']." ".substr($user['userMName'], 0, 1).". ".$user['userLName']; 
+				echo "<td>".$row['updateDate7'];
+				$patient = $this->patient->getPatient($row['UPCD_ID7']);
+				foreach($patient as $row2){
+					$patientname = $row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName']; 
 				}
+				echo "<td><a href=".base_url()."index.php/loaddashboard/verifyentry/".$row['UPCD_ID7'].">".$patientname;
+				echo "</tr>";				
 			}
-			if($tasks){
-				foreach($tasks as $row){
-					$ctr++;
-					$patientname = "";
-					$patient = $this->patient->getPatient($row['UPCD_ID']);
-					foreach($patient as $row2){
-						$patientname = $row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
-					}
-					echo "<tr> <td> $ctr";
-					echo "<td>".$row['taskdescription'];
-					echo "<td> <i> Pending </i>";
-					echo "<td> <i> Pending </i>";
-					echo "<td><a href=".base_url()."index.php/loaddashboard/claimpatient/".$row['UPCD_ID'].">".$patientname."</a></tr>";
-				}
-
+		}
+	}
+	if($tasks){
+		foreach($tasks as $row){
+			$ctr++;
+			$patientname = "";
+			$patient = $this->patient->getPatient($row['UPCD_ID']);
+			foreach($patient as $row2){
+				$patientname = $row2['patientFName']." ".substr($row2['patientMName'], 0, 1).". ".$row2['patientLName'];
 			}
-			if($ctr==0) echo "<tr> <td colspan=5> <br> No tasks found </br>";
-		?>
+			echo "<tr> <td> $ctr";
+			echo "<td>".$row['taskdescription'];
+			echo "<td> <i> Pending </i>";
+			echo "<td> <i> Pending </i>";
+			echo "<td><a href=".base_url()."index.php/loaddashboard/claimpatient/".$row['UPCD_ID'].">".$patientname."</a></tr>";
+		}
+	}
+	if($ctr==0) echo "<tr> <td colspan=5> <br> No tasks found </br>";
 		
-	</table><br>
+	echo "</table><br>";
+
+} 
+
+?>
 <?php
 /*		$sysad = false;
 		$fac = false;

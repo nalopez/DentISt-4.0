@@ -908,9 +908,12 @@ function index(){
 				$username = $session_data3['username'];
 				$info = $this->user->getUserID($username);
 
-				/*foreach($info as $row2){
+				$info2 = $this->user->getUserInfo($info['userID']);
+
+				$name= "";
+				foreach($info2 as $row2){
 					$name = $row2['userFName']." ".substr($row2['userMName'], 0, 1).". ".$row2['userLName']; 
-				}*/
+				}
 		
 				$userID = $info['userID'];
 				
@@ -921,10 +924,12 @@ function index(){
 				$approver = "Pending";
 				$approvedate = "Pending";
 
+
 				//echo "$id, $name, $date, $status, $approver";
-				$userID222 = $session_data['username'];
+				$session_data5 = $this->session->userdata('logged_in');
+				$userID222 = $session_data5['username'];
 				$userID22 = $this->user->getUserID($userID222);
-				$userID2 = $userID22['$userID'];
+				$userID2 = $userID22['userID'];
 				$date = date("Y-m-d");
 
 				if($this->patient->hasDentalChart($id)) $this->user->addAuditTrail($userID2, 'UPDATE', 'Dental Status Chart', $id, $date);

@@ -164,12 +164,13 @@ function index(){
 
 				$this->session->unset_userdata('has_error');
 
-				$userID222 = $session_data['username'];
+				$session_data5 = $this->session->userdata('logged_in');
+				$userID222 = $session_data5['username'];
 				$userID22 = $this->user->getUserID($userID222);
-				$userID2 = $userID22['$userID'];
+				$userID2 = $userID22['userID'];
 				$date = date("Y-m-d");
 
-				if($this->patient->hasConfind($id)) $this->user->addAuditTrail($userID2, 'UPDATE', 'Medical and Social History', $id, $date);
+				if($this->patient->hasMedandSocHisto($id)) $this->user->addAuditTrail($userID2, 'UPDATE', 'Medical and Social History', $id, $date);
 					else $this->user->addAuditTrail($userID2, 'INSERT', 'Medical and Social History', $id, $date);
 		
 

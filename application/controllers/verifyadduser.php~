@@ -36,6 +36,8 @@ class VerifyAddUser extends CI_Controller {
 	   	$this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean|callback_check_username');
 	   	$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('password2', 'Retype Password', 'trim|required|xss_clean|callback_check_password');
+		$this->form_validation->set_rules('secques', 'Secret Question', 'trim|required|xss_clean|callback_check_question');
+		$this->form_validation->set_rules('secans', 'Secret Answer', 'trim|required|xss_clean');
 
 		if($this->form_validation->run() == FALSE)
 	 	{
@@ -51,6 +53,8 @@ class VerifyAddUser extends CI_Controller {
 			$section = $this->input->post('section');
 			$username = $this->input->post('username');
 			$password = $this->input->post('password');
+			$secques = $this->input->post('secques');
+			$secans = $this->input->post('secans');
 
 			$userID222 = $session_data['username'];
 			$userID22 = $this->user->getUserID($userID222);
@@ -61,7 +65,7 @@ class VerifyAddUser extends CI_Controller {
 				$section = " ";
 			}
 
-			$this->user->addUser($lname, $fname, $mname, $role, $section, $username, $password, $date);
+			$this->user->addUser($lname, $fname, $mname, $role, $section, $username, $password, $date, $secques, $secans);
 	
 			
 
@@ -139,6 +143,16 @@ class VerifyAddUser extends CI_Controller {
 		}
 		elseif($role != "System Administrator" && $section == "Select one.."){
 			$this->form_validation->set_message('check_role', 'Choose a valid section.');
+			$bool = FALSE;
+		}
+		return $bool;
+	}
+
+	function check_question($ques){
+		$bool = true;
+		//$section = $this->input->post('section');
+		if($ques == "Select a question.."){
+			$this->form_validation->set_message('check_question', 'Choose a valid security question.');
 			$bool = FALSE;
 		}
 		return $bool;

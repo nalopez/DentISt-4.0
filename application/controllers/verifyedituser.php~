@@ -37,6 +37,9 @@ class VerifyEditUser extends CI_Controller {
 	   	$this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean|callback_check_username');
 	   	$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('password2', 'Retype Password', 'trim|required|xss_clean|callback_check_password');
+		$this->form_validation->set_rules('secques', 'Secret Question', 'trim|required|xss_clean|callback_check_question');
+		$this->form_validation->set_rules('secans', 'Secret Answer', 'trim|required|xss_clean');
+
 
 	   	if($this->form_validation->run() == FALSE)
 	   	{
@@ -59,6 +62,8 @@ class VerifyEditUser extends CI_Controller {
 		elseif(form_error('username')) $message = form_error('username');
 		elseif(form_error('password')) $message = form_error('password');
 		elseif(form_error('password2')) $message = form_error('password2');
+		elseif(form_error('secques')) $message = form_error('secques');
+		elseif(form_error('secans')) $message = form_error('secans');
 
 			$sess_array = array();
      			
@@ -90,12 +95,20 @@ class VerifyEditUser extends CI_Controller {
 
 			$username = $this->input->post('username');
 			$password = $this->input->post('password');
+			$secques = $this->input->post('secques');
+			$secans = $this->input->post('secans');
 
 			print_r($section);
 			print_r($role);
 			//echo $userID." ".$lname." ".$fname." ".$mname." ".$role." ".$section." ".$username." ".$password;
 			$this->session->unset_userdata('has_error');
-			$this->user->editUser($userID, $lname, $fname, $mname, $roleID, $role, $section, $username, $password);
+
+			$userID222 = $session_data['username'];
+			$userID22 = $this->user->getUserID($userID222);
+			$userID2 = $userID22['userID'];
+			$date = date("Y-m-d");
+
+			$this->user->editUser($userID, $userID2, $lname, $fname, $mname, $roleID, $role, $section, $username, $password, $date, $secques, $secans);
 
 			$this->load->helper(array('form'));
 	   		$data2['users'] = $this->user->selectUsers();
@@ -160,6 +173,16 @@ class VerifyEditUser extends CI_Controller {
 		}
 		elseif($role != "System Administrator" && $section == "Select one.."){
 			$this->form_validation->set_message('check_role', 'Choose a valid section.');
+			$bool = FALSE;
+		}
+		return $bool;
+	}
+
+	function check_question($ques){
+		$bool = true;
+		//$section = $this->input->post('section');
+		if($ques == "Select a question.."){
+			$this->form_validation->set_message('check_question', 'Choose a valid security question.');
 			$bool = FALSE;
 		}
 		return $bool;

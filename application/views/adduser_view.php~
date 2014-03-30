@@ -35,6 +35,9 @@
 <form id="ADDUSER" name="ADDUSER" action="verifyadduser" method="post">
 	<table align="center">
 	<tr>
+		<td colspan=3> <hr width=100% align="center" color="#d3d3d3">
+	</tr>
+	<tr>
 		<td> Name: 
 		<td><input type="text" name="firstname" value="<?php echo set_value('firstname'); ?>" placeholder="First Name" size="15">
 			<input type="text" name="midname" value="<?php echo set_value('midname'); ?>" placeholder="Middle Name" size="15">
@@ -144,6 +147,22 @@
 		<td><label for="password2">Retype password:</label>
      		<td><input type="password" size="20" id="password2" name="password2" value="<?php echo set_value('password2'); ?>">
      	</tr>
+	<tr>
+		<td colspan=3> <hr width=100% align="center" color="#d3d3d3">
+	</tr>
+	<tr>
+		<td><label for="secques">Security Question:</label>
+     		<td><select name="secques" id="secques">
+			<option value="Select a question.."> Select a question.. </option>
+			<option value="What is your favorite childhood movie?"> What is your favorite childhood movie? </option>
+		</select></td>
+		
+     	</tr>
+	<tr>
+		<td><label for="secans">Security Answer:</label>
+     		<td><input type="text" size="20" id="secans" name="secans" >
+     	</tr>
+		
 	</table><br>
      <input type="submit" value="Add User"/> <input type="reset" value="Clear entries"/>
    </form>
