@@ -157,6 +157,10 @@
      		<td><select name="secques" id="secques">
 			<option value="Select a question.."> Select a question.. </option>
 			<option value="What is your favorite childhood movie?"> What is your favorite childhood movie? </option>
+			<option value="What is your mother's maiden name?"> What is your mother's maiden name? </option>
+			<option value="Where is you father's hometown?"> Where is you father's hometown? </option>
+			<option value="What is the name of your first pet dog?"> What is the name of your first pet dog? </option>
+			<option value="Who is your favorite elementary teacher?"> Who is your favorite elementary teacher? </option>
 		</select></td>
 		
      	</tr>

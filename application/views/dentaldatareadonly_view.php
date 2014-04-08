@@ -91,23 +91,23 @@ elseif($private) echo "<h4 style='color:red;' align='center'>This patient's reco
 		</tr>
 		<tr>
 			<td>Date of last visit:
-			<td><input type="text" name="dolv" id="dolv" value="<?php if($invalid_input) echo $session_data2['dolv']; elseif($recordexist == true) echo $dolv; ?>" readonly>
+			<td><input type="text" name="dolv" id="dolv" value="<?php if($invalid_input) echo $session_data2['dolv']; elseif($recordexist == true) echo $dolv; ?>" readonly disabled>
 		</tr>
 		<tr>
 			<td>Procedures done on last visit:
-			<td><input type="text" name="pdolv" id="pdolv" value="<?php if($invalid_input) echo $session_data2['pdolv']; elseif($recordexist == true) echo $pdolv; ?>" readonly>
+			<td><input type="text" name="pdolv" id="pdolv" value="<?php if($invalid_input) echo $session_data2['pdolv']; elseif($recordexist == true) echo $pdolv; ?>" readonly disabled>
 		</tr>
 		<tr>
 			<td>Frequency of dental visit:
-			<td><input type="text" name="fodv" value="<?php if($invalid_input) echo $session_data2['fodv']; elseif($recordexist == true) echo $fodv; ?>" readonly>
+			<td><input type="text" name="fodv" value="<?php if($invalid_input) echo $session_data2['fodv']; elseif($recordexist == true) echo $fodv; ?>" readonly disabled>
 		</tr>
 		<tr>
 			<td>Exposure or response to local anesthesia</td>
-			<td><input type="text" name="eortle" value="<?php if($invalid_input) echo $session_data2['eortle']; elseif($recordexist == true) echo $eortle; ?>" readonly>
+			<td><input type="text" name="eortle" value="<?php if($invalid_input) echo $session_data2['eortle']; elseif($recordexist == true) echo $eortle; ?>" readonly disabled>
 		</tr>
 		<tr>
 			<td>Complications during and or after dental procedure</td>
-			<td><input type="text" name="cdaoadp" value="<?php if($invalid_input) echo $session_data2['cdaoadp']; else if($recordexist == true) echo $cdaoadp; ?>" readonly>
+			<td><input type="text" name="cdaoadp" value="<?php if($invalid_input) echo $session_data2['cdaoadp']; else if($recordexist == true) echo $cdaoadp; ?>" readonly disabled>
 		</tr>
 		</table><br>
 

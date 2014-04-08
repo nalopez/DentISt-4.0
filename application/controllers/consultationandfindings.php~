@@ -100,6 +100,15 @@ class ConsultationAndFindings extends CI_Controller {
 			if($bool){
 				$id = $this->uri->segment(3);
 				$version = "";
+
+				$id = $this->uri->segment(3);
+				$version = "";
+
+				$data = $this->patient->getPatient($id);
+				$ptnt_array = array();
+
+				$this->session->set_userdata('current_patient', $ptnt_array);
+
 			
 				if($this->uri->segment(4) == ""){
 					$ver = $this->patient->getLatest9($id);
@@ -127,14 +136,14 @@ class ConsultationAndFindings extends CI_Controller {
 				$userID2 = $userID22['userID'];
 				$date = date("Y-m-d");
 
-				echo $id;
+				//echo $id;
 
 				$clinicianID = $this->patient->isClinician($id);
 				$data['private'] = false;
 				$data['forapproval'] = false;
 
 				if($this->patient->hasConFind($id)){
-					echo "withRecord";
+					//echo "withRecord";
 					$data['info'] = $this->patient->getPatientInfoConFindRO($id, $version);
 					$data['recordexist'] = true;
 				}

@@ -310,7 +310,7 @@ Class User extends CI_Model
 	}*/
 
 	function selectUsers2($userID){
-		$this -> db -> select('users.userID, users.userFName, users.userMName, users.userLName, users_auth.username, users_auth.userpword, users_role.role_type, users_role.role_section, users_auth.secret_question, users_auth.secret_answer');
+		$this -> db -> select('users.userID, users.userFName, users.userMName, users.userLName, users_auth.username, users_auth.userpword, users_role.role_type, users_role.role_section, users_role.role_date, users_auth.secret_question, users_auth.secret_answer');
    		$this -> db -> from('users', 'users_auth', 'users_role');
 		$this->db->join('users_auth', 'users.userID = users_auth.userID');
 		$this->db->join('users_role', 'users.userID = users_role.userID');
@@ -362,11 +362,15 @@ Class User extends CI_Model
    		}
 	}
 
-	function changePword($username){
-		$password = "bscs114";
-		$pword = MD5($password);
+	function changePword($username, $password){
+		//$password = "bscs114";
+		$intermediateSalt = md5(uniqid(rand(), true));
+		$salt = substr($intermediateSalt, 0, 6);
+		$salted = hash("sha256", $password.$salt);
+
 		$data3 = array(	
-			'userpword' => $pword);
+			'userpword' => $salted,
+			'salt' => $salt);
 		$this->db->where('username', $username);
 		$this->db->update('users_auth', $data3);
 	}
@@ -673,6 +677,59 @@ Class User extends CI_Model
 		//$this->db->join('users', 'users_auth.userID = users.userID');
 		//$this -> db -> where('users.userFName !=', $fname);
 		//$this -> db -> where('users.userLName !=', $lname); 	
+		
+		$query = $this -> db -> get();
+
+   		if($query -> num_rows() >= 1)
+   		{
+     			return $query->result_array();
+   		}
+   		else
+   		{
+     			return false;
+   		}
+	}
+
+	function getUsernames3(){
+		$this -> db -> select('username');
+   		$this -> db -> from('users_auth');
+		//$this->db->join('users', 'users_auth.userID = users.userID');
+		//$this -> db -> where('users.userFName !=', $fname);
+		//$this -> db -> where('users.userLName !=', $lname); 	
+		
+		$query = $this -> db -> get();
+
+   		if($query -> num_rows() >= 1)
+   		{
+     			return $query->result_array();
+   		}
+   		else
+   		{
+     			return false;
+   		}
+	}
+
+	function getSecQues($username){
+		$this -> db -> select('secret_question');
+   		$this -> db -> from('users_auth');
+		$this -> db -> where('username', $username); 	
+		
+		$query = $this -> db -> get();
+
+   		if($query -> num_rows() >= 1)
+   		{
+     			return $query->result_array();
+   		}
+   		else
+   		{
+     			return false;
+   		}
+	}
+
+	function getSecAns($username){
+		$this -> db -> select('secret_answer');
+   		$this -> db -> from('users_auth');
+		$this -> db -> where('username', $username); 	
 		
 		$query = $this -> db -> get();
 

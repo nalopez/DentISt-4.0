@@ -116,7 +116,7 @@ function index(){
 
 				$userID222 = $session_data2['username'];
 				$userID22 = $this->user->getUserID($userID222);
-				$userID2 = $userID22['$userID'];
+				$userID2 = $userID22['userID'];
 				$date = date("Y-m-d");
 
 				if($this->patient->hasPatientInfo($id)) $this->user->addAuditTrail($userID2, 'UPDATE', 'Patient Information', $id, $date);

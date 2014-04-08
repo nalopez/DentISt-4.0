@@ -14,7 +14,26 @@
 	<script src="<?php echo base_url(); ?>js/jquery-1.9.1.js"></script>
 	<script src="<?php echo base_url(); ?>js/jquery-ui-1.10.3.custom.js"></script>
 
-   <title>Statistics - Oral Diagnosis</title>
+<?php 
+$session_data = $this->session->userdata('logged_in');
+     	$sect = $session_data['section'];
+	$section = "";
+	foreach($sect as $row){
+		if($row != "System Maintenance"){
+			$section = $row;
+			break;
+		}
+	}
+	if($section == ""){
+		$section = "System Maintenance";
+	}
+
+	$session_data = $this->session->userdata('current_patient');
+	$id = $session_data['id'];
+
+?>
+
+   <title>Statistics - <?php echo $section; ?></title>
 <link rel="shortcut icon" href="<?php echo base_url(); ?>images/upcd-20140224-favicon.ico">	
 <script type="text/javascript">
 	
@@ -38,7 +57,7 @@
 <div class="maindiv">
 <h3 align="left" style="left: 1%;position: relative;">Statistics</h3>
 
-  	<div align="left" style="left:1%; position: relative;"><a href="<?php echo base_url(); ?>index.php/searchpatient">Go Back</a></div><br>
+  	<div align="left" style="left:1%; position: relative;"><a href="<?php echo base_url(); ?>index.php/viewstat">Go Back</a></div><br>
 	
 	<table frame="box" class="frame alttable" style="width:98%; left:1%;">
 		<tr class="header">
@@ -81,28 +100,70 @@
 					$femaleage = 0;
 					$maleage = 0;
 					$totalage = 0;
-
-					foreach($patientmatch as $row){
-						if($row['gender'] == "Female" && $row['age'] >= $agefrom && $row['age'] <= $ageto){
+			if($patientmatch){
+				foreach($patientmatch as $row){
+						if($row['gender'] == "Female" && $row['age'] >= $agefrom && $row['age'] <= $ageto && strtotime($row['date'])>=strtotime($datefrom) && strtotime($row['date'])<=strtotime($dateto)){
 							$femaleage++;
 							$totalage++;
 						}
-						if($row['gender'] == "Male" && $row['age'] >= $agefrom && $row['age'] <= $ageto){
+						if($row['gender'] == "Male" && $row['age'] >= $agefrom && $row['age'] <= $ageto && strtotime($row['date'])>=strtotime($datefrom) && strtotime($row['date'])<=strtotime($dateto)){
 							$maleage++;
 							$totalage++;
 						}
 					}
+			}
 			
-			echo "<tr> 
-				<td> Number of Females
-				<td> $femaleage
-				<td> ".round(($femaleage/$totalage)*100)."%
-			</tr>
-			<tr> 
-				<td> Number of Males
-				<td> $maleage
-				<td> ".round(($maleage/$totalage)*100)."%
+						echo "<tr> 
+							<td> Number of Females
+							<td> $femaleage
+							<td> ";
+							if($totalage == 0) echo "0%"; else echo round(($femaleage/$totalage)*100)."%";
+						echo "</tr>
+						<tr> 
+							<td> Number of Males
+							<td> $maleage
+							<td> ";
+							if($totalage == 0) echo "0%"; else echo round(($maleage/$totalage)*100)."%";
+						echo "</tr>";
+			
+		}
+
+		if($city != ''){
+			echo "<tr>
+				<td> &nbsp;
 			</tr>";
+		
+			echo "<tr>
+				<td><b> CITY ($city) </b>
+			</tr>"; 
+					$femalecity = 0;
+					$malecity = 0;
+					$totalcity = 0;
+			if($patientmatch){
+					foreach($patientmatch as $row){
+						if($row['gender'] == "Female" && $row['city'] == $city && strtotime($row['date'])>=strtotime($datefrom) && strtotime($row['date'])<=strtotime($dateto)){
+							$femalecity++;
+							$totalcity++;
+						}
+						if($row['gender'] == "Male" && $row['city'] == $city && strtotime($row['date'])>=strtotime($datefrom) && strtotime($row['date'])<=strtotime($dateto)){
+							$malecity++;
+							$totalcity++;
+						}
+					}
+			}
+			
+					echo "<tr> 
+						<td> Number of Females
+						<td> $femalecity
+						<td> ";
+						if($totalcity == 0) echo "0%"; else echo round(($femalecity/$totalcity)*100)."%";
+					echo "</tr>
+					<tr> 
+						<td> Number of Males
+						<td> $malecity
+						<td> ";
+						if($totalcity == 0) echo "0%"; else echo round(($malecity/$totalcity)*100)."%";
+					echo "</tr>";
 		}
 		?>
 	</table><br>
@@ -160,6 +221,7 @@
 		$pedoFCount = 0;
 		$restoFCount = 0;
 
+		if($patientmatch){
 		foreach ($patientmatch as $row){
 			if($perio == 'Yes' && $row['perio'] == 'Yes' && strtotime($row['date'])>=strtotime($datefrom) && strtotime($row['date'])<=strtotime($dateto)){
 				$perioCount++;
@@ -208,7 +270,7 @@
 			}
 
 		}
-
+}
 
 
 
@@ -291,6 +353,22 @@
 			if($maleCount == 0) echo "0%"; else echo round(($fpdMCount/$maleCount)*100)."%"; 
 		echo	"<td>";
 			if($totalCount == 0) echo "0%"; else echo round(($fpdCount/$totalCount)*100)."%"; 
+		echo "</tr>
+		<tr>
+			<td> Complete Denture
+			<td> $cdCount
+			<td> $cdFCount
+			<td>";
+			if($cdCount == 0) echo "0%"; else echo round(($cdFCount/$cdCount)*100)."%"; 
+		echo	"<td> $cdMCount
+			<td>";
+			if($fpdCount == 0) echo "0%"; else echo round(($cdMCount/$cdCount)*100)."%"; 
+		echo	"<td>";
+			if($femaleCount == 0) echo "0%"; else echo round(($cdFCount/$femaleCount)*100)."%"; 
+		echo	"<td>";
+			if($maleCount == 0) echo "0%"; else echo round(($cdMCount/$maleCount)*100)."%"; 
+		echo	"<td>";
+			if($totalCount == 0) echo "0%"; else echo round(($cdCount/$totalCount)*100)."%"; 
 		echo "</tr>
 		<tr>
 			<td> Orthodontics
@@ -442,6 +520,7 @@
 		$singMCount = 0;
 		$remparMCount = 0;
 
+if($patientmatch){
 		foreach ($patientmatch as $row){
 			if($caries == 'Yes' && ($row['distal_caries'] != ' ' || $row['buccal_caries'] != ' ' || $row['lingual_caries'] != ' ' || $row['mesial_caries'] != ' ' || $row['occlusal_caries']  != ' ') && strtotime($row['date'])>=strtotime($datefrom) && strtotime($row['date'])<=strtotime($dateto)){
 				$carCount++;
@@ -513,7 +592,7 @@
 				if($row['gender'] == 'Female') $singFCount++;
 				elseif($row['gender'] == 'Male') $singMCount++;					
 			}
-			if($removablepartialdenture == 'Yes' && $row['rempardent'] != 'Yes' && strtotime($row['date'])>=strtotime($datefrom) && strtotime($row['date'])<=strtotime($dateto)){
+			if($removablepartialdenture == 'Yes' && $row['removablepartialdenture'] != 'Yes' && strtotime($row['date'])>=strtotime($datefrom) && strtotime($row['date'])<=strtotime($dateto)){
 				$remparCount++;
 				if($row['gender'] == 'Female') $remparFCount++;
 				elseif($row['gender'] == 'Male') $remparMCount++;					
@@ -554,7 +633,7 @@
 				elseif($row['gender'] == 'Male') $pftmMCount++;					
 			}
 		}
-
+}
 
 			if($caries == 'Yes') {
 				echo "<tr>
@@ -1047,6 +1126,7 @@
 				$bridgeFCount = 0;
 				$singlecrownFCount = 0;
 
+if($patientmatch){
 				foreach ($patientmatch as $row){
 					if($class1 == 'Yes' && $row['class1'] != ' ' && strtotime($row['date'])>=strtotime($datefrom) && strtotime($row['date'])<=strtotime($dateto)){
 						$c1Count++;
@@ -1171,7 +1251,7 @@
 					}
 
 				}
-
+}
 
 		
 			if($class1 == 'Yes') {

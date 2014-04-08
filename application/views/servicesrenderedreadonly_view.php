@@ -94,9 +94,9 @@ elseif($private) echo "<h4 style='color:red;' align='center'>This patient's reco
 				echo "
 					<tr>
 						<td>";//<input type='checkbox' name='0' id='ck0'>
-					echo "	<td><input type='text' name='servicedate[]' class='datepicker' id='servicedate_$id' value='".$servicedate[$i]."' readonly>
+					echo "	<td><input type='text' name='servicedate[]' class='datepicker' id='servicedate_$id' value='".$servicedate[$i]."' readonly disabled>
 						<td><textarea name='rendered[]' id='rendered_$id' cols=50 readonly>".$rendered[$i]."</textarea>
-						<td><input type='text' name='fees[]' id='fees_$id' value='".$fees[$i]."' readonly>
+						<td><input type='text' name='fees[]' id='fees_$id' value='".$fees[$i]."' readonly disabled>
 				
 					</tr>";
 				}
@@ -104,9 +104,9 @@ elseif($private) echo "<h4 style='color:red;' align='center'>This patient's reco
 			else{
 				echo "<tr>
 					<td>";//<input type='checkbox' name='0' id='ck0'>
-				echo "	<td><input type='text' name='servicedate[]' class='datepicker' id='servicedate_0' readonly>
+				echo "	<td><input type='text' name='servicedate[]' class='datepicker' id='servicedate_0' readonly disabled>
 					<td><textarea name='rendered[]' id='rendered_0' cols=50 readonly></textarea>
-					<td><input type='text' name='fees[]' id='fees_$0' readonly>
+					<td><input type='text' name='fees[]' id='fees_$0' readonly disabled>
 				</tr>";
 			}
 		?>

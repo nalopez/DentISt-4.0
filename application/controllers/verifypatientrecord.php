@@ -97,6 +97,8 @@ $this->load->model('user','',TRUE);
 					$section = $row['section7'];
 					$currsection = $row['currentsection7'];
 				}
+
+				echo "studentID: $studentID";
 	
 				$inform = $this->patient->getPatientDashboardStatus2($patientid);
 				$stats = "";
@@ -156,6 +158,7 @@ $this->load->model('user','',TRUE);
 						$this->patient->updatePatientTemporary($studentid, $facultyid, $patientid, $decision, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan, $radioexam, $servicesrendered, $confind);
 						$this->patient->updatePatientApprover($patientid, $facultyid);
 						$this->patient->updatePatientRejected($patientid, $studentid, $decision, $currsection, $section);
+						$this->patient->setRejected($patientid, $facultyid, $date);
 					}
 					/*elseif($statxs = 'Pending' && $stats = 'Rejected'){
 						$this->patient->updatePatientRejected2($studentid, $facultyid, $patientid, $decision, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan);
@@ -168,6 +171,7 @@ $this->load->model('user','',TRUE);
 						$this->patient->addRemark($studentid, $facultyid, $patientid, $decision, $patientinfo, $patientchecklist, $medandsochisto, $dentaldata, $dentalchart, $treatmentplan, $radioexam, $servicesrendered, $confind);
 						$this->patient->updatePatientApprover($patientid, $facultyid);
 						$this->patient->updatePatientRejected($patientid, $studentid, $decision, $currsection, $section);
+						$this->patient->setRejected($patientid, $facultyid, $date);
 					}
 				}
 

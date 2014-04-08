@@ -25,6 +25,7 @@ class ServicesRendered extends CI_Controller {
 			if($bool){
 				$id = $this->uri->segment(3);
 				$version = "";
+
 			
 				if($this->uri->segment(4) == ""){
 					$ver = $this->patient->getLatest8($id);
@@ -57,13 +58,20 @@ class ServicesRendered extends CI_Controller {
 					$data['recordexist'] = true;
 				}
 
+				$clinicianID = $this->patient->isClinician($id);
+
 				//print_r($data['info']);
 				if($this->patient->isLatestForApproval8($id)){
 					$this->user->addAuditTrail($userID2, 'SELECT', 'Services Rendered', $id, $date);
 					redirect('servicesrendered/view/'.$id);
 				}else{
 					//$this->user->addAuditTrail($userID2, 'SELECT', 'Services Rendered', $id, $date);
-					$this->load->view('servicesrendered_view', $data);
+					if($clinicianID!=$userID2){
+						redirect('servicesrendered/view/'.$id);
+					}
+					else{ 
+						$this->load->view('servicesrendered_view', $data);
+					}
 				}
 			}
 			else

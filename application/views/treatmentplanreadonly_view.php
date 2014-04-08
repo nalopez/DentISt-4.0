@@ -83,7 +83,7 @@ elseif($private) echo "<h4 style='color:red;' align='center'>This patient's reco
 			</tr>
 			<tr>
 				<td> Chief Complaints:
-				<td><input type="text" name="chiefcomp" id="chiefcomp" value="<?php if($invalid_input) echo $session_data2['chiefcomp']; elseif($recordexist == true) echo $chiefcomp; ?>" readonly>
+				<td><input type="text" name="chiefcomp" id="chiefcomp" value="<?php if($invalid_input) echo $session_data2['chiefcomp']; elseif($recordexist == true) echo $chiefcomp; ?>" readonly disabled>
 			</tr>
 			<tr>
 				<td><label for="servcode">Service Code: 
@@ -107,7 +107,7 @@ elseif($private) echo "<h4 style='color:red;' align='center'>This patient's reco
 			</tr>
 			<tr>
 				<td>Proposed Treatment Plan
-				<td><textarea id="ptp" name="ptp" cols=30 readonly><?php if($invalid_input) echo $session_data2['ptp']; elseif($recordexist == true) echo $ptp; ?></textarea>
+				<td><textarea id="ptp" name="ptp" cols=30 readonly disabled><?php if($invalid_input) echo $session_data2['ptp']; elseif($recordexist == true) echo $ptp; ?></textarea>
 			<tr>
 			
 		</table><br><br>

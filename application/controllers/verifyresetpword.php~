@@ -13,47 +13,63 @@ class VerifyResetPword extends CI_Controller {
    //This method will have the credentials validation
    $this->load->library('form_validation');
 
-   $this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean');
-   $this->form_validation->set_rules('midname', 'Middlename', 'trim|required|xss_clean|callback_check_database');
+   $this->form_validation->set_rules('answer', 'Secret Answer', 'trim|required|xss_clean|callback_check_secretanswer');
+  // $this->form_validation->set_rules('midname', 'Middlename', 'trim|required|xss_clean|callback_check_database');
 
    if($this->form_validation->run() == FALSE)
    {
      //Field validation failed.  User redirected to login page
-     $this->load->view('forgotpword_view');
+	$uname = $this->input->post('username');
+	$data['uname'] = $uname;
+	$data['secret_question'] = $this->user->getSecQues($uname);
+     $this->load->view('forgotpword2_view', $data);
    }
    else
    {
      //Go to private area
-	redirect('login', 'refresh');
+	//echo "hello"; 
+	$uname = $this->input->post('username');
+	$data['uname'] = $uname;
+     $this->load->view('forgotpword3_view');
 	
    }
 
  }
 
- function check_database($midname)
+ function check_secretanswer($secans)
  {
    //Field validation succeeded.  Validate against database
-   $username = $this->input->post('username');
+   $uname = $this->input->post('username');
 
    //query the database
-   $result = $this->user->getMName($username);	
-	
+   //$result = $this->user->getMName($username);	
 
-   if($result)
-   {
-	foreach($result as $row)
-     	{
-		$mname = $row->userMName;
-		if ($mname == $midname){
-			$this->user->changepword($username);
+/*	$secret_question = $this->user->getSecQues($uname);	
+	$secques = "";
+	foreach($secret_question as $row){
+		$secques = $row['secret_question'];
+	}
+*/
+	$secanswer = $this->user->getSecAns($uname);
+	$secanss = "";
+
+ 	if($secanswer == false){
+		$this->form_validation->set_message('check_secretanswer', 'Answer is not correct. Try again.');
+		return false;
+	}
+	else{
+		foreach($secanswer as $row){
+			$secanss = $row['secret_answer'];
+			break;
+		}	
+		//echo $secanss;
+		if($secanss != $secans){
+			$this->form_validation->set_message('check_secretanswer', 'Answer is not correct. Try again');
+			return false;
 		}
-	}     
-   }
-   else
-   {
-     $this->form_validation->set_message('check_database', 'Invalid username or middlename');
-     return false;
-   }
+
+		return true;	
+	} 
  }
 }
 ?>

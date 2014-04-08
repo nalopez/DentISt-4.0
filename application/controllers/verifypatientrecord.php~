@@ -97,6 +97,8 @@ $this->load->model('user','',TRUE);
 					$section = $row['section7'];
 					$currsection = $row['currentsection7'];
 				}
+
+				echo "studentID: $studentID";
 	
 				$inform = $this->patient->getPatientDashboardStatus2($patientid);
 				$stats = "";

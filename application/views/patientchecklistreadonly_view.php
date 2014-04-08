@@ -636,7 +636,7 @@ elseif($private) echo "<h4 style='color:red;' align='center'>This patient's reco
 						}
 					else
 						echo "style='display:none;'";	
-					?>><input type="text" name="cloth" placeholder="please specify here" value="<?php if($invalid_input) echo $session_data2['checklist']; elseif($recordexist == true) echo $patientotht; ?>" readonly></div>
+					?>><input type="text" name="cloth" placeholder="please specify here" value="<?php if($invalid_input) echo $session_data2['checklist']; elseif($recordexist == true) echo $patientotht; ?>" readonly disabled></div>
 			</tr>
 			<tr>
 				<td colspan=6><br><b>Family History</b> (Grandparents, Parents, Brothers, Sisters, Children)
@@ -743,7 +743,7 @@ elseif($private) echo "<h4 style='color:red;' align='center'>This patient's reco
 						}
 					else
 						echo "style='display:none;'";	
-					?>><input type="text" name="famotht" placeholder="please specify here" value="<?php if($invalid_input) echo $session_data2['family']; elseif($recordexist == true) echo $familyotht; ?>" readonly></div>
+					?>><input type="text" name="famotht" placeholder="please specify here" value="<?php if($invalid_input) echo $session_data2['family']; elseif($recordexist == true) echo $familyotht; ?>" readonly disabled></div>
 				<td>
 				<td>
 				<td>
@@ -837,7 +837,7 @@ elseif($private) echo "<h4 style='color:red;' align='center'>This patient's reco
 						}
 					else
 						echo "style='display:none;'";	
-					?>><input type="text" name="alotht" placeholder="please specify here" value="<?php if($invalid_input) echo $session_data2['allergy']; elseif($recordexist == true) echo $allergyotht; ?>" readonly></div>
+					?>><input type="text" name="alotht" placeholder="please specify here" value="<?php if($invalid_input) echo $session_data2['allergy']; elseif($recordexist == true) echo $allergyotht; ?>" readonly disabled></div>
 				<td>
 				<td>
 				<td>

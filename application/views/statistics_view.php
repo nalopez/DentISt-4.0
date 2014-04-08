@@ -26,6 +26,9 @@ $session_data = $this->session->userdata('logged_in');
 			break;
 		}
 	}
+	if($section == ""){
+		$section == "System Maintenance";
+	}
 
 	$session_data = $this->session->userdata('current_patient');
 	$id = $session_data['id'];
@@ -275,7 +278,9 @@ $session_data = $this->session->userdata('logged_in');
 	function enableDemos(element, ODi, ODe, PD, OM, SM){
 		if(element == "demo1Or" || element == "demo1And"){
 			if(document.getElementById(element).checked){
-				document.getElementById('sasections').disabled = false;
+				if(!ODi){
+					document.getElementById('sasections').disabled = false;
+				}
 				document.getElementById('demo2Or').disabled = false;
 				document.getElementById('demo2And').disabled = false;
 				document.getElementById('demo3Or').disabled = false;

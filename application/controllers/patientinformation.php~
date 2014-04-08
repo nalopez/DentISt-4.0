@@ -51,6 +51,7 @@ class PatientInformation extends CI_Controller {
 				$userID22 = $this->user->getUserID($userID222);
 				$userID2 = $userID22['userID'];
 				$date = date("Y-m-d");
+				$clinicianID = $this->patient->isClinician($id);
 
 				if($this->patient->hasPatientInfo($id)){
 					$data['info'] = $this->patient->getPatientInfoPatientInfo($id);

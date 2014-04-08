@@ -99,35 +99,35 @@ elseif($private) echo "<h4 style='color:red;' align='center'>This patient's reco
 		</tr>
 		<tr>
 			<td>Physician Name: 
-			<td><input type="text" name="physicianname" value="<?php if($invalid_input) echo $session_data2['phyname']; elseif($recordexist == true) echo $phyname; ?>" readonly>
+			<td><input type="text" name="physicianname" value="<?php if($invalid_input) echo $session_data2['phyname']; elseif($recordexist == true) echo $phyname; ?>" readonly disabled>
 		</tr>
 		<tr>
 			<td>Phone number: 
-			<td><input type="text" name="physicianphone" value="<?php if($invalid_input) echo $session_data2['phyphone']; elseif($recordexist == true) echo $phynum; ?>" readonly>
+			<td><input type="text" name="physicianphone" value="<?php if($invalid_input) echo $session_data2['phyphone']; elseif($recordexist == true) echo $phynum; ?>" readonly disabled>
 		</tr>
 		<tr>
 			<td>Date of latest hospitalization: 
-			<td><input type="text" name="hospdate" id="hospdate" value="<?php if($invalid_input) echo $session_data2['hospdate']; elseif($recordexist == true) echo $hospdate; ?>" readonly>
+			<td><input type="text" name="hospdate" id="hospdate" value="<?php if($invalid_input) echo $session_data2['hospdate']; elseif($recordexist == true) echo $hospdate; ?>" readonly disabled>
 		</tr>
 		<tr>
 			<td>Reason: 
-			<td><input type="text" name="hospreason" value="<?php if($invalid_input) echo $session_data2['hospreason']; elseif($recordexist == true) echo $hospreason; ?>" readonly>
+			<td><input type="text" name="hospreason" value="<?php if($invalid_input) echo $session_data2['hospreason']; elseif($recordexist == true) echo $hospreason; ?>" readonly disabled>
 		</tr>
 		<tr>
 			<td>Allergies: 
-			<td><input type="text" name="allergies" value="<?php if($invalid_input) echo $session_data2['allergies']; elseif($recordexist == true) echo $allergies; ?>" readonly>
+			<td><input type="text" name="allergies" value="<?php if($invalid_input) echo $session_data2['allergies']; elseif($recordexist == true) echo $allergies; ?>" readonly disabled>
 		</tr>
 		<tr>
 			<td>Illnesses
-			<td><input type="text" name="illnesses" value="<?php if($invalid_input) echo $session_data2['illnesses']; elseif($recordexist == true) echo $illnesses; ?>" readonly>
+			<td><input type="text" name="illnesses" value="<?php if($invalid_input) echo $session_data2['illnesses']; elseif($recordexist == true) echo $illnesses; ?>" readonly disabled>
 		</tr>
 		<tr>
 			<td>Medications
-			<td><input type="text" name="medications" value="<?php if($invalid_input) echo $session_data2['medications']; elseif($recordexist == true) echo $med; ?>" readonly>
+			<td><input type="text" name="medications" value="<?php if($invalid_input) echo $session_data2['medications']; elseif($recordexist == true) echo $med; ?>" readonly disabled>
 		</tr>
 		<tr>
 			<td>Childhood illnesses (below 18 y.o.)
-			<td><input type="text" name="ci" value="<?php if($invalid_input) echo $session_data2['ci']; elseif($recordexist == true) echo $ci; ?>" readonly>
+			<td><input type="text" name="ci" value="<?php if($invalid_input) echo $session_data2['ci']; elseif($recordexist == true) echo $ci; ?>" readonly disabled>
 		</tr>
 		</table><br>
 		
@@ -141,11 +141,11 @@ elseif($private) echo "<h4 style='color:red;' align='center'>This patient's reco
 					if($invalid_input){ 
 						if($session_data2['cig'] == "Yes") echo "checked";
 					}	
-					elseif($recordexist == true && $cig=='Yes') echo 'checked'; ?> readonly> Yes <input type="radio" name="cig" value="No" onClick="showHosp(this.name, this.value)" <?php 
+					elseif($recordexist == true && $cig=='Yes') echo 'checked'; ?> readonly disabled> Yes <input type="radio" name="cig" value="No" onClick="showHosp(this.name, this.value)" <?php 
 					if($invalid_input){ 
 						if($session_data2['cig'] == "No") echo "checked";
 					}	
-					elseif($recordexist == true && $cig=='No') echo 'checked'; ?> readonly> No 
+					elseif($recordexist == true && $cig=='No') echo 'checked'; ?> readonly disabled> No 
 		</tr>
 		<tr>
 			<td colspan=2><div id="cigtb"  
@@ -162,19 +162,19 @@ elseif($private) echo "<h4 style='color:red;' align='center'>This patient's reco
 				<table>
 				<tr>
 					<td>Type: 
-					<td><input type="text" name="cigkind" value="<?php if($invalid_input) echo $session_data2['cigkind']; elseif($recordexist == true && $cig=='Yes') echo $cigkind; ?>" readonly>
+					<td><input type="text" name="cigkind" value="<?php if($invalid_input) echo $session_data2['cigkind']; elseif($recordexist == true && $cig=='Yes') echo $cigkind; ?>" readonly disabled>
 				</tr>
 				<tr>
 					<td>Frequency: 
-					<td><input type="text" name="cigfreq" value="<?php if($invalid_input) echo $session_data2['cigfreq']; elseif($recordexist == true && $cig=='Yes') echo $cigfreq; ?>" readonly>
+					<td><input type="text" name="cigfreq" value="<?php if($invalid_input) echo $session_data2['cigfreq']; elseif($recordexist == true && $cig=='Yes') echo $cigfreq; ?>" readonly disabled>
 				</tr>
 				<tr>
 					<td>Duration: 
-					<td><input type="text" name="cigdur" value="<?php if($invalid_input) echo $session_data2['cigdur']; elseif($recordexist == true && $cig=='Yes') echo $cigdur; ?>" readonly>
+					<td><input type="text" name="cigdur" value="<?php if($invalid_input) echo $session_data2['cigdur']; elseif($recordexist == true && $cig=='Yes') echo $cigdur; ?>" readonly disabled>
 				</tr>
 				<tr>
 					<td>Date of last exposure: 
-					<td><input type="text" name="cigdole" id="cigdole" value="<?php if($invalid_input) echo $session_data2['cigdole']; elseif($recordexist == true && $cig=='Yes') echo $cigdole; ?>" readonly>
+					<td><input type="text" name="cigdole" id="cigdole" value="<?php if($invalid_input) echo $session_data2['cigdole']; elseif($recordexist == true && $cig=='Yes') echo $cigdole; ?>" readonly disabled>
 				</tr>
 				</table>
 			</div></td>
@@ -185,11 +185,11 @@ elseif($private) echo "<h4 style='color:red;' align='center'>This patient's reco
 					if($invalid_input){ 
 						if($session_data2['alco'] == "Yes") echo "checked";
 					}	
-					elseif($recordexist == true && $alco=='Yes') echo 'checked'; ?> readonly> Yes <input type="radio" name="alco" value="No" onClick="showHosp(this.name, this.value)" <?php 
+					elseif($recordexist == true && $alco=='Yes') echo 'checked'; ?> readonly disabled> Yes <input type="radio" name="alco" value="No" onClick="showHosp(this.name, this.value)" <?php 
 					if($invalid_input){ 
 						if($session_data2['alco'] == "No") echo "checked";
 					}	
-					elseif($recordexist == true && $alco=='No') echo 'checked'; ?> readonly> No 
+					elseif($recordexist == true && $alco=='No') echo 'checked'; ?> readonly disabled> No 
 		</tr>
 		<tr>
 			<td colspan=2><div id="alcotb" 
@@ -206,19 +206,19 @@ elseif($private) echo "<h4 style='color:red;' align='center'>This patient's reco
 				<table>
 				<tr>
 					<td>Type: 
-					<td><input type="text" name="alcokind" value="<?php if($invalid_input) echo $session_data2['alcokind']; elseif($recordexist == true && $alco=='Yes') echo $alcokind; ?>" readonly>
+					<td><input type="text" name="alcokind" value="<?php if($invalid_input) echo $session_data2['alcokind']; elseif($recordexist == true && $alco=='Yes') echo $alcokind; ?>" readonly disabled>
 				</tr>
 				<tr>
 					<td>Frequency: 
-					<td><input type="text" name="alcofreq" value="<?php if($invalid_input) echo $session_data2['alcofreq']; elseif($recordexist == true && $alco=='Yes') echo $alcofreq; ?>" readonly>
+					<td><input type="text" name="alcofreq" value="<?php if($invalid_input) echo $session_data2['alcofreq']; elseif($recordexist == true && $alco=='Yes') echo $alcofreq; ?>" readonly disabled>
 				</tr>
 				<tr>
 					<td>Duration: 
-					<td><input type="text" name="alcodur" value="<?php if($invalid_input) echo $session_data2['alcodur']; elseif($recordexist == true && $alco=='Yes') echo $alcodur; ?>" readonly>
+					<td><input type="text" name="alcodur" value="<?php if($invalid_input) echo $session_data2['alcodur']; elseif($recordexist == true && $alco=='Yes') echo $alcodur; ?>" readonly disabled>
 				</tr>
 				<tr>
 					<td>Date of last exposure: 
-					<td><input type="text" name="alcodole" id="alcodole" value="<?php if($invalid_input) echo $session_data2['alcodole']; elseif($recordexist == true && $cig=='Yes') echo $alcodole; ?>" readonly>
+					<td><input type="text" name="alcodole" id="alcodole" value="<?php if($invalid_input) echo $session_data2['alcodole']; elseif($recordexist == true && $cig=='Yes') echo $alcodole; ?>" readonly disabled>
 				</tr>
 				</table>
 			</div></td>
@@ -229,11 +229,11 @@ elseif($private) echo "<h4 style='color:red;' align='center'>This patient's reco
 					if($invalid_input){ 
 						if($session_data2['drug'] == "Yes") echo "checked";
 					}	
-					elseif($recordexist == true && $drug=='Yes') echo 'checked'; ?> readonly> Yes <input type="radio" name="drug" value="No" onClick="showHosp(this.name, this.value)" <?php 
+					elseif($recordexist == true && $drug=='Yes') echo 'checked'; ?> readonly disabled> Yes <input type="radio" name="drug" value="No" onClick="showHosp(this.name, this.value)" <?php 
 					if($invalid_input){ 
 						if($session_data2['drug'] == "No") echo "checked";
 					}	
-					elseif($recordexist == true && $drug=='No') echo 'checked'; ?> readonly> No 
+					elseif($recordexist == true && $drug=='No') echo 'checked'; ?> readonly disabled> No 
 		</tr>
 		<tr>
 			<td colspan=2><div id="drugtb" <?php 
@@ -250,19 +250,19 @@ elseif($private) echo "<h4 style='color:red;' align='center'>This patient's reco
 				<table>
 				<tr>
 					<td>Type: 
-					<td><input type="text" name="drugkind" value="<?php if($invalid_input) echo $session_data2['drugkind']; elseif($recordexist == true && $drug=='Yes') echo $drugkind; ?>" readonly>
+					<td><input type="text" name="drugkind" value="<?php if($invalid_input) echo $session_data2['drugkind']; elseif($recordexist == true && $drug=='Yes') echo $drugkind; ?>" readonly disabled>
 				</tr>
 				<tr>
 					<td>Frequency: 
-					<td><input type="text" name="drugfreq" value="<?php if($invalid_input) echo $session_data2['drugfreq']; elseif($recordexist == true && $drug=='Yes') echo $drugfreq; ?>" readonly>
+					<td><input type="text" name="drugfreq" value="<?php if($invalid_input) echo $session_data2['drugfreq']; elseif($recordexist == true && $drug=='Yes') echo $drugfreq; ?>" readonly disabled>
 				</tr>
 				<tr>
 					<td>Duration: 
-					<td><input type="text" name="drugdur" value="<?php if($invalid_input) echo $session_data2['drugdur']; elseif($recordexist == true && $drug=='Yes') echo $drugdur; ?>" readonly>
+					<td><input type="text" name="drugdur" value="<?php if($invalid_input) echo $session_data2['drugdur']; elseif($recordexist == true && $drug=='Yes') echo $drugdur; ?>" readonly disabled>
 				</tr>
 				<tr>
 					<td>Date of last exposure: 
-					<td><input type="text" name="drugdole" id="drugdole" value="<?php if($invalid_input) echo $session_data2['drugdole']; elseif($recordexist == true && $drug=='Yes') echo $drugdole; ?>" readonly>
+					<td><input type="text" name="drugdole" id="drugdole" value="<?php if($invalid_input) echo $session_data2['drugdole']; elseif($recordexist == true && $drug=='Yes') echo $drugdole; ?>" readonly disabled>
 				</tr>
 				</table>
 			</div></td>

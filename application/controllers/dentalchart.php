@@ -25,6 +25,21 @@ class DentalChart extends CI_Controller {
 			if($bool){
 				$id = $this->uri->segment(3);
 				$version = "";
+
+				$data = $this->patient->getPatient($id);
+				$ptnt_array = array();
+				foreach($data as $row){
+			     		$ptnt_array = array(
+				 		'id' => $row['UPCD_ID'],
+				 		'name' => $row['patientFName']." ".substr($row['patientMName'], 0, 1).". ".$row['patientLName'],
+						'age' => $row['age'],
+						'address' => $row['houseno']." ".$row['street']." ".$row['brgy'].", ".$row['city'].", ".$row['province'],
+						'gender' => $row['gender']
+			       		);
+				}
+
+				$this->session->set_userdata('current_patient', $ptnt_array);
+
 			
 				if($this->uri->segment(4) == ""){
 					$ver = $this->patient->getLatest5($id);
@@ -51,6 +66,8 @@ class DentalChart extends CI_Controller {
 				$userID22 = $this->user->getUserID($userID222);
 				$userID2 = $userID22['userID'];
 				$date = date("Y-m-d");
+
+				//echo $userID2;
 
 				if($this->patient->hasDentalChart($id)){
 					$data['info'] = $this->patient->getPatientInfoDentalChart($id);
@@ -105,6 +122,20 @@ class DentalChart extends CI_Controller {
 			if($bool){
 				$id = $this->uri->segment(3);
 				$version = "";
+
+				$data = $this->patient->getPatient($id);
+				$ptnt_array = array();
+				foreach($data as $row){
+			     		$ptnt_array = array(
+				 		'id' => $row['UPCD_ID'],
+				 		'name' => $row['patientFName']." ".substr($row['patientMName'], 0, 1).". ".$row['patientLName'],
+						'age' => $row['age'],
+						'address' => $row['houseno']." ".$row['street']." ".$row['brgy'].", ".$row['city'].", ".$row['province'],
+						'gender' => $row['gender']
+			       		);
+				}
+
+				$this->session->set_userdata('current_patient', $ptnt_array);
 			
 				if($this->uri->segment(4) == ""){
 					$ver = $this->patient->getLatest5($id);

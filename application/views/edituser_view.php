@@ -190,6 +190,10 @@
      		<td><select name="secques" id="secques">
 			<option value="Select a question.."> Select a question.. </option>
 			<option value="What is your favorite childhood movie?" <?php if($secques == "What is your favorite childhood movie?") echo "selected";?>> What is your favorite childhood movie? </option>
+			<option value="What is your mother's maiden name?" <?php if($secques == "What is your mother's maiden name?") echo "selected";?>> What is your mother's maiden name? </option>
+			<option value="Where is you father's hometown?" <?php if($secques == "Where is you father's hometown?") echo "selected";?>> Where is you father's hometown? </option>
+			<option value="What is the name of your first pet dog?" <?php if($secques == "What is the name of your first pet dog?") echo "selected";?>> What is the name of your first pet dog? </option>
+			<option value="Who is your favorite elementary teacher?" <?php if($secques == "Who is your favorite elementary teacher?") echo "selected";?>> Who is your favorite elementary teacher? </option>
 		</select></td>
 		
      	</tr>

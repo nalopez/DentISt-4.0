@@ -36,12 +36,34 @@ class SetAppointment extends CI_Controller {
 		//$id=$this->input->post('id');
 		$data['patientid'] = $id;
 
+		$data = $this->patient->getPatient($id);
+		$ptnt_array = array();
+		foreach($data as $row){
+	     		$ptnt_array = array(
+		 		'id' => $row['UPCD_ID'],
+		 		'name' => $row['patientFName']." ".substr($row['patientMName'], 0, 1).". ".$row['patientLName'],
+				'age' => $row['age'],
+				'address' => $row['houseno']." ".$row['street']." ".$row['brgy'].", ".$row['city'].", ".$row['province'],
+				'gender' => $row['gender']
+	       		);
+		}
+
+		$this->session->set_userdata('current_patient', $ptnt_array);
+
+		$clinicianID = $this->patient->isClinician($id);
+
+		if($clinicianID!=$userID){
+			$this->load->view('setappointmentprivate_view', $data);
+		}
+		else{
+
 		$this->patient->updateClinician($id, $userID);
 		$this->patient->deleteStudentTask($id);
 
 		if(!$this->patient->hasAppointment($id)){
 			$this->patient->setAppointment($id, $userID, 'Pending');
 		}
+
 
 		$data = $this->patient->getPatient($id);
 		$ptnt_array = array();
@@ -55,10 +77,13 @@ class SetAppointment extends CI_Controller {
 	       		);
 			}
 
+
+
 		$this->session->set_userdata('current_patient', $ptnt_array);
 
 		$this->load->helper(array('form'));
 		$this->load->view('setappointment_view', $data);
+}
 	}
 	else{
 		redirect('home');
@@ -72,14 +97,6 @@ class SetAppointment extends CI_Controller {
      redirect('login', 'refresh');
    }
  }
-
- function logout()
- {
-   $this->session->unset_userdata('logged_in');
-   session_destroy();
-   redirect('home', 'refresh');
- }
-
 }
 
 ?>

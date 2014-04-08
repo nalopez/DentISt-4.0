@@ -233,11 +233,11 @@ elseif($private) echo "<h4 style='color:red;' align='center'>This patient's reco
 	</tr>
 	<tr>
 		<td><label for="phone">Phone:</td>
-		<td><input type="text" name="phone" placeholder="Phone Number" value="<?php if($invalid_input) echo $session_data2['phone']; elseif($recordexist == true) echo $phonenum; ?>" readonly></td>
+		<td><input type="text" name="phone" placeholder="Phone Number" value="<?php if($invalid_input) echo $session_data2['phone']; elseif($recordexist == true) echo $phonenum; ?>" readonly disabled></td>
 	</tr>
 	<tr>
 		<td><label for="edattain">Educational Attainment:
-		<td><select name="edattain" disabled>
+		<td><select name="edattain" disabled >
 			<option value="Select one..">Select one..</option>
 			<option value="Elementary Graduate" <?php if($invalid_input){ 
 						if($session_data2['edattain'] == "Elementary Graduate") echo "selected";
@@ -258,15 +258,15 @@ elseif($private) echo "<h4 style='color:red;' align='center'>This patient's reco
 	</tr>
 	<tr>
 		<td><label for="occupation" readonly>Occupation:
-		<td><input type="text" name="occupation" value="<?php if($invalid_input) echo $session_data2['occupation']; elseif($recordexist == true) echo $occ; ?>" readonly>
+		<td><input type="text" name="occupation" value="<?php if($invalid_input) echo $session_data2['occupation']; elseif($recordexist == true) echo $occ; ?>" readonly disabled>
 	</tr>
 	<tr>
 		<td><label for="ptnicoe">Person to notify in-case of emergency:</td>
-		<td><input type="text" name="ptnicoe" value="<?php if($invalid_input) echo $session_data2['ptnicoe']; elseif($recordexist == true) echo $ptnicoe; ?>" readonly>
+		<td><input type="text" name="ptnicoe" value="<?php if($invalid_input) echo $session_data2['ptnicoe']; elseif($recordexist == true) echo $ptnicoe; ?>" readonly disabled>
 	</tr>
 	<tr>
 		<td><label for="ptnicoenum">Phone:
-		<td><input type="text" name="ptnicoenum" value="<?php if($invalid_input) echo $session_data2['ptnicoenum']; elseif($recordexist == true) echo $ptnicoenum; ?>" readonly>
+		<td><input type="text" name="ptnicoenum" value="<?php if($invalid_input) echo $session_data2['ptnicoenum']; elseif($recordexist == true) echo $ptnicoenum; ?>" readonly disabled>
 	</tr>
 	<tr>
 		<td> History of Present Illness:
@@ -281,15 +281,15 @@ elseif($private) echo "<h4 style='color:red;' align='center'>This patient's reco
 			</tr>
 			<tr>
 				<td>Gait:
-				<td><input type="text" name="gait" size=12px value="<?php if($invalid_input) echo $session_data2['gait']; elseif($recordexist == true) echo $gait; ?>" readonly>
+				<td><input type="text" name="gait" size=12px value="<?php if($invalid_input) echo $session_data2['gait']; elseif($recordexist == true) echo $gait; ?>" readonly disabled>
 			</tr>
 			<tr> 
 				<td>Appearance:
-				<td><input type="text" name="appear" size=12px value="<?php if($invalid_input) echo $session_data2['appear']; elseif($recordexist == true) echo $appear; ?>" readonly>
+				<td><input type="text" name="appear" size=12px value="<?php if($invalid_input) echo $session_data2['appear']; elseif($recordexist == true) echo $appear; ?>" readonly disabled>
 			</tr>
 			<tr>
 				<td>Defects:
-				<td><input type="text" name="dfcts" size=12px value="<?php if($invalid_input) echo $session_data2['dfcts']; elseif($recordexist == true) echo $dfcts; ?>" readonly>
+				<td><input type="text" name="dfcts" size=12px value="<?php if($invalid_input) echo $session_data2['dfcts']; elseif($recordexist == true) echo $dfcts; ?>" readonly disabled>
 			</tr> 
 		</table><br>
 
@@ -299,23 +299,23 @@ elseif($private) echo "<h4 style='color:red;' align='center'>This patient's reco
 			<td colspan=2>Vital Signs
 		<tr>
 			<td>Blood Pressure (mmHg):
-			<td><input type="text" name="bp" value="<?php if($invalid_input) echo $session_data2['bp']; elseif($recordexist == true) echo $bp; ?>" readonly>
+			<td><input type="text" name="bp" value="<?php if($invalid_input) echo $session_data2['bp']; elseif($recordexist == true) echo $bp; ?>" readonly disabled>
 		</tr>
 		<tr>
 			<td>Pulse Rate (bpm):
-			<td><input type="text" name="pr" value="<?php if($invalid_input) echo $session_data2['pr']; elseif($recordexist == true) echo $pr; ?>" readonly>
+			<td><input type="text" name="pr" value="<?php if($invalid_input) echo $session_data2['pr']; elseif($recordexist == true) echo $pr; ?>" readonly disabled>
 		</tr>
 		<tr>
 			<td>Respiration Rate (RR):
-			<td><input type="text" name="rr" value="<?php if($invalid_input) echo $session_data2['rr']; elseif($recordexist == true) echo $rr; ?>" readonly>
+			<td><input type="text" name="rr" value="<?php if($invalid_input) echo $session_data2['rr']; elseif($recordexist == true) echo $rr; ?>" readonly disabled>
 		</tr>
 		<tr>
 			<td>Temperature (celsius):
-			<td><input type="text" name="temp" value="<?php if($invalid_input) echo $session_data2['temp']; elseif($recordexist == true) echo $temp; ?>" readonly>
+			<td><input type="text" name="temp" value="<?php if($invalid_input) echo $session_data2['temp']; elseif($recordexist == true) echo $temp; ?>" readonly disabled>
 		</tr>
 		<tr>
 			<td>Weight (kg):
-			<td><input type="text" name="wt" id="wt" value="<?php if($invalid_input) echo $session_data2['wt']; elseif($recordexist == true) echo $wt; ?>" readonly>
+			<td><input type="text" name="wt" id="wt" value="<?php if($invalid_input) echo $session_data2['wt']; elseif($recordexist == true) echo $wt; ?>" readonly disabled>
 		</tr>
 		</table><br><br>
 

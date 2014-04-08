@@ -101,8 +101,8 @@ elseif($private) echo "<h4 style='color:red;' align='center'>This patient's reco
 			for($i=0; $i<$size; $i++){
 				echo "<tr>";
 					echo "<td>";//<input type='checkbox' name=0 id='ck0' checked/></td>
-					echo "<td><input type='text' name='date[]' class='datepicker' id='date$i' value='".$date[$i]."' readonly /></td>
-					<td><input type='text' name='tooth[]' id='toothnum_$i' value='".$tooth[$i]."' readonly /></td>
+					echo "<td><input type='text' name='date[]' class='datepicker' id='date$i' value='".$date[$i]."' readonly disabled /></td>
+					<td><input type='text' name='tooth[]' id='toothnum_$i' value='".$tooth[$i]."' readonly disabled /></td>
 					<td><textarea name='findings[]' id='findings_$i' cols='40' readonly>".$findings[$i]."</textarea></td>
 				</tr>";
 			}
@@ -110,9 +110,9 @@ elseif($private) echo "<h4 style='color:red;' align='center'>This patient's reco
 		else{
 			echo "<tr>";
 			echo "<td>";//<input type='checkbox' name=0 id='ck0' checked/></td>
-			echo "<td><input type='text' name='date[]' class='datepicker' id='date0' readonly /></td>
-			<td><input type='text' name='tooth[]' id='toothnum_0' readonly /></td>
-			<td><textarea name='findings[]' id='findings_0' cols='40' readonly></textarea></td>
+			echo "<td><input type='text' name='date[]' class='datepicker' id='date0' readonly disabled /></td>
+			<td><input type='text' name='tooth[]' id='toothnum_0' readonly disabled /></td>
+			<td><textarea name='findings[]' id='findings_0' cols='40' readonly disabled></textarea></td>
 			</tr>";
 		}
 		?>

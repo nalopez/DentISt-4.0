@@ -503,14 +503,14 @@ Class Patient extends CI_Model
 
 		$maxpatientinfoverID = 0;
 
-		$this->db->select_max('patientinfoversionID');
-		$query1 = $this->db->get('patientinfoversion');
+		$this->db->select_max('patientinfoID');
+		$query1 = $this->db->get('patientinfo');
 		$res1 = $query1->row_array();
 
-		if($query1 -> num_rows() >= 1) $maxpatientinfoverID = $res1['patientinfoversionID'];
+		if($query1 -> num_rows() >= 1) $maxpatientinfoverID = $res1['patientinfoID'];
 
 		$data = array(
-			'patientinfoversionID' => $maxpatientinfoverID+1,
+			'patientinfoversionID' => $maxpatientinfoverID,
 			'UPCD_ID' => $id,
 			'updatedBy' => $name,
 			'updateDate' => $date,
@@ -523,13 +523,13 @@ Class Patient extends CI_Model
 
 		$maxchecklistverID = 0;
 
-		$this->db->select_max('patientchecklistversionID');
-		$query1 = $this->db->get('patientchecklistversion');
+		$this->db->select_max('checklistID');
+		$query1 = $this->db->get('patientchecklist');
 		$res1 = $query1->row_array();
 
-		if($query1 -> num_rows() >= 1) $maxchecklistverID = $res1['patientchecklistversionID'];
+		if($query1 -> num_rows() >= 1) $maxchecklistverID = $res1['checklistID'];
 		$data = array(
-			'patientchecklistversionID' => $maxchecklistver+1,
+			'patientchecklistversionID' => $maxchecklistverID,
 			'UPCD_ID' => $id,
 			'updatedBy' => $name,
 			'updateDate' => $date,
@@ -542,13 +542,13 @@ Class Patient extends CI_Model
 
 		$maxmedandsochistoverID = 0;
 
-		$this->db->select_max('medandsochistoversionID');
-		$query1 = $this->db->get('medandsochistoversion');
+		$this->db->select_max('medhistoID');
+		$query1 = $this->db->get('medicalhistory');
 		$res1 = $query1->row_array();
 
-		if($query1 -> num_rows() >= 1) $maxmedandsochistoverID = $res1['medandsochistoversionID'];
+		if($query1 -> num_rows() >= 1) $maxmedandsochistoverID = $res1['medhistoID'];
 		$data = array(
-			'medandsochistoversionID' => $maxmedandsochistoverID+1,
+			'medandsochistoversionID' => $maxmedandsochistoverID,
 			'UPCD_ID' => $id,
 			'updatedBy' => $name,
 			'updateDate' => $date,
@@ -561,14 +561,14 @@ Class Patient extends CI_Model
 
 		$maxdentaldataverID = 0;
 
-		$this->db->select_max('dentaldataversionID');
-		$query1 = $this->db->get('dentaldataversion');
+		$this->db->select_max('denthistoID');
+		$query1 = $this->db->get('dentalhistory');
 		$res1 = $query1->row_array();
 
-		if($query1 -> num_rows() >= 1) $maxdentaldataverID = $res1['dentaldataversionID'];
+		if($query1 -> num_rows() >= 1) $maxdentaldataverID = $res1['denthistoID'];
 
 		$data = array(
-			'dentaldataversionID' => $maxdentaldataverID+1,
+			'dentaldataversionID' => $maxdentaldataverID,
 			'UPCD_ID' => $id,
 			'updatedBy' => $name,
 			'updateDate' => $date,
@@ -581,14 +581,14 @@ Class Patient extends CI_Model
 
 		$maxdentalchartverID = 0;
 
-		$this->db->select_max('dentalchartversionID');
-		$query1 = $this->db->get('dentalchartversion');
+		$this->db->select_max('dentalchartID');
+		$query1 = $this->db->get('dentalchart');
 		$res1 = $query1->row_array();
 
-		if($query1 -> num_rows() >= 1) $maxdentalchartverID = $res1['dentalchartversionID'];
+		if($query1 -> num_rows() >= 1) $maxdentalchartverID = $res1['dentalchartID'];
 
 		$data = array(
-			'dentalchartversionID' => $maxdentalchartverID+1,
+			'dentalchartversionID' => $maxdentalchartverID,
 			'UPCD_ID' => $id,
 			'updatedBy' => $name,
 			'updateDate' => $date,
@@ -601,14 +601,14 @@ Class Patient extends CI_Model
 
 		$maxtreatmentplanverID = 0;
 
-		$this->db->select_max('treatmentplanversionID');
-		$query1 = $this->db->get('treatmentplanversion');
+		$this->db->select_max('treatmentplanID');
+		$query1 = $this->db->get('treatmentplan');
 		$res1 = $query1->row_array();
 
-		if($query1 -> num_rows() >= 1) $maxtreatmentplanverID = $res1['treatmentplanversionID'];
+		if($query1 -> num_rows() >= 1) $maxtreatmentplanverID = $res1['treatmentplanID'];
 
 		$data = array(
-			'treatmentplanversionID' => $treatmentplanverID+1,
+			'treatmentplanversionID' => $maxtreatmentplanverID,
 			'UPCD_ID' => $id,
 			'updatedBy' => $name,
 			'updateDate' => $date,
@@ -621,14 +621,14 @@ Class Patient extends CI_Model
 
 		$maxradioexamverID = 0;
 
-		$this->db->select_max('radioexamversionID');
-		$query1 = $this->db->get('radioexamversion');
+		$this->db->select_max('radioexamID');
+		$query1 = $this->db->get('radiographicexam');
 		$res1 = $query1->row_array();
 
-		if($query1 -> num_rows() >= 1) $maxradioexamverID = $res1['radioexamversionID'];
+		if($query1 -> num_rows() >= 1) $maxradioexamverID = $res1['radioexamID'];
 
 		$data = array(
-			'radioexamversionID' => $maxradioexamverID+1,
+			'radioexamversionID' => $maxradioexamverID,
 			'UPCD_ID' => $id,
 			'updatedBy' => $name,
 			'updateDate' => $date,
@@ -641,13 +641,13 @@ Class Patient extends CI_Model
 
 		$maxservicesrenderedverID = 0;
 
-		$this->db->select_max('servicesrenderedversionID');
-		$query1 = $this->db->get('servicesrenderedversion');
+		$this->db->select_max('servicesrenderedID');
+		$query1 = $this->db->get('servicesrendered');
 		$res1 = $query1->row_array();
 
-		if($query1 -> num_rows() >= 1) $maxservicesrenderedverID = $res1['servicesrenderedversionID'];
+		if($query1 -> num_rows() >= 1) $maxservicesrenderedverID = $res1['servicesrenderedID'];
 		$data = array(
-			'servicesrenderedversionID' => $maxservicesrenderedverID+1,
+			'servicesrenderedversionID' => $maxservicesrenderedverID,
 			'UPCD_ID' => $id,
 			'updatedBy' => $name,
 			'updateDate' => $date,
@@ -660,14 +660,14 @@ Class Patient extends CI_Model
 
 		$maxconfindverID = 0;
 
-		$this->db->select_max('confindversionID');
-		$query1 = $this->db->get('confindversion');
+		$this->db->select_max('confindID');
+		$query1 = $this->db->get('consultationandfindings');
 		$res1 = $query1->row_array();
 
-		if($query1 -> num_rows() >= 1) $maxconfindverID = $res1['confindversionID'];
+		if($query1 -> num_rows() >= 1) $maxconfindverID = $res1['confindID'];
 
 		$data = array(
-			'confindversionID' => $maxconfindverID+1,
+			'confindversionID' => $maxconfindverID,
 			'UPCD_ID' => $id,
 			'updatedBy' => $name,
 			'updateDate' => $date,
@@ -1349,10 +1349,15 @@ Class Patient extends CI_Model
 		$moaivar = "";
 		$motivar = "";
 
+		$citys = "";
+
+		if($city != ""){
+			$citys = "AND patient.city = '$city'";
+		}
 
 		if($occ != ""){
 			$patinfo = "patientinfo, ";
-			$occs = "AND patientinfo.occupation LIKE '%$occ%'";
+			$occs = "AND patientinfo.occupation='$occ'";
 			
 		}
 		if($perio != ''){
@@ -1592,7 +1597,7 @@ Class Patient extends CI_Model
 				}
 				else $txt = $txt." AND patient.UPCD_ID = treatmentplan.UPCD_ID ";
 
-				$txt = $txt." AND ($gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%' $occs $demo (";
+				$txt = $txt." AND ($gender AND patient.age >= $agefrom AND patient.age <= $ageto $citys $occs $demo (";
 
 				if($treatinfo != ""){
 					$txt = $txt." (";
@@ -1700,7 +1705,7 @@ Class Patient extends CI_Model
 				}
 				elseif($resinfo != "" && $isfirstgood4) $txt = $txt." AND patient.UPCD_ID = restorationstatus.UPCD_ID";
 
-				$txt = $txt." AND ($gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%' $occs $demo (";
+				$txt = $txt." AND ($gender AND patient.age >= $agefrom AND patient.age <= $ageto $citys $occs $demo (";
 				if($treatinfo != ""){
 					$txt = $txt." (";
 					$isfirstgood2 = true;
@@ -1927,7 +1932,7 @@ Class Patient extends CI_Model
 				}
 				elseif($otherinfo != "" && $isfirstgood4) $txt = $txt." AND patient.UPCD_ID = otherservices.UPCD_ID";
 				
-				$txt = $txt." AND ($gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%' $occs $demo (";
+				$txt = $txt." AND ($gender AND patient.age >= $agefrom AND patient.age <= $ageto $citys $occs $demo (";
 				if($treatinfo != ""){
 					$txt = $txt." (";
 					$isfirstgood2 = true;
@@ -2184,7 +2189,7 @@ Class Patient extends CI_Model
 				}
 				else $txt = $txt." AND patient.UPCD_ID = serviceneeded.UPCD_ID";
 
-				$txt = $txt." AND ($gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%' $occs $demo (";
+				$txt = $txt." AND ($gender AND patient.age >= $agefrom AND patient.age <= $ageto $citys $occs $demo (";
 				if($treatinfo != ""){
 					$txt = $txt." (";
 					$isfirstgood2 = true;
@@ -2531,17 +2536,19 @@ Class Patient extends CI_Model
 		}
 		else{
 			if($patinfo != ""){
-				$txt = "SELECT * FROM  patient, $patinfo WHERE patient.UPCD_ID = patientinfo.UPCD_ID AND $gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%' $occs";
+				$txt = "SELECT * FROM  patient, $patinfo WHERE patient.UPCD_ID = patientinfo.UPCD_ID AND $gender AND patient.age >= $agefrom AND patient.age <= $ageto $citys $occs";
 				//echo "elseif5 = $txt";
 
 				$query = $this->db->query($txt);
 			}
 			else{ 
-			$txt = "SELECT * FROM  patient WHERE $gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%'";
+			$txt = "SELECT * FROM  patient WHERE $gender AND patient.age >= $agefrom AND patient.age <= $ageto $citys";
 			//echo "elseif6 = $txt";
 			$query = $this->db->query($txt);
 			}
 		}
+
+		//echo $txt;
 
 		if($query -> num_rows() >= 1)
    		{
@@ -2707,6 +2714,13 @@ Class Patient extends CI_Model
 		$orthovar = "";
 		$moaivar = "";
 		$motivar = "";
+
+		$citys = "";
+
+		if($city != ""){
+			$citys = "AND patient.city = '$city'";
+		}
+
 
 		if($perio != ''){
 			$perios = "treatmentplan.perio='$perio'";
@@ -2957,7 +2971,7 @@ Class Patient extends CI_Model
 				}
 				else $txt = $txt." AND patient.UPCD_ID = treatmentplan.UPCD_ID ";
 
-				$txt = $txt." AND ($gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%'  $demo (";
+				$txt = $txt." AND ($gender AND patient.age >= $agefrom AND patient.age <= $ageto $citys $demo (";
 
 				if($treatinfo != ""){
 					$txt = $txt." (";
@@ -3065,7 +3079,7 @@ Class Patient extends CI_Model
 				}
 				elseif($resinfo != "" && $isfirstgood4) $txt = $txt." AND patient.UPCD_ID = restorationstatus.UPCD_ID";
 
-				$txt = $txt." AND ($gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%'  $demo (";
+				$txt = $txt." AND ($gender AND patient.age >= $agefrom AND patient.age <= $ageto $citys $demo (";
 				if($treatinfo != ""){
 					$txt = $txt." (";
 					$isfirstgood2 = true;
@@ -3291,7 +3305,7 @@ Class Patient extends CI_Model
 				}
 				elseif($otherinfo != "" && $isfirstgood4) $txt = $txt." AND patient.UPCD_ID = otherservices.UPCD_ID";
 				
-				$txt = $txt." AND ($gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%'  $demo (";
+				$txt = $txt." AND ($gender AND patient.age >= $agefrom AND patient.age <= $ageto $citys $demo (";
 				if($treatinfo != ""){
 					$txt = $txt." (";
 					$isfirstgood2 = true;
@@ -3547,7 +3561,7 @@ Class Patient extends CI_Model
 				}
 				else $txt = $txt." AND patient.UPCD_ID = serviceneeded.UPCD_ID";
 
-				$txt = $txt." AND ($gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%'  $demo (";
+				$txt = $txt." AND ($gender AND patient.age >= $agefrom AND patient.age <= $ageto $citys $demo (";
 				if($treatinfo != ""){
 					$txt = $txt." (";
 					$isfirstgood2 = true;
@@ -3907,17 +3921,19 @@ Class Patient extends CI_Model
 		}
 		else{
 			if($patinfo != ""){
-				$txt = "SELECT * FROM  patient, $patinfo WHERE patient.UPCD_ID = patientinfo.UPCD_ID AND $gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%' ";
+				$txt = "SELECT * FROM  patient, $patinfo WHERE patient.UPCD_ID = patientinfo.UPCD_ID AND $gender AND patient.age >= $agefrom AND patient.age <= $ageto $citys ";
 				//echo "elseif5 = $txt <br>";
 
 				$query = $this->db->query($txt);
 			}
 			else{ 
-			$txt = "SELECT * FROM  patient WHERE $gender AND patient.age >= $agefrom AND patient.age <= $ageto AND patient.city LIKE '%$city%'";
+			$txt = "SELECT * FROM  patient WHERE $gender AND patient.age >= $agefrom AND patient.age <= $ageto $citys";
 			//echo "elseif6 = $txt <br>";
 			$query = $this->db->query($txt);
 			}
 		}
+	
+		echo $txt;
 
 		if($query -> num_rows() >= 1)
    		{
@@ -5061,7 +5077,7 @@ Class Patient extends CI_Model
 				'approvedOn' => $date
 		    	);
 			$this->db->where('UPCD_ID', $patientid);
-			$this->db->where('radioexamversionID', $treatmentplanID);
+			$this->db->where('radioexamversionID', $radioexamID);
 			$this->db->update('radioexamversion', $data7);
 		}
 
@@ -5106,6 +5122,191 @@ Class Patient extends CI_Model
 		}
 
 	}
+
+	function setRejected($patientid, $facultyid, $date){
+
+		//PATIENT INFORMATION
+		$this->db->select_max('patientinfoID');
+		$this->db->where('UPCD_ID', $patientid);
+		$query1 = $this->db->get('patientinfo');
+		$res1 = $query1->row_array();
+
+		if($query1 -> num_rows() >= 1) $patientinfoID = $res1['patientinfoID'];
+		else $patientinfoID = false;
+
+		if($patientinfoID){
+			$data = array(
+		       		'updateStatus' => 'Rejected',
+				'approvedBy' => $facultyid,
+				'approvedOn' => $date
+		    	);
+			$this->db->where('UPCD_ID', $patientid);
+			$this->db->where('patientinfoversionID', $patientinfoID);
+			$this->db->update('patientinfoversion', $data);
+		}
+
+		//PATIENT CHECKLIST
+		$this->db->select_max('checklistID');
+		$this->db->where('UPCD_ID', $patientid);
+		$query2 = $this->db->get('patientchecklist');
+		$res2 = $query2->row_array();
+
+		if($query2 -> num_rows() >= 1) $checklistID = $res2['checklistID'];
+		else $checklistID = false;
+
+		if($checklistID){
+			$data2 = array(
+		       		'updateStatus' => 'Rejected',
+				'approvedBy' => $facultyid,
+				'approvedOn' => $date
+		    	);
+			$this->db->where('UPCD_ID', $patientid);
+			$this->db->where('patientchecklistversionID', $checklistID);
+			$this->db->update('patientchecklistversion', $data2);	
+		}
+		
+		// MED AND SOC HISTO
+		$this->db->select_max('medhistoID');
+		$this->db->where('UPCD_ID', $patientid);
+		$query3 = $this->db->get('medicalhistory');
+		$res3 = $query3->row_array();
+		
+		if($query3 -> num_rows() >= 1) $medhistoID = $res3['medhistoID'];
+		else $medhistoID = false;
+
+		if($medhistoID){
+			$data3 = array(
+		       		'updateStatus' => 'Rejected',
+				'approvedBy' => $facultyid,
+				'approvedOn' => $date
+		    	);
+			$this->db->where('UPCD_ID', $patientid);
+			$this->db->where('medandsochistoversionID', $medhistoID);
+			$this->db->update('medandsochistoversion', $data3);
+		}
+
+		// DENTAL DATA
+		$this->db->select_max('denthistoID');
+		$this->db->where('UPCD_ID', $patientid);
+		$query4 = $this->db->get('dentalhistory');
+		$res4 = $query4->row_array();
+		
+		if($query4 -> num_rows() >= 1) $denthistoID = $res4['denthistoID'];
+		else $denthistoID = false;
+
+		if($denthistoID){
+			$data4 = array(
+		       		'updateStatus' => 'Rejected',
+				'approvedBy' => $facultyid,
+				'approvedOn' => $date
+		    	);
+			$this->db->where('UPCD_ID', $patientid);
+			$this->db->where('dentaldataversionID', $denthistoID);
+			$this->db->update('dentaldataversion', $data4);
+		}
+
+		// DENTAL CHART
+		$this->db->select_max('dentalchartID');
+		$this->db->where('UPCD_ID', $patientid);
+		$query5 = $this->db->get('dentalchart');
+		$res5 = $query5->row_array();
+		
+		if($query5 -> num_rows() >= 1) $dentalchartID = $res5['dentalchartID'];
+		else $dentalchartID = false;
+
+		if($dentalchartID){
+			$data5 = array(
+		       		'updateStatus' => 'Rejected',
+				'approvedBy' => $facultyid,
+				'approvedOn' => $date
+		    	);
+			$this->db->where('UPCD_ID', $patientid);
+			$this->db->where('dentalchartversionID', $dentalchartID);
+			$this->db->update('dentalchartversion', $data5);
+		}
+
+		// TREATMENTPLAN
+		$this->db->select_max('treatmentplanID');
+		$this->db->where('UPCD_ID', $patientid);
+		$query6 = $this->db->get('treatmentplan');
+		$res6 = $query6->row_array();
+		
+		if($query6 -> num_rows() >= 1) $treatmentplanID = $res6['treatmentplanID'];
+		else $treatmentplanID = false;
+
+		if($treatmentplanID){
+			$data6 = array(
+		       		'updateStatus' => 'Rejected',
+				'approvedBy' => $facultyid,
+				'approvedOn' => $date
+		    	);
+			$this->db->where('UPCD_ID', $patientid);
+			$this->db->where('treatmentplanversionID', $treatmentplanID);
+			$this->db->update('treatmentplanversion', $data6);
+		}
+
+		// RADIOGRAPHIC EXAM
+		$this->db->select_max('radioexamID');
+		$this->db->where('UPCD_ID', $patientid);
+		$query7 = $this->db->get('radiographicexam');
+		$res7 = $query7->row_array();
+		
+		if($query7 -> num_rows() >= 1) $radioexamID = $res7['radioexamID'];
+		else $radioexamID = false;
+
+		if($radioexamID){
+			$data7 = array(
+		       		'updateStatus' => 'Rejected',
+				'approvedBy' => $facultyid,
+				'approvedOn' => $date
+		    	);
+			$this->db->where('UPCD_ID', $patientid);
+			$this->db->where('radioexamversionID', $radioexamID);
+			$this->db->update('radioexamversion', $data7);
+		}
+
+		// SERVICES RENDERED
+		$this->db->select_max('servicesrenderedID');
+		$this->db->where('UPCD_ID', $patientid);
+		$query8 = $this->db->get('servicesrendered');
+		$res8 = $query8->row_array();
+		
+		if($query8 -> num_rows() >= 1) $servicesrenderedID = $res8['servicesrenderedID'];
+		else $servicesrenderedID = false;
+
+		if($servicesrenderedID){
+			$data8 = array(
+		       		'updateStatus' => 'Rejected',
+				'approvedBy' => $facultyid,
+				'approvedOn' => $date
+		    	);
+			$this->db->where('UPCD_ID', $patientid);
+			$this->db->where('servicesrenderedversionID', $servicesrenderedID);
+			$this->db->update('servicesrenderedversion', $data8);
+		}
+
+		// CONSULTATION AND FINDINGS
+		$this->db->select_max('confindID');
+		$this->db->where('UPCD_ID', $patientid);
+		$query9 = $this->db->get('consultationandfindings');
+		$res9 = $query9->row_array();
+		
+		if($query9 -> num_rows() >= 1) $confindID = $res9['confindID'];
+		else $confindID = false;
+
+		if($confindID){
+			$data9 = array(
+		       		'updateStatus' => 'Rejected',
+				'approvedBy' => $facultyid,
+				'approvedOn' => $date
+		    	);
+			$this->db->where('UPCD_ID', $patientid);
+			$this->db->where('confindversionID', $confindID);
+			$this->db->update('confindversion', $data9);
+		}
+
+	}
+
 
 	function isLatestForApproval1($patientid){
 		/*$this->db->select_max('patientinfoversionID');
@@ -5390,6 +5591,37 @@ Class Patient extends CI_Model
             	);
 		$this->db->where('UPCD_ID', $patientid);
 		$this->db->update('studenttasks', $data2);
+	}
+
+	
+	function forApproval($patient){
+		$this->db->select_max('patientdashboardversionID');
+		$this->db->where('UPCD_ID7', $patient);
+		$query = $this->db->get('patientdashboardversion');
+		$res = $query->row_array();
+
+		$maxID = $res['patientdashboardversionID'];
+
+		$this -> db -> select('updateStatus7');
+		$this -> db -> from('patientdashboardversion');
+		$this->db->where('patientdashboardversionID', $maxID);
+
+		$query = $this -> db -> get();
+		$res2 = $query->row_array();
+		if($res2){
+			$versionID = $res2['updateStatus7'];
+		}
+		else 
+			$versionID = false;
+
+		if($versionID == 'Pending')
+   		{
+     			return true;
+   		}
+   		else
+   		{
+     			return false;
+   		}
 	}
 }
 

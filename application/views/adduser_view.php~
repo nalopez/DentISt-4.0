@@ -30,6 +30,8 @@
 		elseif(form_error('username')) echo form_error('username');
 		elseif(form_error('password')) echo form_error('password');
 		elseif(form_error('password2')) echo form_error('password2');
+		elseif(form_error('secques')) echo form_error('secques');
+		elseif(form_error('secans')) echo form_error('secans');
  ?>
 </div>
 <form id="ADDUSER" name="ADDUSER" action="verifyadduser" method="post">
