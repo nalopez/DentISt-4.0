@@ -10,7 +10,8 @@
 			\$active_group = 'default';
 			\$active_record = TRUE;
 			
-			\$db['default']['hostname'] = '".$_POST['host'].":".$_POST['port']."';
+			\$db['default']['hostname'] = '".$_POST['host']"';
+			\$db['default']['port'] = '".$_POST['port']"';
 			\$db['default']['username'] = '".$_POST['username']."';
 			\$db['default']['password'] = '".$_POST['password']."';
 			\$db['default']['database'] = '".$_POST['dbname']."';
@@ -47,5 +48,5 @@
 		$_SESSION['password'] = $_POST['password'];
 		$_SESSION['proceedToStep3'] = FALSE;
 	}
-	header('location: steptwothree.php');
+	header('location: steptwo.php');
 ?>

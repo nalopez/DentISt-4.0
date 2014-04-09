@@ -30,7 +30,7 @@
 			$mname = $_POST['middlename'];
 			$lname = $_POST['lastname'];
 			$salt = substr(MD5(uniqid(rand(), true)), 0, 6);
-			$salted = hash("sha256", $_POST['password'].$saltx);
+			$salted = hash("sha256", $_POST['password'].$salt);
 			$secques = $_POST['secques'];
 			$secans = $_POST['secans'];
 		

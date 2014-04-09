@@ -10,7 +10,8 @@
 			\$active_group = 'default';
 			\$active_record = TRUE;
 			
-			\$db['default']['hostname'] = '".$_POST['host'].":".$_POST['port']."';
+			\$db['default']['hostname'] = '".$_POST['host']."';
+			\$db['default']['port'] = '".$_POST['port']."';
 			\$db['default']['username'] = '".$_POST['username']."';
 			\$db['default']['password'] = '".$_POST['password']."';
 			\$db['default']['database'] = '".$_POST['dbname']."';
