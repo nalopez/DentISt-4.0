@@ -1,6 +1,6 @@
 <?php 
 	session_start();
-	$db_con = mysql_connect($_SESSION['host'].":3307", $_SESSION['username'], $_SESSION['password']) or die("Could not establish MySQL connection");
+	$db_con = mysql_connect($_SESSION['host'].":".$_SESSION['port'], $_SESSION['username'], $_SESSION['password']) or die("Could not establish MySQL connection");
 	$connection_string = mysql_select_db($_SESSION['dbname']);
 
 	mysql_query("create table users(userID int(5)   primary key, userFName varchar(30), userMName varchar(30), userLName varchar(30));");

@@ -34,7 +34,7 @@
 			$secques = $_POST['secques'];
 			$secans = $_POST['secans'];
 		
-			$db_con = mysql_connect($_SESSION['host'].":3307", $_SESSION['username'], $_SESSION['password']) or die("Could not establish MySQL connection");
+			$db_con = mysql_connect($_SESSION['host'].":".$_SESSION['port'], $_SESSION['username'], $_SESSION['password']) or die("Could not establish MySQL connection");
 			$connection_string = mysql_select_db($_SESSION['dbname']);
 			$date = date("Y-m-d");
 			

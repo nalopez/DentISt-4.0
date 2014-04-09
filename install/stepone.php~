@@ -18,6 +18,13 @@
 		$config_writable = FALSE;
 		$next_flag = FALSE;
 	}
+	if(is_writable(dirname(__DIR__).'/application/config/config.php'))	
+	{
+		$fh = fopen('../application/config/config.php', 'a');
+		fwrite($fh, "\n\$config['base_url']	= 'http://".str_replace("install/stepone.php", "", $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'])."';");
+		fclose($fh);
+	}
+
 		
 		
 	if($next_flag)

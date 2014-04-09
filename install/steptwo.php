@@ -81,6 +81,9 @@
 					<tr><td>Database Name:</td>
 						<td><input type="text" name="dbname" value="<?php if(isset($_SESSION['dbname'])) echo $_SESSION['dbname'];?>"></td>
 					</tr>
+					<tr><td>Port Number:</td>
+						<td><input type="text" name="port" value="<?php if(isset($_SESSION['port'])) echo $_SESSION['port'];?>"></td>
+					</tr>
 					<tr><td>Username:</td>
 						<td><input type="text" name="username" value="root"></td>
 					</tr>
