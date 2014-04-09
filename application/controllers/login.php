@@ -1,6 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 session_start(); //we need to call PHP's session object to access it through CI
 
+
+
 class Login extends CI_Controller {
 
  function __construct()
@@ -10,6 +12,10 @@ class Login extends CI_Controller {
 
  function index()
  {
+	if(file_exists('./install'))
+			header('Location: http://'.$_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'].'install');
+	else{
+
 	if($this->session->userdata('logged_in'))
    		{
 		redirect('home', 'refresh');
@@ -17,6 +23,7 @@ class Login extends CI_Controller {
 	else{
    $this->load->helper(array('form'));
    $this->load->view('login_view');
+	}
 	}
  }
 
