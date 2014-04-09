@@ -36,9 +36,9 @@
 	<body>
 		<div class="wrapper">
 			
+			<center><img src="../images/upcd-main.png"></center><br><br>
 			
-			
-			<div class="left">
+			<div align="center">
 				<div class="module-div">
 						<b><a href="index.php"> Install DentISt</a></b>
 				</div>
@@ -59,7 +59,7 @@
 				</div>
 			</div>
 	
-			<div class="right">
+			<div align="center">
 				<h2>Step 2 - DentISt Database Setup</h2>
 				<form action="checkdb.php" method=POST>
 				<br/>

@@ -34,14 +34,8 @@
 
 	<body>
 		<div class="wrapper">
-			<div class="header">
-				&nbsp; &nbsp; 
-				<img height="109px" style="margin-top: 5px;" src="../css/images/logo.png" align="middle"></img>
-				&nbsp; &nbsp; 
-				<div style='position: absolute; top: 1.25%; left: 7%; color: white;'><h1><font face='Liberation Serif'>Dental Information System 4.0</font></h1></div>
-			</div>
-			
-			<div class="left">
+			<center><img src="../images/upcd-main.png"></center><br><br>
+			<div align="center">
 				<div class="module-div">
 						<b><a href="index.php"> Install DentISt</a></b>
 				</div>
@@ -52,17 +46,17 @@
 						<a href="steptwo.php" <?php if(strpos($_SERVER["PHP_SELF"],"steptwo")) echo 'class="current"'?>> STEP 2 - DentISt Database Setup</a>
 				</div>
 				<div class="module-div">
-						<a href="stepfour.php" <?php if(strpos($_SERVER["PHP_SELF"],"stepthree")) echo 'class="current"'?>> STEP 3 - Create Tables </a>
+						<a href="stepthree.php" <?php if(strpos($_SERVER["PHP_SELF"],"stepthree")) echo 'class="current"'?>> STEP 3 - Create Tables </a>
 				</div>
 				<div class="module-div">
-						<a href="stepfive.php" <?php if(strpos($_SERVER["PHP_SELF"],"stepfour")) echo 'class="current"'?>> STEP 4 - Create Administrator</a>
+						<a href="stepfour.php" <?php if(strpos($_SERVER["PHP_SELF"],"stepfour")) echo 'class="current"'?>> STEP 4 - Create Administrator</a>
 				</div>
 				<div class="module-div">
 						<a href="end.php" <?php if(strpos($_SERVER["PHP_SELF"],"end")) echo 'class="current"'?>> END of Installation</a>
 				</div>
 			</div>
 
-			<div class="right">
+			<div align="center">
 				
 				<h2>Step 1 - System Requirements</h2>
 				

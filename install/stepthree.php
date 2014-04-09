@@ -23,10 +23,10 @@
 	</header>
 
 	<body>
-		<div class="wrapper">
+
+		<center><img src="../images/upcd-main.png"></center>
 			
-			
-			<div class="left">
+			<div align="center">
 				<div class="module-div">
 						<b><a href="index.php"> Install DentISt</a></b>
 				</div>
@@ -47,7 +47,7 @@
 				</div>
 			</div>
 	
-			<div class="right">
+			<div align="center">
 				<h2>Step 4 - Create Tables </h2>
 				<?php 
 				if(isset($_SESSION['proceedToStep4']))
@@ -106,9 +106,8 @@
 					';
 				}
 				?>
-				<form action="stepfour.php" method=POST>
-				<input type="submit" value="Next Step" <?php if(!$next_flag) echo "disabled";?>></a>
-				</form>
+				
+				<a href="stepfour.php"><input type="button" value="Next Step" <?php if(!$next_flag) echo "disabled";?>></a>
 			</div>
 		</div>	
 	</body>

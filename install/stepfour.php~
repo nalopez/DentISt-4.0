@@ -30,7 +30,7 @@
 			$mname = $_POST['middlename'];
 			$lname = $_POST['lastname'];
 			$salt = substr(MD5(uniqid(rand(), true)), 0, 6);
-			$password = $_POST['password'].$salt;
+			$salted = hash("sha256", $_POST['password'].$saltx);
 			$secques = $_POST['secques'];
 			$secans = $_POST['secans'];
 		
@@ -40,7 +40,10 @@
 			
 			mysql_query("insert into users values(1, '$fname', '$mname', '$lname');");
 			mysql_query("insert into users_role values(1, 1, 'System Administrator', 'System Maintenance', '$date');");
-			mysql_query("insert into users_auth values (1, 1, '$username', '$password', '$salt', '$secques', '$secans');");
+			mysql_query("insert into users_auth values (1, 1, '$username', '$salted', '$salt', '$secques', '$secans');");
+
+			$done = true;
+			$_SESSION['done'] = true;
 			
 			header('Location: end.php');					
 		}
@@ -55,7 +58,9 @@
 	<body>
 		
 			
-			<div class="left">
+			<center><img src="../images/upcd-main.png"></center>
+			
+			<div align="center">
 				<div class="module-div">
 						<b><a href="index.php"> Install DentISt</a></b>
 				</div>
@@ -76,7 +81,7 @@
 				</div>
 			</div>
 	
-			<div class="right">
+			<div align="center">
 				<h2>Step 4 - Create Administrator </h2>
 				<form action="stepfour.php" method=POST>
 				<table>
